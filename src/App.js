@@ -1,4 +1,4 @@
-import Audio from './Audio/Audio'
+import Audio from './AudioPlayer/AudioPlayer'
 
 function App() {
     return (
