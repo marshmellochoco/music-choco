@@ -1,0 +1,118 @@
+.player{
+    font-size: 0.8em;
+    width: 98%;
+    padding: 10px 1%;
+    background-color: #303030;
+    color: #d0d0d0;
+    overflow: hidden;
+    position: absolute;
+    bottom: 0;
+}
+
+.player:focus{
+    outline: none;
+}
+
+.player-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows: 2fr 1fr;
+}
+
+
+/* ---------- Playing ---------- */
+.player-playing{
+    margin: auto 0;
+    grid-row: 1/3;
+    text-align: left;
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    grid-template-rows: 1fr 1fr;
+}
+
+.player-playing .icon{
+    grid-row: 1/3;
+    width: 64px;
+    height: 64px;
+}
+
+.player-playing .icon img{
+    max-width: 64px;
+    max-height: 64px;
+    background-color: white;
+}
+
+.player-playing .title{
+    margin: 0 10px;
+    display: flex;
+    align-items: flex-end;
+}
+
+.player-playing .artist{
+    margin: 0 10px;
+    display: flex;
+    align-items: flex-start;
+}
+
+/* ---------- Control ---------- */
+.player-control{
+    text-align: center;
+}
+
+.player-control .control-button{
+    height: 100%;
+    margin: auto;
+    width: 1.8em;
+    padding: 0px 12px;
+    cursor: pointer;
+}
+
+.player-control .play{
+    width: 2.5em;
+}
+
+.player-control .control-button:hover{
+    color: grey;
+}
+
+
+/* ---------- Timeline ---------- */
+.player-timeline{
+    margin: auto 0;
+    text-align: center;
+    display: grid;
+    grid-template-columns: 1fr 5fr 1fr;
+}
+
+.player-timeline .progress{
+    overflow: hidden;
+    margin: auto 0;
+    background-color: grey;
+    height: 0.3em;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.player-timeline .player-time{
+    font-size: 0.9em;
+}
+
+/* ---------- Volume ---------- */
+.player-volume{
+    margin: auto 0 auto auto;
+    display: flex;
+    width: 40%;
+    grid-row: 1/3;
+    grid-column: 3;
+}
+
+.player-volume .volume-icon{
+    border-radius: 50%;
+    padding: 4px;
+    width: 1.8em;
+    cursor: pointer;
+}
+
+.player-volume .volume-icon:hover{
+    color: grey;
+}

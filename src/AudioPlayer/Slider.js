@@ -1,8 +1,9 @@
-export default function Slider({onChange, transform}){
+import './Slider.css'
+export const Slider = ({onChange, transform}) => {
     return(
         <div className="slider" >
-            <div style={{width: '100%', height: '100%', backgroundColor: 'green', transform: `translateX(${transform}%)`}}/>
-            <input type='range' style={{width: '100%', height: '100%'}} onChange={(e) => onChange(e)}/>
+            <div className='slider-front' style={{transform: `translateX(${transform}%)`}}/>
+            <input className='slider-back' type='range' onChange={(e) => onChange(e)}/>
         </div>
     )
 }
