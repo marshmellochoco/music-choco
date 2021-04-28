@@ -4,7 +4,7 @@ Aim of this project is to create a audio streaming application that is similar t
 
 ## Getting Started
 ### Pre-requisite
-- NodeJS (or npm)
+- [NodeJS](https://nodejs.org/en/) (or npm)
 
 ### Setting up development environment
 ```
