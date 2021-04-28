@@ -13,6 +13,10 @@ cd react-music-player && npm i
 npm start
 ```
 Or you can view the live demo [here](https://www.youtube.com/watch?v=dQw4w9WgXcQ).
+<details>
+  <summary>Spoiler</summary>
+  Just kidding its <a href="https://marshmellochoco.github.io/react-music-player">here</a>.
+</details>
 
 ### Note
 If you found that it is not working, most likely it is note connected to the backend yet (oops!). You can get the files and  host it yourself [here](https://github.com/marshmellochoco/react-music-player-server).
