@@ -1,5 +1,49 @@
+  :root {
+    --primary-color: #404040;
+    --secondary-color: #707070;
+    --thirtiary-color: #a0a0a0;
+    --contrast-color: #d0d0d0;
+}
+
 body{
+    height: 90vh;
     margin: 0px;
     padding: 0px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--primary-color);
+    color: var(--contrast-color);
+}
+
+#root{
+    height: 100%;
+}
+
+.App{
+    height: 100%;
+}
+
+.app-container{
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 7fr;
+}
+
+.page-container{
+    overflow-y: scroll;
+    width: 98%;
+    height: 100%;
+    padding-left: 2%;
+}
+
+::-webkit-scrollbar{
+    width: 10px;
+    background-color: var(--primary-color);
+}
+
+::-webkit-scrollbar-thumb{
+    background-color: white;
+}
+
+::-webkit-scrollbar-button{
+    display: none;
 }

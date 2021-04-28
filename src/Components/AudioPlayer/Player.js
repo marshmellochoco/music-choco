@@ -6,7 +6,7 @@ import { createRef, useState } from "react";
 
 import "./Player.css";
 
-export const Player = () => {
+export const Player = ({ queue, setQueue }) => {
     // =============== State initialization ===============
     // --------- Audio Control States ----------
     var [playing, setPlaying] = useState(false);
@@ -15,17 +15,13 @@ export const Player = () => {
     var [lastVolume, setLastVolume] = useState(volume);
 
     // --------- Audio Player States ----------
-    var [queue, setQueue] = useState([
-        "60885e8e5bb4983d48b7ab5b",
-        "60885ecd5bb4983d48b7ab63",
-    ]);
     var [previous, setPrevious] = useState([]);
 
     // --------- Song Data Template ----------
     var [songData, setSongData] = useState({
-        title: "",
-        artist: "",
-        album: "",
+        title: "---",
+        artist: "---",
+        album: "---",
         icon: "",
         duration: 0,
     });
@@ -80,7 +76,6 @@ export const Player = () => {
         setPrevious([queue[0], ...previous]);
         setQueue(queue.slice(1, queue.length));
     };
-
 
     // --------- Return JSX ----------
     return (

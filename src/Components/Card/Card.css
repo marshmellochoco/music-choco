@@ -1,0 +1,46 @@
+:root {
+    --primary-color: #404040;
+    --secondary-color: #707070;
+    --thirtiary-color: #a0a0a0;
+    --contrast-color: #d0d0d0;
+}
+
+.cardItem{
+    width: 200px;
+    height: 300px;
+    padding: 1% 1% 0.5% 1%;
+    display: grid;
+    grid-template-rows: 3fr 1fr 0.5fr;
+    border-radius: 2%;
+    background-color: var(--secondary-color);
+    cursor: pointer;
+    color: var(--contrast-color);
+}
+
+.cardItem:hover{
+    animation: cardItemHover 0.4s forwards;
+}
+
+@keyframes cardItemHover {
+    0%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0.8;
+    }
+}
+
+.cardItem img{
+    width: 200px;
+}
+
+.cardItem h1{
+    font-size: 1.5em;
+    margin: 0;
+}
+
+.cardItem p{
+    overflow: hidden;
+    font-size: 1.2em;
+    margin: 0;
+}

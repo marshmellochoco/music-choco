@@ -1,0 +1,41 @@
+:root {
+    --primary-color: #404040;
+    --secondary-color: #707070;
+    --thirtiary-color: #a0a0a0;
+    --contrast-color: #d0d0d0;
+}
+
+nav{
+    background-color: var(--secondary-color);
+    height: 100%;
+    padding: 4%;
+}
+
+nav ul{
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul li{
+    margin: 4%;
+    font-size: 1.2em;
+    width: 100%;
+}
+
+nav ul li a{
+    color: var(--contrast-color);
+    text-decoration: none;
+}
+
+nav ul li a:hover{
+    animation: navHover 0.5s forwards;
+}
+
+@keyframes navHover {
+    0%{
+        color: var(--contrast-color);
+    }
+    100%{
+        color: var(--thirtiary-color);
+    }
+}
