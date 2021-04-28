@@ -1,9 +1,11 @@
-import { Player } from './AudioPlayer/Player'
+import { Player } from "./Components/AudioPlayer/Player";
+import { Home } from "./Pages/Home";
 
 function App() {
     return (
         <div className="App">
-            <Player/>
+            <Home />
+            <Player />
         </div>
     );
 }
