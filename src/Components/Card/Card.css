@@ -3,6 +3,7 @@
     --secondary-color: #707070;
     --thirtiary-color: #a0a0a0;
     --contrast-color: #d0d0d0;
+    --text-color: #fff
 }
 
 .cardItem{
@@ -14,7 +15,7 @@
     border-radius: 2%;
     background-color: var(--secondary-color);
     cursor: pointer;
-    color: var(--contrast-color);
+    color: var(--text-color);
 }
 
 .cardItem:hover{

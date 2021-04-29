@@ -8,7 +8,7 @@ import { Home } from "./Pages/Home/Home";
 function App() {
     const [queue, setQueue] = useState([]);
     const [playing, setPlaying] = useState(false);
-    const apiUrl = process.env.REACT_APP_API_URL;
+    const apiUrl = "process.env.REACT_APP_API_URL";
 
     return (
         <div className="App" onContextMenu={(e) => e.preventDefault()}>
@@ -49,3 +49,13 @@ function App() {
 }
 
 export default App;
+
+// TODO: Prevent sending 'undefined' as api request
+// TODO: Next and Previous button |< and >|
+// TODO: Button to add to queue
+// TODO: Button to remove from queue
+// TODO: Rearrange queue
+// TODO: Searchbar
+// TODO: Homepage can add recommendation
+// TODO: Song already in queue
+// TODO: Queue keep the list

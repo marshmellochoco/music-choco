@@ -39,15 +39,17 @@ export const Player = ({ queue, setQueue, playing, setPlaying, apiUrl }) => {
     };
 
     const onReady = async () => {
-        await axios.get(apiUrl + "/song/" + queue[0]).then((result) => {
-            setSongData({
-                title: result.data.title,
-                artist: result.data.artist,
-                album: result.data.album,
-                duration: result.data.duration,
-                icon: apiUrl + "/album/" + result.data.album + "/ico",
+        if (queue.length > 0) {
+            await axios.get(apiUrl + "/song/" + queue[0]).then((result) => {
+                setSongData({
+                    title: result.data.title,
+                    artist: result.data.artist,
+                    album: result.data.album,
+                    duration: result.data.duration,
+                    icon: apiUrl + "/album/" + result.data.album + "/ico",
+                });
             });
-        });
+        }
     };
 
     // --------- Audio Control Functions ----------
@@ -100,7 +102,7 @@ export const Player = ({ queue, setQueue, playing, setPlaying, apiUrl }) => {
                     width="0"
                     height="0"
                     loop={false}
-                    url={`${apiUrl}/song/play/${queue[0]}`}
+                    url={queue.length > 0 ? `${apiUrl}/song/play/${queue[0]}` : ""}
                     playing={playing}
                     volume={volume}
                     onProgress={onProgress}

@@ -47,11 +47,11 @@ export const Album = ({ queue, setQueue, setPlaying, apiUrl }) => {
                 <div>{i + 1}</div>
                 <div>{s.title}</div>
                 <div>
-                    {(s.duration / 60 < 10 ? "0" : "") +
-                        Math.floor(s.duration / 60)}{" "}
+                    {((s.duration - 1) / 60 < 10 ? "0" : "") +
+                        Math.floor((s.duration - 1) / 60)}{" "}
                     :{" "}
-                    {(s.duration % 60 < 10 ? "0" : "") +
-                        Math.floor(s.duration % 60)}
+                    {((s.duration - 1) % 60 < 10 ? "0" : "") +
+                        Math.floor((s.duration - 1) % 60)}
                 </div>
             </li>
         ));
@@ -63,10 +63,7 @@ export const Album = ({ queue, setQueue, setPlaying, apiUrl }) => {
                 <Link to="/">{"<"} Back</Link>
             </h3>
             <div className="albumHeader">
-                <img
-                    alt={album}
-                    src={`${apiUrl}/album/${id}/ico`}
-                />
+                <img alt={album} src={`${apiUrl}/album/${id}/ico`} />
                 <div className="album">
                     <h1>{album}</h1>
                     <h2>{artist}</h2>
