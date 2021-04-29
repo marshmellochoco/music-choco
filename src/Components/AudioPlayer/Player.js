@@ -6,19 +6,18 @@ import { createRef, useState } from "react";
 
 import "./Player.css";
 
-export const Player = ({ queue, setQueue }) => {
+export const Player = ({ queue, setQueue, playing, setPlaying }) => {
     // =============== State initialization ===============
     // --------- Audio Control States ----------
-    var [playing, setPlaying] = useState(false);
-    var [currentTime, setCurrentTime] = useState(0);
-    var [volume, setVolume] = useState(1);
-    var [lastVolume, setLastVolume] = useState(volume);
+    const [currentTime, setCurrentTime] = useState(0);
+    const [volume, setVolume] = useState(1);
+    const [lastVolume, setLastVolume] = useState(volume);
 
     // --------- Audio Player States ----------
-    var [previous, setPrevious] = useState([]);
+    const [previous, setPrevious] = useState([]);
 
     // --------- Song Data Template ----------
-    var [songData, setSongData] = useState({
+    const [songData, setSongData] = useState({
         title: "---",
         artist: "---",
         album: "---",
@@ -32,6 +31,11 @@ export const Player = ({ queue, setQueue }) => {
 
     const onProgress = (e) => {
         setCurrentTime(e.playedSeconds);
+        if (currentTime >= songData.duration - 1) {
+            setPlaying(false);
+            setCurrentTime(0);
+            nextSong();
+        }
     };
 
     const onReady = async () => {
@@ -57,6 +61,10 @@ export const Player = ({ queue, setQueue }) => {
         ref.current.seekTo(second, "second");
     };
 
+    const changePlaying = (play) => {
+        setPlaying(play);
+    };
+
     const changeVolume = (vol) => {
         setLastVolume(volume === 0 ? lastVolume : volume);
         setVolume(vol);
@@ -65,16 +73,27 @@ export const Player = ({ queue, setQueue }) => {
     const prevSong = () => {
         if (previous.length < 1) {
             setClickedTime(0);
-            return;
+        } else {
+            setQueue([previous[0], ...queue]);
+            setPrevious(previous.slice(1, previous.length));
         }
-        setQueue([previous[0], ...queue]);
-        setPrevious(previous.slice(1, previous.length));
     };
 
     const nextSong = () => {
-        if (queue.length <= 1) return;
-        setPrevious([queue[0], ...previous]);
-        setQueue(queue.slice(1, queue.length));
+        if (queue.length < 1) return;
+        if (queue.length === 1) {
+            setQueue([]);
+            setSongData({
+                title: "---",
+                artist: "---",
+                album: "---",
+                icon: "",
+                duration: 0,
+            });
+        } else {
+            setPrevious([queue[0], ...previous]);
+            setQueue(queue.slice(1, queue.length));
+        }
     };
 
     // --------- Return JSX ----------
@@ -85,6 +104,7 @@ export const Player = ({ queue, setQueue }) => {
                     ref={ref}
                     width="0"
                     height="0"
+                    loop={false}
                     url={`http://localhost:4000/song/play/${queue[0]}`}
                     playing={playing}
                     volume={volume}
@@ -118,7 +138,7 @@ export const Player = ({ queue, setQueue }) => {
                         </svg>
                         {playing ? (
                             <svg
-                                onClick={() => setPlaying(false)}
+                                onClick={() => changePlaying(false)}
                                 xmlns="http://www.w3.org/2000/svg"
                                 className="control-button play"
                                 fill="none"
@@ -134,7 +154,7 @@ export const Player = ({ queue, setQueue }) => {
                             </svg>
                         ) : (
                             <svg
-                                onClick={() => setPlaying(true)}
+                                onClick={() => changePlaying(true)}
                                 xmlns="http://www.w3.org/2000/svg"
                                 className="control-button play"
                                 fill="none"
@@ -225,7 +245,10 @@ export const Player = ({ queue, setQueue }) => {
                         </div>
 
                         <Slider
-                            onChange={(e) => setClickedTime(e.target.value)}
+                            onChange={(e) => {
+                                setClickedTime(e.target.value);
+                                e.target.value = 100;
+                            }}
                             transform={
                                 (currentTime / songData.duration) * 100 - 100
                             }

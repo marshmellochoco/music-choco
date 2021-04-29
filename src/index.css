@@ -12,6 +12,7 @@ body{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: var(--primary-color);
     color: var(--contrast-color);
+    user-select: none;
 }
 
 #root{
@@ -25,7 +26,7 @@ body{
 .app-container{
     height: 100%;
     display: grid;
-    grid-template-columns: 1fr 7fr;
+    grid-template-columns: 8fr 2fr;
 }
 
 .page-container{

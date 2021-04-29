@@ -5,20 +5,66 @@
     --contrast-color: #d0d0d0;
 }
 
+.albums a{
+    text-decoration: none;
+    color: var(--contrast-color);
+}
+
+.albums a:hover{
+    text-decoration: underline;
+}
+
+.albumHeader{
+    margin: 1% 0 3% 0;
+    display: grid;
+    grid-template-columns: 13rem 1fr;
+}
+
+.albumHeader img{
+    width: 12rem;
+}
+
+.albumHeader .album{
+    display: inline-block;
+    align-self: flex-end;
+}
+
+.albumHeader h1{
+    margin: 1% 0;
+}
+
+.albumHeader h2{
+    margin: 1% 0;
+}
+
 .songList{
     list-style-type: none;
     padding: 0;
     margin-right: 2%;
 }
 
+.songList .songHeader{
+    font-size: 0.8em;
+}
+
+.songList hr{
+    margin: 0;
+    border: 1px solid var(--secondary-color);
+}
+
 .songList li{
     padding: 1% 0;
     padding-left: 1%;
     display: grid;
-    grid-template-columns: 1fr 1fr 16fr 1fr;
+    grid-template-columns: 1fr 16fr 1fr;
 }
 
-.songList .songItem svg{
+.songList li div{
+    display: flex;
+    align-items: center;
+}
+
+.songList svg{
     width: 2em;
 }
 
@@ -37,7 +83,6 @@
 
 .songList .songItem:hover{
     background-color: var(--secondary-color);
-    border-radius: 4px;
 }
 
 .songList .activeItem{

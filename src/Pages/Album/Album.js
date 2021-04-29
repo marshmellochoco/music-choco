@@ -1,56 +1,86 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
+import { Link } from "react-router-dom";
 import "./Album.css";
 
-export const Album = () => {
+export const Album = ({ queue, setQueue, setPlaying }) => {
     const [songs, setSongs] = useState([]);
+    const [album, setAlbum] = useState("");
+    const [artist, setArtist] = useState("");
     let { id } = useParams();
 
     useEffect(() => {
+        axios.get("http://localhost:4000/album/" + id).then((res) => {
+            setAlbum(res.data.albumname);
+            setArtist(res.data.artist);
+        });
+
         axios
             .get("http://localhost:4000/album/" + id)
             .then((res) => setSongs(res.data.songs));
     }, [id]);
 
+    const setSong = (id) => {
+        if (queue.includes(id)) {
+            setQueue(queue.splice(queue.indexOf(id), 1));
+        }
+        setPlaying(false);
+        setQueue([id, ...queue.slice(1, queue.length)]);
+        setPlaying(true);
+    };
+
+    const addQueue = (id) => {
+        if (!queue.includes(id)) {
+            setQueue([...queue, id]);
+        }
+    };
+
     const getSongs = () => {
         return songs.map((s, i) => (
-            <li className="songItem" key={s._id}>
-                <div>
-                    <svg
-                        className="w-6 h-6"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
-                        <path
-                            fillRule="evenodd"
-                            d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
-                            clipRule="evenodd"
-                        />
-                    </svg>
-                </div>
+            <li
+                className={`${queue[0] === s._id ? "activeItem" : "songItem"}`}
+                key={s._id}
+                onClick={() => setSong(s._id)}
+                onContextMenu={(e) => addQueue(s._id)}
+            >
                 <div>{i + 1}</div>
                 <div>{s.title}</div>
-                <div>3:15</div>
+                <div>
+                    {(s.duration / 60 < 10 ? "0" : "") +
+                        Math.floor(s.duration / 60)}{" "}
+                    :{" "}
+                    {(s.duration % 60 < 10 ? "0" : "") +
+                        Math.floor(s.duration % 60)}
+                </div>
             </li>
         ));
     };
 
     return (
-        <div>
-            <h1>Albums</h1>
+        <div className="albums">
+            <h3>
+                <Link to="/">{"<"} Back</Link>
+            </h3>
+            <div className="albumHeader">
+                <img
+                    alt={album}
+                    src={`http://localhost:4000/album/${id}/ico`}
+                />
+                <div className="album">
+                    <h1>{album}</h1>
+                    <h2>{artist}</h2>
+                </div>
+            </div>
             <ul className="songList">
-                <li className="activeItem">
-                    <div></div>
+                <li className="songHeader">
                     <div>#</div>
                     <div>Title</div>
                     <div>Duration</div>
                 </li>
+                <hr />
                 {getSongs()}
             </ul>
         </div>
     );
 };
-
-//TODO: Able to click on album or song to play the album or song
