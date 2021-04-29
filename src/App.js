@@ -8,12 +8,12 @@ import { Home } from "./Pages/Home/Home";
 function App() {
     const [queue, setQueue] = useState([]);
     const [playing, setPlaying] = useState(false);
-    const apiUrl = "process.env.REACT_APP_API_URL";
+    const apiUrl = process.env.REACT_APP_API_URL;
 
     return (
         <div className="App" onContextMenu={(e) => e.preventDefault()}>
             <div className="app-container">
-                <Router basename="/react-music-player">
+                <Router basename="/music-choco">
                     <div className="page-container">
                         <Switch>
                             <Route exact path="/">
