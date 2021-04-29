@@ -6,7 +6,7 @@ import { createRef, useState } from "react";
 
 import "./Player.css";
 
-export const Player = ({ queue, setQueue, playing, setPlaying }) => {
+export const Player = ({ queue, setQueue, playing, setPlaying, apiUrl }) => {
     // =============== State initialization ===============
     // --------- Audio Control States ----------
     const [currentTime, setCurrentTime] = useState(0);
@@ -39,20 +39,15 @@ export const Player = ({ queue, setQueue, playing, setPlaying }) => {
     };
 
     const onReady = async () => {
-        await axios
-            .get("http://localhost:4000/song/" + queue[0])
-            .then((result) => {
-                setSongData({
-                    title: result.data.title,
-                    artist: result.data.artist,
-                    album: result.data.album,
-                    duration: result.data.duration,
-                    icon:
-                        "http://localhost:4000/album/" +
-                        result.data.album +
-                        "/ico",
-                });
+        await axios.get(apiUrl + "/song/" + queue[0]).then((result) => {
+            setSongData({
+                title: result.data.title,
+                artist: result.data.artist,
+                album: result.data.album,
+                duration: result.data.duration,
+                icon: apiUrl + "/album/" + result.data.album + "/ico",
             });
+        });
     };
 
     // --------- Audio Control Functions ----------
@@ -105,7 +100,7 @@ export const Player = ({ queue, setQueue, playing, setPlaying }) => {
                     width="0"
                     height="0"
                     loop={false}
-                    url={`http://localhost:4000/song/play/${queue[0]}`}
+                    url={`${apiUrl}/song/play/${queue[0]}`}
                     playing={playing}
                     volume={volume}
                     onProgress={onProgress}

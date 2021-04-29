@@ -3,15 +3,15 @@ import { useEffect, useState } from "react";
 import { Card } from "../../Components/Card/Card";
 import "./Home.css";
 
-export const Home = () => {
+export const Home = ({apiUrl}) => {
     const [albums, setAlbums] = useState([]);
 
     // Run when page is loaded
     useEffect(() => {
         axios
-            .get("http://localhost:4000/album")
+            .get(apiUrl + "/album")
             .then((res) => setAlbums(res.data));
-    }, []);
+    }, [apiUrl]);
 
     // Returns a list of card item containing album information
     const getAlbums = () => {
@@ -21,6 +21,7 @@ export const Home = () => {
                 id={album.id}
                 name={album.albumname}
                 artist={album.artist}
+                apiUrl={apiUrl}
             />
         ));
     };

@@ -4,22 +4,22 @@ import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import "./Album.css";
 
-export const Album = ({ queue, setQueue, setPlaying }) => {
+export const Album = ({ queue, setQueue, setPlaying, apiUrl }) => {
     const [songs, setSongs] = useState([]);
     const [album, setAlbum] = useState("");
     const [artist, setArtist] = useState("");
     let { id } = useParams();
 
     useEffect(() => {
-        axios.get("http://localhost:4000/album/" + id).then((res) => {
+        axios.get(apiUrl + "/album/" + id).then((res) => {
             setAlbum(res.data.albumname);
             setArtist(res.data.artist);
         });
 
         axios
-            .get("http://localhost:4000/album/" + id)
+            .get(apiUrl + "/album/" + id)
             .then((res) => setSongs(res.data.songs));
-    }, [id]);
+    }, [id, apiUrl]);
 
     const setSong = (id) => {
         if (queue.includes(id)) {
@@ -65,7 +65,7 @@ export const Album = ({ queue, setQueue, setPlaying }) => {
             <div className="albumHeader">
                 <img
                     alt={album}
-                    src={`http://localhost:4000/album/${id}/ico`}
+                    src={`${apiUrl}/album/${id}/ico`}
                 />
                 <div className="album">
                     <h1>{album}</h1>

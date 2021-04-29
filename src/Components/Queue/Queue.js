@@ -2,7 +2,7 @@ import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import "./Queue.css";
 
-export const Queue = ({ queue, setQueue, setPlaying }) => {
+export const Queue = ({ queue, setQueue, setPlaying, apiUrl }) => {
     const [queueData, setQueueData] = useState([]);
 
     const getQueueData = useCallback(async () => {
@@ -10,13 +10,13 @@ export const Queue = ({ queue, setQueue, setPlaying }) => {
         for (let i = 0; i < queue.length; i++) {
             let dataContainer;
             await axios
-                .get("http://localhost:4000/song/" + queue[i])
+                .get(apiUrl + "/song/" + queue[i])
                 .then((res) => {
                     dataContainer = res.data;
                 });
 
             await axios
-                .get("http://localhost:4000/album/" + dataContainer.album)
+                .get(apiUrl + "/album/" + dataContainer.album)
                 .then((res) => {
                     let name = res.data.albumname;
                     data.push({
@@ -28,7 +28,7 @@ export const Queue = ({ queue, setQueue, setPlaying }) => {
                 });
         }
         setQueueData(data);
-    }, [queue]);
+    }, [queue, apiUrl]);
 
     useEffect(() => {
         getQueueData();

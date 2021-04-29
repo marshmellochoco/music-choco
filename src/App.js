@@ -8,6 +8,7 @@ import { Home } from "./Pages/Home/Home";
 function App() {
     const [queue, setQueue] = useState([]);
     const [playing, setPlaying] = useState(false);
+    const apiUrl = process.env.REACT_APP_API_URL;
 
     return (
         <div className="App" onContextMenu={(e) => e.preventDefault()}>
@@ -15,23 +16,32 @@ function App() {
                 <Router basename="/react-music-player">
                     <div className="page-container">
                         <Switch>
-                            <Route exact path="/" component={Home} />
+                            <Route exact path="/">
+                                <Home apiUrl={apiUrl} />
+                            </Route>
                             <Route path="/albums/:id">
                                 <Album
                                     queue={queue}
                                     setQueue={setQueue}
                                     setPlaying={setPlaying}
+                                    apiUrl={apiUrl}
                                 />
                             </Route>
                         </Switch>
                     </div>
                 </Router>
-                <Queue queue={queue} setQueue={setQueue} setPlaying={setPlaying}/>
+                <Queue
+                    queue={queue}
+                    setQueue={setQueue}
+                    setPlaying={setPlaying}
+                    apiUrl={apiUrl}
+                />
                 <Player
                     queue={queue}
                     setQueue={setQueue}
                     playing={playing}
                     setPlaying={setPlaying}
+                    apiUrl={apiUrl}
                 />
             </div>
         </div>
