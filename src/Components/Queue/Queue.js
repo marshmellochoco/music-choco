@@ -54,6 +54,7 @@ export const Queue = ({
     };
 
     const handleDragDrop = (result) => {
+        const playingSong = queue[index];
         const data = queueData;
         const [reorderedData] = data.splice(result.source.index, 1);
         data.splice(result.destination.index, 0, reorderedData);
@@ -63,7 +64,9 @@ export const Queue = ({
         const [reorderedSong] = songs.splice(result.source.index, 1);
         songs.splice(result.destination.index, 0, reorderedSong);
         setQueue(songs);
-    }
+
+        setIndex(queue.indexOf(playingSong));
+    };
 
     const getQueueList = (provided) => {
         return queueData.map((q, i) => {

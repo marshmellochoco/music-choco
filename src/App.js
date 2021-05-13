@@ -22,6 +22,8 @@ function App() {
                             </Route>
                             <Route path="/albums/:id">
                                 <Album
+                                    index={index}
+                                    setIndex={setIndex}
                                     queue={queue}
                                     setQueue={setQueue}
                                     setPlaying={setPlaying}
@@ -55,6 +57,8 @@ function App() {
 export default App;
 
 // TODO: Prevent sending 'undefined' as api request
+
+// TODO: Add whole album to queue when played
 
 // TODO: Button to add to queue
 // TODO: Button to remove from queue

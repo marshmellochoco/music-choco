@@ -4,10 +4,18 @@ import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import "./Album.css";
 
-export const Album = ({ queue, setQueue, setPlaying, apiUrl }) => {
+export const Album = ({
+    index,
+    setIndex,
+    queue,
+    setQueue,
+    setPlaying,
+    apiUrl,
+}) => {
     const [songs, setSongs] = useState([]);
     const [album, setAlbum] = useState("");
     const [artist, setArtist] = useState("");
+    const songList = [];
     let { id } = useParams();
 
     useEffect(() => {
@@ -21,12 +29,14 @@ export const Album = ({ queue, setQueue, setPlaying, apiUrl }) => {
             .then((res) => setSongs(res.data.songs));
     }, [id, apiUrl]);
 
-    const setSong = (id) => {
-        if (queue.includes(id)) {
-            setQueue(queue.splice(queue.indexOf(id), 1));
+    const setSong = async (id) => {
+        if (!queue.includes(id)) {
+            await setQueue([...queue, id]);
+            setIndex(queue.length);
+        } else {
+            setIndex(queue.indexOf(id));
         }
-        setPlaying(false);
-        setQueue([id, ...queue.slice(1, queue.length)]);
+
         setPlaying(true);
     };
 
@@ -37,9 +47,14 @@ export const Album = ({ queue, setQueue, setPlaying, apiUrl }) => {
     };
 
     const getSongs = () => {
+        songs.forEach((song) => {
+            songList.push(song._id);
+        });
         return songs.map((s, i) => (
             <li
-                className={`${queue[0] === s._id ? "activeItem" : "songItem"}`}
+                className={`${
+                    queue[index] === s._id ? "activeItem" : "songItem"
+                }`}
                 key={s._id}
                 onClick={() => setSong(s._id)}
                 onContextMenu={(e) => addQueue(s._id)}
