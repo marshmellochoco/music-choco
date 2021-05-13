@@ -6,7 +6,14 @@ import { createRef, useState } from "react";
 
 import "./Player.css";
 
-export const Player = ({ index, setIndex, queue, playing, setPlaying, apiUrl }) => {
+export const Player = ({
+    index,
+    setIndex,
+    queue,
+    playing,
+    setPlaying,
+    apiUrl,
+}) => {
     // =============== State initialization ===============
     // --------- Audio Control States ----------
     const [currentTime, setCurrentTime] = useState(0);
@@ -68,14 +75,13 @@ export const Player = ({ index, setIndex, queue, playing, setPlaying, apiUrl }) 
         if (index === 0) {
             setClickedTime(0);
         } else {
-            setIndex(index-1);
+            setIndex(index - 1);
         }
     };
 
     const nextSong = () => {
-        if (index === queue.length-1)
-            return;
-        setIndex(index+1);
+        if (index === queue.length - 1) return;
+        setIndex(index + 1);
     };
 
     // --------- Return JSX ----------

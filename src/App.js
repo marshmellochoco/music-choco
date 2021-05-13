@@ -58,8 +58,7 @@ export default App;
 
 // TODO: Button to add to queue
 // TODO: Button to remove from queue
+// TODO: Song already in queue
 
-// TODO: Rearrange queue
 // TODO: Searchbar
 // TODO: Homepage can add recommendation
-// TODO: Song already in queue
