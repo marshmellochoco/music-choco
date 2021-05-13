@@ -41,16 +41,20 @@ export const Queue = ({
     }, [getQueueData]);
 
     const skipQueue = (e) => {
-        let clickedItem = e.currentTarget.getAttribute("datakey");
-        setIndex(queue.indexOf(clickedItem));
-        setPlaying(true);
+        if (e.target.localName !== "button") {
+            let clickedItem = e.currentTarget.getAttribute("datakey");
+            setIndex(queue.indexOf(clickedItem));
+            setPlaying(true);
+        }
     };
 
     const removeQueue = (e) => {
+        const oldIndex = index;
         let clickedItem = e.currentTarget.getAttribute("datakey");
         let q = queue;
         q.splice(q.indexOf(clickedItem), 1);
         setQueue([...q]);
+        setIndex(oldIndex);
     };
 
     const handleDragDrop = (result) => {
@@ -73,30 +77,48 @@ export const Queue = ({
             return (
                 <Draggable key={q._id} draggableId={q._id} index={i}>
                     {(provided) => (
-                        <li
-                            className={`${
-                                queue[index] === q._id
-                                    ? "queueActive"
-                                    : "queueItem"
-                            }`}
-                            ref={provided.innerRef}
-                            {...provided.draggableProps}
-                            {...provided.dragHandleProps}
-                            datakey={q._id}
-                            onClick={(e) => skipQueue(e)}
-                            onContextMenu={(e) => removeQueue(e)}
-                        >
-                            <div>{q.title}</div>
-                            <div className="album">{q.albumname}</div>
-                            <div className="duration">
-                                {" "}
-                                {(q.duration / 60 < 10 ? "0" : "") +
-                                    Math.floor(q.duration / 60)}{" "}
-                                :{" "}
-                                {(q.duration % 60 < 10 ? "0" : "") +
-                                    Math.floor(q.duration % 60)}
-                            </div>
-                        </li>
+                        <div>
+                            <li
+                                className={`${
+                                    queue[index] === q._id
+                                        ? "queueActive"
+                                        : "queueItem"
+                                }`}
+                                ref={provided.innerRef}
+                                {...provided.draggableProps}
+                                {...provided.dragHandleProps}
+                                datakey={q._id}
+                                onClick={(e) => skipQueue(e)}
+                                onContextMenu={(e) => {
+                                    removeQueue(e);
+                                }}
+                            >
+                                <div>{q.title}</div>
+                                <div className="album">{q.albumname}</div>
+                                <div
+                                    className={"removeButton"}
+                                    datakey={q._id}
+                                    onClick={(e) => {
+                                        removeQueue(e);
+                                    }}
+                                >
+                                    <svg className={"icon"} viewBox="0 0 24 24">
+                                        <path
+                                            fill="currentColor"
+                                            d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z"
+                                        />
+                                    </svg>
+                                </div>
+                                <div className="duration">
+                                    {" "}
+                                    {(q.duration / 60 < 10 ? "0" : "") +
+                                        Math.floor(q.duration / 60)}{" "}
+                                    :{" "}
+                                    {(q.duration % 60 < 10 ? "0" : "") +
+                                        Math.floor(q.duration % 60)}
+                                </div>
+                            </li>
+                        </div>
                     )}
                 </Draggable>
             );
