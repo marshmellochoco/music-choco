@@ -6,15 +6,12 @@ import { createRef, useState } from "react";
 
 import "./Player.css";
 
-export const Player = ({ queue, setQueue, playing, setPlaying, apiUrl }) => {
+export const Player = ({ index, setIndex, queue, playing, setPlaying, apiUrl }) => {
     // =============== State initialization ===============
     // --------- Audio Control States ----------
     const [currentTime, setCurrentTime] = useState(0);
     const [volume, setVolume] = useState(1);
     const [lastVolume, setLastVolume] = useState(volume);
-
-    // --------- Audio Player States ----------
-    const [previous, setPrevious] = useState([]);
 
     // --------- Song Data Template ----------
     const [songData, setSongData] = useState({
@@ -40,7 +37,7 @@ export const Player = ({ queue, setQueue, playing, setPlaying, apiUrl }) => {
 
     const onReady = async () => {
         if (queue.length > 0) {
-            await axios.get(apiUrl + "/song/" + queue[0]).then((result) => {
+            await axios.get(apiUrl + "/song/" + queue[index]).then((result) => {
                 setSongData({
                     title: result.data.title,
                     artist: result.data.artist,
@@ -59,7 +56,7 @@ export const Player = ({ queue, setQueue, playing, setPlaying, apiUrl }) => {
     };
 
     const changePlaying = (play) => {
-        setPlaying(play);
+        if (queue.length > 0) setPlaying(play);
     };
 
     const changeVolume = (vol) => {
@@ -68,29 +65,17 @@ export const Player = ({ queue, setQueue, playing, setPlaying, apiUrl }) => {
     };
 
     const prevSong = () => {
-        if (previous.length < 1) {
+        if (index === 0) {
             setClickedTime(0);
         } else {
-            setQueue([previous[0], ...queue]);
-            setPrevious(previous.slice(1, previous.length));
+            setIndex(index-1);
         }
     };
 
     const nextSong = () => {
-        if (queue.length < 1) return;
-        if (queue.length === 1) {
-            setQueue([]);
-            setSongData({
-                title: "---",
-                artist: "---",
-                album: "---",
-                icon: "",
-                duration: 0,
-            });
-        } else {
-            setPrevious([queue[0], ...previous]);
-            setQueue(queue.slice(1, queue.length));
-        }
+        if (index === queue.length-1)
+            return;
+        setIndex(index+1);
     };
 
     // --------- Return JSX ----------
@@ -102,7 +87,11 @@ export const Player = ({ queue, setQueue, playing, setPlaying, apiUrl }) => {
                     width="0"
                     height="0"
                     loop={false}
-                    url={queue.length > 0 ? `${apiUrl}/song/play/${queue[0]}` : ""}
+                    url={
+                        queue.length > 0
+                            ? `${apiUrl}/song/play/${queue[index]}`
+                            : ""
+                    }
                     playing={playing}
                     volume={volume}
                     onProgress={onProgress}
@@ -119,18 +108,13 @@ export const Player = ({ queue, setQueue, playing, setPlaying, apiUrl }) => {
 
                     <div className="player-control">
                         <svg
-                            xmlns="http://www.w3.org/2000/svg"
                             className="control-button"
-                            fill="none"
                             viewBox="0 0 24 24"
-                            stroke="currentColor"
                             onClick={prevSong}
                         >
                             <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M11 19l-7-7 7-7m8 14l-7-7 7-7"
+                                fill="currentColor"
+                                d="M6,18V6H8V18H6M9.5,12L18,6V18L9.5,12Z"
                             />
                         </svg>
                         {playing ? (
@@ -173,18 +157,13 @@ export const Player = ({ queue, setQueue, playing, setPlaying, apiUrl }) => {
                             </svg>
                         )}
                         <svg
-                            xmlns="http://www.w3.org/2000/svg"
                             className="control-button"
-                            fill="none"
                             viewBox="0 0 24 24"
-                            stroke="currentColor"
                             onClick={nextSong}
                         >
                             <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M13 5l7 7-7 7M5 5l7 7-7 7"
+                                fill="currentColor"
+                                d="M16,18H18V6H16M6,18L14.5,12L6,6V18Z"
                             />
                         </svg>
                     </div>

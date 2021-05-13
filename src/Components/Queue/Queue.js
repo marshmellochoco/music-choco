@@ -2,7 +2,7 @@ import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import "./Queue.css";
 
-export const Queue = ({ queue, setQueue, setPlaying, apiUrl }) => {
+export const Queue = ({ index, setIndex, queue, setQueue, setPlaying, apiUrl }) => {
     const [queueData, setQueueData] = useState([]);
 
     const getQueueData = useCallback(async () => {
@@ -36,7 +36,7 @@ export const Queue = ({ queue, setQueue, setPlaying, apiUrl }) => {
 
     const skipQueue = (e) => {
         let clickedItem = e.currentTarget.getAttribute("datakey");
-        setQueue(queue.splice(queue.indexOf(clickedItem)));
+        setIndex(queue.indexOf(clickedItem));
         setPlaying(true);
     };
 
@@ -53,7 +53,7 @@ export const Queue = ({ queue, setQueue, setPlaying, apiUrl }) => {
                 <li
                     key={q._id}
                     className={`${
-                        queue[0] === q._id ? "queueActive" : "queueItem"
+                        queue[index] === q._id ? "queueActive" : "queueItem"
                     }`}
                     datakey={q._id}
                     onClick={(e) => skipQueue(e)}

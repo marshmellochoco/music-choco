@@ -7,6 +7,7 @@ import { Home } from "./Pages/Home/Home";
 
 function App() {
     const [queue, setQueue] = useState([]);
+    const [index, setIndex] = useState(0);
     const [playing, setPlaying] = useState(false);
     const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -31,14 +32,17 @@ function App() {
                     </div>
                 </Router>
                 <Queue
+                    index={index}
+                    setIndex={setIndex}
                     queue={queue}
                     setQueue={setQueue}
                     setPlaying={setPlaying}
                     apiUrl={apiUrl}
                 />
                 <Player
+                    index={index}
+                    setIndex={setIndex}
                     queue={queue}
-                    setQueue={setQueue}
                     playing={playing}
                     setPlaying={setPlaying}
                     apiUrl={apiUrl}
@@ -51,11 +55,11 @@ function App() {
 export default App;
 
 // TODO: Prevent sending 'undefined' as api request
-// TODO: Next and Previous button |< and >|
+
 // TODO: Button to add to queue
 // TODO: Button to remove from queue
+
 // TODO: Rearrange queue
 // TODO: Searchbar
 // TODO: Homepage can add recommendation
 // TODO: Song already in queue
-// TODO: Queue keep the list
