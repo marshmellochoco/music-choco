@@ -61,7 +61,6 @@ export default App;
 // TODO: Add whole album to queue when played
 
 // TODO: Button to add to queue
-// TODO: Button to remove from queue
 // TODO: Song already in queue
 
 // TODO: Searchbar
