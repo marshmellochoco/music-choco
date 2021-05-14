@@ -7,8 +7,8 @@ import { createRef, useState } from "react";
 import "./Player.css";
 
 export const Player = ({
-    index,
-    setIndex,
+    playingSong,
+    setPlayingSong,
     queue,
     playing,
     setPlaying,
@@ -39,12 +39,13 @@ export const Player = ({
             setPlaying(false);
             setCurrentTime(0);
             nextSong();
+            setPlaying(true);
         }
     };
 
     const onReady = async () => {
         if (queue.length > 0) {
-            await axios.get(apiUrl + "/song/" + queue[index]).then((result) => {
+            await axios.get(apiUrl + "/song/" + playingSong).then((result) => {
                 setSongData({
                     title: result.data.title,
                     artist: result.data.artist,
@@ -72,16 +73,16 @@ export const Player = ({
     };
 
     const prevSong = () => {
-        if (index === 0) {
+        if (queue.indexOf(playingSong) === 0) {
             setClickedTime(0);
         } else {
-            setIndex(index - 1);
+            setPlayingSong(queue[queue.indexOf(playingSong) - 1]);
         }
     };
 
     const nextSong = () => {
-        if (index === queue.length - 1) return;
-        setIndex(index + 1);
+        if (queue.indexOf(playingSong) === queue.length - 1) return;
+        setPlayingSong(queue[queue.indexOf(playingSong) + 1]);
     };
 
     // --------- Return JSX ----------
@@ -94,8 +95,8 @@ export const Player = ({
                     height="0"
                     loop={false}
                     url={
-                        queue.length > 0
-                            ? `${apiUrl}/song/play/${queue[index]}`
+                        playingSong
+                            ? `${apiUrl}/song/play/${playingSong}`
                             : ""
                     }
                     playing={playing}

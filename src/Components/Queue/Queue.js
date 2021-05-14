@@ -4,8 +4,8 @@ import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import "./Queue.css";
 
 export const Queue = ({
-    index,
-    setIndex,
+    playingSong,
+    setPlayingSong,
     queue,
     setQueue,
     setPlaying,
@@ -41,24 +41,29 @@ export const Queue = ({
     }, [getQueueData]);
 
     const skipQueue = (e) => {
-        if (e.target.localName !== "button") {
+        if (e.target.localName !== "svg") {
             let clickedItem = e.currentTarget.getAttribute("datakey");
-            setIndex(queue.indexOf(clickedItem));
+            setPlayingSong(clickedItem);
             setPlaying(true);
         }
     };
 
-    const removeQueue = (e) => {
-        const oldIndex = index;
+    const removeQueue = async (e) => {
+        const oldIndex = queue.indexOf(playingSong);
         let clickedItem = e.currentTarget.getAttribute("datakey");
         let q = queue;
         q.splice(q.indexOf(clickedItem), 1);
-        setQueue([...q]);
-        setIndex(oldIndex);
+        await setQueue([...q]);
+
+        if(queue.indexOf(playingSong) === oldIndex)
+            return;
+
+        if (!queue.includes(playingSong)) {
+            setPlayingSong(queue[oldIndex]);
+        }
     };
 
     const handleDragDrop = (result) => {
-        const playingSong = queue[index];
         const data = queueData;
         const [reorderedData] = data.splice(result.source.index, 1);
         data.splice(result.destination.index, 0, reorderedData);
@@ -68,8 +73,6 @@ export const Queue = ({
         const [reorderedSong] = songs.splice(result.source.index, 1);
         songs.splice(result.destination.index, 0, reorderedSong);
         setQueue(songs);
-
-        setIndex(queue.indexOf(playingSong));
     };
 
     const getQueueList = (provided) => {
@@ -80,7 +83,7 @@ export const Queue = ({
                         <div>
                             <li
                                 className={`${
-                                    queue[index] === q._id
+                                    playingSong === q._id
                                         ? "queueActive"
                                         : "queueItem"
                                 }`}

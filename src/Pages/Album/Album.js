@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 import "./Album.css";
 
 export const Album = ({
-    index,
-    setIndex,
+    playingSong,
+    setPlayingSong,
     queue,
     setQueue,
     setPlaying,
@@ -32,10 +32,8 @@ export const Album = ({
     const setSong = async (id) => {
         if (!queue.includes(id)) {
             await setQueue([...queue, id]);
-            setIndex(queue.length);
-        } else {
-            setIndex(queue.indexOf(id));
         }
+        setPlayingSong(id);
 
         setPlaying(true);
     };
@@ -53,7 +51,7 @@ export const Album = ({
         return songs.map((s, i) => (
             <li
                 className={`${
-                    queue[index] === s._id ? "activeItem" : "songItem"
+                    playingSong === s._id ? "activeItem" : "songItem"
                 }`}
                 key={s._id}
                 onClick={() => setSong(s._id)}

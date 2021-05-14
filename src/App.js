@@ -7,7 +7,7 @@ import { Home } from "./Pages/Home/Home";
 
 function App() {
     const [queue, setQueue] = useState([]);
-    const [index, setIndex] = useState(0);
+    const [playingSong, setPlayingSong] = useState(null);
     const [playing, setPlaying] = useState(false);
     const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -22,8 +22,8 @@ function App() {
                             </Route>
                             <Route path="/albums/:id">
                                 <Album
-                                    index={index}
-                                    setIndex={setIndex}
+                                    playingSong={playingSong}
+                                    setPlayingSong={setPlayingSong}
                                     queue={queue}
                                     setQueue={setQueue}
                                     setPlaying={setPlaying}
@@ -34,16 +34,16 @@ function App() {
                     </div>
                 </Router>
                 <Queue
-                    index={index}
-                    setIndex={setIndex}
+                    playingSong={playingSong}
+                    setPlayingSong={setPlayingSong}
                     queue={queue}
                     setQueue={setQueue}
                     setPlaying={setPlaying}
                     apiUrl={apiUrl}
                 />
                 <Player
-                    index={index}
-                    setIndex={setIndex}
+                    playingSong={playingSong}
+                    setPlayingSong={setPlayingSong}
                     queue={queue}
                     playing={playing}
                     setPlaying={setPlaying}
