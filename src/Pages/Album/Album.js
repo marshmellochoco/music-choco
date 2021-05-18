@@ -66,7 +66,7 @@ export const Album = ({
                 }`}
                 key={s._id}
                 onClick={(e) =>
-                    e.target.className !== "icon" ? null : setSong(s._id)
+                    e.target.localName === "div" ? setSong(s._id) : null
                 }
                 onContextMenu={(e) => addQueue(s._id)}
             >
