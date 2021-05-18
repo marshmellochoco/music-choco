@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Card } from "../../Components/Card/Card";
 import "./Home.css";
 

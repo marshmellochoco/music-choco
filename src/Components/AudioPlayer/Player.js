@@ -2,7 +2,7 @@ import axios from "axios";
 import ReactPlayer from "react-player";
 
 import { Slider } from "../Slider/Slider";
-import { createRef, useState } from "react";
+import React, { createRef, useState } from "react";
 
 import "./Player.css";
 
@@ -13,6 +13,9 @@ export const Player = ({
     playing,
     setPlaying,
     apiUrl,
+    isRandom,
+    isLoop,
+    randomQueue,
 }) => {
     // =============== State initialization ===============
     // --------- Audio Control States ----------
@@ -73,16 +76,31 @@ export const Player = ({
     };
 
     const prevSong = () => {
-        if (queue.indexOf(playingSong) === 0) {
-            setClickedTime(0);
+        if (isRandom) {
+            if (randomQueue.indexOf(playingSong) === 0) {
+                setClickedTime(0);
+            } else {
+                setPlayingSong(
+                    randomQueue[randomQueue.indexOf(playingSong) - 1]
+                );
+            }
         } else {
-            setPlayingSong(queue[queue.indexOf(playingSong) - 1]);
+            if (queue.indexOf(playingSong) === 0) {
+                setClickedTime(0);
+            } else {
+                setPlayingSong(queue[queue.indexOf(playingSong) - 1]);
+            }
         }
     };
 
     const nextSong = () => {
-        if (queue.indexOf(playingSong) === queue.length - 1) return;
-        setPlayingSong(queue[queue.indexOf(playingSong) + 1]);
+        const nextRandom = (q) => {
+            if (q.indexOf(playingSong) === q.length - 1)
+                setPlayingSong(isLoop ? q[0] : q[q.length - 1]);
+            else setPlayingSong(q[q.indexOf(playingSong) + 1]);
+        };
+
+        nextRandom(isRandom ? randomQueue : queue);
     };
 
     // --------- Return JSX ----------
@@ -95,9 +113,7 @@ export const Player = ({
                     height="0"
                     loop={false}
                     url={
-                        playingSong
-                            ? `${apiUrl}/song/play/${playingSong}`
-                            : ""
+                        playingSong ? `${apiUrl}/song/play/${playingSong}` : ""
                     }
                     playing={playing}
                     volume={volume}

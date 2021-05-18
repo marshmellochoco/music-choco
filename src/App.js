@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import { Player } from "./Components/AudioPlayer/Player";
 import { Queue } from "./Components/Queue/Queue";
@@ -7,8 +7,11 @@ import { Home } from "./Pages/Home/Home";
 
 function App() {
     const [queue, setQueue] = useState([]);
+    const [randomQueue, setRandomQueue]= useState([]);
     const [playingSong, setPlayingSong] = useState(null);
     const [playing, setPlaying] = useState(false);
+    const [isRandom, setRandom] = useState(false);
+    const [isLoop, setLoop] = useState(false);
     const apiUrl = process.env.REACT_APP_API_URL;
 
     return (
@@ -45,6 +48,11 @@ function App() {
                     setQueue={setQueue}
                     setPlaying={setPlaying}
                     apiUrl={apiUrl}
+                    isRandom={isRandom}
+                    setRandom={setRandom}
+                    isLoop={isLoop}
+                    setLoop={setLoop}
+                    setRandomQueue={setRandomQueue}
                 />
                 <Player
                     playingSong={playingSong}
@@ -53,6 +61,9 @@ function App() {
                     playing={playing}
                     setPlaying={setPlaying}
                     apiUrl={apiUrl}
+                    isRandom={isRandom}
+                    isLoop={isLoop}
+                    randomQueue={randomQueue}
                 />
             </div>
         </div>
@@ -67,5 +78,3 @@ export default App;
 
 // TODO: Searchbar
 // TODO: Homepage can add recommendation
-// TODO: Looping
-// TODO: Random

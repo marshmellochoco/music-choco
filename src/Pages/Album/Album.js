@@ -1,4 +1,5 @@
 import axios from "axios";
+import React from "react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
@@ -48,6 +49,9 @@ export const Album = ({
         if (!queue.includes(id)) {
             if (queue.length === 0) setPlayingSong(id);
             setQueue([...queue, id]);
+        }
+        else{
+            alert('exists');
         }
     };
 

@@ -11,6 +11,33 @@
     overflow-y: scroll;
 }
 
+.queue .queueHeader{
+    display: flex;
+    align-items: baseline;
+    align-content: flex-end;
+    margin-left: auto;
+}
+
+.queue .queueHeader .controls{
+    display: flex;
+    margin-left: auto;
+}
+
+.queueHeader .controls .icons{
+    fill: var(--contrast-color);
+    width: 2em;
+    height: 2em;
+    margin: 5%;
+}
+
+.queueHeader .controls .active {
+    fill:var(--primary-color);
+}
+
+.queueHeader .controls .active:hover, .queueHeader .controls .icons:hover {
+    fill: var(--thirtiary-color);
+}
+
 .queueList{
     list-style-type: none;
     padding-left: 0;

@@ -1,3 +1,4 @@
+import React from 'react'
 import './Slider.css'
 export const Slider = ({onChange, transform}) => {
     return(
