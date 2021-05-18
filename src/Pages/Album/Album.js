@@ -34,12 +34,18 @@ export const Album = ({
             await setQueue([...queue, id]);
         }
         setPlayingSong(id);
+        setPlaying(true);
+    };
 
+    const setAlbumToQueue = async () => {
+        setQueue(songList);
+        setPlayingSong(songList[0]);
         setPlaying(true);
     };
 
     const addQueue = (id) => {
         if (!queue.includes(id)) {
+            if (queue.length === 0) setPlayingSong(id);
             setQueue([...queue, id]);
         }
     };
@@ -77,6 +83,8 @@ export const Album = ({
             </h3>
             <div className="albumHeader">
                 <img alt={album} src={`${apiUrl}/album/${id}/ico`} />
+                <div className="overlay" onClick={() => setAlbumToQueue()} />
+
                 <div className="album">
                     <h1>{album}</h1>
                     <h2>{artist}</h2>

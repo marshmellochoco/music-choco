@@ -22,7 +22,22 @@
 
 .albumHeader img{
     width: 12rem;
+    cursor: pointer;
 }
+
+.albumHeader .overlay{
+    position: absolute;
+    background-color: white;
+    height: 12rem;
+    width: 12rem;
+    cursor: pointer;
+    opacity: 0;
+}
+
+.albumHeader .overlay:hover{
+    opacity: 0.05;
+}
+
 
 .albumHeader .album{
     display: inline-block;

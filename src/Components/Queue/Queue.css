@@ -8,6 +8,7 @@
 .queue{
     background-color: var(--secondary-color);
     padding: 0 1rem;
+    overflow-y: scroll;
 }
 
 .queueList{
