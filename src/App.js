@@ -58,9 +58,6 @@ export default App;
 
 // TODO: Prevent sending 'undefined' as api request
 
-// TODO: Remvoe from queue
-
-// TODO: Button to add to queue
 // TODO: Song already in queue
 
 // TODO: Searchbar
