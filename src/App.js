@@ -58,10 +58,10 @@ export default App;
 
 // TODO: Prevent sending 'undefined' as api request
 
-// TODO: Add whole album to queue when played
-
 // TODO: Button to add to queue
 // TODO: Song already in queue
 
 // TODO: Searchbar
 // TODO: Homepage can add recommendation
+// TODO: Looping
+// TODO: Random
