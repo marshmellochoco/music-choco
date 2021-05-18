@@ -3,14 +3,12 @@ import { useEffect, useState } from "react";
 import { Card } from "../../Components/Card/Card";
 import "./Home.css";
 
-export const Home = ({apiUrl}) => {
+export const Home = ({ apiUrl, setQueue, setPlayingSong, setPlaying }) => {
     const [albums, setAlbums] = useState([]);
 
     // Run when page is loaded
     useEffect(() => {
-        axios
-            .get(apiUrl + "/album")
-            .then((res) => setAlbums(res.data));
+        axios.get(apiUrl + "/album").then((res) => setAlbums(res.data));
     }, [apiUrl]);
 
     // Returns a list of card item containing album information
@@ -22,6 +20,9 @@ export const Home = ({apiUrl}) => {
                 name={album.albumname}
                 artist={album.artist}
                 apiUrl={apiUrl}
+                setQueue={setQueue}
+                setPlayingSong={setPlayingSong}
+                setPlaying={setPlaying}
             />
         ));
     };

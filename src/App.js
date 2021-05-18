@@ -18,7 +18,12 @@ function App() {
                     <div className="page-container">
                         <Switch>
                             <Route exact path="/">
-                                <Home apiUrl={apiUrl} />
+                                <Home
+                                    apiUrl={apiUrl}
+                                    setQueue={setQueue}
+                                    setPlayingSong={setPlayingSong}
+                                    setPlaying={setPlaying}
+                                />
                             </Route>
                             <Route path="/albums/:id">
                                 <Album
