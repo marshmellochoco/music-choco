@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import "./Queue.css";
 
@@ -13,32 +13,39 @@ export const Queue = ({
 }) => {
     const [queueData, setQueueData] = useState([]);
 
-    const getQueueData = useCallback(async () => {
-        var data = [];
-        for (let i = 0; i < queue.length; i++) {
-            let dataContainer;
-            await axios.get(apiUrl + "/song/" + queue[i]).then((res) => {
-                dataContainer = res.data;
-            });
-
-            await axios
-                .get(apiUrl + "/album/" + dataContainer.album)
-                .then((res) => {
-                    let name = res.data.albumname;
-                    data.push({
-                        _id: dataContainer._id,
-                        title: dataContainer.title,
-                        duration: dataContainer.duration,
-                        albumname: name,
-                    });
-                });
-        }
-        setQueueData(data);
-    }, [queue, apiUrl]);
-
     useEffect(() => {
-        getQueueData();
-    }, [getQueueData]);
+        const getQueue = async () => {
+            for (let i = 0; i < queue.length; i++) {
+                let found = false;
+                for (let j = 0; j < queueData.length; j++) {
+                    if (queue[i] === queueData[j]) found = true;
+                }
+
+                if (!found) {
+                    await axios
+                        .get(apiUrl + "/song/" + queue[i])
+                        .then((res) => {
+                            axios
+                                .get(apiUrl + "/album/" + res.data.album)
+                                .then((resp) => {
+                                    setQueueData((queueData) => [
+                                        ...queueData,
+                                        {
+                                            _id: res.data._id,
+                                            title: res.data.title,
+                                            duration: res.data.duration,
+                                            albumname: resp.data.albumname,
+                                        },
+                                    ]);
+                                });
+                        });
+                }
+            }
+        };
+
+        setQueueData([]);
+        getQueue();
+    }, [queue]); // eslint-disable-line
 
     const skipQueue = (e) => {
         if (e.target.localName !== "svg") {
@@ -49,17 +56,21 @@ export const Queue = ({
     };
 
     const removeQueue = async (e) => {
-        const oldIndex = queue.indexOf(playingSong);
+        const playingIndex = queue.indexOf(playingSong);
         let clickedItem = e.currentTarget.getAttribute("datakey");
-        let q = queue;
-        q.splice(q.indexOf(clickedItem), 1);
-        await setQueue([...q]);
 
-        if(queue.indexOf(playingSong) === oldIndex)
-            return;
+        let q = queue;
+        q.splice(queue.indexOf(clickedItem), 1);
+        setQueue([...q]);
+
+        let qd = queueData;
+        qd.pop(queue.indexOf(clickedItem));
+        setQueueData(qd);
+
+        if (queue.indexOf(playingSong) === playingIndex) return;
 
         if (!queue.includes(playingSong)) {
-            setPlayingSong(queue[oldIndex]);
+            setPlayingSong(queue[playingIndex === 0 ? 0 : playingIndex - 1]);
         }
     };
 

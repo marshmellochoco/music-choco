@@ -38,6 +38,7 @@ export const Album = ({
     };
 
     const setAlbumToQueue = async () => {
+        await setQueue([]);
         setQueue(songList);
         setPlayingSong(songList[0]);
         setPlaying(true);
