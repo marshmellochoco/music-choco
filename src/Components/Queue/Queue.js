@@ -16,9 +16,14 @@ export const Queue = ({
     useEffect(() => {
         const getQueue = async () => {
             for (let i = 0; i < queue.length; i++) {
+
                 let found = false;
-                for (let j = 0; j < queueData.length; j++) {
-                    if (queue[i] === queueData[j]) found = true;
+                for (let j = 0; j < qdCache.length; j++) {
+                    if (queue[i] === qdCache[j]._id) {
+                        setQueueData((queueData) => [...queueData, qdCache[j]])
+                        found = true;
+                        break;
+                    }
                 }
 
                 if (!found) {
@@ -43,6 +48,7 @@ export const Queue = ({
             }
         };
 
+        const qdCache = queueData;
         setQueueData([]);
         getQueue();
     }, [queue]); // eslint-disable-line
