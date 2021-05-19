@@ -51,7 +51,7 @@ export const Album = ({
             setQueue([...queue, id]);
         }
         else{
-            alert('exists');
+            console.log("Song already exist")
         }
     };
 
