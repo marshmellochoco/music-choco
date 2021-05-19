@@ -78,3 +78,17 @@ export default App;
 
 // TODO: Searchbar
 // TODO: Homepage can add recommendation
+// TODO: Volume thumb
+
+// TODO: Screen scroll when now playing is below
+// TODO: Loop and random feels 
+// TODO: Button have to give some impact
+// TODO: Add song
+
+// TODO: Pull song from album to queue
+// TODO: Drag and drop style with background
+// TODO: Drag and drop item sometime cannot drag
+// TODO: Drag and drop item style will go off
+// TODO: Drag and drop item can stuck sometimes
+
+// TODO: Login
