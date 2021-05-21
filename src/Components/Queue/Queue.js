@@ -61,6 +61,13 @@ export const Queue = ({
         setRandomQueue(randQueue.sort(() => Math.random() - 0.5));
     }, [queue]); // eslint-disable-line
 
+    useEffect(() => {
+        if (!playingSong) return;
+        const item = document.getElementById(playingSong);
+        if (!item) return;
+        item.scrollIntoView(false);
+    }, [playingSong]);
+
     const skipQueue = (e) => {
         if (e.target.localName !== "svg") {
             let clickedItem = e.currentTarget.getAttribute("datakey");
@@ -107,6 +114,7 @@ export const Queue = ({
                 <Draggable key={q._id} draggableId={q._id} index={i}>
                     {(provided, snapshot) => (
                         <div
+                            id={q._id}
                             className={`${
                                 playingSong === q._id
                                     ? "queueActive"
