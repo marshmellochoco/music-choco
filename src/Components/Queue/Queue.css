@@ -76,6 +76,12 @@
     background-color: var(--primary-color);
 }
 
+.queueList .dragging{
+    background-color: var(--thirtiary-color);
+    color: var(--primary-color);
+}
+
 .queueList .queueActive{
     background-color: black;
+    color: var(--contrast-color);
 }

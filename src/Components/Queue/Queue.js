@@ -15,7 +15,7 @@ export const Queue = ({
     setRandom,
     isLoop,
     setLoop,
-    setRandomQueue
+    setRandomQueue,
 }) => {
     const [queueData, setQueueData] = useState([]);
 
@@ -56,7 +56,7 @@ export const Queue = ({
         const qdCache = queueData;
         setQueueData([]);
         getQueue();
-        
+
         let randQueue = [...queue];
         setRandomQueue(randQueue.sort(() => Math.random() - 0.5));
     }, [queue]); // eslint-disable-line
@@ -89,6 +89,7 @@ export const Queue = ({
     };
 
     const handleDragDrop = (result) => {
+        if (!result.destination) return;
         const data = queueData;
         const [reorderedData] = data.splice(result.source.index, 1);
         data.splice(result.destination.index, 0, reorderedData);
@@ -104,23 +105,24 @@ export const Queue = ({
         return queueData.map((q, i) => {
             return (
                 <Draggable key={q._id} draggableId={q._id} index={i}>
-                    {(provided) => (
-                        <div>
-                            <li
-                                className={`${
-                                    playingSong === q._id
-                                        ? "queueActive"
-                                        : "queueItem"
-                                }`}
-                                ref={provided.innerRef}
-                                {...provided.draggableProps}
-                                {...provided.dragHandleProps}
-                                datakey={q._id}
-                                onClick={(e) => skipQueue(e)}
-                                onContextMenu={(e) => {
-                                    removeQueue(e);
-                                }}
-                            >
+                    {(provided, snapshot) => (
+                        <div
+                            className={`${
+                                playingSong === q._id
+                                    ? "queueActive"
+                                    : "queueItem"
+                            }
+                            ${snapshot.isDragging ? "dragging" : ""}`}
+                            ref={provided.innerRef}
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                            datakey={q._id}
+                            onClick={(e) => skipQueue(e)}
+                            onContextMenu={(e) => {
+                                removeQueue(e);
+                            }}
+                        >
+                            <li>
                                 <div>{q.title}</div>
                                 <div className="album">{q.albumname}</div>
                                 <div
