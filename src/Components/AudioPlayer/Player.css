@@ -48,6 +48,9 @@
     margin: 0 10px;
     display: flex;
     align-items: flex-end;
+    white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
 }
 
 .player-playing .artist{
@@ -55,6 +58,9 @@
     margin: 0 10px;
     display: flex;
     align-items: flex-start;
+    white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
 }
 
 /* ---------- Control ---------- */
