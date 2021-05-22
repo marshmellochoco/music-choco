@@ -22,10 +22,6 @@ export const Queue = ({
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        console.log("loading: ", loading);
-    }, [loading]);
-
-    useEffect(() => {
         const getQueueData = async () => {
             var data = [];
             setQueueData([]);
@@ -85,7 +81,6 @@ export const Queue = ({
     };
 
     const removeQueue = async (e) => {
-        setLoading(true);
         let clickedItem = e.currentTarget.getAttribute("datakey");
 
         let q = queue;
@@ -96,7 +91,6 @@ export const Queue = ({
             setPlayingSong("");
             setPlaying(false);
         }
-        setLoading(false);
     };
 
     const handleDragDrop = (result) => {
