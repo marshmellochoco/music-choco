@@ -1,3 +1,15 @@
+:root {
+    --primary-color: #404040;
+    --secondary-color: #707070;
+    --thirtiary-color: #a0a0a0;
+    --contrast-color: #d0d0d0;
+}
+
+.headers{
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+}
+
 .cardList{
     display: flex;
     flex-wrap: wrap;

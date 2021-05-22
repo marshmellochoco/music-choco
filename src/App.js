@@ -76,7 +76,6 @@ export default App;
 
 // TODO: Searchbar
 // TODO: Homepage can add recommendation
-// TODO: Volume thumb
 
 // TODO: Loop and random feels
 // TODO: ^ Button have to give some feedback

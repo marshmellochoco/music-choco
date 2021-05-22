@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Card } from "../../Components/Card/Card";
+import { Searchbar } from "../../Components/Searchbar/Searchbar";
 import "./Home.css";
 
 export const Home = ({ apiUrl, setQueue, setPlayingSong, setPlaying }) => {
@@ -29,9 +30,19 @@ export const Home = ({ apiUrl, setQueue, setPlayingSong, setPlaying }) => {
 
     return (
         <div>
-            <h1>Albums</h1>
-            <div className="cardList">
-                {albums.length === 0 ? <h2>There is no album</h2> : getAlbums()}
+            <div className="headers">
+                <h1>music-choco</h1>
+                <Searchbar/>
+            </div>
+            <div className="content">
+                <h1>Albums</h1>
+                <div className="cardList">
+                    {albums.length === 0 ? (
+                        <h2>There is no album</h2>
+                    ) : (
+                        getAlbums()
+                    )}
+                </div>
             </div>
         </div>
     );
