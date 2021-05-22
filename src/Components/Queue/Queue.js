@@ -2,6 +2,7 @@ import axios from "axios";
 import React from "react";
 import { useEffect, useState } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import ReactLoading from "react-loading";
 import "./Queue.css";
 
 export const Queue = ({
@@ -18,12 +19,18 @@ export const Queue = ({
     setRandomQueue,
 }) => {
     const [queueData, setQueueData] = useState([]);
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        console.log("loading: ", loading);
+    }, [loading]);
 
     useEffect(() => {
         const getQueueData = async () => {
             var data = [];
             setQueueData([]);
-            
+            setLoading(true);
+
             for (let i = 0; i < queue.length; i++) {
                 let found = false;
                 for (let j = 0; j < qdCache.length; j++) {
@@ -52,6 +59,7 @@ export const Queue = ({
                 }
             }
             setQueueData(data);
+            setLoading(false);
         };
 
         const qdCache = queueData;
@@ -77,6 +85,7 @@ export const Queue = ({
     };
 
     const removeQueue = async (e) => {
+        setLoading(true);
         let clickedItem = e.currentTarget.getAttribute("datakey");
 
         let q = queue;
@@ -87,6 +96,7 @@ export const Queue = ({
             setPlayingSong("");
             setPlaying(false);
         }
+        setLoading(false);
     };
 
     const handleDragDrop = (result) => {
@@ -125,7 +135,7 @@ export const Queue = ({
                             }}
                         >
                             <li>
-                                <div>{q.title}</div>
+                                <div className="title">{q.title}</div>
                                 <div className="album">{q.albumname}</div>
                                 <div
                                     className={"removeButton icon"}
@@ -182,20 +192,24 @@ export const Queue = ({
                     </svg>
                 </div>
             </div>
-            <DragDropContext onDragEnd={handleDragDrop}>
-                <Droppable droppableId="droppable">
-                    {(provided) => (
-                        <ul
-                            className="queueList"
-                            {...provided.droppableProps}
-                            ref={provided.innerRef}
-                        >
-                            {getQueueList(provided, queueData)}
-                            {provided.placeholder}
-                        </ul>
-                    )}
-                </Droppable>
-            </DragDropContext>
+            {loading ? (
+                <ReactLoading className="loading" type="bars" />
+            ) : (
+                <DragDropContext onDragEnd={handleDragDrop}>
+                    <Droppable droppableId="droppable">
+                        {(provided) => (
+                            <ul
+                                className="queueList"
+                                {...provided.droppableProps}
+                                ref={provided.innerRef}
+                            >
+                                {getQueueList(provided, queueData)}
+                                {provided.placeholder}
+                            </ul>
+                        )}
+                    </Droppable>
+                </DragDropContext>
+            )}
         </div>
     );
 };

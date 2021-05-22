@@ -80,14 +80,10 @@ export default App;
 // TODO: Volume thumb
 
 // TODO: Loop and random feels 
-// TODO: Button have to give some impact
+// TODO: ^ Button have to give some feedback 
 // TODO: Add song
 
-// TODO: Remove all song and add another song, the a song will stay and cannot be deleted, 
-// when delete it will delete all song, when delete still play the song
-// The data still exist when adding the same song
-
-// TODO: Pull song from album to queue
+// TODO: Pull song from album to queue or playlists
 
 // TODO: Login
-// TODO: Add song list
+// TODO: Add song list, favorite

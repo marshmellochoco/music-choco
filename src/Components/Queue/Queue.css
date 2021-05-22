@@ -50,9 +50,18 @@
     grid-template-rows: 1fr 1fr;
 }
 
+.queueList li .title{
+    width: 90%;
+    white-space: nowrap;
+    overflow: hidden !important;
+}
+
 .queueList li .album{
     font-size: 0.8em;
     grid-row: 2;
+    width: 90%;
+    white-space: nowrap;
+    overflow: hidden !important;
 }
 
 .queueList li .duration{
@@ -84,4 +93,9 @@
 .queueList .queueActive{
     background-color: black;
     color: var(--contrast-color);
+}
+
+.queue .loading{
+    margin: auto;
+    color: #404040;
 }
