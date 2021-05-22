@@ -38,7 +38,7 @@ export const Player = ({
 
     const onProgress = (e) => {
         setCurrentTime(e.playedSeconds);
-        if (currentTime >= songData.duration - 1) {
+        if (e.playedSeconds >= songData.duration ) {
             setPlaying(false);
             setCurrentTime(0);
             nextSong();
@@ -49,7 +49,6 @@ export const Player = ({
     const onReady = async () => {
         if (queue.length > 0) {
             await axios.get(apiUrl + "/song/" + playingSong).then((result) => {
-                console.log(result.data)
                 setSongData({
                     title: result.data.songs.title,
                     artist: result.data.artist,

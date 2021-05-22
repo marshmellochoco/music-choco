@@ -25,3 +25,45 @@
 a{
     text-decoration: none;
 }
+
+.content .songList{
+    list-style-type: none;
+    padding: 0;
+    margin-right: 2%;
+}
+
+.content .songList li{
+    padding: 0.5em 0;
+    height: 60px;
+    padding-left: 1%;
+    display: grid;
+    grid-template-columns: 70px 20fr 4em;
+}
+
+.content .songList li:hover{
+    background-color: var(--secondary-color);
+}
+
+.content .songList .activeItem{
+    background-color: var(--thirtiary-color);
+    color: var(--primary-color);
+}
+
+.content .songList li div{
+    display: flex;
+    align-items: center;
+}
+
+.content .songList li .songDetail{
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+}
+
+.content .songList li .songTitle{
+    font-size: 1.2em;
+    overflow: hidden;
+}
+
+.content .songList .album{
+    width: 60px;
+}

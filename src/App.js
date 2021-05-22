@@ -23,7 +23,9 @@ function App() {
                             <Route exact path="/">
                                 <Home
                                     apiUrl={apiUrl}
+                                    queue={queue}
                                     setQueue={setQueue}
+                                    playingSong={playingSong}
                                     setPlayingSong={setPlayingSong}
                                     setPlaying={setPlaying}
                                 />

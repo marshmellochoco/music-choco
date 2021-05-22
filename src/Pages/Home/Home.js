@@ -1,41 +1,92 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+
 import { Card } from "../../Components/Card/Card";
 import { Searchbar } from "../../Components/Searchbar/Searchbar";
 import "./Home.css";
 
-export const Home = ({ apiUrl, setQueue, setPlayingSong, setPlaying }) => {
-    const [albums, setAlbums] = useState([]);
+export const Home = ({
+    apiUrl,
+    queue,
+    setQueue,
+    playingSong,
+    setPlayingSong,
+    setPlaying,
+}) => {
     const [search, setSearch] = useState("");
+    const [albumSearch, setAlbumSearch] = useState([]);
+    const [songSearch, setSongSearch] = useState([]);
 
-    // Run when page is loaded
     useEffect(() => {
-        axios.get(apiUrl + "/album").then((res) => setAlbums(res.data));
-    }, [apiUrl]);
+        if (search) {
+            axios
+                .get(apiUrl + "/album/search/" + search)
+                .then((result) => setAlbumSearch(result.data));
 
-    // Returns a list of card item containing album information
-    const getAlbums = () => {
-        return albums.map((album) => (
-            <Card
-                key={album.id}
-                id={album.id}
-                name={album.albumname}
-                artist={album.artist}
-                apiUrl={apiUrl}
-                setQueue={setQueue}
-                setPlayingSong={setPlayingSong}
-                setPlaying={setPlaying}
-            />
-        ));
+            axios
+                .get(apiUrl + "/song/search/" + search)
+                .then((result) => setSongSearch(result.data));
+        }
+    }, [search, apiUrl]);
+
+    const playSong = (id) => {
+        if (!queue.includes(id)) {
+            setQueue([...queue, id]);
+        }
+        setPlaying(true);
+        setPlayingSong(id);
     };
 
+    // Returns a list of card item containing album information
     const handleSearch = (e) => {
         setSearch(e.target.value);
     };
 
-    const searchResult = (query) => {
-        return <p>{query}</p>
-    }
+    const searchAlbum = () => {
+        return albumSearch.map((s) => {
+            return (
+                <Card
+                    key={s._id}
+                    id={s._id}
+                    name={s.albumname}
+                    artist={s.artist}
+                    apiUrl={apiUrl}
+                    setQueue={setQueue}
+                    setPlayingSong={setPlayingSong}
+                    setPlaying={setPlaying}
+                ></Card>
+            );
+        });
+    };
+
+    const searchSong = () => {
+        return songSearch.map((s) => {
+            return (
+                <li
+                    key={s.songs._id}
+                    onClick={(e) => playSong(s.songs._id)}
+                    className={playingSong === s.songs._id ? "activeItem" : ""}
+                >
+                    <img
+                        src={apiUrl + "/album/" + s._id + "/ico"}
+                        alt="album logo"
+                        className="album"
+                    ></img>
+                    <div className="songDetail">
+                        <div className="songTitle">{s.songs.title}</div>
+                        <div>{s.artist}</div>
+                    </div>
+                    <div>
+                        {((s.songs.duration - 1) / 60 < 10 ? "0" : "") +
+                            Math.floor((s.songs.duration - 1) / 60)}{" "}
+                        :{" "}
+                        {((s.songs.duration - 1) % 60 < 10 ? "0" : "") +
+                            Math.floor((s.songs.duration - 1) % 60)}
+                    </div>
+                </li>
+            );
+        });
+    };
 
     return (
         <div>
@@ -44,18 +95,14 @@ export const Home = ({ apiUrl, setQueue, setPlayingSong, setPlaying }) => {
                 <Searchbar handleSearch={handleSearch} />
             </div>
             {search === "" ? (
+                <div className="content">Hmm... what to put here</div>
+            ) : (
                 <div className="content">
                     <h1>Albums</h1>
-                    <div className="cardList">
-                        {albums.length === 0 ? (
-                            <h2>There is no album</h2>
-                        ) : (
-                            getAlbums()
-                        )}
-                    </div>
+                    <div className="cardList">{searchAlbum()}</div>
+                    <h1>Songs</h1>
+                    <ul className="songList">{searchSong()}</ul>
                 </div>
-            ) : (
-                <div>{searchResult(search)}</div>
             )}
         </div>
     );
