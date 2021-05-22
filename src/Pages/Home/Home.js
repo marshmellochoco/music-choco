@@ -6,6 +6,7 @@ import "./Home.css";
 
 export const Home = ({ apiUrl, setQueue, setPlayingSong, setPlaying }) => {
     const [albums, setAlbums] = useState([]);
+    const [search, setSearch] = useState("");
 
     // Run when page is loaded
     useEffect(() => {
@@ -28,22 +29,34 @@ export const Home = ({ apiUrl, setQueue, setPlayingSong, setPlaying }) => {
         ));
     };
 
+    const handleSearch = (e) => {
+        setSearch(e.target.value);
+    };
+
+    const searchResult = (query) => {
+        return <p>{query}</p>
+    }
+
     return (
         <div>
             <div className="headers">
                 <h1>music-choco</h1>
-                <Searchbar/>
+                <Searchbar handleSearch={handleSearch} />
             </div>
-            <div className="content">
-                <h1>Albums</h1>
-                <div className="cardList">
-                    {albums.length === 0 ? (
-                        <h2>There is no album</h2>
-                    ) : (
-                        getAlbums()
-                    )}
+            {search === "" ? (
+                <div className="content">
+                    <h1>Albums</h1>
+                    <div className="cardList">
+                        {albums.length === 0 ? (
+                            <h2>There is no album</h2>
+                        ) : (
+                            getAlbums()
+                        )}
+                    </div>
                 </div>
-            </div>
+            ) : (
+                <div>{searchResult(search)}</div>
+            )}
         </div>
     );
 };

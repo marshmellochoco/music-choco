@@ -8,6 +8,7 @@
 .headers{
     display: grid;
     grid-template-columns: 4fr 1fr;
+    margin-right: 2%;
 }
 
 .cardList{

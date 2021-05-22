@@ -49,12 +49,13 @@ export const Player = ({
     const onReady = async () => {
         if (queue.length > 0) {
             await axios.get(apiUrl + "/song/" + playingSong).then((result) => {
+                console.log(result.data)
                 setSongData({
-                    title: result.data.title,
+                    title: result.data.songs.title,
                     artist: result.data.artist,
-                    album: result.data.album,
-                    duration: result.data.duration,
-                    icon: apiUrl + "/album/" + result.data.album + "/ico",
+                    album: result.data.albumname,
+                    duration: result.data.songs.duration,
+                    icon: apiUrl + "/album/" + result.data._id + "/ico",
                 });
             });
         }

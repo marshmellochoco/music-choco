@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import { Player } from "./Components/AudioPlayer/Player";
-import { Queue } from "./Components/Queue/Queue";
+import { Queue } from "./Pages/Queue/Queue";
 import { Album } from "./Pages/Album/Album";
 import { Home } from "./Pages/Home/Home";
 

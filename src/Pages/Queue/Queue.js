@@ -40,17 +40,13 @@ export const Queue = ({
                 if (!found) {
                     await axios
                         .get(apiUrl + "/song/" + queue[i])
-                        .then((res) => {
-                            axios
-                                .get(apiUrl + "/album/" + res.data.album)
-                                .then((resp) => {
-                                    data.push({
-                                        _id: res.data._id,
-                                        title: res.data.title,
-                                        duration: res.data.duration,
-                                        albumname: resp.data.albumname,
-                                    });
-                                });
+                        .then((result) => {
+                            data.push({
+                                _id: result.data.songs._id,
+                                title: result.data.songs.title,
+                                duration: result.data.songs.duration,
+                                albumname: result.data.albumname
+                            })
                         });
                 }
             }
