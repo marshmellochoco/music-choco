@@ -12,7 +12,6 @@ export const Card = ({
     setPlayingSong,
     setPlaying,
 }) => {
-
     const handlePlayAlbum = async (e, id) => {
         e.preventDefault();
 

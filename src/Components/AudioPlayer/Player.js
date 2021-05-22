@@ -123,10 +123,17 @@ export const Player = ({
                 <div className="player-container">
                     <div className="player-playing">
                         <div className="icon">
-                            <img src={playingSong ? songData.icon : ""} alt="" />
+                            <img
+                                src={playingSong ? songData.icon : ""}
+                                alt=""
+                            />
                         </div>
-                        <div className="title">{playingSong ? songData.title : "---"}</div>
-                        <div className="artist">{playingSong ? songData.artist : "---"}</div>
+                        <div className="title">
+                            {playingSong ? songData.title : "---"}
+                        </div>
+                        <div className="artist">
+                            {playingSong ? songData.artist : "---"}
+                        </div>
                     </div>
 
                     <div className="player-control">

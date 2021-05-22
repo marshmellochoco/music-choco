@@ -49,9 +49,8 @@ export const Album = ({
         if (!queue.includes(id)) {
             if (queue.length === 0) setPlayingSong(id);
             setQueue([...queue, id]);
-        }
-        else{
-            console.log("Song already exist")
+        } else {
+            console.log("Song already exist");
         }
     };
 

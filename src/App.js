@@ -7,7 +7,7 @@ import { Home } from "./Pages/Home/Home";
 
 function App() {
     const [queue, setQueue] = useState([]);
-    const [randomQueue, setRandomQueue]= useState([]);
+    const [randomQueue, setRandomQueue] = useState([]);
     const [playingSong, setPlayingSong] = useState(null);
     const [playing, setPlaying] = useState(false);
     const [isRandom, setRandom] = useState(false);
@@ -42,12 +42,12 @@ function App() {
                     </div>
                 </Router>
                 <Queue
+                    apiUrl={apiUrl}
                     playingSong={playingSong}
                     setPlayingSong={setPlayingSong}
                     queue={queue}
                     setQueue={setQueue}
                     setPlaying={setPlaying}
-                    apiUrl={apiUrl}
                     isRandom={isRandom}
                     setRandom={setRandom}
                     isLoop={isLoop}
@@ -55,12 +55,12 @@ function App() {
                     setRandomQueue={setRandomQueue}
                 />
                 <Player
+                    apiUrl={apiUrl}
                     playingSong={playingSong}
                     setPlayingSong={setPlayingSong}
                     queue={queue}
                     playing={playing}
                     setPlaying={setPlaying}
-                    apiUrl={apiUrl}
                     isRandom={isRandom}
                     isLoop={isLoop}
                     randomQueue={randomQueue}
@@ -72,18 +72,19 @@ function App() {
 
 export default App;
 
-
 // TODO: Song already in queue
 
 // TODO: Searchbar
 // TODO: Homepage can add recommendation
 // TODO: Volume thumb
 
-// TODO: Loop and random feels 
-// TODO: ^ Button have to give some feedback 
+// TODO: Loop and random feels
+// TODO: ^ Button have to give some feedback
 // TODO: Add song
 
 // TODO: Pull song from album to queue or playlists
 
 // TODO: Login
 // TODO: Add song list, favorite
+
+// Bug: The playing song will go to the next song after 1 or 2 seconds
