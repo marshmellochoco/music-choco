@@ -25,9 +25,9 @@ export const Player = ({
 
     // --------- Song Data Template ----------
     const [songData, setSongData] = useState({
-        title: "---",
-        artist: "---",
-        album: "---",
+        title: "",
+        artist: "",
+        album: "",
         icon: "",
         duration: 0,
     });
@@ -123,10 +123,10 @@ export const Player = ({
                 <div className="player-container">
                     <div className="player-playing">
                         <div className="icon">
-                            <img src={songData.icon} alt="" />
+                            <img src={playingSong ? songData.icon : ""} alt="" />
                         </div>
-                        <div className="title">{songData.title}</div>
-                        <div className="artist">{songData.artist}</div>
+                        <div className="title">{playingSong ? songData.title : "---"}</div>
+                        <div className="artist">{playingSong ? songData.artist : "---"}</div>
                     </div>
 
                     <div className="player-control">

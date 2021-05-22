@@ -20,12 +20,15 @@ export const Queue = ({
     const [queueData, setQueueData] = useState([]);
 
     useEffect(() => {
-        const getQueue = async () => {
+        const getQueueData = async () => {
+            var data = [];
+            setQueueData([]);
+            
             for (let i = 0; i < queue.length; i++) {
                 let found = false;
                 for (let j = 0; j < qdCache.length; j++) {
                     if (queue[i] === qdCache[j]._id) {
-                        setQueueData((queueData) => [...queueData, qdCache[j]]);
+                        data.push(qdCache[j]);
                         found = true;
                         break;
                     }
@@ -38,24 +41,21 @@ export const Queue = ({
                             axios
                                 .get(apiUrl + "/album/" + res.data.album)
                                 .then((resp) => {
-                                    setQueueData((queueData) => [
-                                        ...queueData,
-                                        {
-                                            _id: res.data._id,
-                                            title: res.data.title,
-                                            duration: res.data.duration,
-                                            albumname: resp.data.albumname,
-                                        },
-                                    ]);
+                                    data.push({
+                                        _id: res.data._id,
+                                        title: res.data.title,
+                                        duration: res.data.duration,
+                                        albumname: resp.data.albumname,
+                                    });
                                 });
                         });
                 }
             }
+            setQueueData(data);
         };
 
         const qdCache = queueData;
-        setQueueData([]);
-        getQueue();
+        getQueueData();
 
         let randQueue = [...queue];
         setRandomQueue(randQueue.sort(() => Math.random() - 0.5));
@@ -77,21 +77,15 @@ export const Queue = ({
     };
 
     const removeQueue = async (e) => {
-        const playingIndex = queue.indexOf(playingSong);
         let clickedItem = e.currentTarget.getAttribute("datakey");
 
         let q = queue;
         q.splice(queue.indexOf(clickedItem), 1);
         setQueue([...q]);
 
-        let qd = queueData;
-        qd.pop(queue.indexOf(clickedItem));
-        setQueueData(qd);
-
-        if (queue.indexOf(playingSong) === playingIndex) return;
-
-        if (!queue.includes(playingSong)) {
-            setPlayingSong(queue[playingIndex === 0 ? 0 : playingIndex - 1]);
+        if (clickedItem === playingSong) {
+            setPlayingSong("");
+            setPlaying(false);
         }
     };
 
@@ -108,8 +102,8 @@ export const Queue = ({
         setQueue(songs);
     };
 
-    const getQueueList = (provided) => {
-        return queueData.map((q, i) => {
+    const getQueueList = (provided, data) => {
+        return data.map((q, i) => {
             return (
                 <Draggable key={q._id} draggableId={q._id} index={i}>
                     {(provided, snapshot) => (
@@ -196,7 +190,7 @@ export const Queue = ({
                             {...provided.droppableProps}
                             ref={provided.innerRef}
                         >
-                            {getQueueList(provided)}
+                            {getQueueList(provided, queueData)}
                             {provided.placeholder}
                         </ul>
                     )}

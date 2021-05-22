@@ -72,7 +72,6 @@ function App() {
 
 export default App;
 
-// TODO: Prevent sending 'undefined' as api request
 
 // TODO: Song already in queue
 
@@ -80,15 +79,15 @@ export default App;
 // TODO: Homepage can add recommendation
 // TODO: Volume thumb
 
-// TODO: Screen scroll when now playing is below
 // TODO: Loop and random feels 
 // TODO: Button have to give some impact
 // TODO: Add song
 
+// TODO: Remove all song and add another song, the a song will stay and cannot be deleted, 
+// when delete it will delete all song, when delete still play the song
+// The data still exist when adding the same song
+
 // TODO: Pull song from album to queue
-// TODO: Drag and drop style with background
-// TODO: Drag and drop item sometime cannot drag
-// TODO: Drag and drop item style will go off
-// TODO: Drag and drop item can stuck sometimes
 
 // TODO: Login
+// TODO: Add song list

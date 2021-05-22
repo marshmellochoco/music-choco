@@ -26,7 +26,6 @@ export const Card = ({
             songList.push(s._id);
         });
 
-        console.log(songList);
         setQueue(songList);
         setPlayingSong(songList[0]);
         setPlaying(true);
