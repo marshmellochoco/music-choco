@@ -37,6 +37,12 @@ export const Home = ({
         setPlayingSong(id);
     };
 
+    const addSong = (id) => {
+        if (!queue.includes(id)){
+            setQueue([...queue, id]);
+        }
+    }
+
     // Returns a list of card item containing album information
     const handleSearch = (e) => {
         setSearch(e.target.value);
@@ -65,6 +71,7 @@ export const Home = ({
                 <li
                     key={s.songs._id}
                     onClick={(e) => playSong(s.songs._id)}
+                    onContextMenu={(e)=>addSong(s.songs._id)}
                     className={playingSong === s.songs._id ? "activeItem" : ""}
                 >
                     <img

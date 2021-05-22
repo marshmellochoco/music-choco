@@ -37,13 +37,16 @@ export const Player = ({
     const ref = createRef();
 
     const onProgress = (e) => {
-        setCurrentTime(e.playedSeconds);
-        if (e.playedSeconds >= songData.duration ) {
-            setPlaying(false);
-            setCurrentTime(0);
-            nextSong();
-            setPlaying(true);
+        if (Math.floor(e.playedSeconds) <= songData.duration) {
+            setCurrentTime(Math.floor(e.playedSeconds));
         }
+    };
+
+    const onEnded = () => {
+        setPlaying(false);
+        setCurrentTime(0);
+        nextSong();
+        setPlaying(true);
     };
 
     const onReady = async () => {
@@ -53,7 +56,7 @@ export const Player = ({
                     title: result.data.songs.title,
                     artist: result.data.artist,
                     album: result.data.albumname,
-                    duration: result.data.songs.duration,
+                    duration: result.data.songs.duration - 2,
                     icon: apiUrl + "/album/" + result.data._id + "/ico",
                 });
             });
@@ -94,13 +97,13 @@ export const Player = ({
     };
 
     const nextSong = () => {
-        const nextRandom = (q) => {
+        const next = (q) => {
             if (q.indexOf(playingSong) === q.length - 1)
-                setPlayingSong(isLoop ? q[0] : q[q.length - 1]);
+                setPlayingSong(isLoop ? q[0] : "");
             else setPlayingSong(q[q.indexOf(playingSong) + 1]);
         };
 
-        nextRandom(isRandom ? randomQueue : queue);
+        next(isRandom ? randomQueue : queue);
     };
 
     // --------- Return JSX ----------
@@ -119,6 +122,7 @@ export const Player = ({
                     volume={volume}
                     onProgress={onProgress}
                     onReady={onReady}
+                    onEnded={onEnded}
                 />
                 <div className="player-container">
                     <div className="player-playing">
