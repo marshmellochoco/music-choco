@@ -11,7 +11,7 @@ export const EditAlbum = ({ apiUrl }) => {
         const getAlbumData = async () => {
             var data = [];
             await axios.get(apiUrl + "/album").then((result) => {
-                result.data.map((d) => {
+                result.data.foreach((d) => {
                     data.push(d);
                 });
             });
