@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 import { Card } from "../../Components/Card/Card";
 import { Searchbar } from "../../Components/Searchbar/Searchbar";
@@ -38,10 +39,10 @@ export const Home = ({
     };
 
     const addSong = (id) => {
-        if (!queue.includes(id)){
+        if (!queue.includes(id)) {
             setQueue([...queue, id]);
         }
-    }
+    };
 
     // Returns a list of card item containing album information
     const handleSearch = (e) => {
@@ -71,7 +72,7 @@ export const Home = ({
                 <li
                     key={s.songs._id}
                     onClick={(e) => playSong(s.songs._id)}
-                    onContextMenu={(e)=>addSong(s.songs._id)}
+                    onContextMenu={(e) => addSong(s.songs._id)}
                     className={playingSong === s.songs._id ? "activeItem" : ""}
                 >
                     <img
@@ -102,7 +103,11 @@ export const Home = ({
                 <Searchbar handleSearch={handleSearch} />
             </div>
             {search === "" ? (
-                <div className="content">Hmm... what to put here</div>
+                <div className="content">
+                    Hmm... what to put here
+                    <br />
+                    <Link to="/add">Add some song!</Link>
+                </div>
             ) : (
                 <div className="content">
                     <h1>Albums</h1>

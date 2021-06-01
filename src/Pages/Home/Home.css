@@ -67,3 +67,8 @@ a{
 .content .songList .album{
     width: 60px;
 }
+
+a{
+    color: white;
+    text-decoration: none;
+}

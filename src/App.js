@@ -4,6 +4,7 @@ import { Player } from "./Components/AudioPlayer/Player";
 import { Queue } from "./Pages/Queue/Queue";
 import { Album } from "./Pages/Album/Album";
 import { Home } from "./Pages/Home/Home";
+import { EditAlbum } from "./Pages/Album/EditAlbum";
 
 function App() {
     const [queue, setQueue] = useState([]);
@@ -39,6 +40,9 @@ function App() {
                                     setPlaying={setPlaying}
                                     apiUrl={apiUrl}
                                 />
+                            </Route>
+                            <Route path="/add">
+                                <EditAlbum apiUrl={apiUrl} />
                             </Route>
                         </Switch>
                     </div>
