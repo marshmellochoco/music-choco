@@ -9,8 +9,8 @@ export const AddSong = ({ apiUrl, album, albumID }) => {
         if (!name || !file) return;
         const data = new FormData();
         data.append("file", file);
-        data.append("albumID", albumID)
-        data.append("songName", name)
+        data.append("albumID", albumID);
+        data.append("songName", name);
         axios.post(apiUrl + "/song", data).then((res) => {
             console.log(res.data);
         });
@@ -45,11 +45,10 @@ export const AddSong = ({ apiUrl, album, albumID }) => {
                                     <input
                                         type="file"
                                         accept="audio/*"
-                                        onChange={(e) =>{
-                                            setFile(e.target.files[0])
-                                            setName(e.target.files[0].name)
-                                        }
-                                        }
+                                        onChange={(e) => {
+                                            setFile(e.target.files[0]);
+                                            setName(e.target.files[0].name);
+                                        }}
                                     />
                                 </td>
                             </tr>

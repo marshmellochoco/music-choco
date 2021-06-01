@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { AddSong } from "../AddSong/AddSong";
 
 export const EditAlbum = ({ apiUrl }) => {
@@ -11,7 +12,7 @@ export const EditAlbum = ({ apiUrl }) => {
         const getAlbumData = async () => {
             var data = [];
             await axios.get(apiUrl + "/album").then((result) => {
-                result.data.foreach((d) => {
+                result.data.forEach((d) => {
                     data.push(d);
                 });
             });
@@ -32,6 +33,9 @@ export const EditAlbum = ({ apiUrl }) => {
 
     return (
         <div>
+            <h3>
+                <Link to="/">{"<"} Back</Link>
+            </h3>
             <h1>Select Album</h1>
             Select: &nbsp;
             <select
@@ -54,7 +58,7 @@ export const EditAlbum = ({ apiUrl }) => {
             {add ? (
                 <AddAlbum apiUrl={apiUrl} setAlbumID={setSelectedAlbum} />
             ) : null}
-            {selectedAlbum !== null && (
+            {selectedAlbum !== null && !add && (
                 <AddSong
                     apiUrl={apiUrl}
                     album={selectedAlbum.albumname}
@@ -82,19 +86,17 @@ const AddAlbum = ({ apiUrl, setAlbumID }) => {
         return () => URL.revokeObjectURL(objectUrl);
     }, [icon]);
 
-    const postAlbum = (e) => {
+    const postAlbum = async (e) => {
         e.preventDefault();
         const data = new FormData();
         data.append("icon", icon);
         data.append("album", album);
         data.append("artist", artist);
         data.append("releaseDate", date);
-        axios
-            .post(apiUrl + "/album", data)
-            .then((res) => {
-                console.log(res.data);
-            })
-            .then(setAlbumID(album));
+        await axios.post(apiUrl + "/album", data).then((res) => {
+            console.log(res.data);
+        });
+        setAlbumID(album);
     };
 
     return (

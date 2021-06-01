@@ -38,7 +38,9 @@
 }
 
 .cardItem h1{
-    font-size: 1.5em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 1.4em;
     margin: 0;
 }
 
