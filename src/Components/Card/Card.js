@@ -11,6 +11,7 @@ export const Card = ({
     setQueue,
     setPlayingSong,
     setPlaying,
+    handleImageError,
 }) => {
     const handlePlayAlbum = async (e, id) => {
         e.preventDefault();
@@ -31,7 +32,11 @@ export const Card = ({
     };
     return (
         <Link className="cardItem" to={`/albums/${id}`}>
-            <img src={apiUrl + "/album/" + id + "/ico"} alt="Album Icon"></img>
+            <img
+                src={apiUrl + "/album/" + id + "/ico"}
+                alt="Album Icon"
+                onError={handleImageError}
+            />
             <h1>{name}</h1>
             <div />
             <p>{artist}</p>

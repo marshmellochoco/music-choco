@@ -130,6 +130,10 @@ export const Player = ({
                             <img
                                 src={playingSong ? songData.icon : ""}
                                 alt=""
+                                onError={(e) =>
+                                    (e.target.src =
+                                        "https://f4.bcbits.com/img/a4139357031_10.jpg")
+                                }
                             />
                         </div>
                         <div className="title">

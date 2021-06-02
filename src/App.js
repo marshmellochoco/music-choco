@@ -80,16 +80,12 @@ export default App;
 
 // TODO: Song already in queue
 
-// TODO: Searchbar
 // TODO: Homepage can add recommendation
 
 // TODO: Loop and random feels
 // TODO: ^ Button have to give some feedback
-// TODO: Add song
 
 // TODO: Pull song from album to queue or playlists
 
 // TODO: Login
 // TODO: Add song list, favorite
-
-// Bug: The playing song will go to the next song after 1 or 2 seconds

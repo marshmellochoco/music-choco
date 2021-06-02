@@ -49,6 +49,10 @@ export const Home = ({
         setSearch(e.target.value);
     };
 
+    const handleImageError = (e) => {
+        e.target.src = "https://f4.bcbits.com/img/a4139357031_10.jpg";
+    };
+
     const searchAlbum = () => {
         return albumSearch.map((s) => {
             return (
@@ -61,6 +65,7 @@ export const Home = ({
                     setQueue={setQueue}
                     setPlayingSong={setPlayingSong}
                     setPlaying={setPlaying}
+                    handleImageError={handleImageError}
                 ></Card>
             );
         });
@@ -79,7 +84,8 @@ export const Home = ({
                         src={apiUrl + "/album/" + s._id + "/ico"}
                         alt="album logo"
                         className="album"
-                    ></img>
+                        onError={handleImageError}
+                    />
                     <div className="songDetail">
                         <div className="songTitle">{s.songs.title}</div>
                         <div>{s.artist}</div>

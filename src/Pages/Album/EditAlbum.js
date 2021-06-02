@@ -58,7 +58,7 @@ export const EditAlbum = ({ apiUrl }) => {
             {add ? (
                 <AddAlbum apiUrl={apiUrl} setAlbumID={setSelectedAlbum} />
             ) : null}
-            {selectedAlbum !== null && !add && (
+            {selectedAlbum && !add && (
                 <AddSong
                     apiUrl={apiUrl}
                     album={selectedAlbum.albumname}
