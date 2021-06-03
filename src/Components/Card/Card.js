@@ -10,6 +10,7 @@ export const Card = ({ id, name, artist, apiUrl, handleImageError }) => {
     const dispatch = useDispatch();
 
     const handlePlayAlbum = async (e, id) => {
+        // play the entire album associated with the card, replace the existing queue with the album list
         e.preventDefault();
 
         var songListData = [];

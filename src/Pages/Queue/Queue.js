@@ -9,7 +9,6 @@ import ReactLoading from "react-loading";
 import "./Queue.css";
 
 export const Queue = ({ apiUrl, setRandomQueue }) => {
-    // =============== Selectors ===============
     const playingSong = useSelector(
         (state) => state.songDataReducer.songData.songId
     );
@@ -89,6 +88,7 @@ export const Queue = ({ apiUrl, setRandomQueue }) => {
     }, [playingSong]); // eslint-disable-line
 
     const skipQueue = (e) => {
+        // If the item is clicked, and it is not the trash can icon, play the clicked song instead
         if (e.target.localName !== "svg") {
             let clickedItem = e.currentTarget.getAttribute("datakey");
             dispatch({ type: "SET_PLAYING_SONG", songId: clickedItem });
@@ -97,6 +97,7 @@ export const Queue = ({ apiUrl, setRandomQueue }) => {
     };
 
     const removeQueue = async (e) => {
+        // remove the selected song from queue
         let clickedItem = e.currentTarget.getAttribute("datakey");
 
         let q = queue;
@@ -110,6 +111,7 @@ export const Queue = ({ apiUrl, setRandomQueue }) => {
     };
 
     const handleDragDrop = (result) => {
+        // re-position the queue according to the drop location of the dragged item
         if (!result.destination) return;
 
         const songs = queue;
@@ -119,6 +121,7 @@ export const Queue = ({ apiUrl, setRandomQueue }) => {
     };
 
     const getQueueList = (provided, data) => {
+        // get the list of detail fo the queued songs as component array
         return data.map((q, i) => {
             return (
                 <Draggable key={q.songId} draggableId={q.songId} index={i}>

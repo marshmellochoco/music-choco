@@ -38,19 +38,17 @@ export const Home = ({ apiUrl }) => {
     };
 
     const addSong = (id) => {
+        // add the song to the queue
         dispatch({ type: "ADD_QUEUE", songId: id });
     };
 
-    // Returns a list of card item containing album information
-    const handleSearch = (e) => {
-        setSearch(e.target.value);
-    };
-
     const handleImageError = (e) => {
+        // return an alternate image if error
         e.target.src = "https://f4.bcbits.com/img/a4139357031_10.jpg";
     };
 
     const searchAlbum = () => {
+        // return a list of card item of the album search result as component list
         return albumSearch.map((s) => {
             return (
                 <Card
@@ -66,6 +64,7 @@ export const Home = ({ apiUrl }) => {
     };
 
     const searchSong = () => {
+        // return a list of item of the song title search result as component list
         return songSearch.map((s) => {
             return (
                 <li
@@ -100,7 +99,7 @@ export const Home = ({ apiUrl }) => {
         <div>
             <div className="headers">
                 <h1>music-choco</h1>
-                <Searchbar handleSearch={handleSearch} />
+                <Searchbar handleSearch={(e) => setSearch(e.target.value)} />
             </div>
             {search === "" ? (
                 <div className="content">

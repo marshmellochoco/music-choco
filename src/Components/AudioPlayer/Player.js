@@ -8,12 +8,10 @@ import { Slider } from "../Slider/Slider";
 import "./Player.css";
 
 export const Player = ({ apiUrl, randomQueue }) => {
-    // =============== Audio Control ===============
     const [currentTime, setCurrentTime] = useState(0);
     const [volume, setVolume] = useState(1);
     const [lastVolume, setLastVolume] = useState(volume);
 
-    // =============== Selectors ===============
     const songData = useSelector((state) => state.songDataReducer.songData);
     const queue = useSelector((state) => state.queueReducer.queue);
     const playing = useSelector((state) => state.playerReducer.playing);
@@ -21,17 +19,18 @@ export const Player = ({ apiUrl, randomQueue }) => {
     const isRandom = useSelector((state) => state.playerReducer.random);
     const dispatch = useDispatch();
 
-    // =============== Functions Declaration ===============
     // --------- Audio Player Functions ----------
     const ref = createRef();
 
     const onProgress = (e) => {
+        // set the current time as the number of seconds played on the song
         if (Math.floor(e.playedSeconds) <= songData.duration) {
             setCurrentTime(Math.ceil(e.playedSeconds));
         }
     };
 
     const onEnded = () => {
+        // play the next song when the current song has ended, reset the played time
         dispatch({ type: "SET_PLAYING", playing: false });
         setCurrentTime(0);
         nextSong();
@@ -40,22 +39,20 @@ export const Player = ({ apiUrl, randomQueue }) => {
 
     // --------- Audio Control Functions ----------
     const setClickedTime = (percent) => {
+        // seek to the partition of the song according the the percentage of timeline
         let second = (percent / 100) * songData.duration;
         ref.current.seekTo(second, "second");
     };
 
-    const changePlaying = (play) => {
-        if (queue.length > 0) {
-            setCurrentTime(0);
-        }
-    };
-
     const changeVolume = (vol) => {
+        // change the volume, if it is unmuted, set volume to the previous volume
         setLastVolume(volume === 0 ? lastVolume : volume);
         setVolume(vol);
     };
 
     const prevSong = () => {
+        // play the previous song, if no previous song, restart the song
+        // if is random, use the random queue list else use the normal queue list
         if (isRandom) {
             if (randomQueue.indexOf(songData.songId) === 0) {
                 setClickedTime(0);
@@ -80,6 +77,9 @@ export const Player = ({ apiUrl, randomQueue }) => {
     };
 
     const nextSong = () => {
+        // play the next song, if is the last song in the list, play nothing
+        // if is random, use the random queue list else use the normal queue list
+
         const next = (q) => {
             if (q.indexOf(songData.songId) === q.length - 1) {
                 dispatch({
@@ -121,7 +121,7 @@ export const Player = ({ apiUrl, randomQueue }) => {
                         <div className="icon">
                             <img
                                 src={
-                                    songData.albumId
+                                    songData.albumId && songData.songId
                                         ? `${apiUrl}/album/${songData.albumId}/ico`
                                         : ""
                                 }
@@ -153,7 +153,12 @@ export const Player = ({ apiUrl, randomQueue }) => {
                         </svg>
                         {playing ? (
                             <svg
-                                onClick={() => changePlaying(false)}
+                                onClick={() =>
+                                    dispatch({
+                                        type: "SET_PLAYING",
+                                        playing: false,
+                                    })
+                                }
                                 xmlns="http://www.w3.org/2000/svg"
                                 className="control-button play"
                                 fill="none"
@@ -169,7 +174,12 @@ export const Player = ({ apiUrl, randomQueue }) => {
                             </svg>
                         ) : (
                             <svg
-                                onClick={() => changePlaying(true)}
+                                onClick={() =>
+                                    dispatch({
+                                        type: "SET_PLAYING",
+                                        playing: false,
+                                    })
+                                }
                                 xmlns="http://www.w3.org/2000/svg"
                                 className="control-button play"
                                 fill="none"

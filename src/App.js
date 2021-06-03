@@ -7,7 +7,7 @@ import { Player } from "./Components/AudioPlayer/Player";
 import { Queue } from "./Pages/Queue/Queue";
 import { Album } from "./Pages/Album/Album";
 import { Home } from "./Pages/Home/Home";
-import { EditAlbum } from "./Pages/Album/EditAlbum";
+import { EditAlbum } from "./Pages/AddSong/EditAlbum";
 
 function App() {
     const [randomQueue, setRandomQueue] = useState([]);

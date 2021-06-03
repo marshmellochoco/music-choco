@@ -34,24 +34,28 @@ export const Album = ({ apiUrl }) => {
     }, [id, apiUrl]);
 
     const setSong = async (id) => {
+        // play the selected song and add it to the queue
         dispatch({ type: "ADD_QUEUE", songId: id });
         dispatch({ type: "SET_PLAYING_SONG", songId: id });
         dispatch({ type: "SET_PLAYING", playing: true });
     };
 
     const setAlbumToQueue = async () => {
+        // play the entier album and replace the existing queue
         dispatch({ type: "SET_QUEUE", queue: songList });
         dispatch({ type: "SET_PLAYING_SONG", songId: songList[0] });
         dispatch({ type: "SET_PLAYING", playing: true });
     };
 
     const addQueue = (id) => {
+        // add the song to the queue
         if (queue.length === 0)
             dispatch({ type: "SET_PLAYING_SONG", songId: id });
         dispatch({ type: "ADD_QUEUE", songId: id });
     };
 
     const getSongs = () => {
+        // returns a list of songs of the album as component list
         songs.forEach((song) => {
             songList.push(song._id);
         });
