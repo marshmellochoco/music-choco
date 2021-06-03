@@ -1,16 +1,12 @@
-import axios from "axios";
 import React from "react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import { useDispatch, useSelector } from "react-redux";
 import ReactLoading from "react-loading";
 import "./Queue.css";
+import axios from "axios";
 
 export const Queue = ({
-    playingSong,
-    setPlayingSong,
-    queue,
-    setQueue,
-    setPlaying,
     apiUrl,
     isRandom,
     setRandom,
@@ -18,44 +14,48 @@ export const Queue = ({
     setLoop,
     setRandomQueue,
 }) => {
-    const [queueData, setQueueData] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const playingSong = useSelector(
+        (state) => state.songDataReducer.songData.id
+    );
+    const queue = useSelector((state) => state.queueReducer.queue);
+    const queueData = useSelector((state) => state.queueReducer.queueData);
+    const loading = useSelector((state) => state.queueReducer.loading);
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        const getQueueData = async () => {
+        const getQueueData = async (qdCache) => {
             var data = [];
-            setQueueData([]);
-            setLoading(true);
+            dispatch({ type: "SET_LOADING", loading: true });
 
             for (let i = 0; i < queue.length; i++) {
                 let found = false;
                 for (let j = 0; j < qdCache.length; j++) {
-                    if (queue[i] === qdCache[j]._id) {
+                    if (queue[i] === qdCache[j].songId) {
                         data.push(qdCache[j]);
                         found = true;
                         break;
                     }
                 }
-
                 if (!found) {
                     await axios
                         .get(apiUrl + "/song/" + queue[i])
                         .then((result) => {
                             data.push({
-                                _id: result.data.songs._id,
+                                songId: result.data.songs._id,
                                 title: result.data.songs.title,
                                 duration: result.data.songs.duration,
-                                albumname: result.data.albumname
-                            })
+                                albumname: result.data.albumname,
+                            });
                         });
                 }
             }
-            setQueueData(data);
-            setLoading(false);
+            return data;
         };
 
-        const qdCache = queueData;
-        getQueueData();
+        getQueueData(queueData).then((res) => {
+            dispatch({ type: "SET_QUEUE_DATA", queueData: res });
+            dispatch({ type: "SET_LOADING", loading: false });
+        });
 
         let randQueue = [...queue];
         setRandomQueue(randQueue.sort(() => Math.random() - 0.5));
@@ -71,8 +71,8 @@ export const Queue = ({
     const skipQueue = (e) => {
         if (e.target.localName !== "svg") {
             let clickedItem = e.currentTarget.getAttribute("datakey");
-            setPlayingSong(clickedItem);
-            setPlaying(true);
+            dispatch({ type: "SET_PLAYING_SONG", songId: clickedItem });
+            dispatch({ type: "SET_PLAYING", playing: true });
         }
     };
 
@@ -81,36 +81,32 @@ export const Queue = ({
 
         let q = queue;
         q.splice(queue.indexOf(clickedItem), 1);
-        setQueue([...q]);
+        dispatch({ type: "SET_QUEUE", queue: q });
 
         if (clickedItem === playingSong) {
-            setPlayingSong("");
-            setPlaying(false);
+            dispatch({ type: "SET_PLAYING_SONG", songId: "" });
+            dispatch({ type: "SET_PLAYING", playing: false });
         }
     };
 
     const handleDragDrop = (result) => {
         if (!result.destination) return;
-        const data = queueData;
-        const [reorderedData] = data.splice(result.source.index, 1);
-        data.splice(result.destination.index, 0, reorderedData);
-        setQueueData(data);
 
         const songs = queue;
         const [reorderedSong] = songs.splice(result.source.index, 1);
         songs.splice(result.destination.index, 0, reorderedSong);
-        setQueue(songs);
+        dispatch({ type: "SET_QUEUE", queue: songs });
     };
 
     const getQueueList = (provided, data) => {
         return data.map((q, i) => {
             return (
-                <Draggable key={q._id} draggableId={q._id} index={i}>
+                <Draggable key={q.songId} draggableId={q.songId} index={i}>
                     {(provided, snapshot) => (
                         <div
-                            id={q._id}
+                            id={q.songId}
                             className={`${
-                                playingSong === q._id
+                                playingSong === q.songId
                                     ? "queueActive"
                                     : "queueItem"
                             }
@@ -118,7 +114,7 @@ export const Queue = ({
                             ref={provided.innerRef}
                             {...provided.draggableProps}
                             {...provided.dragHandleProps}
-                            datakey={q._id}
+                            datakey={q.songId}
                             onClick={(e) => skipQueue(e)}
                             onContextMenu={(e) => {
                                 removeQueue(e);
@@ -129,7 +125,7 @@ export const Queue = ({
                                 <div className="album">{q.albumname}</div>
                                 <div
                                     className={"removeButton icon"}
-                                    datakey={q._id}
+                                    datakey={q.songId}
                                     onClick={(e) => removeQueue(e)}
                                 >
                                     <svg viewBox="0 0 24 24">
@@ -193,7 +189,10 @@ export const Queue = ({
                                 {...provided.droppableProps}
                                 ref={provided.innerRef}
                             >
-                                {getQueueList(provided, queueData)}
+                                {getQueueList(
+                                    provided,
+                                    queueData.length > 0 ? queueData : []
+                                )}
                                 {provided.placeholder}
                             </ul>
                         )}

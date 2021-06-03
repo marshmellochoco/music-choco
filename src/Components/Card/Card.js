@@ -1,18 +1,12 @@
 import axios from "axios";
 import React from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import "./Card.css";
 
-export const Card = ({
-    id,
-    name,
-    artist,
-    apiUrl,
-    setQueue,
-    setPlayingSong,
-    setPlaying,
-    handleImageError,
-}) => {
+export const Card = ({ id, name, artist, apiUrl, handleImageError }) => {
+    const dispatch = useDispatch();
+
     const handlePlayAlbum = async (e, id) => {
         e.preventDefault();
 
@@ -26,10 +20,11 @@ export const Card = ({
             songList.push(s._id);
         });
 
-        setQueue(songList);
-        setPlayingSong(songList[0]);
-        setPlaying(true);
+        dispatch({ type: "SET_QUEUE", queue: songList });
+        dispatch({ type: "SET_PLAYING_SONG", songId: songList[0] });
+        dispatch({ type: "SET_PLAYING", playing: true });
     };
+
     return (
         <Link className="cardItem" to={`/albums/${id}`}>
             <img

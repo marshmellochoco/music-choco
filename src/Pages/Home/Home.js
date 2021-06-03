@@ -1,22 +1,21 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import { Card } from "../../Components/Card/Card";
 import { Searchbar } from "../../Components/Searchbar/Searchbar";
 import "./Home.css";
 
-export const Home = ({
-    apiUrl,
-    queue,
-    setQueue,
-    playingSong,
-    setPlayingSong,
-    setPlaying,
-}) => {
+export const Home = ({ apiUrl }) => {
     const [search, setSearch] = useState("");
     const [albumSearch, setAlbumSearch] = useState([]);
     const [songSearch, setSongSearch] = useState([]);
+
+    const playingSong = useSelector(
+        (state) => state.songDataReducer.songData.id
+    );
+    const dispatch = useDispatch();
 
     useEffect(() => {
         if (search) {
@@ -31,17 +30,13 @@ export const Home = ({
     }, [search, apiUrl]);
 
     const playSong = (id) => {
-        if (!queue.includes(id)) {
-            setQueue([...queue, id]);
-        }
-        setPlaying(true);
-        setPlayingSong(id);
+        dispatch({ type: "ADD_QUEUE", songId: id });
+        dispatch({ type: "SET_PLAYING_SONG", songId: id });
+        dispatch({ type: "SET_PLAYING", playing: true });
     };
 
     const addSong = (id) => {
-        if (!queue.includes(id)) {
-            setQueue([...queue, id]);
-        }
+        dispatch({ type: "ADD_QUEUE", songId: id });
     };
 
     // Returns a list of card item containing album information
@@ -62,9 +57,6 @@ export const Home = ({
                     name={s.albumname}
                     artist={s.artist}
                     apiUrl={apiUrl}
-                    setQueue={setQueue}
-                    setPlayingSong={setPlayingSong}
-                    setPlaying={setPlaying}
                     handleImageError={handleImageError}
                 ></Card>
             );

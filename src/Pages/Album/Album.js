@@ -1,23 +1,24 @@
 import axios from "axios";
 import React from "react";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import "./Album.css";
 
-export const Album = ({
-    playingSong,
-    setPlayingSong,
-    queue,
-    setQueue,
-    setPlaying,
-    apiUrl,
-}) => {
+export const Album = ({ apiUrl }) => {
     const [songs, setSongs] = useState([]);
     const [album, setAlbum] = useState("");
     const [artist, setArtist] = useState("");
+
     const songList = [];
     let { id } = useParams();
+
+    const playingSong = useSelector(
+        (state) => state.songDataReducer.songData.id
+    );
+    const queue = useSelector((state) => state.queueReducer.queue);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         axios.get(apiUrl + "/album/" + id).then((res) => {
@@ -31,27 +32,21 @@ export const Album = ({
     }, [id, apiUrl]);
 
     const setSong = async (id) => {
-        if (!queue.includes(id)) {
-            await setQueue([...queue, id]);
-        }
-        setPlayingSong(id);
-        setPlaying(true);
+        dispatch({ type: "ADD_QUEUE", songId: id });
+        dispatch({ type: "SET_PLAYING_SONG", songId: id });
+        dispatch({ type: "SET_PLAYING", playing: true });
     };
 
     const setAlbumToQueue = async () => {
-        await setQueue([]);
-        setQueue(songList);
-        setPlayingSong(songList[0]);
-        setPlaying(true);
+        dispatch({ type: "SET_QUEUE", queue: songList });
+        dispatch({ type: "SET_PLAYING_SONG", songId: songList[0] });
+        dispatch({ type: "SET_PLAYING", playing: true });
     };
 
     const addQueue = (id) => {
-        if (!queue.includes(id)) {
-            if (queue.length === 0) setPlayingSong(id);
-            setQueue([...queue, id]);
-        } else {
-            console.log("Song already exist");
-        }
+        if (queue.length === 0)
+            dispatch({ type: "SET_PLAYING_SONG", songId: id });
+        dispatch({ type: "ADD_QUEUE", songId: id });
     };
 
     const getSongs = () => {

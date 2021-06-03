@@ -5,18 +5,9 @@ import { Slider } from "../Slider/Slider";
 import React, { createRef, useState } from "react";
 
 import "./Player.css";
+import { useDispatch, useSelector } from "react-redux";
 
-export const Player = ({
-    playingSong,
-    setPlayingSong,
-    queue,
-    playing,
-    setPlaying,
-    apiUrl,
-    isRandom,
-    isLoop,
-    randomQueue,
-}) => {
+export const Player = ({ apiUrl, isRandom, isLoop, randomQueue }) => {
     // =============== State initialization ===============
     // --------- Audio Control States ----------
     const [currentTime, setCurrentTime] = useState(0);
@@ -24,13 +15,10 @@ export const Player = ({
     const [lastVolume, setLastVolume] = useState(volume);
 
     // --------- Song Data Template ----------
-    const [songData, setSongData] = useState({
-        title: "",
-        artist: "",
-        album: "",
-        icon: "",
-        duration: 0,
-    });
+    const songData = useSelector((state) => state.songDataReducer.songData);
+    const playing = useSelector((state) => state.songDataReducer.playing);
+    const queue = useSelector((state) => state.queueReducer.queue);
+    const dispatch = useDispatch();
 
     // =============== Functions Declaration ===============
     // --------- Audio Player Functions ----------
@@ -43,21 +31,24 @@ export const Player = ({
     };
 
     const onEnded = () => {
-        setPlaying(false);
+        dispatch({ type: "SET_PLAYING", playing: false });
         setCurrentTime(0);
         nextSong();
-        setPlaying(true);
+        dispatch({ type: "SET_PLAYING", playing: true });
     };
 
     const onReady = async () => {
         if (queue.length > 0) {
-            await axios.get(apiUrl + "/song/" + playingSong).then((result) => {
-                setSongData({
-                    title: result.data.songs.title,
-                    artist: result.data.artist,
-                    album: result.data.albumname,
-                    duration: result.data.songs.duration - 2,
-                    icon: apiUrl + "/album/" + result.data._id + "/ico",
+            await axios.get(apiUrl + "/song/" + songData.id).then((result) => {
+                dispatch({
+                    type: "SET_SONG_DATA",
+                    songData: {
+                        title: result.data.songs.title,
+                        artist: result.data.artist,
+                        album: result.data.albumname,
+                        duration: result.data.songs.duration - 2,
+                        icon: apiUrl + "/album/" + result.data._id + "/ico",
+                    },
                 });
             });
         }
@@ -70,7 +61,7 @@ export const Player = ({
     };
 
     const changePlaying = (play) => {
-        if (queue.length > 0) setPlaying(play);
+        if (queue.length > 0) dispatch({ type: "SET_PLAYING", playing: play });
     };
 
     const changeVolume = (vol) => {
@@ -80,27 +71,39 @@ export const Player = ({
 
     const prevSong = () => {
         if (isRandom) {
-            if (randomQueue.indexOf(playingSong) === 0) {
+            if (randomQueue.indexOf(songData.id) === 0) {
                 setClickedTime(0);
             } else {
-                setPlayingSong(
-                    randomQueue[randomQueue.indexOf(playingSong) - 1]
-                );
+                dispatch({
+                    type: "SET_PLAYING_SONG",
+                    songId: randomQueue[randomQueue.indexOf(songData.id) - 1],
+                });
             }
         } else {
-            if (queue.indexOf(playingSong) === 0) {
+            if (queue.indexOf(songData.id) === 0) {
                 setClickedTime(0);
             } else {
-                setPlayingSong(queue[queue.indexOf(playingSong) - 1]);
+                dispatch({
+                    type: "SET_PLAYING_SONG",
+                    songId: queue[queue.indexOf(songData.id) - 1],
+                });
             }
         }
     };
 
     const nextSong = () => {
         const next = (q) => {
-            if (q.indexOf(playingSong) === q.length - 1)
-                setPlayingSong(isLoop ? q[0] : "");
-            else setPlayingSong(q[q.indexOf(playingSong) + 1]);
+            if (q.indexOf(songData.id) === q.length - 1) {
+                dispatch({
+                    type: "SET_PLAYING_SONG",
+                    songId: isLoop ? q[0] : "",
+                });
+            } else {
+                dispatch({
+                    type: "SET_PLAYING_SONG",
+                    songId: q[q.indexOf(songData.id) + 1],
+                });
+            }
         };
 
         next(isRandom ? randomQueue : queue);
@@ -116,7 +119,7 @@ export const Player = ({
                     height="0"
                     loop={false}
                     url={
-                        playingSong ? `${apiUrl}/song/play/${playingSong}` : ""
+                        songData.id ? `${apiUrl}/song/play/${songData.id}` : ""
                     }
                     playing={playing}
                     volume={volume}
@@ -128,7 +131,7 @@ export const Player = ({
                     <div className="player-playing">
                         <div className="icon">
                             <img
-                                src={playingSong ? songData.icon : ""}
+                                src={songData.id ? songData.icon : ""}
                                 alt=""
                                 onError={(e) =>
                                     (e.target.src =
@@ -137,10 +140,10 @@ export const Player = ({
                             />
                         </div>
                         <div className="title">
-                            {playingSong ? songData.title : "---"}
+                            {songData.id ? songData.title : "---"}
                         </div>
                         <div className="artist">
-                            {playingSong ? songData.artist : "---"}
+                            {songData.id ? songData.artist : "---"}
                         </div>
                     </div>
 

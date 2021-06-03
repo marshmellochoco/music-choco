@@ -7,10 +7,7 @@ import { Home } from "./Pages/Home/Home";
 import { EditAlbum } from "./Pages/Album/EditAlbum";
 
 function App() {
-    const [queue, setQueue] = useState([]);
     const [randomQueue, setRandomQueue] = useState([]);
-    const [playingSong, setPlayingSong] = useState(null);
-    const [playing, setPlaying] = useState(false);
     const [isRandom, setRandom] = useState(false);
     const [isLoop, setLoop] = useState(false);
     const apiUrl = process.env.REACT_APP_API_URL;
@@ -22,24 +19,10 @@ function App() {
                     <div className="page-container">
                         <Switch>
                             <Route exact path="/">
-                                <Home
-                                    apiUrl={apiUrl}
-                                    queue={queue}
-                                    setQueue={setQueue}
-                                    playingSong={playingSong}
-                                    setPlayingSong={setPlayingSong}
-                                    setPlaying={setPlaying}
-                                />
+                                <Home apiUrl={apiUrl} />
                             </Route>
                             <Route path="/albums/:id">
-                                <Album
-                                    playingSong={playingSong}
-                                    setPlayingSong={setPlayingSong}
-                                    queue={queue}
-                                    setQueue={setQueue}
-                                    setPlaying={setPlaying}
-                                    apiUrl={apiUrl}
-                                />
+                                <Album apiUrl={apiUrl} />
                             </Route>
                             <Route path="/add">
                                 <EditAlbum apiUrl={apiUrl} />
@@ -49,11 +32,6 @@ function App() {
                 </Router>
                 <Queue
                     apiUrl={apiUrl}
-                    playingSong={playingSong}
-                    setPlayingSong={setPlayingSong}
-                    queue={queue}
-                    setQueue={setQueue}
-                    setPlaying={setPlaying}
                     isRandom={isRandom}
                     setRandom={setRandom}
                     isLoop={isLoop}
@@ -62,11 +40,6 @@ function App() {
                 />
                 <Player
                     apiUrl={apiUrl}
-                    playingSong={playingSong}
-                    setPlayingSong={setPlayingSong}
-                    queue={queue}
-                    playing={playing}
-                    setPlaying={setPlaying}
                     isRandom={isRandom}
                     isLoop={isLoop}
                     randomQueue={randomQueue}
