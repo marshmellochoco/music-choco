@@ -1,9 +1,11 @@
+// dependancy import
 import { useState } from "react";
 import axios from "axios";
 
 export const AddSong = ({ apiUrl, album, albumID }) => {
     const [name, setName] = useState("");
     const [file, setFile] = useState(null);
+    
     const addSong = (e) => {
         e.preventDefault();
         if (!name || !file) return;

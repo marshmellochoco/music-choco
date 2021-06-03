@@ -1,8 +1,10 @@
+// dependancy import
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
+// component import
 import { Card } from "../../Components/Card/Card";
 import { Searchbar } from "../../Components/Searchbar/Searchbar";
 import "./Home.css";
@@ -13,7 +15,7 @@ export const Home = ({ apiUrl }) => {
     const [songSearch, setSongSearch] = useState([]);
 
     const playingSong = useSelector(
-        (state) => state.songDataReducer.songData.id
+        (state) => state.songDataReducer.songData.songId
     );
     const dispatch = useDispatch();
 

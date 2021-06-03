@@ -1,23 +1,24 @@
-import axios from "axios";
+// dependancy import
+import { createRef, useState } from "react";
 import ReactPlayer from "react-player";
-
-import { Slider } from "../Slider/Slider";
-import React, { createRef, useState } from "react";
-
-import "./Player.css";
 import { useDispatch, useSelector } from "react-redux";
 
-export const Player = ({ apiUrl, isRandom, isLoop, randomQueue }) => {
-    // =============== State initialization ===============
-    // --------- Audio Control States ----------
+// component import
+import { Slider } from "../Slider/Slider";
+import "./Player.css";
+
+export const Player = ({ apiUrl, randomQueue }) => {
+    // =============== Audio Control ===============
     const [currentTime, setCurrentTime] = useState(0);
     const [volume, setVolume] = useState(1);
     const [lastVolume, setLastVolume] = useState(volume);
 
-    // --------- Song Data Template ----------
+    // =============== Selectors ===============
     const songData = useSelector((state) => state.songDataReducer.songData);
-    const playing = useSelector((state) => state.songDataReducer.playing);
     const queue = useSelector((state) => state.queueReducer.queue);
+    const playing = useSelector((state) => state.playerReducer.playing);
+    const isLoop = useSelector((state) => state.playerReducer.loop);
+    const isRandom = useSelector((state) => state.playerReducer.random);
     const dispatch = useDispatch();
 
     // =============== Functions Declaration ===============
@@ -26,7 +27,7 @@ export const Player = ({ apiUrl, isRandom, isLoop, randomQueue }) => {
 
     const onProgress = (e) => {
         if (Math.floor(e.playedSeconds) <= songData.duration) {
-            setCurrentTime(Math.floor(e.playedSeconds));
+            setCurrentTime(Math.ceil(e.playedSeconds));
         }
     };
 
@@ -37,23 +38,6 @@ export const Player = ({ apiUrl, isRandom, isLoop, randomQueue }) => {
         dispatch({ type: "SET_PLAYING", playing: true });
     };
 
-    const onReady = async () => {
-        if (queue.length > 0) {
-            await axios.get(apiUrl + "/song/" + songData.id).then((result) => {
-                dispatch({
-                    type: "SET_SONG_DATA",
-                    songData: {
-                        title: result.data.songs.title,
-                        artist: result.data.artist,
-                        album: result.data.albumname,
-                        duration: result.data.songs.duration - 2,
-                        icon: apiUrl + "/album/" + result.data._id + "/ico",
-                    },
-                });
-            });
-        }
-    };
-
     // --------- Audio Control Functions ----------
     const setClickedTime = (percent) => {
         let second = (percent / 100) * songData.duration;
@@ -61,7 +45,9 @@ export const Player = ({ apiUrl, isRandom, isLoop, randomQueue }) => {
     };
 
     const changePlaying = (play) => {
-        if (queue.length > 0) dispatch({ type: "SET_PLAYING", playing: play });
+        if (queue.length > 0) {
+            setCurrentTime(0);
+        }
     };
 
     const changeVolume = (vol) => {
@@ -71,21 +57,23 @@ export const Player = ({ apiUrl, isRandom, isLoop, randomQueue }) => {
 
     const prevSong = () => {
         if (isRandom) {
-            if (randomQueue.indexOf(songData.id) === 0) {
+            if (randomQueue.indexOf(songData.songId) === 0) {
                 setClickedTime(0);
             } else {
                 dispatch({
                     type: "SET_PLAYING_SONG",
-                    songId: randomQueue[randomQueue.indexOf(songData.id) - 1],
+                    songId: randomQueue[
+                        randomQueue.indexOf(songData.songId) - 1
+                    ],
                 });
             }
         } else {
-            if (queue.indexOf(songData.id) === 0) {
+            if (queue.indexOf(songData.songId) === 0) {
                 setClickedTime(0);
             } else {
                 dispatch({
                     type: "SET_PLAYING_SONG",
-                    songId: queue[queue.indexOf(songData.id) - 1],
+                    songId: queue[queue.indexOf(songData.songId) - 1],
                 });
             }
         }
@@ -93,7 +81,7 @@ export const Player = ({ apiUrl, isRandom, isLoop, randomQueue }) => {
 
     const nextSong = () => {
         const next = (q) => {
-            if (q.indexOf(songData.id) === q.length - 1) {
+            if (q.indexOf(songData.songId) === q.length - 1) {
                 dispatch({
                     type: "SET_PLAYING_SONG",
                     songId: isLoop ? q[0] : "",
@@ -101,7 +89,7 @@ export const Player = ({ apiUrl, isRandom, isLoop, randomQueue }) => {
             } else {
                 dispatch({
                     type: "SET_PLAYING_SONG",
-                    songId: q[q.indexOf(songData.id) + 1],
+                    songId: q[q.indexOf(songData.songId) + 1],
                 });
             }
         };
@@ -109,7 +97,6 @@ export const Player = ({ apiUrl, isRandom, isLoop, randomQueue }) => {
         next(isRandom ? randomQueue : queue);
     };
 
-    // --------- Return JSX ----------
     return (
         <div className="player" tabIndex="0">
             <div>
@@ -119,19 +106,25 @@ export const Player = ({ apiUrl, isRandom, isLoop, randomQueue }) => {
                     height="0"
                     loop={false}
                     url={
-                        songData.id ? `${apiUrl}/song/play/${songData.id}` : ""
+                        songData.songId
+                            ? `${apiUrl}/song/play/${songData.songId}`
+                            : ""
                     }
                     playing={playing}
                     volume={volume}
+                    onStart={() => setCurrentTime(0)}
                     onProgress={onProgress}
-                    onReady={onReady}
                     onEnded={onEnded}
                 />
                 <div className="player-container">
                     <div className="player-playing">
                         <div className="icon">
                             <img
-                                src={songData.id ? songData.icon : ""}
+                                src={
+                                    songData.albumId
+                                        ? `${apiUrl}/album/${songData.albumId}/ico`
+                                        : ""
+                                }
                                 alt=""
                                 onError={(e) =>
                                     (e.target.src =
@@ -140,10 +133,10 @@ export const Player = ({ apiUrl, isRandom, isLoop, randomQueue }) => {
                             />
                         </div>
                         <div className="title">
-                            {songData.id ? songData.title : "---"}
+                            {songData.songId ? songData.title : "---"}
                         </div>
                         <div className="artist">
-                            {songData.id ? songData.artist : "---"}
+                            {songData.songId ? songData.artist : "---"}
                         </div>
                     </div>
 
@@ -258,7 +251,7 @@ export const Player = ({ apiUrl, isRandom, isLoop, randomQueue }) => {
                                 Math.floor(currentTime / 60)}{" "}
                             :{" "}
                             {(currentTime % 60 < 10 ? "0" : "") +
-                                Math.floor(currentTime % 60)}
+                                (currentTime % 60)}
                         </div>
 
                         <Slider
@@ -279,7 +272,7 @@ export const Player = ({ apiUrl, isRandom, isLoop, randomQueue }) => {
                                 Math.floor(songData.duration / 60)}{" "}
                             :{" "}
                             {(songData.duration % 60 < 10 ? "0" : "") +
-                                Math.floor(songData.duration % 60)}
+                                (songData.duration % 60)}
                         </div>
                     </div>
                 </div>

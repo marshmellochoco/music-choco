@@ -1,9 +1,11 @@
+// dependancy import
 import axios from "axios";
-import React from "react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
+
+// component import
 import "./Album.css";
 
 export const Album = ({ apiUrl }) => {
@@ -15,7 +17,7 @@ export const Album = ({ apiUrl }) => {
     let { id } = useParams();
 
     const playingSong = useSelector(
-        (state) => state.songDataReducer.songData.id
+        (state) => state.songDataReducer.songData.songId
     );
     const queue = useSelector((state) => state.queueReducer.queue);
     const dispatch = useDispatch();

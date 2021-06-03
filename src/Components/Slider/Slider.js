@@ -1,5 +1,6 @@
-import React from "react";
+// component import
 import "./Slider.css";
+
 export const Slider = ({ onChange, transform }) => {
     return (
         <div className="slider">

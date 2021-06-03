@@ -1,7 +1,9 @@
+// dependancy import
 import axios from "axios";
-import React from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+
+// component import
 import "./Card.css";
 
 export const Card = ({ id, name, artist, apiUrl, handleImageError }) => {

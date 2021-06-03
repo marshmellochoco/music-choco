@@ -28,3 +28,5 @@ If you found that it is not working, most likely it is note connected to the bac
 - [react-player](https://www.npmjs.com/package/react-player)
 - [react-beautiful-dnd](https://www.npmjs.com/package/react-beautiful-dnd)
 - [react-loading](https://www.npmjs.com/package/react-loading)
+- [react-redux](https://www.npmjs.com/package/react-redux)
+- [redux](https://www.npmjs.com/package/redux)

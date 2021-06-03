@@ -1,5 +1,4 @@
 const initState = {
-    playing: false,
     queue: [],
     queueData: [],
     loading: false,
@@ -7,11 +6,6 @@ const initState = {
 
 export const queueReducer = (state = initState, action) => {
     switch (action.type) {
-        case "SET_PLAYING":
-            return {
-                ...state,
-                playing: action.playing,
-            };
         case "SET_QUEUE":
             return {
                 ...state,

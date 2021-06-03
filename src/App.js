@@ -1,5 +1,8 @@
-import React, { useState } from "react";
+// dependancy import
+import { useState } from "react";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
+
+// component import
 import { Player } from "./Components/AudioPlayer/Player";
 import { Queue } from "./Pages/Queue/Queue";
 import { Album } from "./Pages/Album/Album";
@@ -8,8 +11,6 @@ import { EditAlbum } from "./Pages/Album/EditAlbum";
 
 function App() {
     const [randomQueue, setRandomQueue] = useState([]);
-    const [isRandom, setRandom] = useState(false);
-    const [isLoop, setLoop] = useState(false);
     const apiUrl = process.env.REACT_APP_API_URL;
 
     return (
@@ -30,20 +31,8 @@ function App() {
                         </Switch>
                     </div>
                 </Router>
-                <Queue
-                    apiUrl={apiUrl}
-                    isRandom={isRandom}
-                    setRandom={setRandom}
-                    isLoop={isLoop}
-                    setLoop={setLoop}
-                    setRandomQueue={setRandomQueue}
-                />
-                <Player
-                    apiUrl={apiUrl}
-                    isRandom={isRandom}
-                    isLoop={isLoop}
-                    randomQueue={randomQueue}
-                />
+                <Queue apiUrl={apiUrl} setRandomQueue={setRandomQueue} />
+                <Player apiUrl={apiUrl} randomQueue={randomQueue} />
             </div>
         </div>
     );

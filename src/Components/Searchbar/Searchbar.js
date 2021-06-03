@@ -1,3 +1,4 @@
+// component import
 import "./Searchbar.css";
 
 export const Searchbar = ({ handleSearch }) => {

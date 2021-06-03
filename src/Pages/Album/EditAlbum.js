@@ -1,6 +1,9 @@
+// dependancy import
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+
+// component import
 import { AddSong } from "../AddSong/AddSong";
 
 export const EditAlbum = ({ apiUrl }) => {

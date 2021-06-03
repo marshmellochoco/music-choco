@@ -1,25 +1,23 @@
-import React from "react";
+// dependancy import
 import { useEffect } from "react";
+import axios from "axios";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { useDispatch, useSelector } from "react-redux";
 import ReactLoading from "react-loading";
-import "./Queue.css";
-import axios from "axios";
 
-export const Queue = ({
-    apiUrl,
-    isRandom,
-    setRandom,
-    isLoop,
-    setLoop,
-    setRandomQueue,
-}) => {
+// component import
+import "./Queue.css";
+
+export const Queue = ({ apiUrl, setRandomQueue }) => {
+    // =============== Selectors ===============
     const playingSong = useSelector(
-        (state) => state.songDataReducer.songData.id
+        (state) => state.songDataReducer.songData.songId
     );
     const queue = useSelector((state) => state.queueReducer.queue);
     const queueData = useSelector((state) => state.queueReducer.queueData);
     const loading = useSelector((state) => state.queueReducer.loading);
+    const isLoop = useSelector((state) => state.playerReducer.loop);
+    const isRandom = useSelector((state) => state.playerReducer.random);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -45,6 +43,8 @@ export const Queue = ({
                                 title: result.data.songs.title,
                                 duration: result.data.songs.duration,
                                 albumname: result.data.albumname,
+                                albumId: result.data._id,
+                                artist: result.data.artist,
                             });
                         });
                 }
@@ -55,6 +55,18 @@ export const Queue = ({
         getQueueData(queueData).then((res) => {
             dispatch({ type: "SET_QUEUE_DATA", queueData: res });
             dispatch({ type: "SET_LOADING", loading: false });
+            if (res.length <= 0) return;
+            dispatch({
+                type: "SET_SONG_DATA",
+                songData:
+                    res[
+                        res
+                            .map((qd) => {
+                                return qd.songId;
+                            })
+                            .indexOf(playingSong)
+                    ],
+            });
         });
 
         let randQueue = [...queue];
@@ -63,10 +75,18 @@ export const Queue = ({
 
     useEffect(() => {
         if (!playingSong) return;
+        const qdList = queueData.map((qd) => {
+            return qd.songId;
+        });
+        if (qdList.includes(playingSong))
+            dispatch({
+                type: "SET_SONG_DATA",
+                songData: queueData[qdList.indexOf(playingSong)],
+            });
         const item = document.getElementById(playingSong);
         if (!item) return;
         item.scrollIntoView(false);
-    }, [playingSong]);
+    }, [playingSong]); // eslint-disable-line
 
     const skipQueue = (e) => {
         if (e.target.localName !== "svg") {
@@ -162,7 +182,7 @@ export const Queue = ({
                         viewBox="0 0 24 24"
                         width="24px"
                         className={`icons ${isRandom ? "active" : ""}`}
-                        onClick={() => setRandom(!isRandom)}
+                        onClick={() => dispatch({ type: "TOGGLE_RANDOM" })}
                     >
                         <path d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z" />
                     </svg>
@@ -172,7 +192,7 @@ export const Queue = ({
                         viewBox="0 0 24 24"
                         width="24px"
                         className={`icons ${isLoop ? "active" : ""}`}
-                        onClick={() => setLoop(!isLoop)}
+                        onClick={() => dispatch({ type: "TOGGLE_LOOP" })}
                     >
                         <path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74C4.46 8.97 4 10.43 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z" />
                     </svg>
