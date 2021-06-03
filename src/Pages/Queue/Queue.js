@@ -89,7 +89,7 @@ export const Queue = ({ apiUrl, setRandomQueue }) => {
 
     const skipQueue = (e) => {
         // If the item is clicked, and it is not the trash can icon, play the clicked song instead
-        if (e.target.localName !== "svg") {
+        if (e.target.getAttribute("class") !== "notToPlay") {
             let clickedItem = e.currentTarget.getAttribute("datakey");
             dispatch({ type: "SET_PLAYING_SONG", songId: clickedItem });
             dispatch({ type: "SET_PLAYING", playing: true });
@@ -147,12 +147,16 @@ export const Queue = ({ apiUrl, setRandomQueue }) => {
                                 <div className="title">{q.title}</div>
                                 <div className="album">{q.albumname}</div>
                                 <div
-                                    className={"removeButton icon"}
+                                    className={"removeButton icon notToPlay"}
                                     datakey={q.songId}
                                     onClick={(e) => removeQueue(e)}
                                 >
-                                    <svg viewBox="0 0 24 24">
+                                    <svg
+                                        className="notToPlay"
+                                        viewBox="0 0 24 24"
+                                    >
                                         <path
+                                            className="notToPlay"
                                             fill="currentColor"
                                             d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z"
                                         />

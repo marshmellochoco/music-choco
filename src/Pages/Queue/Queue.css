@@ -35,7 +35,7 @@
 }
 
 .queueHeader .controls .active:hover, .queueHeader .controls .icons:hover {
-    fill: var(--thirtiary-color);
+    opacity: 0.7;
 }
 
 .queueList{

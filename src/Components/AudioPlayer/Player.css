@@ -81,7 +81,7 @@
 }
 
 .player-control .control-button:hover{
-    color: grey;
+    opacity: 0.7;
 }
 
 
@@ -123,5 +123,5 @@
 }
 
 .player-volume .volume-icon:hover{
-    color: grey;
+    opacity: 0.7;
 }

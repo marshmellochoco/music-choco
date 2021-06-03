@@ -41,12 +41,7 @@ function App() {
 export default App;
 
 // TODO: Song already in queue
-
 // TODO: Homepage can add recommendation
-
-// TODO: Loop and random feels
-// TODO: ^ Button have to give some feedback
-
 // TODO: Pull song from album to queue or playlists
 
 // TODO: Login
