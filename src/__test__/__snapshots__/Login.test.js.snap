@@ -1,0 +1,275 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Login should log in and redirect to homepage 1`] = `
+<div
+  className="App"
+  onContextMenu={[Function]}
+>
+  <div
+    className="app-container"
+  >
+    <div
+      className="page-container"
+    >
+      <div>
+        <div
+          className="headers"
+        >
+          <h1>
+            music-choco
+          </h1>
+          <div
+            className="search"
+          >
+            <svg
+              className="icon"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z"
+              />
+            </svg>
+            <input
+              onChange={[Function]}
+              type="text"
+            />
+          </div>
+        </div>
+        <div
+          className="content"
+        >
+          Hmm... what to put here
+          <br />
+          <a
+            href="/add"
+            onClick={[Function]}
+          >
+            Add some song!
+          </a>
+          <br />
+          <a
+            href="/"
+            onClick={[Function]}
+          >
+            Logout
+          </a>
+        </div>
+      </div>
+    </div>
+    <div
+      className="queue"
+    >
+      <div
+        className="queueHeader"
+      >
+        <h1>
+          Queue
+        </h1>
+        <div
+          className="controls"
+        >
+          <svg
+            className="icons "
+            height="24px"
+            onClick={[Function]}
+            viewBox="0 0 24 24"
+            width="24px"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z"
+            />
+          </svg>
+          <svg
+            className="icons "
+            height="24px"
+            onClick={[Function]}
+            viewBox="0 0 24 24"
+            width="24px"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74C4.46 8.97 4 10.43 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"
+            />
+          </svg>
+        </div>
+      </div>
+      <ul
+        className="queueList"
+        data-rbd-droppable-context-id="0"
+        data-rbd-droppable-id="droppable"
+      />
+    </div>
+    <div
+      className="player"
+      tabIndex="0"
+    >
+      <div>
+        <div
+          style={
+            Object {
+              "height": "0",
+              "width": "0",
+            }
+          }
+        />
+        <div
+          className="player-container"
+        >
+          <div
+            className="player-playing"
+          >
+            <div
+              className="icon"
+            >
+              <img
+                alt=""
+                onError={[Function]}
+                src=""
+              />
+            </div>
+            <div
+              className="title"
+            >
+              ---
+            </div>
+            <div
+              className="artist"
+            >
+              ---
+            </div>
+          </div>
+          <div
+            className="player-control"
+          >
+            <svg
+              className="control-button prev"
+              onClick={[Function]}
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M6,18V6H8V18H6M9.5,12L18,6V18L9.5,12Z"
+                fill="currentColor"
+              />
+            </svg>
+            <svg
+              className="control-button play"
+              fill="none"
+              onClick={[Function]}
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+              />
+              <path
+                d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+              />
+            </svg>
+            <svg
+              className="control-button next"
+              onClick={[Function]}
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M16,18H18V6H16M6,18L14.5,12L6,6V18Z"
+                fill="currentColor"
+              />
+            </svg>
+          </div>
+          <div
+            className="player-volume"
+          >
+            <svg
+              className="volume-icon"
+              fill="currentColor"
+              onClick={[Function]}
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clipRule="evenodd"
+                d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.984 5.984 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.984 3.984 0 0013 10a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.415z"
+                fillRule="evenodd"
+              />
+            </svg>
+            <div
+              className="slider"
+            >
+              <div
+                className="slider-front"
+                style={
+                  Object {
+                    "transform": "translateX(0%)",
+                  }
+                }
+              />
+              <input
+                className="slider-back"
+                onChange={[Function]}
+                type="range"
+              />
+            </div>
+          </div>
+          <div
+            className="player-timeline"
+          >
+            <div
+              className="player-time"
+              style={
+                Object {
+                  "textAlign": "right",
+                }
+              }
+            >
+              00
+               
+              :
+               
+              00
+            </div>
+            <div
+              className="slider"
+            >
+              <div
+                className="slider-front"
+                style={
+                  Object {
+                    "transform": "translateX(NaN%)",
+                  }
+                }
+              />
+              <input
+                className="slider-back"
+                onChange={[Function]}
+                type="range"
+              />
+            </div>
+            <div
+              className="player-time"
+              style={
+                Object {
+                  "textAlign": "left",
+                }
+              }
+            >
+              00
+               
+              :
+               
+              00
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
