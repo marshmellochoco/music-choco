@@ -16,7 +16,7 @@ export const AddSong = ({ apiUrl, album, albumID }) => {
         data.append("albumID", albumID);
         data.append("songName", name);
         axios
-            .post(apiUrl + "/song", data, {
+            .post(`${apiUrl}/song`, data, {
                 headers: { Authorization: authToken },
             })
             .then((res) => {

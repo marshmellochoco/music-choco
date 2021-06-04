@@ -35,7 +35,7 @@ export const Queue = ({ apiUrl, setRandomQueue }) => {
                 }
                 if (!found) {
                     await axios
-                        .get(apiUrl + "/song/" + queue[i])
+                        .get(`${apiUrl}/song/${queue[i]}`)
                         .then((result) => {
                             data.push({
                                 songId: result.data.songs._id,

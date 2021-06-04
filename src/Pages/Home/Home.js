@@ -22,11 +22,11 @@ export const Home = ({ apiUrl }) => {
     useEffect(() => {
         if (search) {
             axios
-                .get(apiUrl + "/album/search/" + search)
+                .get(`${apiUrl}/album/search/${search}`)
                 .then((result) => setAlbumSearch(result.data));
 
             axios
-                .get(apiUrl + "/song/search/" + search)
+                .get(`${apiUrl}/song/search/${search}`)
                 .then((result) => setSongSearch(result.data));
         }
     }, [search, apiUrl]);
@@ -74,7 +74,7 @@ export const Home = ({ apiUrl }) => {
                     className={playingSong === s.songs._id ? "activeItem" : ""}
                 >
                     <img
-                        src={apiUrl + "/album/" + s._id + "/ico"}
+                        src={`${apiUrl}/album/${s._id}/ico`}
                         alt="album logo"
                         className="album"
                         onError={handleImageError}

@@ -15,7 +15,7 @@ export const EditAlbum = ({ apiUrl }) => {
     useEffect(() => {
         const getAlbumData = async () => {
             var data = [];
-            await axios.get(apiUrl + "/album").then((result) => {
+            await axios.get(`${apiUrl}/album`).then((result) => {
                 result.data.forEach((d) => {
                     data.push(d);
                 });
@@ -99,7 +99,7 @@ const AddAlbum = ({ apiUrl, setAlbumID }) => {
         data.append("artist", artist);
         data.append("releaseDate", date);
         await axios
-            .post(apiUrl + "/album", data, {
+            .post(`${apiUrl}/album`, data, {
                 headers: { Authorization: authToken },
             })
             .then((res) => {

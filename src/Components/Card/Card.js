@@ -15,7 +15,7 @@ export const Card = ({ id, name, artist, apiUrl, handleImageError }) => {
 
         var songListData = [];
         await axios
-            .get(apiUrl + "/album/" + id)
+            .get(`${apiUrl}/album/${id}`)
             .then((res) => (songListData = res.data.songs));
 
         var songList = [];
@@ -31,7 +31,7 @@ export const Card = ({ id, name, artist, apiUrl, handleImageError }) => {
     return (
         <Link className="cardItem" to={`/albums/${id}`}>
             <img
-                src={apiUrl + "/album/" + id + "/ico"}
+                src={`${apiUrl}/album/${id}/ico`}
                 alt="Album Icon"
                 onError={handleImageError}
             />

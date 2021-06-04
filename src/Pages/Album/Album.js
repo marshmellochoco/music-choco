@@ -23,13 +23,13 @@ export const Album = ({ apiUrl }) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        axios.get(apiUrl + "/album/" + id).then((res) => {
+        axios.get(`${apiUrl}/album/${id}`).then((res) => {
             setAlbum(res.data.albumname);
             setArtist(res.data.artist);
         });
 
         axios
-            .get(apiUrl + "/album/" + id)
+            .get(`${apiUrl}/album/${id}`)
             .then((res) => setSongs(res.data.songs));
     }, [id, apiUrl]);
 
