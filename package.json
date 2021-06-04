@@ -24,7 +24,9 @@
   },
   "homepage": "https://github.com/marshmellochoco/music-choco#readme",
   "devDependencies": {
-    "react-scripts": "^4.0.3"
+    "husky": "^6.0.0",
+    "react-scripts": "^4.0.3",
+    "react-test-renderer": "^17.0.2"
   },
   "browserslist": {
     "production": [
@@ -45,5 +47,10 @@
     "react-player": "^2.9.0",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "CI=true npm run test"
+    }
   }
 }

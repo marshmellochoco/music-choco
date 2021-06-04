@@ -1,4 +1,4 @@
-import { authReducer } from "../Reducers/authReducer";
+import { authReducer } from "../../Reducers/authReducer";
 
 describe("authReducer test", () => {
     const initState = {

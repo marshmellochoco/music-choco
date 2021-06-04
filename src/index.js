@@ -2,22 +2,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import { combineReducers, createStore } from "redux";
+import { createStore } from "redux";
+import { rootReducer } from "./Reducers/rootReducer";
 
 // component import
-import { queueReducer } from "./Reducers/queueReducer";
-import { songDataReducer } from "./Reducers/songDataReducer";
-import { playerReducer } from "./Reducers/playerReducer";
-import { authReducer } from "./Reducers/authReducer";
 import App from "./App";
 import "./index.css";
-
-const rootReducer = combineReducers({
-    queueReducer,
-    songDataReducer,
-    playerReducer,
-    authReducer,
-});
 
 const store = createStore(rootReducer);
 

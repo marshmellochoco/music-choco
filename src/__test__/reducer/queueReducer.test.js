@@ -1,4 +1,4 @@
-import { queueReducer } from "../Reducers/queueReducer";
+import { queueReducer } from "../../Reducers/queueReducer";
 
 describe("queueReducer test", () => {
     const initState = {

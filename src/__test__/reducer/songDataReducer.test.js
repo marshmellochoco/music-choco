@@ -1,4 +1,4 @@
-import { songDataReducer } from "../Reducers/songDataReducer";
+import { songDataReducer } from "../../Reducers/songDataReducer";
 
 describe("songDataReducer test", () => {
     const initState = {

@@ -1,4 +1,4 @@
-import { playerReducer } from "../Reducers/playerReducer";
+import { playerReducer } from "../../Reducers/playerReducer";
 
 describe("playerReducer test", () => {
     const initState = {
