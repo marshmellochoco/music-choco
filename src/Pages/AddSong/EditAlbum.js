@@ -1,6 +1,7 @@
 // dependancy import
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 // component import
@@ -78,6 +79,7 @@ const AddAlbum = ({ apiUrl, setAlbumID }) => {
     const [date, setDate] = useState("");
     const [icon, setIcon] = useState();
     const [preview, setPreview] = useState();
+    const authToken = useSelector((state) => state.authReducer.token);
 
     useEffect(() => {
         if (!icon) {
@@ -96,9 +98,13 @@ const AddAlbum = ({ apiUrl, setAlbumID }) => {
         data.append("album", album);
         data.append("artist", artist);
         data.append("releaseDate", date);
-        await axios.post(apiUrl + "/album", data).then((res) => {
-            console.log(res.data);
-        });
+        await axios
+            .post(apiUrl + "/album", data, {
+                headers: { Authorization: authToken },
+            })
+            .then((res) => {
+                console.log(res.data);
+            });
         setAlbumID(album);
     };
 

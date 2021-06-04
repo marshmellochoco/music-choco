@@ -84,15 +84,20 @@ export const Home = ({ apiUrl }) => {
                         <div>{s.artist}</div>
                     </div>
                     <div>
-                        {((s.songs.duration) / 60 < 10 ? "0" : "") +
-                            Math.floor((s.songs.duration) / 60)}{" "}
+                        {(s.songs.duration / 60 < 10 ? "0" : "") +
+                            Math.floor(s.songs.duration / 60)}{" "}
                         :{" "}
-                        {((s.songs.duration) % 60 < 10 ? "0" : "") +
-                            (s.songs.duration) % 60}
+                        {(s.songs.duration % 60 < 10 ? "0" : "") +
+                            (s.songs.duration % 60)}
                     </div>
                 </li>
             );
         });
+    };
+
+    const handleLogout = (e) => {
+        e.preventDefault();
+        dispatch({ type: "RESET_TOKEN" });
     };
 
     return (
@@ -106,6 +111,10 @@ export const Home = ({ apiUrl }) => {
                     Hmm... what to put here
                     <br />
                     <Link to="/add">Add some song!</Link>
+                    <br/>
+                    <Link to="/" onClick={handleLogout}>
+                        Logout
+                    </Link>
                 </div>
             ) : (
                 <div className="content">

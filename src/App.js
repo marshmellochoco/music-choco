@@ -9,9 +9,11 @@ import { Album } from "./Pages/Album/Album";
 import { Home } from "./Pages/Home/Home";
 import { EditAlbum } from "./Pages/AddSong/EditAlbum";
 import { Login } from "./Pages/Login/Login";
+import { useSelector } from "react-redux";
 
 function App() {
     const [randomQueue, setRandomQueue] = useState([]);
+    const authToken = useSelector((state) => state.authReducer.token);
     const apiUrl = process.env.REACT_APP_API_URL;
 
     return (
@@ -21,10 +23,11 @@ function App() {
                     <div className="page-container">
                         <Switch>
                             <Route exact path="/">
-                                <Login/>
-                            </Route>
-                            <Route path="/home">
-                                <Home apiUrl={apiUrl} />
+                                {authToken !== "null" && authToken ? (
+                                    <Home apiUrl={apiUrl} />
+                                ) : (
+                                    <Login apiUrl={apiUrl} />
+                                )}
                             </Route>
                             <Route path="/albums/:id">
                                 <Album apiUrl={apiUrl} />
