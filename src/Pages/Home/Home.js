@@ -84,11 +84,11 @@ export const Home = ({ apiUrl }) => {
                         <div>{s.artist}</div>
                     </div>
                     <div>
-                        {((s.songs.duration - 1) / 60 < 10 ? "0" : "") +
-                            Math.floor((s.songs.duration - 1) / 60)}{" "}
+                        {((s.songs.duration) / 60 < 10 ? "0" : "") +
+                            Math.floor((s.songs.duration) / 60)}{" "}
                         :{" "}
-                        {((s.songs.duration - 1) % 60 < 10 ? "0" : "") +
-                            Math.floor((s.songs.duration - 1) % 60)}
+                        {((s.songs.duration) % 60 < 10 ? "0" : "") +
+                            (s.songs.duration) % 60}
                     </div>
                 </li>
             );

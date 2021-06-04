@@ -66,7 +66,9 @@ export const Album = ({ apiUrl }) => {
                 }`}
                 key={s._id}
                 onClick={(e) =>
-                    e.target.getAttribute('class') !== "notToPlay" ? setSong(s._id) : null
+                    e.target.getAttribute("class") !== "notToPlay"
+                        ? setSong(s._id)
+                        : null
                 }
                 onContextMenu={(e) => addQueue(s._id)}
             >
@@ -79,15 +81,16 @@ export const Album = ({ apiUrl }) => {
                         xmlns="http://www.w3.org/2000/svg"
                         className={"notToPlay"}
                     >
-                        <path className={"notToPlay"} d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM14 11a1 1 0 011 1v1h1a1 1 0 110 2h-1v1a1 1 0 11-2 0v-1h-1a1 1 0 110-2h1v-1a1 1 0 011-1z" />
+                        <path
+                            className={"notToPlay"}
+                            d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM14 11a1 1 0 011 1v1h1a1 1 0 110 2h-1v1a1 1 0 11-2 0v-1h-1a1 1 0 110-2h1v-1a1 1 0 011-1z"
+                        />
                     </svg>
                 </div>
                 <div>
-                    {((s.duration - 1) / 60 < 10 ? "0" : "") +
-                        Math.floor((s.duration - 1) / 60)}{" "}
-                    :{" "}
-                    {((s.duration - 1) % 60 < 10 ? "0" : "") +
-                        Math.floor((s.duration - 1) % 60)}
+                    {(s.duration / 60 < 10 ? "0" : "") +
+                        Math.floor(s.duration / 60)}{" "}
+                    : {(s.duration % 60 < 10 ? "0" : "") + (s.duration % 60)}
                 </div>
             </li>
         ));

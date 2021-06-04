@@ -8,6 +8,7 @@ import { Queue } from "./Pages/Queue/Queue";
 import { Album } from "./Pages/Album/Album";
 import { Home } from "./Pages/Home/Home";
 import { EditAlbum } from "./Pages/AddSong/EditAlbum";
+import { Login } from "./Pages/Login/Login";
 
 function App() {
     const [randomQueue, setRandomQueue] = useState([]);
@@ -20,6 +21,9 @@ function App() {
                     <div className="page-container">
                         <Switch>
                             <Route exact path="/">
+                                <Login/>
+                            </Route>
+                            <Route path="/home">
                                 <Home apiUrl={apiUrl} />
                             </Route>
                             <Route path="/albums/:id">
