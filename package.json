@@ -10,7 +10,8 @@
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "serve": "serve -s build -l 80"
+    "serve": "serve -s build -l 80",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -47,10 +48,5 @@
     "react-player": "^2.9.0",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "CI=true npm run test"
-    }
   }
 }

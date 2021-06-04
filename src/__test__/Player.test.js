@@ -34,6 +34,7 @@ describe("Player test", () => {
                 <Player apiUrl={process.env.REACT_APP_API_URL}/>
             </Provider>
         );
+        
         expect(tree).toMatchSnapshot();
     });
 });
