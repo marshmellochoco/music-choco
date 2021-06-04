@@ -142,7 +142,7 @@ export const Player = ({ apiUrl, randomQueue }) => {
 
                     <div className="player-control">
                         <svg
-                            className="control-button"
+                            className="control-button prev"
                             viewBox="0 0 24 24"
                             onClick={prevSong}
                         >
@@ -201,7 +201,7 @@ export const Player = ({ apiUrl, randomQueue }) => {
                             </svg>
                         )}
                         <svg
-                            className="control-button"
+                            className="control-button next"
                             viewBox="0 0 24 24"
                             onClick={nextSong}
                         >
