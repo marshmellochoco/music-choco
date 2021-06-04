@@ -23,7 +23,7 @@
   "bugs": {
     "url": "https://github.com/marshmellochoco/music-choco/issues"
   },
-  "homepage": "https://github.com/marshmellochoco/music-choco#readme",
+  "homepage": "/",
   "devDependencies": {
     "husky": "^6.0.0",
     "react-scripts": "^4.0.3",

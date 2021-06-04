@@ -8,10 +8,14 @@ export const Login = ({ apiUrl, setToken }) => {
     const [password, setPassword] = useState("");
     const dispatch = useDispatch();
 
-    const handleSubmit = async (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
-        const token = await userLogin({ username, password });
-        dispatch({ type: "SET_TOKEN", token: token });
+        userLogin({ username, password });
+    };
+
+    const handleRegister = async (e) => {
+        e.preventDefault();
+        userRegister({ username, password });
     };
 
     const userLogin = async (credentials) => {
@@ -20,7 +24,16 @@ export const Login = ({ apiUrl, setToken }) => {
             .post(`${apiUrl}/login`, { credentials })
             .then((result) => (token = result.data.token))
             .catch((err) => console.log(err));
-        return token;
+        dispatch({ type: "SET_TOKEN", token: token });
+    };
+
+    const userRegister = async (credentials) => {
+        let token;
+        await axios
+            .post(`${apiUrl}/register`, { credentials })
+            .then((result) => (token = result.data.token))
+            .catch((err) => console.log(err));
+        dispatch({ type: "SET_TOKEN", token: token });
     };
 
     return (
@@ -46,7 +59,8 @@ export const Login = ({ apiUrl, setToken }) => {
                         />
                     </label>
                     <div>
-                        <button onClick={handleSubmit}>Login</button>
+                        <button onClick={handleLogin}>Login</button>
+                        <button onClick={handleRegister}>Register</button>
                     </div>
                 </form>
             </div>

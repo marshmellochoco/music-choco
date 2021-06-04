@@ -18,29 +18,29 @@ function App() {
 
     return (
         <div className="App" onContextMenu={(e) => e.preventDefault()}>
-            <div className="app-container">
-                <Router basename="/">
-                    <div className="page-container">
-                        <Switch>
-                            <Route exact path="/">
-                                {authToken !== "null" && authToken ? (
+            {authToken !== "null" && authToken ? (
+                <div className="app-container">
+                    <Router basename="/">
+                        <div className="page-container">
+                            <Switch>
+                                <Route exact path="/">
                                     <Home apiUrl={apiUrl} />
-                                ) : (
-                                    <Login apiUrl={apiUrl} />
-                                )}
-                            </Route>
-                            <Route path="/albums/:id">
-                                <Album apiUrl={apiUrl} />
-                            </Route>
-                            <Route path="/add">
-                                <EditAlbum apiUrl={apiUrl} />
-                            </Route>
-                        </Switch>
-                    </div>
-                </Router>
-                <Queue apiUrl={apiUrl} setRandomQueue={setRandomQueue} />
-                <Player apiUrl={apiUrl} randomQueue={randomQueue} />
-            </div>
+                                </Route>
+                                <Route path="/albums/:id">
+                                    <Album apiUrl={apiUrl} />
+                                </Route>
+                                <Route path="/add">
+                                    <EditAlbum apiUrl={apiUrl} />
+                                </Route>
+                            </Switch>
+                        </div>
+                    </Router>
+                    <Queue apiUrl={apiUrl} setRandomQueue={setRandomQueue} />
+                    <Player apiUrl={apiUrl} randomQueue={randomQueue} />
+                </div>
+            ) : (
+                <Login apiUrl={apiUrl} />
+            )}
         </div>
     );
 }
