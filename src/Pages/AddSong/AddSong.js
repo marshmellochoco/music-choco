@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 export const AddSong = ({ apiUrl, album, albumID }) => {
     const [name, setName] = useState("");
     const [file, setFile] = useState(null);
-    const authToken = useSelector(state => state.authReducer.token)
+    const authToken = useSelector((state) => state.authReducer.token);
 
     const addSong = (e) => {
         e.preventDefault();
@@ -15,9 +15,13 @@ export const AddSong = ({ apiUrl, album, albumID }) => {
         data.append("file", file);
         data.append("albumID", albumID);
         data.append("songName", name);
-        axios.post(apiUrl + "/song",data, {headers: {'Authorization': authToken}}).then((res) => {
-            console.log(res.data);
-        });
+        axios
+            .post(apiUrl + "/song", data, {
+                headers: { Authorization: authToken },
+            })
+            .then((res) => {
+                console.log(res.data);
+            });
     };
 
     return (

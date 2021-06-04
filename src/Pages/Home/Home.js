@@ -111,7 +111,7 @@ export const Home = ({ apiUrl }) => {
                     Hmm... what to put here
                     <br />
                     <Link to="/add">Add some song!</Link>
-                    <br/>
+                    <br />
                     <Link to="/" onClick={handleLogout}>
                         Logout
                     </Link>

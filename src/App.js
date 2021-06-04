@@ -19,7 +19,7 @@ function App() {
     return (
         <div className="App" onContextMenu={(e) => e.preventDefault()}>
             <div className="app-container">
-                <Router basename="/music-choco">
+                <Router basename="/">
                     <div className="page-container">
                         <Switch>
                             <Route exact path="/">

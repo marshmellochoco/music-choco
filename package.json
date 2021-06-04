@@ -1,50 +1,49 @@
 {
-    "name": "music-choco",
-    "version": "0.1.0",
-    "private": true,
-    "dependencies": {
-        "@testing-library/jest-dom": "^5.12.0",
-        "@testing-library/react": "^11.2.7",
-        "@testing-library/user-event": "^12.8.3",
-        "axios": "^0.21.1",
-        "dotenv": "^8.2.0",
-        "react": "^17.0.2",
-        "react-beautiful-dnd": "^13.1.0",
-        "react-dom": "^17.0.2",
-        "react-loading": "^2.0.3",
-        "react-player": "^2.9.0",
-        "react-redux": "^7.2.4",
-        "react-router": "^5.2.0",
-        "react-router-dom": "^5.2.0",
-        "react-scripts": "4.0.3",
-        "redux": "^4.1.0",
-        "web-vitals": "^1.1.2"
-    },
-    "scripts": {
-        "start": "set PORT=80 && react-scripts start",
-        "build": "react-scripts build",
-        "test": "react-scripts test",
-        "eject": "react-scripts eject",
-        "predeploy": "npm run build",
-        "deploy": "gh-pages -d build",
-        "serve": "serve -s build -l 80"
-    },
-    "eslintConfig": {
-        "extends": [
-            "react-app",
-            "react-app/jest"
-        ]
-    },
-    "browserslist": {
-        "production": [
-            ">0.2%",
-            "not dead",
-            "not op_mini all"
-        ],
-        "development": [
-            "last 1 chrome version",
-            "last 1 firefox version",
-            "last 1 safari version"
-        ]
-    }
+  "name": "music-choco",
+  "version": "1.0.0",
+  "description": "Aim of this project is to create a audio streaming application that is similar to Spotify Web Player (but not a total clone of it). I created this project just to test out my React skills and to learn more about fullstack development also maintaining and managing a project.",
+  "main": "index.js",
+  "scripts": {
+    "start": "set PORT=80 && react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "serve": "serve -s build -l 80"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marshmellochoco/music-choco.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/marshmellochoco/music-choco/issues"
+  },
+  "homepage": "https://github.com/marshmellochoco/music-choco#readme",
+  "devDependencies": {
+    "react-scripts": "^4.0.3"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "react-beautiful-dnd": "^13.1.0",
+    "react-loading": "^2.0.3",
+    "react-player": "^2.9.0",
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0"
+  }
 }
