@@ -17,6 +17,7 @@ export const Home = ({ apiUrl }) => {
     const playingSong = useSelector(
         (state) => state.songDataReducer.songData.songId
     );
+
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -74,7 +75,7 @@ export const Home = ({ apiUrl }) => {
                     className={playingSong === s.songs._id ? "activeItem" : ""}
                 >
                     <img
-                        src={`${apiUrl}/album/${s._id}/ico`}
+                        src={`${apiUrl}/album/ico/${s._id}`}
                         alt="album logo"
                         className="album"
                         onError={handleImageError}
@@ -96,8 +97,9 @@ export const Home = ({ apiUrl }) => {
     };
 
     const handleLogout = (e) => {
-        e.preventDefault();
+        // logout to clear the token and refresh all data
         dispatch({ type: "RESET_TOKEN" });
+        window.location.reload();
     };
 
     return (
@@ -112,9 +114,7 @@ export const Home = ({ apiUrl }) => {
                     <br />
                     <Link to="/add">Add some song!</Link>
                     <br />
-                    <Link to="/" onClick={handleLogout}>
-                        Logout
-                    </Link>
+                    <div onClick={handleLogout}>Logout</div>
                 </div>
             ) : (
                 <div className="content">

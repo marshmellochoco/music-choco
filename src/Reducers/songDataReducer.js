@@ -22,6 +22,10 @@ export const songDataReducer = (state = initState, action) => {
                 ...state,
                 songData: { ...state.songData, songId: action.songId },
             };
+        case "RESET_SONG_DATA":
+            return {
+                initState,
+            };
         default:
             return state;
     }

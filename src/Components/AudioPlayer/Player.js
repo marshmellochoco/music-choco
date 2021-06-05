@@ -122,7 +122,7 @@ export const Player = ({ apiUrl, randomQueue }) => {
                             <img
                                 src={
                                     songData.albumId && songData.songId
-                                        ? `${apiUrl}/album/${songData.albumId}/ico`
+                                        ? `${apiUrl}/album/ico/${songData.albumId}`
                                         : ""
                                 }
                                 alt=""
@@ -177,7 +177,7 @@ export const Player = ({ apiUrl, randomQueue }) => {
                                 onClick={() =>
                                     dispatch({
                                         type: "SET_PLAYING",
-                                        playing: false,
+                                        playing: true,
                                     })
                                 }
                                 xmlns="http://www.w3.org/2000/svg"

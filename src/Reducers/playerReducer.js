@@ -21,6 +21,10 @@ export const playerReducer = (state = initState, action) => {
                 ...state,
                 random: !state.random,
             };
+        case "RESET_PLAYER":
+            return {
+                initState,
+            };
         default:
             return state;
     }

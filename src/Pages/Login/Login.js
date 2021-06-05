@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import "./Login.css";
 
-export const Login = ({ apiUrl, setToken }) => {
+export const Login = ({ apiUrl }) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const dispatch = useDispatch();
@@ -21,7 +21,7 @@ export const Login = ({ apiUrl, setToken }) => {
     const userLogin = async (credentials) => {
         let token;
         await axios
-            .post(`${apiUrl}/login`, { credentials })
+            .post(`${apiUrl}/auth`, { credentials })
             .then((result) => (token = result.data.token))
             .catch((err) => console.log(err));
         dispatch({ type: "SET_TOKEN", token: token });
@@ -30,7 +30,7 @@ export const Login = ({ apiUrl, setToken }) => {
     const userRegister = async (credentials) => {
         let token;
         await axios
-            .post(`${apiUrl}/register`, { credentials })
+            .post(`${apiUrl}/auth/register`, { credentials })
             .then((result) => (token = result.data.token))
             .catch((err) => console.log(err));
         dispatch({ type: "SET_TOKEN", token: token });

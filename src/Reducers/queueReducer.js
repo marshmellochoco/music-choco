@@ -29,6 +29,10 @@ export const queueReducer = (state = initState, action) => {
                 ...state,
                 queueData: action.queueData,
             };
+        case "RESET_QUEUE":
+            return {
+                initState,
+            };
         default:
             return state;
     }

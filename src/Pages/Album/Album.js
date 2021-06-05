@@ -104,7 +104,7 @@ export const Album = ({ apiUrl }) => {
             <div className="albumHeader">
                 <img
                     alt={album}
-                    src={`${apiUrl}/album/${id}/ico`}
+                    src={`${apiUrl}/album/ico/${id}`}
                     onError={(e) =>
                         (e.target.src =
                             "https://f4.bcbits.com/img/a4139357031_10.jpg")

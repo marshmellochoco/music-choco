@@ -31,7 +31,7 @@ export const Card = ({ id, name, artist, apiUrl, handleImageError }) => {
     return (
         <Link className="cardItem" to={`/albums/${id}`}>
             <img
-                src={`${apiUrl}/album/${id}/ico`}
+                src={`${apiUrl}/album/ico/${id}`}
                 alt="Album Icon"
                 onError={handleImageError}
             />
