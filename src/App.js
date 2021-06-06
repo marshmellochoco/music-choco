@@ -14,7 +14,6 @@ import { useSelector } from "react-redux";
 function App() {
     const [randomQueue, setRandomQueue] = useState([]);
     const authToken = useSelector((state) => state.authReducer.token);
-    const apiUrl = process.env.REACT_APP_API_URL;
 
     return (
         <div className="App" onContextMenu={(e) => e.preventDefault()}>
@@ -24,22 +23,22 @@ function App() {
                         <div className="page-container">
                             <Switch>
                                 <Route exact path="/">
-                                    <Home apiUrl={apiUrl} />
+                                    <Home />
                                 </Route>
                                 <Route path="/albums/:id">
-                                    <Album apiUrl={apiUrl} />
+                                    <Album />
                                 </Route>
                                 <Route path="/add">
-                                    <EditAlbum apiUrl={apiUrl} />
+                                    <EditAlbum />
                                 </Route>
                             </Switch>
                         </div>
                     </Router>
-                    <Queue apiUrl={apiUrl} setRandomQueue={setRandomQueue} />
-                    <Player apiUrl={apiUrl} randomQueue={randomQueue} />
+                    <Queue setRandomQueue={setRandomQueue} />
+                    <Player randomQueue={randomQueue} />
                 </div>
             ) : (
-                <Login apiUrl={apiUrl} />
+                <Login />
             )}
         </div>
     );

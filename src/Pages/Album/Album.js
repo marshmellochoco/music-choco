@@ -8,7 +8,8 @@ import { Link } from "react-router-dom";
 // component import
 import "./Album.css";
 
-export const Album = ({ apiUrl }) => {
+export const Album = () => {
+    const apiUrl = process.env.REACT_APP_API_URL;
     const [songs, setSongs] = useState([]);
     const [album, setAlbum] = useState("");
     const [artist, setArtist] = useState("");

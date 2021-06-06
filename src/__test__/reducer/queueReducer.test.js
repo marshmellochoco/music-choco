@@ -54,6 +54,21 @@ describe("queueReducer test", () => {
         ).toEqual({ ...initState, queue: ["60b67fbcf747a945dcc5d284"] });
     });
 
+    it("should NOT add repeating song to queue", () => {
+        const queueState = {
+            queue: ["60b67fbcf747a945dcc5d284", "60b67fb1f747a945dcc5d282"],
+            queueData: [],
+            loading: false,
+        };
+
+        expect(
+            queueReducer(queueState, {
+                type: "ADD_QUEUE",
+                songId: "60b67fbcf747a945dcc5d284",
+            })
+        ).toEqual(queueState);
+    });
+
     it("should handle SET_LOADING", () => {
         expect(
             queueReducer(initState, {

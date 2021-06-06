@@ -9,7 +9,8 @@ import { Card } from "../../Components/Card/Card";
 import { Searchbar } from "../../Components/Searchbar/Searchbar";
 import "./Home.css";
 
-export const Home = ({ apiUrl }) => {
+export const Home = () => {
+    const apiUrl = process.env.REACT_APP_API_URL;
     const [search, setSearch] = useState("");
     const [albumSearch, setAlbumSearch] = useState([]);
     const [songSearch, setSongSearch] = useState([]);
@@ -57,7 +58,6 @@ export const Home = ({ apiUrl }) => {
                     id={s._id}
                     name={s.albumname}
                     artist={s.artist}
-                    apiUrl={apiUrl}
                     handleImageError={handleImageError}
                 ></Card>
             );
@@ -106,7 +106,7 @@ export const Home = ({ apiUrl }) => {
         <div>
             <div className="headers">
                 <h1>music-choco</h1>
-                <Searchbar handleSearch={(e) => setSearch(e.target.value)} />
+                <Searchbar handleSearch={(value) => setSearch(value)} />
             </div>
             {search === "" ? (
                 <div className="content">

@@ -7,7 +7,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Slider } from "../Slider/Slider";
 import "./Player.css";
 
-export const Player = ({ apiUrl, randomQueue }) => {
+export const Player = ({ randomQueue }) => {
+    const apiUrl = process.env.REACT_APP_API_URL;
     const [currentTime, setCurrentTime] = useState(0);
     const [volume, setVolume] = useState(1);
     const [lastVolume, setLastVolume] = useState(volume);
@@ -247,7 +248,7 @@ export const Player = ({ apiUrl, randomQueue }) => {
                             </svg>
                         )}
                         <Slider
-                            onChange={(e) => changeVolume(e.target.value / 100)}
+                            onChange={(value) => changeVolume(value / 100)}
                             transform={volume * 100 - 100}
                         />
                     </div>
@@ -265,10 +266,7 @@ export const Player = ({ apiUrl, randomQueue }) => {
                         </div>
 
                         <Slider
-                            onChange={(e) => {
-                                setClickedTime(e.target.value);
-                                e.target.value = 100;
-                            }}
+                            onChange={setClickedTime}
                             transform={
                                 (currentTime / songData.duration) * 100 - 100
                             }

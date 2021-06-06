@@ -12,7 +12,6 @@ const initState = {
 export const songDataReducer = (state = initState, action) => {
     switch (action.type) {
         case "SET_SONG_DATA":
-            if (!action.songData) return state;
             return {
                 ...state,
                 songData: action.songData,
@@ -21,10 +20,6 @@ export const songDataReducer = (state = initState, action) => {
             return {
                 ...state,
                 songData: { ...state.songData, songId: action.songId },
-            };
-        case "RESET_SONG_DATA":
-            return {
-                initState,
             };
         default:
             return state;

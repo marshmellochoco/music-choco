@@ -7,7 +7,8 @@ import { Link } from "react-router-dom";
 // component import
 import { AddSong } from "../AddSong/AddSong";
 
-export const EditAlbum = ({ apiUrl }) => {
+export const EditAlbum = () => {
+    const apiUrl = process.env.REACT_APP_API_URL;
     const [albumList, setAlbumList] = useState([]);
     const [selectedAlbum, setSelectedAlbum] = useState(null);
     const [add, setAdd] = useState(false);

@@ -11,7 +11,8 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "serve": "serve -s build -l 80",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "coverage": "react-scripts test --env=jsdom --watchAll=false --coverage"
   },
   "repository": {
     "type": "git",
@@ -26,8 +27,7 @@
   "homepage": "/",
   "devDependencies": {
     "husky": "^6.0.0",
-    "react-scripts": "^4.0.3",
-    "react-test-renderer": "^17.0.2"
+    "react-scripts": "^4.0.3"
   },
   "browserslist": {
     "production": [
@@ -42,7 +42,12 @@
     ]
   },
   "dependencies": {
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.6.1",
     "axios": "^0.21.1",
+    "enzyme": "^3.11.0",
+    "enzyme-to-json": "^3.6.2",
+    "i": "^0.3.6",
+    "npm": "^7.16.0",
     "react-beautiful-dnd": "^13.1.0",
     "react-loading": "^2.0.3",
     "react-player": "^2.9.0",

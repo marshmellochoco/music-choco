@@ -1,9 +1,15 @@
+// ---------- Testing Libraries ----------
+import Adapter from "@wojtekmaj/enzyme-adapter-react-17";
+import { configure, mount } from "enzyme";
+import toJson from "enzyme-to-json";
+
+// ---------- Dependancies and Components ----------
 import { createStore } from "redux";
 import { Provider } from "react-redux";
-import renderer from "react-test-renderer";
-import { Player } from "../Components/AudioPlayer/Player";
-import { rootReducer } from "../Reducers/rootReducer";
+import { Player } from "../../Components/AudioPlayer/Player";
+import { rootReducer } from "../../Reducers/rootReducer";
 
+configure({ adapter: new Adapter() });
 const store = createStore(rootReducer);
 const testSongData = {
     songId: "60b67f66f747a945dcc5d27c",
@@ -16,13 +22,13 @@ const testSongData = {
 store.dispatch({ type: "SET_SONG_DATA", songData: testSongData });
 
 describe("Player test", () => {
-    const tree = renderer.create(
+    const tree = mount(
         <Provider store={store}>
-            <Player apiUrl={process.env.REACT_APP_API_URL} />
+            <Player />
         </Provider>
     );
 
     it("should render the player correctly", () => {
-        expect(tree).toMatchSnapshot();
+        expect(toJson(tree)).toMatchSnapshot();
     });
 });

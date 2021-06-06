@@ -11,7 +11,7 @@ export const Slider = ({ onChange, transform }) => {
             <input
                 className="slider-back"
                 type="range"
-                onChange={(e) => onChange(e)}
+                onChange={(e) => onChange(e.target.value)}
             />
         </div>
     );

@@ -8,7 +8,8 @@ import ReactLoading from "react-loading";
 // component import
 import "./Queue.css";
 
-export const Queue = ({ apiUrl, setRandomQueue }) => {
+export const Queue = ({ setRandomQueue }) => {
+    const apiUrl = process.env.REACT_APP_API_URL;
     const playingSong = useSelector(
         (state) => state.songDataReducer.songData.songId
     );

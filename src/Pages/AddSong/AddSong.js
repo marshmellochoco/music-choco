@@ -3,7 +3,8 @@ import { useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 
-export const AddSong = ({ apiUrl, album, albumID }) => {
+export const AddSong = ({ album, albumID }) => {
+    const apiUrl = process.env.REACT_APP_API_URL;
     const [name, setName] = useState("");
     const [file, setFile] = useState(null);
     const authToken = useSelector((state) => state.authReducer.token);

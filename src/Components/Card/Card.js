@@ -6,13 +6,12 @@ import { Link } from "react-router-dom";
 // component import
 import "./Card.css";
 
-export const Card = ({ id, name, artist, apiUrl, handleImageError }) => {
+export const Card = ({ id, name, artist, handleImageError }) => {
+    const apiUrl = process.env.REACT_APP_API_URL;
     const dispatch = useDispatch();
 
-    const handlePlayAlbum = async (e, id) => {
+    const handlePlayAlbum = async (id) => {
         // play the entire album associated with the card, replace the existing queue with the album list
-        e.preventDefault();
-
         var songListData = [];
         await axios
             .get(`${apiUrl}/album/${id}`)
@@ -23,9 +22,9 @@ export const Card = ({ id, name, artist, apiUrl, handleImageError }) => {
             songList.push(s._id);
         });
 
-        dispatch({ type: "SET_QUEUE", queue: songList });
         dispatch({ type: "SET_PLAYING_SONG", songId: songList[0] });
         dispatch({ type: "SET_PLAYING", playing: true });
+        dispatch({ type: "SET_QUEUE", queue: songList });
     };
 
     return (
@@ -41,7 +40,8 @@ export const Card = ({ id, name, artist, apiUrl, handleImageError }) => {
             <div
                 className="playAlbum"
                 onClick={(e) => {
-                    handlePlayAlbum(e, id);
+                    e.preventDefault();
+                    handlePlayAlbum(id);
                 }}
             >
                 <svg
