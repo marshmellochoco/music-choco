@@ -5,104 +5,96 @@
     --contrast-color: #d0d0d0;
 }
 
-.albums a{
+.albums a {
     text-decoration: none;
     color: var(--contrast-color);
 }
 
-.albums a:hover{
+.albums a:hover {
     text-decoration: underline;
 }
 
-.albumHeader{
+.albumHeader {
     margin: 1% 0 3% 0;
     display: grid;
     grid-template-columns: 13rem 1fr;
 }
 
-.albumHeader img{
+.albumHeader img {
     width: 12rem;
     cursor: pointer;
-}
-
-.albumHeader .overlay{
-    position: absolute;
+    opacity: 1;
     background-color: white;
-    height: 12rem;
-    width: 12rem;
-    cursor: pointer;
-    opacity: 0;
 }
 
-.albumHeader .overlay:hover{
-    opacity: 0.05;
+.albumHeader img:hover {
+    opacity: 0.7;
 }
 
-
-.albumHeader .album{
+.albumHeader .album {
     display: inline-block;
     align-self: flex-end;
 }
 
-.albumHeader h1{
+.albumHeader h1 {
     margin: 1% 0;
 }
 
-.albumHeader h2{
+.albumHeader h2 {
     margin: 1% 0;
 }
 
-.songList{
+.songList {
     list-style-type: none;
     padding: 0;
     margin-right: 2%;
 }
 
-.songList .songHeader{
+.songList .songHeader {
     font-size: 0.8em;
 }
 
-.songList hr{
+.songList hr {
     margin: 0;
     border: 1px solid var(--secondary-color);
 }
 
-.songList li{
+.songList li {
     padding: 0.8em 0;
     padding-left: 1%;
     display: grid;
     grid-template-columns: 1fr 16fr 1fr 1fr;
 }
 
-.songList li div{
+.songList li div {
     display: flex;
     align-items: center;
 }
 
-.songList li .icon{
+.songList li .icon {
     margin: auto;
     width: 2em;
     cursor: pointer;
 }
 
-.songList .songItem svg:hover{
+.songList .songItem svg:hover {
     animation: svgHover 0.2s forwards;
 }
 
 @keyframes svgHover {
-    0%{
-        color: var(--contrast-color)
+    0% {
+        color: var(--contrast-color);
     }
-    100%{
+    100% {
         color: var(--primary-color);
     }
 }
 
-.songList .songItem:hover{
+.songList .songItem:hover {
     background-color: var(--secondary-color);
 }
 
-.songList .activeItem{
+.songList .activeItem {
     background-color: var(--thirtiary-color);
     color: var(--primary-color);
 }

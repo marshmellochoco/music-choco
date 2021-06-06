@@ -362,6 +362,7 @@ exports[`Player test should render the player correctly 1`] = `
               />
             </svg>
             <Slider
+              id="volumeSlider"
               onChange={[Function]}
               transform={0}
             >
@@ -402,6 +403,7 @@ exports[`Player test should render the player correctly 1`] = `
               00
             </div>
             <Slider
+              id="timelineSlider"
               onChange={[Function]}
               transform={-100}
             >

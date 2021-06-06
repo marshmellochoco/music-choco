@@ -2,22 +2,28 @@ import { configure, mount } from "enzyme";
 import Adapter from "@wojtekmaj/enzyme-adapter-react-17";
 import toJson from "enzyme-to-json";
 import { Route, BrowserRouter as Router } from "react-router-dom";
+import { Provider } from "react-redux";
+import { createStore } from "redux";
 
 import { Card } from "../Components/Card/Card";
 import { Searchbar } from "../Components/Searchbar/Searchbar";
 import { Slider } from "../Components/Slider/Slider";
+import { rootReducer } from "../Reducers/rootReducer";
 
 configure({ adapter: new Adapter() });
+const store = createStore(rootReducer);
 
 describe("components test", () => {
     it("should render card correctly", () => {
         const location = { pathname: "/music-choco" };
         const wrapper = mount(
-            <Router>
-                <Route location={location}>
-                    <Card id={"60883d8e1a02ff3eac90191f"} />
-                </Route>
-            </Router>
+            <Provider store={store}>
+                <Router>
+                    <Route location={location}>
+                        <Card id={"60883d8e1a02ff3eac90191f"} />
+                    </Route>
+                </Router>
+            </Provider>
         );
         expect(toJson(wrapper)).toMatchSnapshot();
     });

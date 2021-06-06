@@ -6,8 +6,8 @@ import toJson from "enzyme-to-json";
 // ---------- Dependancies and Components ----------
 import { createStore } from "redux";
 import { Provider } from "react-redux";
-import { Player } from "../../Components/AudioPlayer/Player";
-import { rootReducer } from "../../Reducers/rootReducer";
+import { Player } from "../Components/AudioPlayer/Player";
+import { rootReducer } from "../Reducers/rootReducer";
 
 configure({ adapter: new Adapter() });
 const store = createStore(rootReducer);

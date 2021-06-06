@@ -435,6 +435,7 @@ exports[`Login should log in and redirect to homepage 1`] = `
                     />
                   </svg>
                   <Slider
+                    id="volumeSlider"
                     onChange={[Function]}
                     transform={0}
                   >
@@ -475,6 +476,7 @@ exports[`Login should log in and redirect to homepage 1`] = `
                     00
                   </div>
                   <Slider
+                    id="timelineSlider"
                     onChange={[Function]}
                     transform={NaN}
                   >

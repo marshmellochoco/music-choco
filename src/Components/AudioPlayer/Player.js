@@ -23,10 +23,10 @@ export const Player = ({ randomQueue }) => {
     // --------- Audio Player Functions ----------
     const ref = createRef();
 
-    const onProgress = (e) => {
+    const onProgress = (playedSeconds) => {
         // set the current time as the number of seconds played on the song
-        if (Math.floor(e.playedSeconds) <= songData.duration) {
-            setCurrentTime(Math.ceil(e.playedSeconds));
+        if (Math.floor(playedSeconds) <= songData.duration) {
+            setCurrentTime(Math.ceil(playedSeconds));
         }
     };
 
@@ -114,7 +114,7 @@ export const Player = ({ randomQueue }) => {
                     playing={playing}
                     volume={volume}
                     onStart={() => setCurrentTime(0)}
-                    onProgress={onProgress}
+                    onProgress={(e) => onProgress(e.playedSeconds)}
                     onEnded={onEnded}
                 />
                 <div className="player-container">
@@ -248,6 +248,7 @@ export const Player = ({ randomQueue }) => {
                             </svg>
                         )}
                         <Slider
+                            id="volumeSlider"
                             onChange={(value) => changeVolume(value / 100)}
                             transform={volume * 100 - 100}
                         />
@@ -266,6 +267,7 @@ export const Player = ({ randomQueue }) => {
                         </div>
 
                         <Slider
+                            id="timelineSlider"
                             onChange={setClickedTime}
                             transform={
                                 (currentTime / songData.duration) * 100 - 100

@@ -106,12 +106,12 @@ export const Album = () => {
                 <img
                     alt={album}
                     src={`${apiUrl}/album/ico/${id}`}
+                    onClick={() => setAlbumToQueue()}
                     onError={(e) =>
                         (e.target.src =
                             "https://f4.bcbits.com/img/a4139357031_10.jpg")
                     }
                 />
-                <div className="overlay" onClick={() => setAlbumToQueue()} />
 
                 <div className="album">
                     <h1>{album}</h1>

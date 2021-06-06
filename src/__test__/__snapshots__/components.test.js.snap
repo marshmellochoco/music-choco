@@ -1,83 +1,95 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`components test should render card correctly 1`] = `
-<BrowserRouter>
-  <Router
-    history={
-      Object {
-        "action": "POP",
-        "block": [Function],
-        "createHref": [Function],
-        "go": [Function],
-        "goBack": [Function],
-        "goForward": [Function],
-        "length": 1,
-        "listen": [Function],
-        "location": Object {
-          "hash": "",
-          "pathname": "/",
-          "search": "",
-          "state": undefined,
-        },
-        "push": [Function],
-        "replace": [Function],
-      }
+<Provider
+  store={
+    Object {
+      "@@observable": [Function],
+      "dispatch": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
     }
-  >
-    <Route
-      location={
+  }
+>
+  <BrowserRouter>
+    <Router
+      history={
         Object {
-          "pathname": "/music-choco",
+          "action": "POP",
+          "block": [Function],
+          "createHref": [Function],
+          "go": [Function],
+          "goBack": [Function],
+          "goForward": [Function],
+          "length": 1,
+          "listen": [Function],
+          "location": Object {
+            "hash": "",
+            "pathname": "/",
+            "search": "",
+            "state": undefined,
+          },
+          "push": [Function],
+          "replace": [Function],
         }
       }
     >
-      <Card
-        id="60883d8e1a02ff3eac90191f"
+      <Route
+        location={
+          Object {
+            "pathname": "/music-choco",
+          }
+        }
       >
-        <Link
-          className="cardItem"
-          to="/albums/60883d8e1a02ff3eac90191f"
+        <Card
+          id="60883d8e1a02ff3eac90191f"
         >
-          <LinkAnchor
+          <Link
             className="cardItem"
-            href="/albums/60883d8e1a02ff3eac90191f"
-            navigate={[Function]}
+            to="/albums/60883d8e1a02ff3eac90191f"
           >
-            <a
+            <LinkAnchor
               className="cardItem"
               href="/albums/60883d8e1a02ff3eac90191f"
-              onClick={[Function]}
+              navigate={[Function]}
             >
-              <img
-                alt="Album Icon"
-                src="http://118.100.207.12:4000/api/album/ico/60883d8e1a02ff3eac90191f"
-              />
-              <h1 />
-              <div />
-              <p />
-              <div
-                className="playAlbum"
+              <a
+                className="cardItem"
+                href="/albums/60883d8e1a02ff3eac90191f"
                 onClick={[Function]}
               >
-                <svg
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
+                <img
+                  alt="Album Icon"
+                  src="http://118.100.207.12:4000/api/album/ico/60883d8e1a02ff3eac90191f"
+                />
+                <h1 />
+                <div />
+                <p />
+                <div
+                  className="playAlbum"
+                  onClick={[Function]}
                 >
-                  <path
-                    clipRule="evenodd"
-                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
-                    fillRule="evenodd"
-                  />
-                </svg>
-              </div>
-            </a>
-          </LinkAnchor>
-        </Link>
-      </Card>
-    </Route>
-  </Router>
-</BrowserRouter>
+                  <svg
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      clipRule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
+                      fillRule="evenodd"
+                    />
+                  </svg>
+                </div>
+              </a>
+            </LinkAnchor>
+          </Link>
+        </Card>
+      </Route>
+    </Router>
+  </BrowserRouter>
+</Provider>
 `;
 
 exports[`components test should render searchbar correctly 1`] = `
