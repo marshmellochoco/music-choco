@@ -14,11 +14,6 @@ const store = createStore(rootReducer);
 store.dispatch({ type: "SET_TOKEN", token: "someToken" });
 
 describe("Login", () => {
-    it("should log in and redirect to homepage", () => {
-        const tree = mount(<Provider store={store}>{<App />}</Provider>);
-        expect(toJson(tree)).toMatchSnapshot();
-    });
-
     it("should render the login page correctly", () => {
         const tree = mount(<Provider store={initStore}>{<Login />}</Provider>);
         expect(toJson(tree)).toMatchSnapshot();

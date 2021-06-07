@@ -31,7 +31,8 @@ export const Album = () => {
 
         axios
             .get(`${apiUrl}/album/${id}`)
-            .then((res) => setSongs(res.data.songs));
+            .then((res) => setSongs(res.data.songs))
+            .catch((e) => console.log(e));
     }, [id, apiUrl]);
 
     const setSong = async (id) => {

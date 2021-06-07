@@ -5,11 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 
 // component import
 import { Card } from "../../Components/Card/Card";
-import "./Home.css";
+import "./Search.css";
 
-export const Home = () => {
+export const Search = ({ search }) => {
     const apiUrl = process.env.REACT_APP_API_URL;
-    const search = "";
     const [albumSearch, setAlbumSearch] = useState([]);
     const [songSearch, setSongSearch] = useState([]);
 
@@ -20,14 +19,16 @@ export const Home = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (search) {
+        if (search && search !== "") {
             axios
                 .get(`${apiUrl}/album/search/${search}`)
-                .then((result) => setAlbumSearch(result.data));
+                .then((result) => setAlbumSearch(result.data))
+                .catch((e) => setAlbumSearch([]));
 
             axios
                 .get(`${apiUrl}/song/search/${search}`)
-                .then((result) => setSongSearch(result.data));
+                .then((result) => setSongSearch(result.data))
+                .catch((e) => setSongSearch([]));
         }
     }, [search, apiUrl]);
 

@@ -14,7 +14,9 @@ export const Player = ({ randomQueue }) => {
     const songData = useSelector((state) => state.songDataReducer.songData);
     const queue = useSelector((state) => state.queueReducer.queue);
     const playing = useSelector((state) => state.playerReducer.playing);
-    const volume = useSelector((state) => state.playerReducer.volume);
+    const volume = useSelector((state) =>
+        parseFloat(state.playerReducer.volume)
+    );
     const isLoop = useSelector((state) => state.playerReducer.loop);
     const isRandom = useSelector((state) => state.playerReducer.random);
     const dispatch = useDispatch();

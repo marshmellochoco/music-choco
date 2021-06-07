@@ -16,11 +16,14 @@ export const EditAlbum = () => {
     useEffect(() => {
         const getAlbumData = async () => {
             var data = [];
-            await axios.get(`${apiUrl}/album`).then((result) => {
-                result.data.forEach((d) => {
-                    data.push(d);
-                });
-            });
+            await axios
+                .get(`${apiUrl}/album`)
+                .then((result) => {
+                    result.data.forEach((d) => {
+                        data.push(d);
+                    });
+                })
+                .catch((e) => console.log(e));
             setAlbumList(data);
             if (!selectedAlbum) {
                 setSelectedAlbum(data[0]);
@@ -105,7 +108,8 @@ const AddAlbum = ({ apiUrl, setAlbumID }) => {
             })
             .then((res) => {
                 console.log(res.data);
-            });
+            })
+            .catch((e) => console.log(e));
         setAlbumID(album);
     };
 

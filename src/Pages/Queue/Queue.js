@@ -46,7 +46,8 @@ export const Queue = ({ setRandomQueue }) => {
                                 albumId: result.data._id,
                                 artist: result.data.artist,
                             });
-                        });
+                        })
+                        .catch((e) => console.log(e));
                 }
             }
             return data;

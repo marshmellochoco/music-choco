@@ -8,7 +8,7 @@ import { mdiAccountCircle } from "@mdi/js";
 import { Player } from "./Components/AudioPlayer/Player";
 import { Queue } from "./Pages/Queue/Queue";
 import { Album } from "./Pages/Album/Album";
-import { Home } from "./Pages/Home/Home";
+import { Search } from "./Pages/Search/Search";
 import { EditAlbum } from "./Pages/AddSong/EditAlbum";
 import { Login } from "./Pages/Login/Login";
 import { useSelector, useDispatch } from "react-redux";
@@ -18,7 +18,9 @@ import { Searchbar } from "./Components/Searchbar/Searchbar";
 function App() {
     const [randomQueue, setRandomQueue] = useState([]);
     const [search, setSearch] = useState([]);
+    const [username, setUsername] = useState("");
     const authToken = useSelector((state) => state.authReducer.token);
+    const uid = useSelector((state) => state.authReducer.user);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -28,6 +30,7 @@ function App() {
                 .get(`${process.env.REACT_APP_API_URL}/auth`, {
                     headers: { Authorization: authToken },
                 })
+                .then((res) => setUsername(res.data.username))
                 .catch((e) => {
                     if (e.response.status === 401)
                         dispatch({ type: "RESET_TOKEN" });
@@ -59,12 +62,12 @@ function App() {
                                     onClick={handleLogout}
                                 >
                                     <Icon path={mdiAccountCircle} size={1} />
-                                    <span>Username</span>
+                                    <span>{username}</span>
                                 </div>
                             </div>
                             <Switch>
                                 <Route exact path="/">
-                                    <Home />
+                                    <Search search={search} />
                                 </Route>
                                 <Route path="/albums/:id">
                                     <Album />

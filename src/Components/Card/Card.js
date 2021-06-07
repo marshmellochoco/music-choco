@@ -15,7 +15,8 @@ export const Card = ({ id, name, artist, handleImageError }) => {
         var songListData = [];
         await axios
             .get(`${apiUrl}/album/${id}`)
-            .then((res) => (songListData = res.data.songs));
+            .then((res) => (songListData = res.data.songs))
+            .catch((e) => (songListData = []));
 
         var songList = [];
         songListData.forEach((s) => {

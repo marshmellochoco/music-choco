@@ -5,6 +5,7 @@ describe("playerReducer test", () => {
         playing: false,
         loop: false,
         random: false,
+        volume: 1,
     };
     it("should return initial state", () => {
         expect(playerReducer(undefined, {})).toEqual(initState);
