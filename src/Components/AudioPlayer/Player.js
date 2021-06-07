@@ -10,16 +10,16 @@ import "./Player.css";
 export const Player = ({ randomQueue }) => {
     const apiUrl = process.env.REACT_APP_API_URL;
     const [currentTime, setCurrentTime] = useState(0);
-    const [volume, setVolume] = useState(1);
-    const [lastVolume, setLastVolume] = useState(volume);
 
     const songData = useSelector((state) => state.songDataReducer.songData);
     const queue = useSelector((state) => state.queueReducer.queue);
     const playing = useSelector((state) => state.playerReducer.playing);
+    const volume = useSelector((state) => state.playerReducer.volume);
     const isLoop = useSelector((state) => state.playerReducer.loop);
     const isRandom = useSelector((state) => state.playerReducer.random);
     const dispatch = useDispatch();
 
+    const [lastVolume, setLastVolume] = useState(volume);
     // --------- Audio Player Functions ----------
     const ref = createRef();
 
@@ -48,7 +48,7 @@ export const Player = ({ randomQueue }) => {
     const changeVolume = (vol) => {
         // change the volume, if it is unmuted, set volume to the previous volume
         setLastVolume(volume === 0 ? lastVolume : volume);
-        setVolume(vol);
+        dispatch({ type: "SET_VOLUME", volume: vol });
     };
 
     const prevSong = () => {
@@ -218,7 +218,9 @@ export const Player = ({ randomQueue }) => {
                             <svg
                                 className="volume-icon"
                                 onClick={() => {
-                                    changeVolume(lastVolume);
+                                    changeVolume(
+                                        lastVolume === 0 ? 100 : lastVolume
+                                    );
                                 }}
                                 fill="currentColor"
                                 viewBox="0 0 20 20"

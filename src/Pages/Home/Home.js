@@ -9,7 +9,7 @@ import "./Home.css";
 
 export const Home = () => {
     const apiUrl = process.env.REACT_APP_API_URL;
-    const [search, setSearch] = useState("");
+    const search = "";
     const [albumSearch, setAlbumSearch] = useState([]);
     const [songSearch, setSongSearch] = useState([]);
 
