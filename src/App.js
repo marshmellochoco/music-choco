@@ -1,5 +1,5 @@
 // dependancy import
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 
 // component import
@@ -9,11 +9,28 @@ import { Album } from "./Pages/Album/Album";
 import { Home } from "./Pages/Home/Home";
 import { EditAlbum } from "./Pages/AddSong/EditAlbum";
 import { Login } from "./Pages/Login/Login";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
 
 function App() {
     const [randomQueue, setRandomQueue] = useState([]);
     const authToken = useSelector((state) => state.authReducer.token);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        // Re-authenticate the token
+        if (authToken && authToken != "null") {
+            axios
+                .get(`${process.env.REACT_APP_API_URL}/auth`, {
+                    headers: { Authorization: authToken },
+                })
+                .catch((e) => {
+                    if (e.response.status === 401)
+                        dispatch({ type: "RESET_TOKEN" });
+                });
+            console.log("re-auth");
+        }
+    }, [authToken]);
 
     return (
         <div className="App" onContextMenu={(e) => e.preventDefault()}>

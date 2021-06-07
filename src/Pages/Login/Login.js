@@ -7,16 +7,16 @@ const apiUrl = process.env.REACT_APP_API_URL;
 const handleLogin = async (credentials, callback) => {
     let token;
     await axios
-        .post(`${apiUrl}/auth`, { credentials })
+        .post(`${apiUrl}/auth/login`, { credentials })
         .then((result) => (token = result.data.token))
         .catch((err) => console.log(err));
     callback(token);
 };
 
-const handleRegister = async (credentials) => {
+const handleRegister = async (credentials, callback) => {
     let token;
     await axios
-        .post(`${apiUrl}/auth/register`, { credentials })
+        .post(`${apiUrl}/auth/signup`, { credentials })
         .then((result) => (token = result.data.token))
         .catch((err) => console.log(err));
     callback(token);
