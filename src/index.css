@@ -84,3 +84,12 @@ body {
 ::-webkit-scrollbar-button {
     display: none;
 }
+
+.buttonIcon {
+    cursor: pointer;
+    fill: var(--contrast-color);
+}
+
+.buttonIcon:hover {
+    opacity: 0.7;
+}

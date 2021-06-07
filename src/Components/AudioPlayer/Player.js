@@ -1,4 +1,13 @@
 // dependancy import
+import {
+    mdiPauseCircleOutline,
+    mdiPlayCircleOutline,
+    mdiSkipNext,
+    mdiSkipPrevious,
+    mdiVolumeHigh,
+    mdiVolumeMute,
+} from "@mdi/js";
+import Icon from "@mdi/react";
 import { createRef, useState } from "react";
 import ReactPlayer from "react-player";
 import { useDispatch, useSelector } from "react-redux";
@@ -80,6 +89,7 @@ export const Player = ({ randomQueue }) => {
     const nextSong = () => {
         // play the next song, if is the last song in the list, play nothing
         // if is random, use the random queue list else use the normal queue list
+        if (!songData.songId) return;
 
         const next = (q) => {
             if (q.indexOf(songData.songId) === q.length - 1) {
@@ -142,112 +152,60 @@ export const Player = ({ randomQueue }) => {
                     </div>
 
                     <div className="player-control">
-                        <svg
-                            className="control-button prev"
-                            viewBox="0 0 24 24"
+                        <Icon
+                            path={mdiSkipPrevious}
+                            className="buttonIcon control-button prev"
                             onClick={prevSong}
-                        >
-                            <path
-                                fill="currentColor"
-                                d="M6,18V6H8V18H6M9.5,12L18,6V18L9.5,12Z"
-                            />
-                        </svg>
+                        />
                         {playing ? (
-                            <svg
+                            <Icon
+                                path={mdiPauseCircleOutline}
+                                className="buttonIcon control-button play"
                                 onClick={() =>
                                     dispatch({
                                         type: "SET_PLAYING",
                                         playing: false,
                                     })
                                 }
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="control-button play"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                                />
-                            </svg>
+                            />
                         ) : (
-                            <svg
+                            <Icon
+                                path={mdiPlayCircleOutline}
+                                className="buttonIcon control-button play"
                                 onClick={() =>
                                     dispatch({
                                         type: "SET_PLAYING",
                                         playing: true,
                                     })
                                 }
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="control-button play"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
-                                />
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                                />
-                            </svg>
-                        )}
-                        <svg
-                            className="control-button next"
-                            viewBox="0 0 24 24"
-                            onClick={nextSong}
-                        >
-                            <path
-                                fill="currentColor"
-                                d="M16,18H18V6H16M6,18L14.5,12L6,6V18Z"
                             />
-                        </svg>
+                        )}
+                        <Icon
+                            path={mdiSkipNext}
+                            className="buttonIcon control-button next"
+                            onClick={nextSong}
+                        />
                     </div>
 
                     <div className="player-volume">
                         {volume === 0 ? (
-                            <svg
-                                className="volume-icon"
+                            <Icon
+                                path={mdiVolumeMute}
+                                className="buttonIcon volume-icon"
                                 onClick={() => {
                                     changeVolume(
                                         lastVolume === 0 ? 100 : lastVolume
                                     );
                                 }}
-                                fill="currentColor"
-                                viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <path
-                                    fillRule="evenodd"
-                                    d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM12.293 7.293a1 1 0 011.414 0L15 8.586l1.293-1.293a1 1 0 111.414 1.414L16.414 10l1.293 1.293a1 1 0 01-1.414 1.414L15 11.414l-1.293 1.293a1 1 0 01-1.414-1.414L13.586 10l-1.293-1.293a1 1 0 010-1.414z"
-                                    clipRule="evenodd"
-                                />
-                            </svg>
+                            />
                         ) : (
-                            <svg
-                                className="volume-icon"
+                            <Icon
+                                path={mdiVolumeHigh}
+                                className="buttonIcon volume-icon"
                                 onClick={() => {
                                     changeVolume(0);
                                 }}
-                                fill="currentColor"
-                                viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <path
-                                    fillRule="evenodd"
-                                    d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.984 5.984 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.984 3.984 0 0013 10a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.415z"
-                                    clipRule="evenodd"
-                                />
-                            </svg>
+                            />
                         )}
                         <Slider
                             id="volumeSlider"

@@ -1,4 +1,4 @@
-.search{
+.search {
     height: 2em;
     padding: 0 10px;
     display: grid;
@@ -8,15 +8,15 @@
     border-radius: 2em;
 }
 
-.search .icon{
+.search .icon {
     align-self: center;
     margin: 0;
-    fill: var(--primary-color);
+    color: var(--primary-color);
     width: 24px;
     height: 24px;
 }
 
-.search input[type=text]{
+.search input[type="text"] {
     display: flex;
     height: 1em;
     font-size: 1em;

@@ -72,9 +72,9 @@
 }
 
 .songList li .icon {
+    fill: transparent;
     margin: auto;
     width: 2em;
-    cursor: pointer;
 }
 
 .songList .songItem svg:hover {
