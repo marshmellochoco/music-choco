@@ -17,7 +17,7 @@ import { Searchbar } from "./Components/Searchbar/Searchbar";
 
 function App() {
     const [randomQueue, setRandomQueue] = useState([]);
-    const [search, setSearch] = useState([]);
+    const [search, setSearch] = useState("");
     const [username, setUsername] = useState("");
     const authToken = useSelector((state) => state.authReducer.token);
     const uid = useSelector((state) => state.authReducer.user);

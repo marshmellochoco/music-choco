@@ -23,6 +23,18 @@ describe("playerReducer test", () => {
         });
     });
 
+    it("should handle SET_VOLUME", () => {
+        expect(
+            playerReducer(initState, {
+                type: "SET_VOLUME",
+                volume: 0.4,
+            })
+        ).toEqual({
+            ...initState,
+            volume: 0.4,
+        });
+    });
+
     it("should handle TOGGLE_LOOP", () => {
         expect(
             playerReducer(initState, {

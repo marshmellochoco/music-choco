@@ -1,26 +1,11 @@
-const loop =
-    localStorage.getItem("playerLoop") &&
-    localStorage.getItem("playerLoop") !== "null"
-        ? localStorage.getItem("playerLoop")
-        : false;
-
-const random =
-    localStorage.getItem("playerRandom") &&
-    localStorage.getItem("playerRandom") !== "null"
-        ? localStorage.getItem("playerRandom")
-        : false;
-
-const volume =
-    localStorage.getItem("playerVolume") &&
-    localStorage.getItem("playerVolume") !== "null"
-        ? localStorage.getItem("playerVolume")
-        : 1;
-
 const initState = {
     playing: false,
-    loop: loop,
-    random: random,
-    volume: volume,
+    loop: localStorage.getItem("playerLoop") === "true",
+    random: localStorage.getItem("playerRandom") === "true",
+    volume:
+        localStorage.getItem("playerVolume") !== "null"
+            ? parseFloat(localStorage.getItem("playerVolume"))
+            : 1,
 };
 
 export const playerReducer = (state = initState, action) => {
