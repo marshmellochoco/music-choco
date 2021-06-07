@@ -28,7 +28,6 @@ function App() {
                     if (e.response.status === 401)
                         dispatch({ type: "RESET_TOKEN" });
                 });
-            console.log("re-auth");
         }
     }, [authToken]);
 

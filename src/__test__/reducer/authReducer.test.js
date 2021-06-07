@@ -3,6 +3,7 @@ import { authReducer } from "../../Reducers/authReducer";
 describe("authReducer test", () => {
     const initState = {
         token: localStorage.getItem("TOKEN"),
+        user: "",
     };
     it("should return initial state", () => {
         expect(authReducer(undefined, {})).toEqual(initState);
@@ -13,10 +14,12 @@ describe("authReducer test", () => {
             authReducer(initState, {
                 type: "SET_TOKEN",
                 token: "testToken12345",
+                user: "testUser12345",
             })
         ).toEqual({
             ...initState,
             token: "testToken12345",
+            user: "testUser12345",
         });
     });
 

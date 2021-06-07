@@ -5,21 +5,25 @@ import "./Login.css";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 const handleLogin = async (credentials, callback) => {
-    let token;
+    let res;
     await axios
         .post(`${apiUrl}/auth/login`, { credentials })
-        .then((result) => (token = result.data.token))
+        .then((result) => {
+            res = result.data;
+        })
         .catch((err) => console.log(err));
-    callback(token);
+    callback(res);
 };
 
 const handleRegister = async (credentials, callback) => {
-    let token;
+    let res;
     await axios
         .post(`${apiUrl}/auth/signup`, { credentials })
-        .then((result) => (token = result.data.token))
+        .then((result) => {
+            res = result.data;
+        })
         .catch((err) => console.log(err));
-    callback(token);
+    callback(res);
 };
 
 const login = handleLogin;
@@ -59,10 +63,11 @@ export const Login = ({ handleLogin = login, handleRegister = register }) => {
                             id="login"
                             onClick={(e) => {
                                 e.preventDefault();
-                                handleLogin({ username, password }, (token) =>
+                                handleLogin({ username, password }, (result) =>
                                     dispatch({
                                         type: "SET_TOKEN",
-                                        token: token,
+                                        token: result.authToken,
+                                        user: result.userid,
                                     })
                                 );
                             }}
@@ -75,10 +80,11 @@ export const Login = ({ handleLogin = login, handleRegister = register }) => {
                                 e.preventDefault();
                                 handleRegister(
                                     { username, password },
-                                    (token) =>
+                                    (result) =>
                                         dispatch({
                                             type: "SET_TOKEN",
-                                            token: token,
+                                            token: result.authToken,
+                                            user: result.userid,
                                         })
                                 );
                             }}

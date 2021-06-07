@@ -1,5 +1,6 @@
 const initState = {
     token: localStorage.getItem("TOKEN"),
+    user: "",
 };
 
 export const authReducer = (state = initState, action) => {
@@ -9,6 +10,7 @@ export const authReducer = (state = initState, action) => {
             return {
                 ...state,
                 token: action.token,
+                user: action.user,
             };
         case "RESET_TOKEN":
             localStorage.setItem("TOKEN", "");
