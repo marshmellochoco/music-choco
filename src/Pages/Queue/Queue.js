@@ -57,17 +57,19 @@ export const Queue = ({ setRandomQueue }) => {
             dispatch({ type: "SET_QUEUE_DATA", queueData: res });
             dispatch({ type: "SET_LOADING", loading: false });
             if (res.length <= 0) return;
-            dispatch({
-                type: "SET_SONG_DATA",
-                songData:
-                    res[
-                        res
-                            .map((qd) => {
-                                return qd.songId;
-                            })
-                            .indexOf(playingSong)
-                    ],
-            });
+            if (playingSong) {
+                dispatch({
+                    type: "SET_SONG_DATA",
+                    songData:
+                        res[
+                            res
+                                .map((qd) => {
+                                    return qd.songId;
+                                })
+                                .indexOf(playingSong)
+                        ],
+                });
+            }
         });
 
         let randQueue = [...queue];
@@ -101,15 +103,14 @@ export const Queue = ({ setRandomQueue }) => {
     const removeQueue = async (e) => {
         // remove the selected song from queue
         let clickedItem = e.currentTarget.getAttribute("datakey");
-
-        let q = queue;
-        q.splice(queue.indexOf(clickedItem), 1);
-        dispatch({ type: "SET_QUEUE", queue: q });
-
         if (clickedItem === playingSong) {
             dispatch({ type: "SET_PLAYING_SONG", songId: "" });
             dispatch({ type: "SET_PLAYING", playing: false });
         }
+
+        let q = queue;
+        q.splice(queue.indexOf(clickedItem), 1);
+        dispatch({ type: "SET_QUEUE", queue: q });
     };
 
     const handleDragDrop = (result) => {

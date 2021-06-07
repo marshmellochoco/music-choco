@@ -3,6 +3,7 @@ const initState = {
     loop: localStorage.getItem("playerLoop") === "true",
     random: localStorage.getItem("playerRandom") === "true",
     volume:
+        localStorage.getItem("playerVolume") &&
         localStorage.getItem("playerVolume") !== "null"
             ? parseFloat(localStorage.getItem("playerVolume"))
             : 1,
