@@ -1,50 +1,86 @@
-  :root {
+:root {
     --primary-color: #404040;
     --secondary-color: #707070;
     --thirtiary-color: #a0a0a0;
     --contrast-color: #d0d0d0;
 }
 
-body{
+body {
     height: 90vh;
     margin: 0px;
     padding: 0px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     background-color: var(--primary-color);
     color: var(--contrast-color);
     user-select: none;
 }
 
-#root{
+#root {
     height: 100%;
 }
 
-.App{
+.App {
     height: 100%;
 }
 
-.app-container{
+.app-container {
     height: 100%;
     display: grid;
     grid-template-columns: 8fr 2fr;
 }
 
-.page-container{
+.page-container {
     overflow-y: scroll;
-    width: 98%;
+    width: 96%;
     height: 100%;
-    padding-left: 2%;
+    padding: 0 2%;
 }
 
-::-webkit-scrollbar{
+.page-header {
+    display: grid;
+    height: 8vh;
+    grid-template-columns: 10fr 150px;
+    align-items: center;
+}
+
+.page-header .left-elements {
+    display: flex;
+    align-items: center;
+}
+
+.left-elements .searchbar {
+    margin: 0 2vw;
+}
+
+.loggedUser {
+    height: 40%;
+    padding: 0 5%;
+    display: grid;
+    grid-template-columns: 1.5em 1fr;
+    text-align: left;
+}
+
+.loggedUser:hover {
+    background-color: var(--secondary-color);
+}
+
+.loggedUser svg {
+    margin: auto 0;
+}
+
+.loggedUser span {
+    margin: 5% auto 0 auto;
+}
+
+::-webkit-scrollbar {
     width: 10px;
     background-color: var(--primary-color);
 }
 
-::-webkit-scrollbar-thumb{
+::-webkit-scrollbar-thumb {
     background-color: white;
 }
 
-::-webkit-scrollbar-button{
+::-webkit-scrollbar-button {
     display: none;
 }

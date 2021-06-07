@@ -2,11 +2,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 
 // component import
 import { Card } from "../../Components/Card/Card";
-import { Searchbar } from "../../Components/Searchbar/Searchbar";
 import "./Home.css";
 
 export const Home = () => {
@@ -96,26 +94,10 @@ export const Home = () => {
         });
     };
 
-    const handleLogout = (e) => {
-        // logout to clear the token and refresh all data
-        dispatch({ type: "RESET_TOKEN" });
-        window.location.reload();
-    };
-
     return (
         <div>
-            <div className="headers">
-                <h1>music-choco</h1>
-                <Searchbar handleSearch={(value) => setSearch(value)} />
-            </div>
             {search === "" ? (
-                <div className="content">
-                    Hmm... what to put here
-                    <br />
-                    <Link to="/add">Add some song!</Link>
-                    <br />
-                    <div onClick={handleLogout}>Logout</div>
-                </div>
+                <div>Hello</div>
             ) : (
                 <div className="content">
                     <h1>Albums</h1>

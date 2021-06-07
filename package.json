@@ -42,6 +42,8 @@
     ]
   },
   "dependencies": {
+    "@mdi/js": "^5.9.55",
+    "@mdi/react": "^1.5.0",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.1",
     "axios": "^0.21.1",
     "enzyme": "^3.11.0",
