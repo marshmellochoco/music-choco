@@ -20,13 +20,3 @@ Or you can view the live demo [here](https://www.youtube.com/watch?v=dQw4w9WgXcQ
 
 ### Note
 If you found that it is not working, most likely it is note connected to the backend yet (oops!). You can get the files and  host it yourself [here](https://github.com/marshmellochoco/music-choco-server).
-
-## npm packages used so far (for reference only, check package.json)
-- [react-router](https://www.npmjs.com/package/react-router)
-- [dotenv](https://www.npmjs.com/package/dotenv)
-- [axios](https://www.npmjs.com/package/axios)
-- [react-player](https://www.npmjs.com/package/react-player)
-- [react-beautiful-dnd](https://www.npmjs.com/package/react-beautiful-dnd)
-- [react-loading](https://www.npmjs.com/package/react-loading)
-- [react-redux](https://www.npmjs.com/package/react-redux)
-- [redux](https://www.npmjs.com/package/redux)
