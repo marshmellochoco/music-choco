@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 // component import
 import { Card } from "../../Components/Card/Card";
+import { addQueue } from "../../store/actions/queueAction";
+import { setPlayingSong } from "../../store/actions/songDataAction";
 import "./Search.css";
 
 export const Search = ({ search }) => {
@@ -33,14 +35,14 @@ export const Search = ({ search }) => {
     }, [search, apiUrl]);
 
     const playSong = (id) => {
-        dispatch({ type: "ADD_QUEUE", songId: id });
-        dispatch({ type: "SET_PLAYING_SONG", songId: id });
+        dispatch(addQueue(id));
+        dispatch(setPlayingSong(id));
         dispatch({ type: "SET_PLAYING", playing: true });
     };
 
     const addSong = (id) => {
         // add the song to the queue
-        dispatch({ type: "ADD_QUEUE", songId: id });
+        dispatch(addQueue(id));
     };
 
     const handleImageError = (e) => {

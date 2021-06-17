@@ -4,6 +4,8 @@ import Icon from "@mdi/react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { setQueue } from "../../store/actions/queueAction";
+import { setPlayingSong } from "../../store/actions/songDataAction";
 
 // component import
 import "./Card.css";
@@ -25,9 +27,9 @@ export const Card = ({ id, name, artist, handleImageError }) => {
             songList.push(s._id);
         });
 
-        dispatch({ type: "SET_PLAYING_SONG", songId: songList[0] });
+        dispatch(setPlayingSong(songList[0]));
         dispatch({ type: "SET_PLAYING", playing: true });
-        dispatch({ type: "SET_QUEUE", queue: songList });
+        dispatch(setQueue(songList));
     };
 
     return (

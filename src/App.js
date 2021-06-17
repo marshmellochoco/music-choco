@@ -1,19 +1,19 @@
-// dependancy import
+// // dependancy import
 import { useState, useEffect } from "react";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import Icon from "@mdi/react";
 import { mdiAccountCircle } from "@mdi/js";
 
 // component import
-import { Player } from "./Components/AudioPlayer/Player";
-import { Queue } from "./Pages/Queue/Queue";
-import { Album } from "./Pages/Album/Album";
-import { Search } from "./Pages/Search/Search";
-import { EditAlbum } from "./Pages/AddSong/EditAlbum";
-import { Login } from "./Pages/Login/Login";
+import { Album } from "./pages/Album/Album";
+import { Search } from "./pages/Search/Search";
+import { EditAlbum } from "./pages/AddSong/EditAlbum";
+// import { Login } from "./Pages/Login/Login";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { Searchbar } from "./Components/Searchbar/Searchbar";
+import { AudioPlayerContainer } from "./common/AudioPlayer/AudioPlayerContainer";
+import { QueueContainer } from "./common/Queue/QueueContainer";
 
 function App() {
     const [randomQueue, setRandomQueue] = useState([]);
@@ -46,7 +46,39 @@ function App() {
 
     return (
         <div className="App" onContextMenu={(e) => e.preventDefault()}>
-            {authToken !== "null" && authToken ? (
+            <div className="app-container">
+                <Router basename="/">
+                    <div className="page-container">
+                        <div className="page-header">
+                            <div className="left-elements">
+                                <h1>music-choco</h1>
+                                <div className="searchbar">
+                                    <Searchbar handleSearch={setSearch} />
+                                </div>
+                            </div>
+                            <div className="loggedUser" onClick={handleLogout}>
+                                <Icon path={mdiAccountCircle} size={1} />
+                                <span>{username}</span>
+                            </div>
+                        </div>
+                        <Switch>
+                            <Route exact path="/">
+                                <Search search={search} />
+                            </Route>
+                            <Route path="/albums/:id">
+                                <Album />
+                            </Route>
+                            <Route path="/add">
+                                <EditAlbum />
+                            </Route>
+                        </Switch>
+                    </div>
+                </Router>
+                <QueueContainer setRandomQueue={setRandomQueue} />
+                <AudioPlayerContainer />
+            </div>
+
+            {/* {authToken !== "null" && authToken ? (
                 <div className="app-container">
                     <Router basename="/">
                         <div className="page-container">
@@ -79,11 +111,11 @@ function App() {
                         </div>
                     </Router>
                     <Queue setRandomQueue={setRandomQueue} />
-                    <Player randomQueue={randomQueue} />
+                    <AudioPla/>
                 </div>
             ) : (
                 <Login />
-            )}
+            )} */}
         </div>
     );
 }

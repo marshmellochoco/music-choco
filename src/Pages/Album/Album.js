@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
+import { setPlayingSong } from "../../store/actions/songDataAction";
 
 // component import
 import "./Album.css";
@@ -37,23 +38,22 @@ export const Album = () => {
 
     const setSong = async (id) => {
         // play the selected song and add it to the queue
-        dispatch({ type: "ADD_QUEUE", songId: id });
-        dispatch({ type: "SET_PLAYING_SONG", songId: id });
+        dispatch(addQueue(id));
+        dispatch(setPlayingSong(id));
         dispatch({ type: "SET_PLAYING", playing: true });
     };
 
     const setAlbumToQueue = async () => {
         // play the entier album and replace the existing queue
-        dispatch({ type: "SET_QUEUE", queue: songList });
-        dispatch({ type: "SET_PLAYING_SONG", songId: songList[0] });
+        dispatch(setQueue(songList));
+        dispatch(setPlayingSong(songList[0]));
         dispatch({ type: "SET_PLAYING", playing: true });
     };
 
     const addQueue = (id) => {
         // add the song to the queue
-        if (queue.length === 0)
-            dispatch({ type: "SET_PLAYING_SONG", songId: id });
-        dispatch({ type: "ADD_QUEUE", songId: id });
+        if (queue.length === 0) dispatch(setPlayingSong(id));
+        dispatch(addQueue(id));
     };
 
     const getSongs = () => {

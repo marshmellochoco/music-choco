@@ -9,6 +9,15 @@ import ReactLoading from "react-loading";
 import "./Queue.css";
 import Icon from "@mdi/react";
 import { mdiShuffle, mdiSync } from "@mdi/js";
+import {
+    setPlayingSong,
+    setSongData,
+} from "../../store/actions/songDataAction";
+import {
+    setLoading,
+    setQueue,
+    setQueueData,
+} from "../../store/actions/queurAction";
 
 export const Queue = ({ setRandomQueue }) => {
     const apiUrl = process.env.REACT_APP_API_URL;
@@ -25,7 +34,7 @@ export const Queue = ({ setRandomQueue }) => {
     useEffect(() => {
         const getQueueData = async (qdCache) => {
             var data = [];
-            dispatch({ type: "SET_LOADING", loading: true });
+            dispatch(setLoading(true));
 
             for (let i = 0; i < queue.length; i++) {
                 let found = false;
@@ -56,21 +65,21 @@ export const Queue = ({ setRandomQueue }) => {
         };
 
         getQueueData(queueData).then((res) => {
-            dispatch({ type: "SET_QUEUE_DATA", queueData: res });
-            dispatch({ type: "SET_LOADING", loading: false });
+            dispatch(setQueueData(res));
+            dispatch(setLoading(false));
             if (res.length <= 0) return;
             if (playingSong) {
-                dispatch({
-                    type: "SET_SONG_DATA",
-                    songData:
+                dispatch(
+                    setSongData(
                         res[
                             res
                                 .map((qd) => {
                                     return qd.songId;
                                 })
                                 .indexOf(playingSong)
-                        ],
-                });
+                        ]
+                    )
+                );
             }
         });
 
@@ -84,10 +93,8 @@ export const Queue = ({ setRandomQueue }) => {
             return qd.songId;
         });
         if (qdList.includes(playingSong))
-            dispatch({
-                type: "SET_SONG_DATA",
-                songData: queueData[qdList.indexOf(playingSong)],
-            });
+            dispatch(setSongData(queueData[qdList.indexOf(playingSong)]));
+
         const item = document.getElementById(playingSong);
         if (!item) return;
         item.scrollIntoView(false);
@@ -97,7 +104,7 @@ export const Queue = ({ setRandomQueue }) => {
         // If the item is clicked, and it is not the trash can icon, play the clicked song instead
         if (e.target.getAttribute("class") !== "notToPlay") {
             let clickedItem = e.currentTarget.getAttribute("datakey");
-            dispatch({ type: "SET_PLAYING_SONG", songId: clickedItem });
+            setPlayingSong(clickedItem);
             dispatch({ type: "SET_PLAYING", playing: true });
         }
     };
@@ -106,13 +113,13 @@ export const Queue = ({ setRandomQueue }) => {
         // remove the selected song from queue
         let clickedItem = e.currentTarget.getAttribute("datakey");
         if (clickedItem === playingSong) {
-            dispatch({ type: "SET_PLAYING_SONG", songId: "" });
+            setPlayingSong("");
             dispatch({ type: "SET_PLAYING", playing: false });
         }
 
         let q = queue;
         q.splice(queue.indexOf(clickedItem), 1);
-        dispatch({ type: "SET_QUEUE", queue: q });
+        dispatch(setQueue(q));
     };
 
     const handleDragDrop = (result) => {
@@ -122,7 +129,7 @@ export const Queue = ({ setRandomQueue }) => {
         const songs = queue;
         const [reorderedSong] = songs.splice(result.source.index, 1);
         songs.splice(result.destination.index, 0, reorderedSong);
-        dispatch({ type: "SET_QUEUE", queue: songs });
+        dispatch(setQueue(songs));
     };
 
     const getQueueList = (provided, data) => {
