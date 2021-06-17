@@ -58,6 +58,7 @@ export const AudioPlayerComponent = (props) => {
                     playing: props.playing,
                     nextSong: props.nextSong,
                     prevSong: props.prevSong,
+                    playPause: props.playPause,
                 })}
                 {playerVolume({
                     volume: props.volume,
@@ -174,7 +175,7 @@ const playerPlayingDetail = ({ songData, albumUrl }) => {
     );
 };
 
-const playerControl = ({ playing, nextSong, prevSong }) => {
+const playerControl = ({ playing, playPause, nextSong, prevSong }) => {
     // styles
     const playerControlStyle = css`
         text-align: center;

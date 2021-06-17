@@ -80,12 +80,19 @@ export const AudioPlayerContainer = () => {
         const next = (q) => {
             if (q.indexOf(songData.songId) === q.length - 1) {
                 dispatch(setPlayingSong(isLoop ? q[0] : ""));
+                if (!isLoop) dispatch({ type: "SET_PLAYING", playing: false });
             } else {
                 dispatch(setPlayingSong(q[q.indexOf(songData.songId) + 1]));
             }
         };
 
         next(isRandom ? randomQueue : queue);
+    };
+
+    const playPause = (play) => {
+        if (songData.songId) {
+            dispatch({ type: "SET_PLAYING", playing: play });
+        } else dispatch({ type: "SET_PLAYING", playing: false });
     };
 
     return (
@@ -110,6 +117,7 @@ export const AudioPlayerContainer = () => {
             prevSong={prevSong}
             changeVolume={changeVolume}
             setClickedTime={setClickedTime}
+            playPause={(play) => playPause(play)}
         />
     );
 };

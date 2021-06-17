@@ -4,7 +4,10 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { toggleLoop, toggleRandom } from "../../store/actions/playerActions";
 import { setQueue, setQueueData } from "../../store/actions/queueAction";
-import { setSongData } from "../../store/actions/songDataAction";
+import {
+    setPlayingSong,
+    setSongData,
+} from "../../store/actions/songDataAction";
 import { QueueListComponent } from "./QueueListComponent";
 
 export const QueueContainer = ({ setRandomQueue }) => {
@@ -90,18 +93,16 @@ export const QueueContainer = ({ setRandomQueue }) => {
 
     const skipQueue = (e) => {
         // If the item is clicked, and it is not the trash can icon, play the clicked song instead
-        if (e.target.getAttribute("class") !== "notToPlay") {
-            let clickedItem = e.currentTarget.getAttribute("datakey");
-            setPlayingSong(clickedItem);
-            dispatch({ type: "SET_PLAYING", playing: true });
-        }
+        let clickedItem = e.currentTarget.getAttribute("datakey");
+        dispatch(setPlayingSong(clickedItem));
+        dispatch({ type: "SET_PLAYING", playing: true });
     };
 
     const removeQueue = async (e) => {
         // remove the selected song from queue
         let clickedItem = e.currentTarget.getAttribute("datakey");
         if (clickedItem === playingSong) {
-            setPlayingSong("");
+            dispatch(setPlayingSong(""));
             dispatch({ type: "SET_PLAYING", playing: false });
         }
 
@@ -139,6 +140,8 @@ export const QueueContainer = ({ setRandomQueue }) => {
             queueList={QueueListComponent({
                 data: queueData.length > 0 ? queueData : [],
                 playingSong,
+                skipQueue,
+                removeQueue,
             })}
         />
     );

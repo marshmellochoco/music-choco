@@ -52,6 +52,16 @@ export const QueueComponent = ({
     const queueListStyle = css`
         list-style-type: none;
         padding-left: 0;
+
+        & .active {
+            background-color: black;
+            color: var(--contrast-color);
+        }
+
+        & .dragging {
+            background-color: var(--thirtiary-color);
+            color: var(--primary-color);
+        }
     `;
 
     // markdown

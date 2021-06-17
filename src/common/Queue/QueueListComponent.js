@@ -44,27 +44,25 @@ const queueListStyle = css`
     }
 `;
 
-const queueListActive = css`
-    background-color: black;
-    color: var(--contrast-color);
-`;
-
-const queueListDraggingStyle = css`
-    background-color: var(--thirtiary-color);
-    color: var(--primary-color);
-`;
-
-export const QueueListComponent = ({ data, playingSong }) => {
+export const QueueListComponent = ({
+    data,
+    playingSong,
+    skipQueue,
+    removeQueue,
+}) => {
     return data.map((q, i) => {
         return (
             <Draggable key={q.songId} draggableId={q.songId} index={i}>
                 {(provided, snapshot) => (
                     <div
                         id={q.songId}
-                        css={
-                            (playingSong === q.songId ? queueListActive : "",
-                            snapshot.isDragging ? queueListDraggingStyle : "")
-                        }
+                        className={`${
+                            playingSong === q.songId
+                                ? "active"
+                                : snapshot.isDragging
+                                ? "dragging"
+                                : ""
+                        }`}
                         ref={provided.innerRef}
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
