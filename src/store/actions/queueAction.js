@@ -1,4 +1,5 @@
 export const setQueue = (queue) => {
+    let randQueue = [...queue];
     return {
         type: "SET_QUEUE",
         queue,

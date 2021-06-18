@@ -5,7 +5,6 @@ import Icon from "@mdi/react";
 import { mdiAccountCircle } from "@mdi/js";
 
 // component import
-import { Album } from "./pages/Album/Album";
 import { Search } from "./pages/Search/Search";
 import { EditAlbum } from "./pages/AddSong/EditAlbum";
 // import { Login } from "./Pages/Login/Login";
@@ -14,9 +13,9 @@ import axios from "axios";
 import { Searchbar } from "./Components/Searchbar/Searchbar";
 import { AudioPlayerContainer } from "./common/AudioPlayer/AudioPlayerContainer";
 import { QueueContainer } from "./common/Queue/QueueContainer";
+import { AlbumPageContainer } from "./pages/AlbumPage/AlbumPageContainer";
 
 function App() {
-    const [randomQueue, setRandomQueue] = useState([]);
     const [search, setSearch] = useState("");
     const [username, setUsername] = useState("");
     const authToken = useSelector((state) => state.authReducer.token);
@@ -66,7 +65,7 @@ function App() {
                                 <Search search={search} />
                             </Route>
                             <Route path="/albums/:id">
-                                <Album />
+                                <AlbumPageContainer />
                             </Route>
                             <Route path="/add">
                                 <EditAlbum />
@@ -74,7 +73,7 @@ function App() {
                         </Switch>
                     </div>
                 </Router>
-                <QueueContainer setRandomQueue={setRandomQueue} />
+                <QueueContainer />
                 <AudioPlayerContainer />
             </div>
 

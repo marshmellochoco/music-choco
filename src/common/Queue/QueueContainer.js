@@ -10,7 +10,7 @@ import {
 } from "../../store/actions/songDataAction";
 import { QueueListComponent } from "./QueueListComponent";
 
-export const QueueContainer = ({ setRandomQueue }) => {
+export const QueueContainer = () => {
     const apiUrl = process.env.REACT_APP_API_URL;
     const [loading, setLoading] = useState(false);
     const playingSong = useSelector(
@@ -73,9 +73,6 @@ export const QueueContainer = ({ setRandomQueue }) => {
                 );
             }
         });
-
-        let randQueue = [...queue];
-        setRandomQueue(randQueue.sort(() => Math.random() - 0.5));
     }, [queue]); // eslint-disable-line
 
     useEffect(() => {
