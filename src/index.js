@@ -6,15 +6,15 @@ import { createStore } from "redux";
 import { rootReducer } from "./store/reducers/rootReducer";
 
 // component import
-import App from "./App";
 import "./index.css";
+import { AppContainer } from "./AppContainer";
 
 const store = createStore(rootReducer);
 
 ReactDOM.render(
     <React.StrictMode>
         <Provider store={store}>
-            <App />
+            <AppContainer />
         </Provider>
     </React.StrictMode>,
     document.getElementById("root")

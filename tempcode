@@ -1,0 +1,39 @@
+
+            {/* {authToken !== "null" && authToken ? (
+                <div className="app-container">
+                    <Router basename="/">
+                        <div className="page-container">
+                            <div className="page-header">
+                                <div className="left-elements">
+                                    <h1>music-choco</h1>
+                                    <div className="searchbar">
+                                        <Searchbar handleSearch={setSearch} />
+                                    </div>
+                                </div>
+                                <div
+                                    className="loggedUser"
+                                    onClick={handleLogout}
+                                >
+                                    <Icon path={mdiAccountCircle} size={1} />
+                                    <span>{username}</span>
+                                </div>
+                            </div>
+                            <Switch>
+                                <Route exact path="/">
+                                    <Search search={search} />
+                                </Route>
+                                <Route path="/albums/:id">
+                                    <Album />
+                                </Route>
+                                <Route path="/add">
+                                    <EditAlbum />
+                                </Route>
+                            </Switch>
+                        </div>
+                    </Router>
+                    <Queue setRandomQueue={setRandomQueue} />
+                    <AudioPla/>
+                </div>
+            ) : (
+                <Login />
+            )} */}

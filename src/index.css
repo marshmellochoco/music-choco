@@ -29,49 +29,6 @@ body {
     grid-template-columns: 8fr 2fr;
 }
 
-.page-container {
-    overflow-y: scroll;
-    width: 96%;
-    height: 100%;
-    padding: 0 2%;
-}
-
-.page-header {
-    display: grid;
-    height: 8vh;
-    grid-template-columns: 10fr 150px;
-    align-items: center;
-}
-
-.page-header .left-elements {
-    display: flex;
-    align-items: center;
-}
-
-.left-elements .searchbar {
-    margin: 0 2vw;
-}
-
-.loggedUser {
-    height: 40%;
-    padding: 0 5%;
-    display: grid;
-    grid-template-columns: 1.5em 1fr;
-    text-align: left;
-}
-
-.loggedUser:hover {
-    background-color: var(--secondary-color);
-}
-
-.loggedUser svg {
-    margin: auto 0;
-}
-
-.loggedUser span {
-    margin: 5% auto 0 auto;
-}
-
 ::-webkit-scrollbar {
     width: 10px;
     background-color: var(--primary-color);

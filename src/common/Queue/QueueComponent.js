@@ -19,6 +19,10 @@ export const QueueComponent = ({
         background-color: var(--secondary-color);
         padding: 0 1rem;
         overflow-y: scroll;
+
+        & > .loading {
+            margin: auto;
+        }
     `;
 
     const queueHeaderStyle = css`
