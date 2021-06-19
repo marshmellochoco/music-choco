@@ -7,8 +7,14 @@ import { AlbumPageContainer } from "./pages/AlbumPage/AlbumPageContainer";
 import { AudioPlayerContainer } from "./common/AudioPlayer/AudioPlayerContainer";
 import { QueueContainer } from "./common/Queue/QueueContainer";
 import { SearchContainer } from "./common/Search/SearchContainer";
+import { HomePageContainer } from "./pages/HomePage/HomePageContainer";
 
-export const AppComponent = ({ username, search, handleLogout, setSearch }) => {
+export const MainComponent = ({
+    username,
+    search,
+    handleLogout,
+    setSearch,
+}) => {
     // styles
     const appStyle = css`
         overflow-y: scroll;
@@ -59,16 +65,19 @@ export const AppComponent = ({ username, search, handleLogout, setSearch }) => {
     const loggedUserStyle = css`
         display: flex;
         height: 2rem;
+        min-width: 8rem;
         align-items: center;
-        margin: 0 1rem;
-        padding: 0 1rem;
+        padding: 0 0.5rem;
         cursor: pointer;
-
         &:hover {
             background-color: var(--thirtiary-color);
         }
+        & > svg {
+            margin: 0.5rem;
+        }
     `;
 
+    console.log(search);
     // markdown
     return (
         <div className="App" onContextMenu={(e) => e.preventDefault()}>
@@ -97,7 +106,11 @@ export const AppComponent = ({ username, search, handleLogout, setSearch }) => {
                         </div>
                         <Switch>
                             <Route exact path="/">
-                                <SearchContainer search={search} />
+                                {search === "" ? (
+                                    <HomePageContainer />
+                                ) : (
+                                    <SearchContainer search={search} />
+                                )}
                             </Route>
                             <Route path="/albums/:id">
                                 <AlbumPageContainer />

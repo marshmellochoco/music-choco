@@ -1,5 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
+import Icon from "@mdi/react";
+import { mdiArrowLeft } from "@mdi/js";
 import { Link } from "react-router-dom";
 
 export const AlbumPageComponent = ({
@@ -15,11 +17,22 @@ export const AlbumPageComponent = ({
 }) => {
     // styles
     const albumStyle = css`
-        & a {
+        & > a {
+            display: flex;
+            align-items: center;
+            width: min-content;
             text-decoration: none;
+            font-size: 1.2em;
+            margin: 1em 0;
+            font-weight: bold;
             color: var(--contrast-color);
+            & > svg {
+                padding: 0 1rem;
+                width: 1em;
+                height: 100%;
+            }
         }
-        & a:hover {
+        & > a:hover {
             text-decoration: underline;
         }
     `;
@@ -133,9 +146,9 @@ export const AlbumPageComponent = ({
 
     return (
         <div css={albumStyle}>
-            <h3>
-                <Link to="/">{"<"}Back</Link>
-            </h3>
+            <Link to="/">
+                <Icon path={mdiArrowLeft} /> Back
+            </Link>
             <div css={albumHeader}>
                 <img
                     alt={album}

@@ -7,14 +7,14 @@ import { rootReducer } from "./store/reducers/rootReducer";
 
 // component import
 import "./index.css";
-import { AppContainer } from "./AppContainer";
+import { MainContainer } from "./MainContainer";
 
 const store = createStore(rootReducer);
 
 ReactDOM.render(
     <React.StrictMode>
         <Provider store={store}>
-            <AppContainer />
+            <MainContainer />
         </Provider>
     </React.StrictMode>,
     document.getElementById("root")

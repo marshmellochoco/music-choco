@@ -1,8 +1,8 @@
-import { AppComponent } from "./AppComponent";
+import { MainComponent } from "./MainComponent";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-export const AppContainer = () => {
+export const MainContainer = () => {
     const [search, setSearch] = useState("");
     const [username, setUsername] = useState("username");
     const authToken = useSelector((state) => state.authReducer.token);
@@ -31,7 +31,7 @@ export const AppContainer = () => {
     };
 
     return (
-        <AppComponent
+        <MainComponent
             handleLogout={handleLogout}
             setSearch={setSearch}
             search={search}

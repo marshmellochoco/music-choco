@@ -177,16 +177,10 @@ export const SearchComponent = ({
 
     return (
         <div>
-            {search === "" ? (
-                <div>Hello</div>
-            ) : (
-                <div>
-                    <h1>Albums</h1>
-                    <div css={albumListStyle}>{albumList(albumSearch)}</div>
-                    <h1>Songs</h1>
-                    <ul css={songListStyle}>{songList(songSearch)}</ul>
-                </div>
-            )}
+            <h1>Albums</h1>
+            <div css={albumListStyle}>{albumList(albumSearch)}</div>
+            <h1>Songs</h1>
+            <ul css={songListStyle}>{songList(songSearch)}</ul>
         </div>
     );
 };
