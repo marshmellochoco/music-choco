@@ -1,8 +1,15 @@
-import { queueReducer } from "../../Reducers/queueReducer";
+import { queueReducer } from "../../store/reducers/queueReducer";
+import {
+    addQueue,
+    setLoading,
+    setQueue,
+    setQueueData,
+} from "../../store/actions/queueAction";
 
 describe("queueReducer test", () => {
     const initState = {
         queue: [],
+        randomQueue: [],
         queueData: [],
         loading: false,
     };
@@ -31,28 +38,31 @@ describe("queueReducer test", () => {
 
     it("should handle SET_QUEUE", () => {
         expect(
-            queueReducer(initState, {
-                type: "SET_QUEUE",
-                queue: testQueueData.map((qd) => {
-                    return qd.songId;
-                }),
-            })
-        ).toEqual({
-            ...initState,
-            queue: testQueueData.map((qd) => {
+            queueReducer(
+                initState,
+                setQueue(
+                    testQueueData.map((qd) => {
+                        return qd.songId;
+                    })
+                )
+            ).queue
+        ).toEqual(
+            testQueueData.map((qd) => {
                 return qd.songId;
-            }),
-        });
+            })
+        );
     });
+
+    // TODO: Test SET_QUEUE will handle non array value
+    // TODO: Test SET_QUEUE will handle non Array<string> value
 
     it("should handle ADD_QUEUE", () => {
         expect(
-            queueReducer(initState, {
-                type: "ADD_QUEUE",
-                songId: "60b67fbcf747a945dcc5d284",
-            })
-        ).toEqual({ ...initState, queue: ["60b67fbcf747a945dcc5d284"] });
+            queueReducer(initState, addQueue("60b67fbcf747a945dcc5d284")).queue
+        ).toEqual(["60b67fbcf747a945dcc5d284"]);
     });
+
+    // TODO: Test ADD_QUEUE will handle non string value
 
     it("should NOT add repeating song to queue", () => {
         const queueState = {
@@ -62,28 +72,25 @@ describe("queueReducer test", () => {
         };
 
         expect(
-            queueReducer(queueState, {
-                type: "ADD_QUEUE",
-                songId: "60b67fbcf747a945dcc5d284",
-            })
-        ).toEqual(queueState);
+            queueReducer(queueState, addQueue("60b67fbcf747a945dcc5d284")).queue
+        ).toEqual(queueState.queue);
     });
 
     it("should handle SET_LOADING", () => {
-        expect(
-            queueReducer(initState, {
-                type: "SET_LOADING",
-                loading: false,
-            })
-        ).toEqual({ ...initState, loading: false });
+        expect(queueReducer(initState, setLoading(false))).toEqual({
+            ...initState,
+            loading: false,
+        });
     });
 
+    // TODO: Test SET_LOADING can handle non boolean value
+
     it("should handle SET_QUEUE_DATA", () => {
-        expect(
-            queueReducer(initState, {
-                type: "SET_QUEUE_DATA",
-                queueData: testQueueData,
-            })
-        ).toEqual({ ...initState, queueData: testQueueData });
+        expect(queueReducer(initState, setQueueData(testQueueData))).toEqual({
+            ...initState,
+            queueData: testQueueData,
+        });
     });
+
+    // TODO: Test SET_QUEUE_DATA can handle object without the required field
 });

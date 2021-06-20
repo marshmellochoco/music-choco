@@ -2,7 +2,11 @@ import { QueueComponent } from "./QueueComponent";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { toggleLoop, toggleRandom } from "../../store/actions/playerActions";
+import {
+    setPlaying,
+    toggleLoop,
+    toggleRandom,
+} from "../../store/actions/playerActions";
 import { setQueue, setQueueData } from "../../store/actions/queueAction";
 import {
     setPlayingSong,
@@ -92,7 +96,7 @@ export const QueueContainer = () => {
         // If the item is clicked, and it is not the trash can icon, play the clicked song instead
         let clickedItem = e.currentTarget.getAttribute("datakey");
         dispatch(setPlayingSong(clickedItem));
-        dispatch({ type: "SET_PLAYING", playing: true });
+        dispatch(setPlaying(true));
     };
 
     const removeQueue = async (e) => {
@@ -100,7 +104,7 @@ export const QueueContainer = () => {
         let clickedItem = e.currentTarget.getAttribute("datakey");
         if (clickedItem === playingSong) {
             dispatch(setPlayingSong(""));
-            dispatch({ type: "SET_PLAYING", playing: false });
+            dispatch(setPlaying(false));
         }
 
         let q = queue;

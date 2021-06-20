@@ -2,6 +2,7 @@ import { AudioPlayerComponent } from "./AudioPlayerComponent";
 import { createRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPlayingSong } from "../../store/actions/songDataAction";
+import { setPlaying, setVolume } from "../../store/actions/playerActions";
 
 export const AudioPlayerContainer = () => {
     // initialization
@@ -29,10 +30,10 @@ export const AudioPlayerContainer = () => {
 
     const onEnded = () => {
         // play the next song when the current song has ended, reset the played time
-        dispatch({ type: "SET_PLAYING", playing: false });
+        dispatch(setPlaying(false));
         setCurrentTime(0);
         nextSong();
-        dispatch({ type: "SET_PLAYING", playing: true });
+        dispatch(setPlaying(true));
     };
 
     // control functions
@@ -45,7 +46,7 @@ export const AudioPlayerContainer = () => {
     const changeVolume = (vol) => {
         // change the volume, if it is unmuted, set volume to the previous volume
         setLastVolume(volume === 0 ? lastVolume : volume);
-        dispatch({ type: "SET_VOLUME", volume: vol });
+        dispatch(setVolume(vol));
         console.log(vol);
     };
 
@@ -81,7 +82,7 @@ export const AudioPlayerContainer = () => {
         const next = (q) => {
             if (q.indexOf(songData.songId) === q.length - 1) {
                 dispatch(setPlayingSong(isLoop ? q[0] : ""));
-                if (!isLoop) dispatch({ type: "SET_PLAYING", playing: false });
+                if (!isLoop) dispatch(setPlaying(false));
             } else {
                 dispatch(setPlayingSong(q[q.indexOf(songData.songId) + 1]));
             }
@@ -92,8 +93,8 @@ export const AudioPlayerContainer = () => {
 
     const playPause = (play) => {
         if (songData.songId) {
-            dispatch({ type: "SET_PLAYING", playing: play });
-        } else dispatch({ type: "SET_PLAYING", playing: false });
+            dispatch(setPlaying(play));
+        } else dispatch(setPlaying(false));
     };
 
     return (

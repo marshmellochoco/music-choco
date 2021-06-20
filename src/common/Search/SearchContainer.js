@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { SearchComponent } from "./SearchComponent";
 import { setPlayingSong } from "../../store/actions/songDataAction";
 import { addQueue, setQueue } from "../../store/actions/queueAction";
+import { setPlaying } from "../../store/actions/playerActions";
 
 export const SearchContainer = ({ search }) => {
     const apiUrl = process.env.REACT_APP_API_URL;
@@ -33,7 +34,7 @@ export const SearchContainer = ({ search }) => {
     const playSong = (id) => {
         dispatch(addQueue(id));
         dispatch(setPlayingSong(id));
-        dispatch({ type: "SET_PLAYING", playing: true });
+        dispatch(setPlaying(true));
     };
 
     const addSong = (id) => {
@@ -60,7 +61,7 @@ export const SearchContainer = ({ search }) => {
         });
 
         dispatch(setPlayingSong(songList[0]));
-        dispatch({ type: "SET_PLAYING", playing: true });
+        dispatch(setPlaying(true));
         dispatch(setQueue(songList));
     };
 

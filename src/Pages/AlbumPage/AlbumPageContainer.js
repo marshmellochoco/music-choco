@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { setPlayingSong } from "../../store/actions/songDataAction";
 import { addQueue, setQueue } from "../../store/actions/queueAction";
+import { setPlaying } from "../../store/actions/playerActions";
 
 export const AlbumPageContainer = () => {
     const apiUrl = process.env.REACT_APP_API_URL;
@@ -37,14 +38,14 @@ export const AlbumPageContainer = () => {
         // play the selected song and add it to the queue
         dispatch(addQueue(id));
         dispatch(setPlayingSong(id));
-        dispatch({ type: "SET_PLAYING", playing: true });
+        dispatch(setPlaying(true));
     };
 
     const setAlbumToQueue = async () => {
         // play the entier album and replace the existing queue
         dispatch(setQueue(songList));
         dispatch(setPlayingSong(songList[0]));
-        dispatch({ type: "SET_PLAYING", playing: true });
+        dispatch(setPlaying(true));
     };
 
     const addToQueue = (id) => {

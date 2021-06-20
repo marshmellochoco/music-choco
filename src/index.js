@@ -3,10 +3,10 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
-import { rootReducer } from "./store/reducers/rootReducer";
 
 // component import
 import "./index.css";
+import { rootReducer } from "./store/rootReducer";
 import { MainContainer } from "./MainContainer";
 
 const store = createStore(rootReducer);
