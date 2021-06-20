@@ -1,0 +1,200 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Queue should render the queue 1`] = `
+<Provider
+  store={
+    Object {
+      "@@observable": [Function],
+      "dispatch": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <QueueContainer>
+    <QueueComponent
+      handleDragDrop={[Function]}
+      isLoop={false}
+      isRandom={false}
+      loading={true}
+      queueList={Array []}
+      toggleLoop={[Function]}
+      toggleRandom={[Function]}
+    >
+      <EmotionCssPropInternal
+        __EMOTION_LABEL_PLEASE_DO_NOT_USE__="QueueComponent"
+        __EMOTION_TYPE_PLEASE_DO_NOT_USE__="div"
+        css={
+          Object {
+            "map": undefined,
+            "name": "12ijmwk",
+            "next": undefined,
+            "styles": "
+        background-color: var(--secondary-color);
+        padding: 0 1rem;
+        overflow-y: scroll;
+
+        & > .loading {
+            margin: auto;
+        }
+    ",
+            "toString": [Function],
+          }
+        }
+      >
+        <div
+          className="css-1t03epv-QueueComponent"
+        >
+          <EmotionCssPropInternal
+            __EMOTION_LABEL_PLEASE_DO_NOT_USE__="QueueComponent"
+            __EMOTION_TYPE_PLEASE_DO_NOT_USE__="div"
+            css={
+              Object {
+                "map": undefined,
+                "name": "lqmqg4",
+                "next": undefined,
+                "styles": "
+        display: flex;
+        align-items: baseline;
+        align-content: flex-end;
+        margin-left: auto;
+
+        & > div {
+            display: flex;
+            margin-left: auto;
+
+            & > svg {
+                fill: var(--contrast-color);
+                width: 2em;
+                height: 2em;
+                margin: 5%;
+                cursor: pointer;
+
+                &:hover {
+                    opacity: 0.7;
+                }
+            }
+
+            & > .active {
+                color: var(--primary-color);
+            }
+        }
+    ",
+                "toString": [Function],
+              }
+            }
+          >
+            <div
+              className="css-tucfc2-QueueComponent"
+            >
+              <h1>
+                Queue
+              </h1>
+              <div>
+                <Icon
+                  className=""
+                  color="currentColor"
+                  horizontal={false}
+                  onClick={[Function]}
+                  path="M14.83,13.41L13.42,14.82L16.55,17.95L14.5,20H20V14.5L17.96,16.54L14.83,13.41M14.5,4L16.54,6.04L4,18.59L5.41,20L17.96,7.46L20,9.5V4M10.59,9.17L5.41,4L4,5.41L9.17,10.58L10.59,9.17Z"
+                  rotate={0}
+                  size={null}
+                  spin={false}
+                  vertical={false}
+                >
+                  <svg
+                    className=""
+                    onClick={[Function]}
+                    role="presentation"
+                    style={Object {}}
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M14.83,13.41L13.42,14.82L16.55,17.95L14.5,20H20V14.5L17.96,16.54L14.83,13.41M14.5,4L16.54,6.04L4,18.59L5.41,20L17.96,7.46L20,9.5V4M10.59,9.17L5.41,4L4,5.41L9.17,10.58L10.59,9.17Z"
+                      style={
+                        Object {
+                          "fill": "currentColor",
+                        }
+                      }
+                    />
+                  </svg>
+                </Icon>
+                <Icon
+                  className=""
+                  color="currentColor"
+                  horizontal={false}
+                  onClick={[Function]}
+                  path="M12,18A6,6 0 0,1 6,12C6,11 6.25,10.03 6.7,9.2L5.24,7.74C4.46,8.97 4,10.43 4,12A8,8 0 0,0 12,20V23L16,19L12,15M12,4V1L8,5L12,9V6A6,6 0 0,1 18,12C18,13 17.75,13.97 17.3,14.8L18.76,16.26C19.54,15.03 20,13.57 20,12A8,8 0 0,0 12,4Z"
+                  rotate={0}
+                  size={null}
+                  spin={false}
+                  vertical={false}
+                >
+                  <svg
+                    className=""
+                    onClick={[Function]}
+                    role="presentation"
+                    style={Object {}}
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M12,18A6,6 0 0,1 6,12C6,11 6.25,10.03 6.7,9.2L5.24,7.74C4.46,8.97 4,10.43 4,12A8,8 0 0,0 12,20V23L16,19L12,15M12,4V1L8,5L12,9V6A6,6 0 0,1 18,12C18,13 17.75,13.97 17.3,14.8L18.76,16.26C19.54,15.03 20,13.57 20,12A8,8 0 0,0 12,4Z"
+                      style={
+                        Object {
+                          "fill": "currentColor",
+                        }
+                      }
+                    />
+                  </svg>
+                </Icon>
+              </div>
+            </div>
+          </EmotionCssPropInternal>
+          <Loading
+            className="loading"
+            color="#fff"
+            delay={0}
+            height={64}
+            type="bars"
+            width={64}
+          >
+            <div
+              className="loading"
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "<svg xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 32 32\\">
+  <path transform=\\"translate(2)\\" d=\\"M0 12 V20 H4 V12z\\"> 
+    <animate attributeName=\\"d\\" values=\\"M0 12 V20 H4 V12z; M0 4 V28 H4 V4z; M0 12 V20 H4 V12z; M0 12 V20 H4 V12z\\" dur=\\"1.2s\\" repeatCount=\\"indefinite\\" begin=\\"0\\" keytimes=\\"0;.2;.5;1\\" keySplines=\\"0.2 0.2 0.4 0.8;0.2 0.6 0.4 0.8;0.2 0.8 0.4 0.8\\" calcMode=\\"spline\\"  />
+  </path>
+  <path transform=\\"translate(8)\\" d=\\"M0 12 V20 H4 V12z\\">
+    <animate attributeName=\\"d\\" values=\\"M0 12 V20 H4 V12z; M0 4 V28 H4 V4z; M0 12 V20 H4 V12z; M0 12 V20 H4 V12z\\" dur=\\"1.2s\\" repeatCount=\\"indefinite\\" begin=\\"0.2\\" keytimes=\\"0;.2;.5;1\\" keySplines=\\"0.2 0.2 0.4 0.8;0.2 0.6 0.4 0.8;0.2 0.8 0.4 0.8\\" calcMode=\\"spline\\"  />
+  </path>
+  <path transform=\\"translate(14)\\" d=\\"M0 12 V20 H4 V12z\\">
+    <animate attributeName=\\"d\\" values=\\"M0 12 V20 H4 V12z; M0 4 V28 H4 V4z; M0 12 V20 H4 V12z; M0 12 V20 H4 V12z\\" dur=\\"1.2s\\" repeatCount=\\"indefinite\\" begin=\\"0.4\\" keytimes=\\"0;.2;.5;1\\" keySplines=\\"0.2 0.2 0.4 0.8;0.2 0.6 0.4 0.8;0.2 0.8 0.4 0.8\\" calcMode=\\"spline\\" />
+  </path>
+  <path transform=\\"translate(20)\\" d=\\"M0 12 V20 H4 V12z\\">
+    <animate attributeName=\\"d\\" values=\\"M0 12 V20 H4 V12z; M0 4 V28 H4 V4z; M0 12 V20 H4 V12z; M0 12 V20 H4 V12z\\" dur=\\"1.2s\\" repeatCount=\\"indefinite\\" begin=\\"0.6\\" keytimes=\\"0;.2;.5;1\\" keySplines=\\"0.2 0.2 0.4 0.8;0.2 0.6 0.4 0.8;0.2 0.8 0.4 0.8\\" calcMode=\\"spline\\" />
+  </path>
+  <path transform=\\"translate(26)\\" d=\\"M0 12 V20 H4 V12z\\">
+    <animate attributeName=\\"d\\" values=\\"M0 12 V20 H4 V12z; M0 4 V28 H4 V4z; M0 12 V20 H4 V12z; M0 12 V20 H4 V12z\\" dur=\\"1.2s\\" repeatCount=\\"indefinite\\" begin=\\"0.8\\" keytimes=\\"0;.2;.5;1\\" keySplines=\\"0.2 0.2 0.4 0.8;0.2 0.6 0.4 0.8;0.2 0.8 0.4 0.8\\" calcMode=\\"spline\\" />
+  </path>
+</svg>
+",
+                }
+              }
+              style={
+                Object {
+                  "fill": "#fff",
+                  "height": 64,
+                  "width": 64,
+                }
+              }
+            />
+          </Loading>
+        </div>
+      </EmotionCssPropInternal>
+    </QueueComponent>
+  </QueueContainer>
+</Provider>
+`;

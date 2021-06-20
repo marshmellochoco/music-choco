@@ -6,13 +6,12 @@ const initState = {
 };
 
 export const queueReducer = (state = initState, action) => {
-    let randQueue = [...state.queue, action.songId];
     switch (action.type) {
         case "SET_QUEUE":
             return {
                 ...state,
                 queue: [...action.queue],
-                randomQueue: [...randQueue.sort(() => Math.random() - 0.5)],
+                randomQueue: [...action.queue].sort(() => Math.random() - 0.5),
             };
         case "ADD_QUEUE":
             if (state.queue.includes(action.songId)) {
@@ -21,7 +20,9 @@ export const queueReducer = (state = initState, action) => {
             return {
                 ...state,
                 queue: [...state.queue, action.songId],
-                randomQueue: [...randQueue.sort(() => Math.random() - 0.5)],
+                randomQueue: [...state.queue, action.songId].sort(
+                    () => Math.random() - 0.5
+                ),
             };
         case "SET_LOADING":
             return {

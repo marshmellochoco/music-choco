@@ -37,29 +37,34 @@ describe("queueReducer test", () => {
     });
 
     it("should handle SET_QUEUE", () => {
-        expect(
-            queueReducer(
-                initState,
-                setQueue(
-                    testQueueData.map((qd) => {
-                        return qd.songId;
-                    })
-                )
-            ).queue
-        ).toEqual(
+        const newQueue = queueReducer(
+            initState,
+            setQueue(
+                testQueueData.map((qd) => {
+                    return qd.songId;
+                })
+            )
+        );
+
+        expect(newQueue.queue).toEqual(
             testQueueData.map((qd) => {
                 return qd.songId;
             })
         );
+
+        expect(newQueue.randomQueue.length).toEqual(newQueue.queue.length);
     });
 
     // TODO: Test SET_QUEUE will handle non array value
     // TODO: Test SET_QUEUE will handle non Array<string> value
 
     it("should handle ADD_QUEUE", () => {
-        expect(
-            queueReducer(initState, addQueue("60b67fbcf747a945dcc5d284")).queue
-        ).toEqual(["60b67fbcf747a945dcc5d284"]);
+        const newQueue = queueReducer(
+            initState,
+            addQueue("60b67fbcf747a945dcc5d284")
+        );
+        expect(newQueue.queue).toEqual(["60b67fbcf747a945dcc5d284"]);
+        expect(newQueue.randomQueue.length).toEqual(newQueue.queue.length);
     });
 
     // TODO: Test ADD_QUEUE will handle non string value

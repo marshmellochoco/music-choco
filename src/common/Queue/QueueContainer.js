@@ -7,7 +7,11 @@ import {
     toggleLoop,
     toggleRandom,
 } from "../../store/actions/playerActions";
-import { setQueue, setQueueData } from "../../store/actions/queueAction";
+import {
+    setLoading,
+    setQueue,
+    setQueueData,
+} from "../../store/actions/queueAction";
 import {
     setPlayingSong,
     setSongData,
@@ -16,7 +20,7 @@ import { QueueListComponent } from "./QueueListComponent";
 
 export const QueueContainer = () => {
     const apiUrl = process.env.REACT_APP_API_URL;
-    const [loading, setLoading] = useState(false);
+    const loading = useSelector((state) => state.queueReducer.loading);
     const playingSong = useSelector(
         (state) => state.songDataReducer.songData.songId
     );
@@ -29,7 +33,7 @@ export const QueueContainer = () => {
     useEffect(() => {
         const getQueueData = async (qdCache) => {
             var data = [];
-            setLoading(true);
+            dispatch(setLoading(true));
 
             for (let i = 0; i < queue.length; i++) {
                 let found = false;
@@ -61,7 +65,7 @@ export const QueueContainer = () => {
 
         getQueueData(queueData).then((res) => {
             dispatch(setQueueData(res));
-            setLoading(false);
+            dispatch(setLoading(false));
             if (res.length <= 0) return;
             if (playingSong) {
                 dispatch(
