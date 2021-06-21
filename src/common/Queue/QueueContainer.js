@@ -1,6 +1,6 @@
 import { QueueComponent } from "./QueueComponent";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import axios from "axios";
 import {
     setPlaying,
@@ -20,14 +20,12 @@ import { QueueListComponent } from "./QueueListComponent";
 
 export const QueueContainer = ({ openQueue }) => {
     const apiUrl = process.env.REACT_APP_API_URL;
-    const loading = useSelector((state) => state.queueReducer.loading);
+    const { queue, queueData, loading, loop, random } = useSelector(
+        (state) => state.queueReducer
+    );
     const playingSong = useSelector(
         (state) => state.songDataReducer.songData.songId
     );
-    const queue = useSelector((state) => state.queueReducer.queue);
-    const queueData = useSelector((state) => state.queueReducer.queueData);
-    const isLoop = useSelector((state) => state.playerReducer.loop);
-    const isRandom = useSelector((state) => state.playerReducer.random);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -137,8 +135,8 @@ export const QueueContainer = ({ openQueue }) => {
 
     return (
         <QueueComponent
-            isLoop={isLoop}
-            isRandom={isRandom}
+            isLoop={loop}
+            isRandom={random}
             loading={loading}
             toggleRandom={changeRandom}
             toggleLoop={changeLoop}

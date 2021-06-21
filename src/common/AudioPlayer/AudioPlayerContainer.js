@@ -9,12 +9,10 @@ export const AudioPlayerContainer = () => {
     // initialization
     const apiUrl = process.env.REACT_APP_API_URL;
     const songData = useSelector((state) => state.songDataReducer.songData);
-    const queue = useSelector((state) => state.queueReducer.queue);
-    const randomQueue = useSelector((state) => state.queueReducer.randomQueue);
-    const playing = useSelector((state) => state.playerReducer.playing);
-    const volume = useSelector((state) => state.playerReducer.volume);
-    const isLoop = useSelector((state) => state.playerReducer.loop);
-    const isRandom = useSelector((state) => state.playerReducer.random);
+    const { queue, randomQueue } = useSelector((state) => state.queueReducer);
+    const { playing, volume, loop, random } = useSelector(
+        (state) => state.playerReducer
+    );
     const [currentTime, setCurrentTime] = useState(0);
     const [lastVolume, setLastVolume] = useState(volume);
     const dispatch = useDispatch();
@@ -53,7 +51,7 @@ export const AudioPlayerContainer = () => {
     const prevSong = () => {
         // play the previous song, if no previous song, restart the song
         // if is random, use the random queue list else use the normal queue list
-        if (isRandom) {
+        if (random) {
             if (randomQueue.indexOf(songData.songId) === 0) {
                 setClickedTime(0);
             } else {
@@ -81,14 +79,14 @@ export const AudioPlayerContainer = () => {
 
         const next = (q) => {
             if (q.indexOf(songData.songId) === q.length - 1) {
-                dispatch(setPlayingSong(isLoop ? q[0] : ""));
-                if (!isLoop) dispatch(setPlaying(false));
+                dispatch(setPlayingSong(loop ? q[0] : ""));
+                if (!loop) dispatch(setPlaying(false));
             } else {
                 dispatch(setPlayingSong(q[q.indexOf(songData.songId) + 1]));
             }
         };
 
-        next(isRandom ? randomQueue : queue);
+        next(random ? randomQueue : queue);
     };
 
     const playPause = (play) => {

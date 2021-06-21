@@ -15,8 +15,6 @@ exports[`Queue should render the queue 1`] = `
   <QueueContainer>
     <QueueComponent
       handleDragDrop={[Function]}
-      isLoop={false}
-      isRandom={false}
       loading={true}
       queueList={Array []}
       toggleLoop={[Function]}
