@@ -28,15 +28,23 @@ exports[`Queue should render the queue 1`] = `
         css={
           Object {
             "map": undefined,
-            "name": "12ijmwk",
+            "name": "15olhuf",
             "next": undefined,
             "styles": "
         background-color: var(--secondary-color);
         padding: 0 1rem;
         overflow-y: scroll;
+        display: none;
 
         & > .loading {
             margin: auto;
+        }
+
+        @media (max-width: 1024px) {
+            width: calc(100% - 3rem);
+            height: 100%;
+            margin-right: 1rem;
+            background-color: var(--secondary-color);
         }
     ",
             "toString": [Function],
@@ -44,7 +52,7 @@ exports[`Queue should render the queue 1`] = `
         }
       >
         <div
-          className="css-1t03epv-QueueComponent"
+          className="css-epg54b-QueueComponent"
         >
           <EmotionCssPropInternal
             __EMOTION_LABEL_PLEASE_DO_NOT_USE__="QueueComponent"
@@ -52,7 +60,7 @@ exports[`Queue should render the queue 1`] = `
             css={
               Object {
                 "map": undefined,
-                "name": "lqmqg4",
+                "name": "1oagz98",
                 "next": undefined,
                 "styles": "
         display: flex;
@@ -68,7 +76,7 @@ exports[`Queue should render the queue 1`] = `
                 fill: var(--contrast-color);
                 width: 2em;
                 height: 2em;
-                margin: 5%;
+                margin: 1rem;
                 cursor: pointer;
 
                 &:hover {
@@ -86,7 +94,7 @@ exports[`Queue should render the queue 1`] = `
             }
           >
             <div
-              className="css-tucfc2-QueueComponent"
+              className="css-95yp7n-QueueComponent"
             >
               <h1>
                 Queue

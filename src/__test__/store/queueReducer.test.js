@@ -4,11 +4,13 @@ import {
     setLoading,
     setQueue,
     setQueueData,
+    toggleQueue,
 } from "../../store/actions/queueAction";
 
 describe("queueReducer test", () => {
     const initState = {
         queue: [],
+        openQueue: false,
         randomQueue: [],
         queueData: [],
         loading: false,
@@ -98,4 +100,11 @@ describe("queueReducer test", () => {
     });
 
     // TODO: Test SET_QUEUE_DATA can handle object without the required field
+
+    it("should handle TOGGLE_QUEUE", () => {
+        expect(queueReducer(initState, toggleQueue())).toEqual({
+            ...initState,
+            openQueue: true,
+        });
+    });
 });

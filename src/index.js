@@ -19,3 +19,6 @@ ReactDOM.render(
     </React.StrictMode>,
     document.getElementById("root")
 );
+
+// TODO: add playlist, favouraite
+// TODO: save queue on database

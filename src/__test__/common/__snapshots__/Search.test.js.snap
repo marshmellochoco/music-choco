@@ -33,10 +33,11 @@ exports[`Search should render the search 1`] = `
           css={
             Object {
               "map": undefined,
-              "name": "go8cbj",
+              "name": "141xi7h",
               "next": undefined,
               "styles": "
         display: flex;
+        overflow-x: scroll;
 
         & > a {
             color: white;
@@ -47,8 +48,8 @@ exports[`Search should render the search 1`] = `
         }
 
         & .cardItem {
-            margin-right: 2%;
-            margin-bottom: 2%;
+            margin-right: 1rem;
+            margin-bottom: 1rem;
         }
     ",
               "toString": [Function],
@@ -56,7 +57,7 @@ exports[`Search should render the search 1`] = `
           }
         >
           <div
-            className="css-eyxt29-SearchComponent"
+            className="css-1zowee-SearchComponent"
           />
         </EmotionCssPropInternal>
         <h1>
@@ -68,17 +69,16 @@ exports[`Search should render the search 1`] = `
           css={
             Object {
               "map": undefined,
-              "name": "dqomde",
+              "name": "h43zs4",
               "next": undefined,
               "styles": "
         list-style-type: none;
         padding: 0;
-        margin-right: 2%;
+        margin-right: 1rem;
 
         & > li {
-            padding: 0.5em 0;
+            padding: 0.5rem 1rem;
             height: 60px;
-            padding-left: 1%;
             display: grid;
             grid-template-columns: 70px 20fr 4em;
             cursor: pointer;
@@ -116,7 +116,7 @@ exports[`Search should render the search 1`] = `
           }
         >
           <ul
-            className="css-1h4cref-SearchComponent"
+            className="css-m6uak6-SearchComponent"
           />
         </EmotionCssPropInternal>
       </div>
