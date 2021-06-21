@@ -31,7 +31,10 @@ export const AudioPlayerComponent = (props) => {
 
     const playerDetailStyle = css`
         display: grid;
-        grid-template-columns: 1fr 2fr 1fr;
+        grid-template-columns: minmax(2rem, 1fr) minmax(4rem, 2fr) minmax(
+                2rem,
+                0.8fr
+            );
         grid-template-rows: 1fr 1fr;
     `;
 
@@ -127,6 +130,10 @@ const playerPlayingDetail = ({ songData, albumUrl }) => {
         display: grid;
         grid-template-columns: 64px 1fr;
         grid-template-rows: 1fr 1fr;
+        @media (max-width: 768px) {
+            display: flex;
+            flex-direction: column;
+        }
     `;
 
     const playerIconStyle = css`
@@ -138,6 +145,10 @@ const playerPlayingDetail = ({ songData, albumUrl }) => {
             max-width: 64px;
             max-height: 64px;
             background-color: white;
+        }
+
+        @media (max-width: 768px) {
+            display: none;
         }
     `;
 
@@ -233,25 +244,29 @@ const playerVolume = ({ volume, lastVolume, changeVolume, toggleQueue }) => {
             padding: 4px;
             width: 1.8em;
             cursor: pointer;
+            margin: 0 10px;
 
             &:hover {
                 opacity: 0.7;
             }
         }
 
-        & > svg {
-            margin: 0 2rem;
-        }
-
         & > div {
             display: flex;
+            & > div {
+                @media (max-width: 768px) {
+                    display: none;
+                }
+            }
         }
     `;
 
     // markdown
     return (
         <div css={playerVolumeStyle}>
-            <Icon path={mdiArchive} onClick={toggleQueue} />
+            <div>
+                <Icon path={mdiArchive} onClick={toggleQueue} />
+            </div>
 
             <div>
                 {volume === 0 ? (
@@ -283,7 +298,7 @@ const playerTimeline = ({ currentTime, duration, setClickedTime }) => {
         margin: auto 0;
         text-align: center;
         display: grid;
-        grid-template-columns: 1fr 10fr 1fr;
+        grid-template-columns: 4rem 10fr 4rem;
         font-size: 0.9em;
     `;
 
