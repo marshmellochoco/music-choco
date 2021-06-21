@@ -25,12 +25,18 @@ export const MainComponent = ({
         padding-left: 2rem;
         display: ${openQueue ? "grid" : "block"};
         grid-template-columns: 1fr 25rem;
+        @media (max-width: 1024px) {
+            display: block;
+        }
     `;
 
     const appStyle = css`
         overflow-y: scroll;
         height: 100%;
         padding-right: 1rem;
+        @media (max-width: 1024px) {
+            display: ${openQueue ? "none" : "block"};
+        }
     `;
 
     const appHeaderStyle = css`
@@ -43,6 +49,9 @@ export const MainComponent = ({
     const leftHeaderStyle = css`
         display: flex;
         align-items: center;
+        & > h1 {
+            min-width: max-content;
+        }
     `;
 
     const searchbarStyle = css`
@@ -53,6 +62,7 @@ export const MainComponent = ({
         align-self: center;
         background-color: var(--contrast-color);
         border-radius: 2rem;
+        min-width: 12rem;
 
         & svg {
             align-self: center;
@@ -62,6 +72,7 @@ export const MainComponent = ({
             height: 24px;
         }
         & input[type="text"] {
+            width: 100%;
             display: flex;
             height: 1em;
             font-size: 1em;
@@ -78,6 +89,7 @@ export const MainComponent = ({
         min-width: 8rem;
         align-items: center;
         padding: 0 0.5rem;
+        margin-right: 1rem;
         cursor: pointer;
         &:hover {
             background-color: var(--thirtiary-color);
@@ -100,18 +112,14 @@ export const MainComponent = ({
                                 <div css={appHeaderStyle}>
                                     <div css={leftHeaderStyle}>
                                         <h1>music-choco</h1>
-                                        <div>
-                                            <div css={searchbarStyle}>
-                                                <Icon path={mdiMagnify} />
-                                                <input
-                                                    type="text"
-                                                    onChange={(e) =>
-                                                        setSearch(
-                                                            e.target.value
-                                                        )
-                                                    }
-                                                ></input>
-                                            </div>
+                                        <div css={searchbarStyle}>
+                                            <Icon path={mdiMagnify} />
+                                            <input
+                                                type="text"
+                                                onChange={(e) =>
+                                                    setSearch(e.target.value)
+                                                }
+                                            ></input>
                                         </div>
                                     </div>
                                     <div

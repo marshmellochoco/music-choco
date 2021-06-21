@@ -136,23 +136,20 @@ export const QueueContainer = ({ openQueue }) => {
     };
 
     return (
-        <>
-            {openQueue && (
-                <QueueComponent
-                    isLoop={isLoop}
-                    isRandom={isRandom}
-                    loading={loading}
-                    toggleRandom={changeRandom}
-                    toggleLoop={changeLoop}
-                    handleDragDrop={handleDragDrop}
-                    queueList={QueueListComponent({
-                        data: queueData.length > 0 ? queueData : [],
-                        playingSong,
-                        skipQueue,
-                        removeQueue,
-                    })}
-                />
-            )}
-        </>
+        <QueueComponent
+            isLoop={isLoop}
+            isRandom={isRandom}
+            loading={loading}
+            toggleRandom={changeRandom}
+            toggleLoop={changeLoop}
+            handleDragDrop={handleDragDrop}
+            queueList={QueueListComponent({
+                data: queueData.length > 0 ? queueData : [],
+                playingSong,
+                skipQueue,
+                removeQueue,
+            })}
+            openQueue={openQueue}
+        />
     );
 };

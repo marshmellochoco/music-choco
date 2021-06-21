@@ -13,15 +13,24 @@ export const QueueComponent = ({
     toggleLoop,
     handleDragDrop,
     queueList,
+    openQueue,
 }) => {
     // styles
     const queueStyle = css`
         background-color: var(--secondary-color);
         padding: 0 1rem;
         overflow-y: scroll;
+        display: ${openQueue ? "block" : "none"};
 
         & > .loading {
             margin: auto;
+        }
+
+        @media (max-width: 1024px) {
+            width: calc(100% - 3rem);
+            height: 100%;
+            margin-right: 1rem;
+            background-color: var(--primary-color);
         }
     `;
 
@@ -49,6 +58,9 @@ export const QueueComponent = ({
 
             & > .active {
                 color: var(--primary-color);
+                @media (max-width: 1024px) {
+                    color: var(--secondary-color);
+                }
             }
         }
     `;

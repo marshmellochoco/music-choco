@@ -17,6 +17,7 @@ export const SearchComponent = ({
     // styles
     const albumListStyle = css`
         display: flex;
+        overflow-x: scroll;
 
         & > a {
             color: white;
