@@ -68,7 +68,6 @@ export const SearchContainer = ({ search }) => {
     return (
         <SearchComponent
             imageUrl={imageUrl}
-            search={search}
             playingSong={playingSong}
             albumSearch={albumSearch}
             songSearch={songSearch}

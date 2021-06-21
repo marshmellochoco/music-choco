@@ -1,6 +1,8 @@
-import { MainComponent } from "./MainComponent";
+import axios from "axios";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { MainComponent } from "./MainComponent";
+import { resetToken } from "./store/actions/authActions";
 
 export const MainContainer = () => {
     const [search, setSearch] = useState("");
@@ -19,10 +21,10 @@ export const MainContainer = () => {
                 .then((res) => setUsername(res.data.username))
                 .catch((e) => {
                     if (e.response.status === 401)
-                        dispatch({ type: "RESET_TOKEN" });
+                        dispatch(resetToken());
                 });
         }
-    }, [authToken]);
+    }, [uid]);
 
     const handleLogout = () => {
         // logout to clear the token and refresh all data
@@ -32,10 +34,11 @@ export const MainContainer = () => {
 
     return (
         <MainComponent
-            handleLogout={handleLogout}
-            setSearch={setSearch}
+            token={authToken}
             search={search}
             username={username}
+            setSearch={setSearch}
+            handleLogout={handleLogout}
         />
     );
 };

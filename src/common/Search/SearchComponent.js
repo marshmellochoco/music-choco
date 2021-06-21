@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 
 export const SearchComponent = ({
     imageUrl,
-    search,
     playingSong,
     albumSearch,
     songSearch,
@@ -120,7 +119,7 @@ export const SearchComponent = ({
     const albumList = (albums) => {
         return albums.map((s) => {
             return (
-                <Link css={albumCardStyle} to={`/albums/${s._id}`}>
+                <Link css={albumCardStyle} to={`/albums/${s._id}`} key={s._id}>
                     <img
                         src={`${imageUrl}${s._id}`}
                         alt="Album Icon"

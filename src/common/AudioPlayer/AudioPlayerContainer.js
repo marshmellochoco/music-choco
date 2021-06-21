@@ -47,7 +47,6 @@ export const AudioPlayerContainer = () => {
         // change the volume, if it is unmuted, set volume to the previous volume
         setLastVolume(volume === 0 ? lastVolume : volume);
         dispatch(setVolume(vol));
-        console.log(vol);
     };
 
     const prevSong = () => {

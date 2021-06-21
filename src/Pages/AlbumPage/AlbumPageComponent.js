@@ -118,10 +118,7 @@ export const AlbumPageComponent = ({
                 css={albumListItemStyle}
                 className={`${playingSong === s._id ? "activeItem" : ""}`}
                 key={s._id}
-                onClick={() => {
-                    setSong(s._id);
-                    console.log("ok");
-                }}
+                onClick={() => setSong(s._id)}
                 onContextMenu={() => addQueue(s._id)}
             >
                 <div>{i + 1}</div>

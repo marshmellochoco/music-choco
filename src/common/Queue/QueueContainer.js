@@ -99,6 +99,7 @@ export const QueueContainer = () => {
     const skipQueue = (e) => {
         // If the item is clicked, and it is not the trash can icon, play the clicked song instead
         let clickedItem = e.currentTarget.getAttribute("datakey");
+        if (!queue.includes(clickedItem)) return;
         dispatch(setPlayingSong(clickedItem));
         dispatch(setPlaying(true));
     };
