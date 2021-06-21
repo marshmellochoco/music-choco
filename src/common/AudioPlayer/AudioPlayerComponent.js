@@ -3,6 +3,7 @@ import { css } from "@emotion/react";
 import ReactPlayer from "react-player";
 import Icon from "@mdi/react";
 import {
+    mdiArchive,
     mdiPauseCircleOutline,
     mdiPlayCircleOutline,
     mdiSkipNext,
@@ -64,6 +65,7 @@ export const AudioPlayerComponent = (props) => {
                     volume: props.volume,
                     lastVolume: props.lastVolume,
                     changeVolume: props.changeVolume,
+                    toggleQueue: props.toggleQueue,
                 })}
                 {playerTimeline({
                     currentTime: props.currentTime,
@@ -219,16 +221,15 @@ const playerControl = ({ playing, playPause, nextSong, prevSong }) => {
     );
 };
 
-const playerVolume = ({ volume, lastVolume, changeVolume }) => {
+const playerVolume = ({ volume, lastVolume, changeVolume, toggleQueue }) => {
     // styles
     const playerVolumeStyle = css`
-        margin: auto 0 auto auto;
         display: flex;
-        width: 40%;
+        justify-content: flex-end;
         grid-row: 1/3;
         grid-column: 3;
 
-        & > svg {
+        & svg {
             padding: 4px;
             width: 1.8em;
             cursor: pointer;
@@ -237,26 +238,41 @@ const playerVolume = ({ volume, lastVolume, changeVolume }) => {
                 opacity: 0.7;
             }
         }
+
+        & > svg {
+            margin: 0 2rem;
+        }
+
+        & > div {
+            display: flex;
+        }
     `;
 
     // markdown
     return (
         <div css={playerVolumeStyle}>
-            {volume === 0 ? (
-                <Icon
-                    path={mdiVolumeMute}
-                    onClick={() => changeVolume(lastVolume)}
-                />
-            ) : (
-                <Icon path={mdiVolumeHigh} onClick={() => changeVolume(0)} />
-            )}
+            <Icon path={mdiArchive} onClick={toggleQueue} />
 
-            <Slider
-                onChange={(value) => {
-                    changeVolume(value / 100);
-                }}
-                transform={volume * 100 - 100}
-            />
+            <div>
+                {volume === 0 ? (
+                    <Icon
+                        path={mdiVolumeMute}
+                        onClick={() => changeVolume(lastVolume)}
+                    />
+                ) : (
+                    <Icon
+                        path={mdiVolumeHigh}
+                        onClick={() => changeVolume(0)}
+                    />
+                )}
+
+                <Slider
+                    onChange={(value) => {
+                        changeVolume(value / 100);
+                    }}
+                    transform={volume * 100 - 100}
+                />
+            </div>
         </div>
     );
 };

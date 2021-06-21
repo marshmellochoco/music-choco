@@ -9,6 +9,7 @@ export const MainContainer = () => {
     const [username, setUsername] = useState("username");
     const authToken = useSelector((state) => state.authReducer.token);
     const uid = useSelector((state) => state.authReducer.user);
+    const openQueue = useSelector((state) => state.queueReducer.openQueue);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -20,8 +21,7 @@ export const MainContainer = () => {
                 })
                 .then((res) => setUsername(res.data.username))
                 .catch((e) => {
-                    if (e.response.status === 401)
-                        dispatch(resetToken());
+                    if (e.response.status === 401) dispatch(resetToken());
                 });
         }
     }, [uid]);
@@ -37,6 +37,7 @@ export const MainContainer = () => {
             token={authToken}
             search={search}
             username={username}
+            openQueue={openQueue}
             setSearch={setSearch}
             handleLogout={handleLogout}
         />

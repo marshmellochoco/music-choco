@@ -26,3 +26,10 @@ export const setQueueData = (queueData) => {
         queueData,
     };
 };
+
+export const toggleQueue = () => {
+    console.log("toggle");
+    return {
+        type: "TOGGLE_QUEUE",
+    };
+};

@@ -3,6 +3,7 @@ import { createRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPlayingSong } from "../../store/actions/songDataAction";
 import { setPlaying, setVolume } from "../../store/actions/playerActions";
+import { toggleQueue } from "../../store/actions/queueAction";
 
 export const AudioPlayerContainer = () => {
     // initialization
@@ -96,6 +97,10 @@ export const AudioPlayerContainer = () => {
         } else dispatch(setPlaying(false));
     };
 
+    const toggleQueueComponent = () => {
+        dispatch(toggleQueue());
+    };
+
     return (
         <AudioPlayerComponent
             songUrl={
@@ -119,6 +124,7 @@ export const AudioPlayerContainer = () => {
             changeVolume={changeVolume}
             setClickedTime={setClickedTime}
             playPause={playPause}
+            toggleQueue={toggleQueueComponent}
         />
     );
 };

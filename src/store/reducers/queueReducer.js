@@ -3,6 +3,7 @@ const initState = {
     randomQueue: [],
     queueData: [],
     loading: false,
+    openQueue: true,
 };
 
 export const queueReducer = (state = initState, action) => {
@@ -33,6 +34,12 @@ export const queueReducer = (state = initState, action) => {
             return {
                 ...state,
                 queueData: action.queueData,
+            };
+
+        case "TOGGLE_QUEUE":
+            return {
+                ...state,
+                openQueue: !state.openQueue,
             };
         default:
             return state;

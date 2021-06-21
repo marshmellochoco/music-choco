@@ -14,17 +14,18 @@ export const MainComponent = ({
     username,
     token,
     search,
+    openQueue,
     handleLogout,
     setSearch,
 }) => {
+    // styles
     const appContainerStyle = css`
         height: 100%;
         width: 100%;
-        display: grid;
+        display: ${openQueue ? "grid" : "block"};
         grid-template-columns: 8fr 2fr;
     `;
 
-    // styles
     const appStyle = css`
         overflow-y: scroll;
         width: 96%;
@@ -132,7 +133,7 @@ export const MainComponent = ({
                             </Switch>
                         </div>
                     </Router>
-                    <QueueContainer />
+                    {openQueue && <QueueContainer />}
                     <AudioPlayerContainer />
                 </div>
             )}
