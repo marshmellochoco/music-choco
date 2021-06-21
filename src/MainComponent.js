@@ -20,11 +20,11 @@ export const MainComponent = ({
 }) => {
     // styles
     const appContainerStyle = css`
-        height: 100%;
+        height: 90%;
         width: calc(100% - 2rem);
         padding-left: 2rem;
         display: ${openQueue ? "grid" : "block"};
-        grid-template-columns: 8fr 2fr;
+        grid-template-columns: 1fr 25rem;
     `;
 
     const appStyle = css`

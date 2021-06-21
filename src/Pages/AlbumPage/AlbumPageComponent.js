@@ -67,7 +67,7 @@ export const AlbumPageComponent = ({
             padding: 0.8em 0;
             padding-left: 1rem;
             display: grid;
-            grid-template-columns: 1fr 16fr 1fr 1fr;
+            grid-template-columns: 4rem minmax(0, 1fr) 4rem 5rem;
         }
         & > hr {
             margin: 0;
@@ -86,6 +86,13 @@ export const AlbumPageComponent = ({
 
     const albumListItemStyle = css`
         background-color: var(--primary-color);
+
+        & .title {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            width: 100%;
+        }
 
         &:hover {
             background-color: var(--secondary-color);
@@ -114,7 +121,7 @@ export const AlbumPageComponent = ({
                 onContextMenu={() => addQueue(s._id)}
             >
                 <div>{i + 1}</div>
-                <div>{s.title}</div>
+                <div className="title">{s.title}</div>
                 <div className="icon" onClick={() => addQueue(s._id)}>
                     <svg
                         fill="currentColor"
@@ -154,7 +161,7 @@ export const AlbumPageComponent = ({
             <ul css={albumListStyle}>
                 <li css={albumListHeaderStyle}>
                     <div>#</div>
-                    <div>Title</div>
+                    <div className="title">Title</div>
                     <div />
                     <div>Duration</div>
                 </li>
