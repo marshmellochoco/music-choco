@@ -18,7 +18,7 @@ import {
 } from "../../store/actions/songDataAction";
 import { QueueListComponent } from "./QueueListComponent";
 
-export const QueueContainer = () => {
+export const QueueContainer = ({ openQueue }) => {
     const apiUrl = process.env.REACT_APP_API_URL;
     const loading = useSelector((state) => state.queueReducer.loading);
     const playingSong = useSelector(
@@ -136,19 +136,23 @@ export const QueueContainer = () => {
     };
 
     return (
-        <QueueComponent
-            isLoop={isLoop}
-            isRandom={isRandom}
-            loading={loading}
-            toggleRandom={changeRandom}
-            toggleLoop={changeLoop}
-            handleDragDrop={handleDragDrop}
-            queueList={QueueListComponent({
-                data: queueData.length > 0 ? queueData : [],
-                playingSong,
-                skipQueue,
-                removeQueue,
-            })}
-        />
+        <>
+            {openQueue && (
+                <QueueComponent
+                    isLoop={isLoop}
+                    isRandom={isRandom}
+                    loading={loading}
+                    toggleRandom={changeRandom}
+                    toggleLoop={changeLoop}
+                    handleDragDrop={handleDragDrop}
+                    queueList={QueueListComponent({
+                        data: queueData.length > 0 ? queueData : [],
+                        playingSong,
+                        skipQueue,
+                        removeQueue,
+                    })}
+                />
+            )}
+        </>
     );
 };

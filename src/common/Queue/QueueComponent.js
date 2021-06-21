@@ -39,7 +39,7 @@ export const QueueComponent = ({
                 fill: var(--contrast-color);
                 width: 2em;
                 height: 2em;
-                margin: 5%;
+                margin: 1rem;
                 cursor: pointer;
 
                 &:hover {

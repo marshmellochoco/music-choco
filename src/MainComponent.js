@@ -21,16 +21,16 @@ export const MainComponent = ({
     // styles
     const appContainerStyle = css`
         height: 100%;
-        width: 100%;
+        width: calc(100% - 2rem);
+        padding-left: 2rem;
         display: ${openQueue ? "grid" : "block"};
         grid-template-columns: 8fr 2fr;
     `;
 
     const appStyle = css`
         overflow-y: scroll;
-        width: 96%;
         height: 100%;
-        padding: 0 2%;
+        padding-right: 1rem;
     `;
 
     const appHeaderStyle = css`
@@ -93,49 +93,56 @@ export const MainComponent = ({
             {!token || token === "" ? (
                 <LoginPageContainer />
             ) : (
-                <div css={appContainerStyle}>
-                    <Router basename="/">
-                        <div css={appStyle}>
-                            <div css={appHeaderStyle}>
-                                <div css={leftHeaderStyle}>
-                                    <h1>music-choco</h1>
-                                    <div>
-                                        <div css={searchbarStyle}>
-                                            <Icon path={mdiMagnify} />
-                                            <input
-                                                type="text"
-                                                onChange={(e) =>
-                                                    setSearch(e.target.value)
-                                                }
-                                            ></input>
+                <>
+                    <div css={appContainerStyle}>
+                        <Router basename="/">
+                            <div css={appStyle}>
+                                <div css={appHeaderStyle}>
+                                    <div css={leftHeaderStyle}>
+                                        <h1>music-choco</h1>
+                                        <div>
+                                            <div css={searchbarStyle}>
+                                                <Icon path={mdiMagnify} />
+                                                <input
+                                                    type="text"
+                                                    onChange={(e) =>
+                                                        setSearch(
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                ></input>
+                                            </div>
                                         </div>
                                     </div>
+                                    <div
+                                        css={loggedUserStyle}
+                                        onClick={handleLogout}
+                                    >
+                                        <Icon
+                                            path={mdiAccountCircle}
+                                            size={1}
+                                        />
+                                        <span>{username}</span>
+                                    </div>
                                 </div>
-                                <div
-                                    css={loggedUserStyle}
-                                    onClick={handleLogout}
-                                >
-                                    <Icon path={mdiAccountCircle} size={1} />
-                                    <span>{username}</span>
-                                </div>
+                                <Switch>
+                                    <Route exact path="/">
+                                        {search === "" ? (
+                                            <HomePageContainer />
+                                        ) : (
+                                            <SearchContainer search={search} />
+                                        )}
+                                    </Route>
+                                    <Route path="/albums/:id">
+                                        <AlbumPageContainer />
+                                    </Route>
+                                </Switch>
                             </div>
-                            <Switch>
-                                <Route exact path="/">
-                                    {search === "" ? (
-                                        <HomePageContainer />
-                                    ) : (
-                                        <SearchContainer search={search} />
-                                    )}
-                                </Route>
-                                <Route path="/albums/:id">
-                                    <AlbumPageContainer />
-                                </Route>
-                            </Switch>
-                        </div>
-                    </Router>
-                    {openQueue && <QueueContainer />}
+                        </Router>
+                        <QueueContainer openQueue={openQueue} />
+                    </div>
                     <AudioPlayerContainer />
-                </div>
+                </>
             )}
         </div>
     );

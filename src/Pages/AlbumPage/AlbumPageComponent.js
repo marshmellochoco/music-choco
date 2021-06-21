@@ -38,7 +38,7 @@ export const AlbumPageComponent = ({
     `;
 
     const albumHeader = css`
-        margin: 1% 0 3% 0;
+        margin: 1rem 0 2rem 0;
         display: grid;
         grid-template-columns: 13rem 1fr;
         img {
@@ -56,24 +56,16 @@ export const AlbumPageComponent = ({
             display: inline-block;
             align-self: flex-end;
         }
-
-        h1 {
-            margin: 1% 0;
-        }
-
-        h2 {
-            margin: 1% 0;
-        }
     `;
 
     const albumListStyle = css`
         list-style-type: none;
         padding: 0;
-        margin-right: 2%;
+        margin-right: 1rem;
 
         & > li {
             padding: 0.8em 0;
-            padding-left: 1%;
+            padding-left: 1rem;
             display: grid;
             grid-template-columns: 1fr 16fr 1fr 1fr;
         }

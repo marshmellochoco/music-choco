@@ -27,8 +27,8 @@ export const SearchComponent = ({
         }
 
         & .cardItem {
-            margin-right: 2%;
-            margin-bottom: 2%;
+            margin-right: 1rem;
+            margin-bottom: 1rem;
         }
     `;
 
@@ -76,12 +76,11 @@ export const SearchComponent = ({
     const songListStyle = css`
         list-style-type: none;
         padding: 0;
-        margin-right: 2%;
+        margin-right: 1rem;
 
         & > li {
-            padding: 0.5em 0;
+            padding: 0.5rem 1rem;
             height: 60px;
-            padding-left: 1%;
             display: grid;
             grid-template-columns: 70px 20fr 4em;
             cursor: pointer;
