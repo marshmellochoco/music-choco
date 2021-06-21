@@ -1,7 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 
-export const LoginPageComponent = ({ setUsername, setPassword, login }) => {
+export const LoginPageComponent = ({
+    setUsername,
+    setPassword,
+    login,
+    signup,
+    err,
+}) => {
     // styles
     const loginStyle = css`
         width: 100%;
@@ -10,6 +16,7 @@ export const LoginPageComponent = ({ setUsername, setPassword, login }) => {
         flex-direction: column;
         align-items: flex-start;
         justify-content: flex-start;
+        color: var(--primary-color);
     `;
 
     const loginLayoutStyle = css`
@@ -23,7 +30,7 @@ export const LoginPageComponent = ({ setUsername, setPassword, login }) => {
         }
 
         & button {
-            margin: 1.5rem 0;
+            margin: 0.5rem 0;
             width: 100%;
             height: 2rem;
             color: grey;
@@ -32,8 +39,16 @@ export const LoginPageComponent = ({ setUsername, setPassword, login }) => {
             cursor: pointer;
 
             &:hover {
-                background-color: grey;
-                color: white;
+                background-color: var(--thirtiary-color);
+                color: var(--primary-color);
+            }
+        }
+
+        & #signup {
+            background-color: var(--primary-color);
+            color: var(--contrast-color);
+            &:hover {
+                background-color: var(--secondary-color);
             }
         }
     `;
@@ -45,7 +60,7 @@ export const LoginPageComponent = ({ setUsername, setPassword, login }) => {
         flex-direction: column;
 
         & > input {
-            margin: 0.5rem 0;
+            margin: 0 0;
             height: 1.5em;
         }
     `;
@@ -55,9 +70,16 @@ export const LoginPageComponent = ({ setUsername, setPassword, login }) => {
         <div css={loginStyle}>
             <div css={loginLayoutStyle}>
                 <h1>Login</h1>
+                <span
+                    css={css`
+                        color: red;
+                    `}
+                >
+                    {err === "" ? "" : err}
+                </span>
                 <form>
                     <div css={formFieldStyle}>
-                        <label>User ID: </label>
+                        <label>Username: </label>
                         <input
                             type="text"
                             onChange={(e) => setUsername(e.target.value)}
@@ -77,6 +99,15 @@ export const LoginPageComponent = ({ setUsername, setPassword, login }) => {
                         }}
                     >
                         Log In
+                    </button>
+                    <button
+                        id="signup"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            signup();
+                        }}
+                    >
+                        Sign Up
                     </button>
                 </form>
             </div>

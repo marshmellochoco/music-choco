@@ -3,7 +3,7 @@ const initState = {
     randomQueue: [],
     queueData: [],
     loading: false,
-    openQueue: true,
+    openQueue: false,
 };
 
 export const queueReducer = (state = initState, action) => {
