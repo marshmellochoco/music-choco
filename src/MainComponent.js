@@ -2,7 +2,12 @@
 import { css } from "@emotion/react";
 import Icon from "@mdi/react";
 import { mdiAccountCircle, mdiMagnify } from "@mdi/js";
-import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
+import {
+    Route,
+    BrowserRouter as Router,
+    Switch,
+    Redirect,
+} from "react-router-dom";
 import { AlbumPageContainer } from "./pages/AlbumPage/AlbumPageContainer";
 import { AudioPlayerContainer } from "./common/AudioPlayer/AudioPlayerContainer";
 import { QueueContainer } from "./common/Queue/QueueContainer";
@@ -102,12 +107,21 @@ export const MainComponent = ({
     // markdown
     return (
         <div className="App" onContextMenu={(e) => e.preventDefault()}>
-            {!token || token === "" ? (
-                <LoginPageContainer />
-            ) : (
-                <>
-                    <div css={appContainerStyle}>
-                        <Router basename="/">
+            <Router basename="/">
+                {!token || token === "" ? (
+                    <Switch>
+                        <Route
+                            exact
+                            path="/login"
+                            component={LoginPageContainer}
+                        />
+                        <Route path="/">
+                            <Redirect to="/login" />
+                        </Route>
+                    </Switch>
+                ) : (
+                    <>
+                        <div css={appContainerStyle}>
                             <div css={appStyle}>
                                 <div css={appHeaderStyle}>
                                     <div css={leftHeaderStyle}>
@@ -146,12 +160,12 @@ export const MainComponent = ({
                                     </Route>
                                 </Switch>
                             </div>
-                        </Router>
-                        <QueueContainer openQueue={openQueue} />
-                    </div>
-                    <AudioPlayerContainer />
-                </>
-            )}
+                            <QueueContainer openQueue={openQueue} />
+                        </div>
+                        <AudioPlayerContainer />
+                    </>
+                )}
+            </Router>
         </div>
     );
 };
