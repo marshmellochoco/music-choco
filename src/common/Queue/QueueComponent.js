@@ -30,7 +30,7 @@ export const QueueComponent = ({
             width: calc(100% - 3rem);
             height: 100%;
             margin-right: 1rem;
-            background-color: var(--primary-color);
+            background-color: var(--secondary-color);
         }
     `;
 
@@ -58,9 +58,6 @@ export const QueueComponent = ({
 
             & > .active {
                 color: var(--primary-color);
-                @media (max-width: 1024px) {
-                    color: var(--secondary-color);
-                }
             }
         }
     `;
