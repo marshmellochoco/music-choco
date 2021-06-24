@@ -107,7 +107,7 @@ export const MainComponent = ({
     // markdown
     return (
         <div className="App" onContextMenu={(e) => e.preventDefault()}>
-            <Router basename="/">
+            <Router basename="/music-choco">
                 {!token || token === "" ? (
                     <Switch>
                         <Route
@@ -154,6 +154,9 @@ export const MainComponent = ({
                                         ) : (
                                             <SearchContainer search={search} />
                                         )}
+                                    </Route>
+                                    <Route path="/login">
+                                        <Redirect to="/" />
                                     </Route>
                                     <Route path="/albums/:id">
                                         <AlbumPageContainer />

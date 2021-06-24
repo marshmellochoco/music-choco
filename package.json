@@ -1,61 +1,61 @@
 {
-  "name": "music-choco",
-  "version": "1.0.0",
-  "description": "Aim of this project is to create a audio streaming application that is similar to Spotify Web Player (but not a total clone of it). I created this project just to test out my React skills and to learn more about fullstack development also maintaining and managing a project.",
-  "main": "index.js",
-  "scripts": {
-    "start": "set PORT=80 && react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
-    "serve": "serve -s build -l 80",
-    "prepare": "husky install",
-    "coverage": "react-scripts test --env=jsdom --watchAll=false --coverage"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/marshmellochoco/music-choco.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/marshmellochoco/music-choco/issues"
-  },
-  "homepage": "/",
-  "devDependencies": {
-    "gh-pages": "^3.2.2",
-    "husky": "^6.0.0",
-    "react-scripts": "^4.0.3"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "dependencies": {
-    "@emotion/react": "^11.4.0",
-    "@mdi/js": "^5.9.55",
-    "@mdi/react": "^1.5.0",
-    "@wojtekmaj/enzyme-adapter-react-17": "^0.6.1",
-    "axios": "^0.21.1",
-    "enzyme": "^3.11.0",
-    "enzyme-to-json": "^3.6.2",
-    "i": "^0.3.6",
-    "npm": "^7.16.0",
-    "react-beautiful-dnd": "^13.1.0",
-    "react-loading": "^2.0.3",
-    "react-player": "^2.9.0",
-    "react-router": "^5.2.0",
-    "react-router-dom": "^5.2.0"
-  }
+    "name": "music-choco",
+    "version": "1.0.0",
+    "description": "Aim of this project is to create a audio streaming application that is similar to Spotify Web Player (but not a total clone of it). I created this project just to test out my React skills and to learn more about fullstack development also maintaining and managing a project.",
+    "main": "index.js",
+    "scripts": {
+        "start": "set PORT=80 && react-scripts start",
+        "build": "react-scripts build",
+        "test": "react-scripts test",
+        "eject": "react-scripts eject",
+        "predeploy": "npm run build",
+        "deploy": "gh-pages -d build",
+        "serve": "serve -s build -l 80",
+        "prepare": "husky install",
+        "coverage": "react-scripts test --env=jsdom --watchAll=false --coverage"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/marshmellochoco/music-choco.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/marshmellochoco/music-choco/issues"
+    },
+    "homepage": "/music-choco",
+    "devDependencies": {
+        "gh-pages": "^3.2.2",
+        "husky": "^6.0.0",
+        "react-scripts": "^4.0.3"
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    },
+    "dependencies": {
+        "@emotion/react": "^11.4.0",
+        "@mdi/js": "^5.9.55",
+        "@mdi/react": "^1.5.0",
+        "@wojtekmaj/enzyme-adapter-react-17": "^0.6.1",
+        "axios": "^0.21.1",
+        "enzyme": "^3.11.0",
+        "enzyme-to-json": "^3.6.2",
+        "i": "^0.3.6",
+        "npm": "^7.16.0",
+        "react-beautiful-dnd": "^13.1.0",
+        "react-loading": "^2.0.3",
+        "react-player": "^2.9.0",
+        "react-router": "^5.2.0",
+        "react-router-dom": "^5.2.0"
+    }
 }
