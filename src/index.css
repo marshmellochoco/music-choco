@@ -1,39 +1,43 @@
 :root {
-    --primary-color: #404040;
-    --secondary-color: #707070;
-    --thirtiary-color: #a0a0a0;
-    --contrast-color: #d0d0d0;
+	--primary-color: #404040;
+	--secondary-color: #707070;
+	--thirtiary-color: #a0a0a0;
+	--contrast-color: #d0d0d0;
 }
 
 body {
-    width: 100vw;
-    height: 100vh;
-    margin: 0px;
-    padding: 0px;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--primary-color);
-    color: var(--contrast-color);
-    user-select: none;
+	width: 100vw;
+	height: 100vh;
+	margin: 0px;
+	padding: 0px;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	background-color: var(--primary-color);
+	color: var(--contrast-color);
+	user-select: none;
 }
 
 #root {
-    height: 100%;
+	height: 100%;
 }
 
 .App {
-    height: 100%;
+	height: 100%;
 }
 
 ::-webkit-scrollbar {
-    width: 10px;
-    height: 8px;
-    background-color: var(--primary-color);
+	width: 10px;
+	height: 8px;
+	background-color: var(--primary-color);
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: white;
+	background-color: white;
 }
 
 ::-webkit-scrollbar-button {
-    display: none;
+	display: none;
+}
+
+a {
+	color: white;
 }
