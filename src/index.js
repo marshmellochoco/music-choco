@@ -22,4 +22,4 @@ ReactDOM.render(
 
 // TODO: add playlist, favouraite
 // TODO: save queue on database
-// TODO: seek to function, resets when attempt to seek
+// TODO: fix seek to function

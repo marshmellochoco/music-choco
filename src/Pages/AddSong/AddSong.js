@@ -1,79 +1,87 @@
 // dependancy import
-import { useState } from "react";
-import axios from "axios";
-import { useSelector } from "react-redux";
+import { useState } from 'react';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 export const AddSong = ({ album, albumID }) => {
-    const apiUrl = process.env.REACT_APP_API_URL;
-    const [name, setName] = useState("");
-    const [file, setFile] = useState(null);
-    const authToken = useSelector((state) => state.authReducer.token);
+	const apiUrl = process.env.REACT_APP_API_URL;
+	const [name, setName] = useState('');
+	const [file, setFile] = useState(null);
+	const authToken = useSelector((state) => state.authReducer.token);
 
-    const addSong = (e) => {
-        e.preventDefault();
-        if (!name || !file) return;
-        const data = new FormData();
-        data.append("file", file);
-        data.append("albumID", albumID);
-        data.append("songName", name);
-        axios
-            .post(`${apiUrl}/song`, data, {
-                headers: { Authorization: authToken },
-            })
-            .then((res) => {
-                console.log(res.data);
-            })
-            .catch((e) => console.log(e));
-    };
+	const addSong = (e) => {
+		e.preventDefault();
+		if (!name || !file) return;
+		const data = new FormData();
+		data.append('file', file);
+		data.append('albumID', albumID);
+		data.append('songName', name);
+		axios
+			.post(`${apiUrl}/song`, data, {
+				headers: { Authorization: authToken },
+			})
+			.catch((e) => console.log(e));
+	};
 
-    return (
-        <div>
-            <div>
-                <h1>Add Song</h1>
-                <form>
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td>Album: </td>
-                                <td>{album}</td>
-                            </tr>
-                            <tr>
-                                <td>Name:</td>
-                                <td>
-                                    <input
-                                        value={name}
-                                        type="text"
-                                        onChange={(e) =>
-                                            setName(e.target.value)
-                                        }
-                                    />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Audio File:</td>
-                                <td>
-                                    <input
-                                        type="file"
-                                        accept="audio/*"
-                                        onChange={(e) => {
-                                            setFile(e.target.files[0]);
-                                            setName(e.target.files[0].name);
-                                        }}
-                                    />
-                                </td>
-                            </tr>
+	const handleQueue = () => {
+		axios
+			.get(`${apiUrl}/user/queue`, {
+				headers: { Authorization: authToken },
+			})
+			.then((result) => console.log(result.data.queue[0]));
+	};
 
-                            <tr>
-                                <td colSpan="2">
-                                    <button onClick={(e) => addSong(e)}>
-                                        Submit
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </form>
-            </div>
-        </div>
-    );
+	return (
+		<div>
+			<div>
+				<button
+					onClick={() => {
+						handleQueue();
+					}}
+				>
+					button
+				</button>
+				<h1>Add Song</h1>
+				<form>
+					<table>
+						<tbody>
+							<tr>
+								<td>Album: </td>
+								<td>{album}</td>
+							</tr>
+							<tr>
+								<td>Name:</td>
+								<td>
+									<input
+										value={name}
+										type='text'
+										onChange={(e) => setName(e.target.value)}
+									/>
+								</td>
+							</tr>
+							<tr>
+								<td>Audio File:</td>
+								<td>
+									<input
+										type='file'
+										accept='audio/*'
+										onChange={(e) => {
+											setFile(e.target.files[0]);
+											setName(e.target.files[0].name);
+										}}
+									/>
+								</td>
+							</tr>
+
+							<tr>
+								<td colSpan='2'>
+									<button onClick={(e) => addSong(e)}>Submit</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</form>
+			</div>
+		</div>
+	);
 };

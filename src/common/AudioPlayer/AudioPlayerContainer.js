@@ -1,10 +1,9 @@
-import { AudioPlayerComponent } from './AudioPlayerComponent';
 import { createRef, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setPlayingSong } from '../../store/actions/songDataAction';
 import { setPlaying, setVolume } from '../../store/actions/playerActions';
 import { toggleQueue } from '../../store/actions/queueAction';
-import ReactPlayer from 'react-player';
+import { AudioPlayerComponent } from './AudioPlayerComponent';
 import { PlayerControlComponent } from './PlayerControlComponent';
 import { PlayerDetailComponent } from './PlayerDetailComponent';
 import { PlayerToolComponent } from './PlayerToolComponent';
@@ -13,6 +12,7 @@ import { PlayerTimelineComponent } from './PlayerTimelineComponent';
 export const AudioPlayerContainer = () => {
 	// initialization
 	const apiUrl = process.env.REACT_APP_API_URL;
+	const authToken = useSelector((state) => state.authReducer.token);
 	const songData = useSelector((state) => state.songDataReducer.songData);
 	const { queue, randomQueue } = useSelector((state) => state.queueReducer);
 	const { playing, volume, loop, random } = useSelector((state) => state.playerReducer);
@@ -48,7 +48,7 @@ export const AudioPlayerContainer = () => {
 	const setClickedTime = (percent) => {
 		// seek to the partition of the song according the the percentage of timeline
 		let second = (percent / 100) * songData.duration;
-		ref.current.currentTime = 10;
+		ref.current.currentTime = second;
 	};
 
 	const changeVolume = (vol) => {
@@ -64,13 +64,15 @@ export const AudioPlayerContainer = () => {
 			if (randomQueue.indexOf(songData.songId) === 0) {
 				setClickedTime(0);
 			} else {
-				dispatch(setPlayingSong(randomQueue[randomQueue.indexOf(songData.songId) - 1]));
+				dispatch(
+					setPlayingSong(randomQueue[randomQueue.indexOf(songData.songId) - 1], authToken)
+				);
 			}
 		} else {
 			if (queue.indexOf(songData.songId) === 0) {
 				setClickedTime(0);
 			} else {
-				dispatch(setPlayingSong(queue[queue.indexOf(songData.songId) - 1]));
+				dispatch(setPlayingSong(queue[queue.indexOf(songData.songId) - 1], authToken));
 			}
 		}
 	};
@@ -82,10 +84,10 @@ export const AudioPlayerContainer = () => {
 
 		const next = (q) => {
 			if (q.indexOf(songData.songId) === q.length - 1) {
-				dispatch(setPlayingSong(loop ? q[0] : ''));
+				dispatch(setPlayingSong(loop ? q[0] : '', authToken));
 				if (!loop) dispatch(setPlaying(false));
 			} else {
-				dispatch(setPlayingSong(q[q.indexOf(songData.songId) + 1]));
+				dispatch(setPlayingSong(q[q.indexOf(songData.songId) + 1], authToken));
 			}
 		};
 
@@ -105,9 +107,7 @@ export const AudioPlayerContainer = () => {
 				ref={ref}
 				onTimeUpdate={() => onProgress(ref.current.currentTime)}
 				onEnded={onEnded}
-				onLoadStart={() => console.log('loading ')}
 				onCanPlay={() => {
-					console.log('can play');
 					if (playing) ref.current.play();
 				}}
 			/>
