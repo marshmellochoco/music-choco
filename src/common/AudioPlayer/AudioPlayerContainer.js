@@ -137,29 +137,5 @@ export const AudioPlayerContainer = () => {
 				/>
 			</AudioPlayerComponent>
 		</>
-		// <AudioPlayerComponent
-		//     songUrl={
-		//         songData.songId ? `${apiUrl}/song/play/${songData.songId}` : ""
-		//     }
-		//     albumUrl={
-		//         songData && songData.songId
-		//             ? `${apiUrl}/album/ico/${songData.albumId}`
-		//             : ""
-		//     }
-		//     playing={playing}
-		//     volume={volume}
-		//     lastVolume={lastVolume}
-		//     songData={songData}
-		//     currentTime={currentTime}
-		//     setCurrentTime={setCurrentTime}
-		//     onProgress={onProgress}
-		//     onEnded={onEnded}
-		//     nextSong={nextSong}
-		//     prevSong={prevSong}
-		//     changeVolume={changeVolume}
-		//     setClickedTime={setClickedTime}
-		//     playPause={playPause}
-		//     toggleQueue={toggleQueueComponent}
-		// />
 	);
 };
