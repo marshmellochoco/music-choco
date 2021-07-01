@@ -13,483 +13,241 @@ exports[`AudioPlayer should render the player 1`] = `
   }
 >
   <AudioPlayerContainer>
-    <AudioPlayerComponent
-      albumUrl=""
-      changeVolume={[Function]}
-      currentTime={0}
-      lastVolume={1}
-      nextSong={[Function]}
+    <audio
+      onCanPlay={[Function]}
       onEnded={[Function]}
-      onProgress={[Function]}
-      playPause={[Function]}
-      playing={false}
-      prevSong={[Function]}
-      setClickedTime={[Function]}
-      setCurrentTime={[Function]}
-      songData={
-        Object {
-          "albumId": "",
-          "albumname": "",
-          "artist": "",
-          "duration": 0,
-          "songId": "",
-          "title": "",
-        }
-      }
-      songUrl=""
-      toggleQueue={[Function]}
-      volume={1}
-    >
+      onTimeUpdate={[Function]}
+      src=""
+    />
+    <AudioPlayerComponent>
       <EmotionCssPropInternal
         __EMOTION_LABEL_PLEASE_DO_NOT_USE__="AudioPlayerComponent"
         __EMOTION_TYPE_PLEASE_DO_NOT_USE__="div"
         css={
           Object {
             "map": undefined,
-            "name": "17df1lv",
+            "name": "1sbj9sg",
             "next": undefined,
             "styles": "
-        font-size: 0.8em;
-        width: 98%;
-        padding: 10px 1%;
-        background-color: #303030;
-        color: #d0d0d0;
-        overflow: hidden;
-        position: absolute;
-        bottom: 0;
+		font-size: 0.8em;
+		width: 98%;
+		padding: 10px 1%;
+		background-color: #303030;
+		color: #d0d0d0;
+		overflow: hidden;
+		position: absolute;
+		bottom: 0;
 
-        &:focus {
-            outline: none;
-        }
-    ",
+		&:focus {
+			outline: none;
+		}
+	",
             "toString": [Function],
           }
         }
       >
         <div
-          className="css-g43wli-AudioPlayerComponent"
+          className="css-317edk-AudioPlayerComponent"
         >
-          <ReactPlayer
-            config={
-              Object {
-                "dailymotion": Object {
-                  "params": Object {
-                    "api": 1,
-                    "endscreen-enable": false,
-                  },
-                },
-                "facebook": Object {
-                  "appId": "1309697205772819",
-                  "attributes": Object {},
-                  "playerId": null,
-                  "version": "v3.3",
-                },
-                "file": Object {
-                  "attributes": Object {},
-                  "dashVersion": "3.1.3",
-                  "flvVersion": "1.5.0",
-                  "forceAudio": false,
-                  "forceDASH": false,
-                  "forceFLV": false,
-                  "forceHLS": false,
-                  "forceVideo": false,
-                  "hlsOptions": Object {},
-                  "hlsVersion": "0.14.16",
-                  "tracks": Array [],
-                },
-                "mixcloud": Object {
-                  "options": Object {
-                    "hide_cover": 1,
-                  },
-                },
-                "soundcloud": Object {
-                  "options": Object {
-                    "buying": false,
-                    "download": false,
-                    "liking": false,
-                    "sharing": false,
-                    "show_comments": false,
-                    "show_playcount": false,
-                    "visual": true,
-                  },
-                },
-                "twitch": Object {
-                  "options": Object {},
-                  "playerId": null,
-                },
-                "vidyard": Object {
-                  "options": Object {},
-                },
-                "vimeo": Object {
-                  "playerOptions": Object {
-                    "autopause": false,
-                    "byline": false,
-                    "portrait": false,
-                    "title": false,
-                  },
-                },
-                "wistia": Object {
-                  "customControls": null,
-                  "options": Object {},
-                  "playerId": null,
-                },
-                "youtube": Object {
-                  "embedOptions": Object {},
-                  "onUnstarted": [Function],
-                  "playerVars": Object {
-                    "iv_load_policy": 3,
-                    "modestbranding": 1,
-                    "playsinline": 1,
-                    "rel": 0,
-                    "showinfo": 0,
-                  },
-                },
-              }
-            }
-            controls={false}
-            fallback={null}
-            height="0"
-            light={false}
-            loop={false}
-            muted={false}
-            onBuffer={[Function]}
-            onBufferEnd={[Function]}
-            onClickPreview={[Function]}
-            onDisablePIP={[Function]}
-            onDuration={[Function]}
-            onEnablePIP={[Function]}
-            onEnded={[Function]}
-            onError={[Function]}
-            onPause={[Function]}
-            onPlay={[Function]}
-            onProgress={[Function]}
-            onReady={[Function]}
-            onSeek={[Function]}
-            onStart={[Function]}
-            pip={false}
-            playbackRate={1}
-            playing={false}
-            playsinline={false}
-            previewTabIndex={0}
-            progressInterval={1000}
-            stopOnUnmount={true}
-            style={Object {}}
-            url=""
-            volume={1}
-            width="0"
-            wrapper="div"
-          >
-            <div
-              style={
-                Object {
-                  "height": "0",
-                  "width": "0",
-                }
-              }
-            >
-              <Suspense
-                fallback={null}
-              />
-            </div>
-          </ReactPlayer>
           <EmotionCssPropInternal
             __EMOTION_LABEL_PLEASE_DO_NOT_USE__="AudioPlayerComponent"
             __EMOTION_TYPE_PLEASE_DO_NOT_USE__="div"
             css={
               Object {
                 "map": undefined,
-                "name": "1nm8gpp",
+                "name": "5bg9bn",
                 "next": undefined,
                 "styles": "
-        display: grid;
-        grid-template-columns: minmax(2rem, 1fr) minmax(4rem, 2fr) minmax(
-                2rem,
-                0.8fr
-            );
-        grid-template-rows: 1fr 1fr;
-    ",
+		display: grid;
+		grid-template-columns: minmax(2rem, 1fr) minmax(4rem, 2fr) minmax(2rem, 0.8fr);
+		grid-template-rows: 1fr 1fr;
+	",
                 "toString": [Function],
               }
             }
           >
             <div
-              className="css-1vkhppd-AudioPlayerComponent"
+              className="css-rb6vzw-AudioPlayerComponent"
             >
-              <EmotionCssPropInternal
-                __EMOTION_TYPE_PLEASE_DO_NOT_USE__="div"
-                css={
+              <PlayerDetailComponent
+                albumUrl=""
+                handleImageError={[Function]}
+                songData={
                   Object {
-                    "map": undefined,
-                    "name": "1wk1ns0",
-                    "next": undefined,
-                    "styles": "
-        margin: auto 0;
-        grid-row: 1/3;
-        text-align: left;
-        display: grid;
-        grid-template-columns: 64px 1fr;
-        grid-template-rows: 1fr 1fr;
-        @media (max-width: 768px) {
-            display: flex;
-            flex-direction: column;
-        }
-    ",
-                    "toString": [Function],
+                    "albumId": "",
+                    "albumname": "",
+                    "artist": "",
+                    "duration": 0,
+                    "songId": "",
+                    "title": "",
                   }
                 }
               >
-                <div
-                  className="css-1wk1ns0"
-                >
-                  <EmotionCssPropInternal
-                    __EMOTION_TYPE_PLEASE_DO_NOT_USE__="div"
-                    css={
-                      Object {
-                        "map": undefined,
-                        "name": "bz6o9z",
-                        "next": undefined,
-                        "styles": "
-        grid-row: 1/3;
-        width: 64px;
-        height: 64px;
-
-        & > img {
-            max-width: 64px;
-            max-height: 64px;
-            background-color: white;
-        }
-
-        @media (max-width: 768px) {
-            display: none;
-        }
-    ",
-                        "toString": [Function],
-                      }
+                <EmotionCssPropInternal
+                  __EMOTION_LABEL_PLEASE_DO_NOT_USE__="PlayerDetailComponent"
+                  __EMOTION_TYPE_PLEASE_DO_NOT_USE__="div"
+                  css={
+                    Object {
+                      "map": undefined,
+                      "name": "ms89kb",
+                      "next": undefined,
+                      "styles": "
+		margin: auto 0;
+		grid-row: 1/3;
+		text-align: left;
+		display: grid;
+		grid-template-columns: 64px 1fr;
+		grid-template-rows: 1fr 1fr;
+		@media (max-width: 768px) {
+			display: flex;
+			flex-direction: column;
+		}
+	",
+                      "toString": [Function],
                     }
-                  >
-                    <div
-                      className="css-bz6o9z"
-                    >
-                      <img
-                        src=""
-                      />
-                    </div>
-                  </EmotionCssPropInternal>
-                  <EmotionCssPropInternal
-                    __EMOTION_TYPE_PLEASE_DO_NOT_USE__="div"
-                    css={
-                      Object {
-                        "map": undefined,
-                        "name": "1bnovxm",
-                        "next": undefined,
-                        "styles": "
-        font-size: 1.2em;
-        margin: 0 10px;
-        display: flex;
-        align-items: flex-end;
-        white-space: nowrap;
-        overflow: hidden !important;
-        text-overflow: ellipsis;
-    ",
-                        "toString": [Function],
-                      }
-                    }
-                  >
-                    <div
-                      className="css-1bnovxm"
-                    >
-                      ---
-                    </div>
-                  </EmotionCssPropInternal>
-                  <EmotionCssPropInternal
-                    __EMOTION_TYPE_PLEASE_DO_NOT_USE__="div"
-                    css={
-                      Object {
-                        "map": undefined,
-                        "name": "2gqu6e",
-                        "next": undefined,
-                        "styles": "
-        font-size: 1em;
-        margin: 0 10px;
-        display: flex;
-        align-items: flex-start;
-        white-space: nowrap;
-        overflow: hidden !important;
-        text-overflow: ellipsis;
-    ",
-                        "toString": [Function],
-                      }
-                    }
-                  >
-                    <div
-                      className="css-2gqu6e"
-                    >
-                      ---
-                    </div>
-                  </EmotionCssPropInternal>
-                </div>
-              </EmotionCssPropInternal>
-              <EmotionCssPropInternal
-                __EMOTION_TYPE_PLEASE_DO_NOT_USE__="div"
-                css={
-                  Object {
-                    "map": undefined,
-                    "name": "rir52x",
-                    "next": undefined,
-                    "styles": "
-        text-align: center;
-
-        & > svg {
-            height: 100%;
-            margin: auto;
-            width: 1.8em;
-            margin: 0px 12px;
-            cursor: pointer;
-
-            &:hover {
-                opacity: 0.7;
-            }
-        }
-
-        & > .play {
-            width: 2.5em;
-        }
-    ",
-                    "toString": [Function],
                   }
-                }
-              >
-                <div
-                  className="css-rir52x"
                 >
-                  <Icon
-                    color="currentColor"
-                    horizontal={false}
-                    onClick={[Function]}
-                    path="M6,18V6H8V18H6M9.5,12L18,6V18L9.5,12Z"
-                    rotate={0}
-                    size={null}
-                    spin={false}
-                    vertical={false}
+                  <div
+                    className="css-1sq3i5d-PlayerDetailComponent"
                   >
-                    <svg
-                      onClick={[Function]}
-                      role="presentation"
-                      style={Object {}}
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        d="M6,18V6H8V18H6M9.5,12L18,6V18L9.5,12Z"
-                        style={
-                          Object {
-                            "fill": "currentColor",
-                          }
-                        }
-                      />
-                    </svg>
-                  </Icon>
-                  <Icon
-                    className="play"
-                    color="currentColor"
-                    horizontal={false}
-                    onClick={[Function]}
-                    path="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M10,16.5L16,12L10,7.5V16.5Z"
-                    rotate={0}
-                    size={null}
-                    spin={false}
-                    vertical={false}
-                  >
-                    <svg
-                      className="play"
-                      onClick={[Function]}
-                      role="presentation"
-                      style={Object {}}
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        d="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M10,16.5L16,12L10,7.5V16.5Z"
-                        style={
-                          Object {
-                            "fill": "currentColor",
-                          }
-                        }
-                      />
-                    </svg>
-                  </Icon>
-                  <Icon
-                    color="currentColor"
-                    horizontal={false}
-                    onClick={[Function]}
-                    path="M16,18H18V6H16M6,18L14.5,12L6,6V18Z"
-                    rotate={0}
-                    size={null}
-                    spin={false}
-                    vertical={false}
-                  >
-                    <svg
-                      onClick={[Function]}
-                      role="presentation"
-                      style={Object {}}
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        d="M16,18H18V6H16M6,18L14.5,12L6,6V18Z"
-                        style={
-                          Object {
-                            "fill": "currentColor",
-                          }
-                        }
-                      />
-                    </svg>
-                  </Icon>
-                </div>
-              </EmotionCssPropInternal>
-              <EmotionCssPropInternal
-                __EMOTION_TYPE_PLEASE_DO_NOT_USE__="div"
-                css={
-                  Object {
-                    "map": undefined,
-                    "name": "1ua1pos",
-                    "next": undefined,
-                    "styles": "
-        display: flex;
-        justify-content: flex-end;
-        grid-row: 1/3;
-        grid-column: 3;
+                    <EmotionCssPropInternal
+                      __EMOTION_LABEL_PLEASE_DO_NOT_USE__="PlayerDetailComponent"
+                      __EMOTION_TYPE_PLEASE_DO_NOT_USE__="div"
+                      css={
+                        Object {
+                          "map": undefined,
+                          "name": "ddduf2",
+                          "next": undefined,
+                          "styles": "
+		grid-row: 1/3;
+		width: 64px;
+		height: 64px;
 
-        & svg {
-            padding: 4px;
-            width: 1.8em;
-            cursor: pointer;
-            margin: 0 10px;
+		& > img {
+			max-width: 64px;
+			max-height: 64px;
+			background-color: white;
+		}
 
-            &:hover {
-                opacity: 0.7;
-            }
-        }
+		@media (max-width: 768px) {
+			display: none;
+		}
+	",
+                          "toString": [Function],
+                        }
+                      }
+                    >
+                      <div
+                        className="css-1ym2h18-PlayerDetailComponent"
+                      >
+                        <img
+                          onError={[Function]}
+                          src=""
+                        />
+                      </div>
+                    </EmotionCssPropInternal>
+                    <EmotionCssPropInternal
+                      __EMOTION_LABEL_PLEASE_DO_NOT_USE__="PlayerDetailComponent"
+                      __EMOTION_TYPE_PLEASE_DO_NOT_USE__="div"
+                      css={
+                        Object {
+                          "map": undefined,
+                          "name": "70z0j6",
+                          "next": undefined,
+                          "styles": "
+		font-size: 1.2em;
+		margin: 0 10px;
+		display: flex;
+		align-items: flex-end;
+		white-space: nowrap;
+		overflow: hidden !important;
+		text-overflow: ellipsis;
+	",
+                          "toString": [Function],
+                        }
+                      }
+                    >
+                      <div
+                        className="css-677yt3-PlayerDetailComponent"
+                      >
+                        ---
+                      </div>
+                    </EmotionCssPropInternal>
+                    <EmotionCssPropInternal
+                      __EMOTION_LABEL_PLEASE_DO_NOT_USE__="PlayerDetailComponent"
+                      __EMOTION_TYPE_PLEASE_DO_NOT_USE__="div"
+                      css={
+                        Object {
+                          "map": undefined,
+                          "name": "zojdeh",
+                          "next": undefined,
+                          "styles": "
+		font-size: 1em;
+		margin: 0 10px;
+		display: flex;
+		align-items: flex-start;
+		white-space: nowrap;
+		overflow: hidden !important;
+		text-overflow: ellipsis;
+	",
+                          "toString": [Function],
+                        }
+                      }
+                    >
+                      <div
+                        className="css-10fvclc-PlayerDetailComponent"
+                      >
+                        ---
+                      </div>
+                    </EmotionCssPropInternal>
+                  </div>
+                </EmotionCssPropInternal>
+              </PlayerDetailComponent>
+              <PlayerControlComponent
+                nextSong={[Function]}
+                playPause={[Function]}
+                playing={false}
+                prevSong={[Function]}
+              >
+                <EmotionCssPropInternal
+                  __EMOTION_LABEL_PLEASE_DO_NOT_USE__="PlayerControlComponent"
+                  __EMOTION_TYPE_PLEASE_DO_NOT_USE__="div"
+                  css={
+                    Object {
+                      "map": undefined,
+                      "name": "1czjaxl",
+                      "next": undefined,
+                      "styles": "
+		text-align: center;
 
-        & > div {
-            display: flex;
-            & > div {
-                @media (max-width: 768px) {
-                    display: none;
-                }
-            }
-        }
-    ",
-                    "toString": [Function],
+		& > svg {
+			height: 100%;
+			margin: auto;
+			width: 1.8em;
+			margin: 0px 12px;
+			cursor: pointer;
+
+			&:hover {
+				opacity: 0.7;
+			}
+		}
+
+		& > .play {
+			width: 2.5em;
+		}
+	",
+                      "toString": [Function],
+                    }
                   }
-                }
-              >
-                <div
-                  className="css-1ua1pos"
                 >
-                  <div>
+                  <div
+                    className="css-ezed4n-PlayerControlComponent"
+                  >
                     <Icon
                       color="currentColor"
                       horizontal={false}
                       onClick={[Function]}
-                      path="M3,3H21V7H3V3M4,8H20V21H4V8M9.5,11A0.5,0.5 0 0,0 9,11.5V13H15V11.5A0.5,0.5 0 0,0 14.5,11H9.5Z"
+                      path="M6,18V6H8V18H6M9.5,12L18,6V18L9.5,12Z"
                       rotate={0}
                       size={null}
                       spin={false}
@@ -502,7 +260,61 @@ exports[`AudioPlayer should render the player 1`] = `
                         viewBox="0 0 24 24"
                       >
                         <path
-                          d="M3,3H21V7H3V3M4,8H20V21H4V8M9.5,11A0.5,0.5 0 0,0 9,11.5V13H15V11.5A0.5,0.5 0 0,0 14.5,11H9.5Z"
+                          d="M6,18V6H8V18H6M9.5,12L18,6V18L9.5,12Z"
+                          style={
+                            Object {
+                              "fill": "currentColor",
+                            }
+                          }
+                        />
+                      </svg>
+                    </Icon>
+                    <Icon
+                      className="play"
+                      color="currentColor"
+                      horizontal={false}
+                      onClick={[Function]}
+                      path="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M10,16.5L16,12L10,7.5V16.5Z"
+                      rotate={0}
+                      size={null}
+                      spin={false}
+                      vertical={false}
+                    >
+                      <svg
+                        className="play"
+                        onClick={[Function]}
+                        role="presentation"
+                        style={Object {}}
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M10,16.5L16,12L10,7.5V16.5Z"
+                          style={
+                            Object {
+                              "fill": "currentColor",
+                            }
+                          }
+                        />
+                      </svg>
+                    </Icon>
+                    <Icon
+                      color="currentColor"
+                      horizontal={false}
+                      onClick={[Function]}
+                      path="M16,18H18V6H16M6,18L14.5,12L6,6V18Z"
+                      rotate={0}
+                      size={null}
+                      spin={false}
+                      vertical={false}
+                    >
+                      <svg
+                        onClick={[Function]}
+                        role="presentation"
+                        style={Object {}}
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M16,18H18V6H16M6,18L14.5,12L6,6V18Z"
                           style={
                             Object {
                               "fill": "currentColor",
@@ -512,36 +324,239 @@ exports[`AudioPlayer should render the player 1`] = `
                       </svg>
                     </Icon>
                   </div>
-                  <div>
-                    <Icon
-                      color="currentColor"
-                      horizontal={false}
-                      onClick={[Function]}
-                      path="M14,3.23V5.29C16.89,6.15 19,8.83 19,12C19,15.17 16.89,17.84 14,18.7V20.77C18,19.86 21,16.28 21,12C21,7.72 18,4.14 14,3.23M16.5,12C16.5,10.23 15.5,8.71 14,7.97V16C15.5,15.29 16.5,13.76 16.5,12M3,9V15H7L12,20V4L7,9H3Z"
-                      rotate={0}
-                      size={null}
-                      spin={false}
-                      vertical={false}
-                    >
-                      <svg
+                </EmotionCssPropInternal>
+              </PlayerControlComponent>
+              <PlayerToolComponent
+                changeVolume={[Function]}
+                lastVolume={1}
+                toggleQueue={[Function]}
+                volume={1}
+              >
+                <EmotionCssPropInternal
+                  __EMOTION_LABEL_PLEASE_DO_NOT_USE__="PlayerToolComponent"
+                  __EMOTION_TYPE_PLEASE_DO_NOT_USE__="div"
+                  css={
+                    Object {
+                      "map": undefined,
+                      "name": "c56ff1",
+                      "next": undefined,
+                      "styles": "
+		display: flex;
+		justify-content: flex-end;
+		grid-row: 1/3;
+		grid-column: 3;
+
+		& svg {
+			padding: 4px;
+			width: 1.8em;
+			cursor: pointer;
+			margin: 0 10px;
+
+			&:hover {
+				opacity: 0.7;
+			}
+		}
+
+		& > div {
+			display: flex;
+			& > div {
+				@media (max-width: 768px) {
+					display: none;
+				}
+			}
+		}
+	",
+                      "toString": [Function],
+                    }
+                  }
+                >
+                  <div
+                    className="css-r0qo89-PlayerToolComponent"
+                  >
+                    <div>
+                      <Icon
+                        color="currentColor"
+                        horizontal={false}
                         onClick={[Function]}
-                        role="presentation"
-                        style={Object {}}
-                        viewBox="0 0 24 24"
+                        path="M3,3H21V7H3V3M4,8H20V21H4V8M9.5,11A0.5,0.5 0 0,0 9,11.5V13H15V11.5A0.5,0.5 0 0,0 14.5,11H9.5Z"
+                        rotate={0}
+                        size={null}
+                        spin={false}
+                        vertical={false}
                       >
-                        <path
-                          d="M14,3.23V5.29C16.89,6.15 19,8.83 19,12C19,15.17 16.89,17.84 14,18.7V20.77C18,19.86 21,16.28 21,12C21,7.72 18,4.14 14,3.23M16.5,12C16.5,10.23 15.5,8.71 14,7.97V16C15.5,15.29 16.5,13.76 16.5,12M3,9V15H7L12,20V4L7,9H3Z"
-                          style={
+                        <svg
+                          onClick={[Function]}
+                          role="presentation"
+                          style={Object {}}
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            d="M3,3H21V7H3V3M4,8H20V21H4V8M9.5,11A0.5,0.5 0 0,0 9,11.5V13H15V11.5A0.5,0.5 0 0,0 14.5,11H9.5Z"
+                            style={
+                              Object {
+                                "fill": "currentColor",
+                              }
+                            }
+                          />
+                        </svg>
+                      </Icon>
+                    </div>
+                    <div>
+                      <Icon
+                        color="currentColor"
+                        horizontal={false}
+                        onClick={[Function]}
+                        path="M14,3.23V5.29C16.89,6.15 19,8.83 19,12C19,15.17 16.89,17.84 14,18.7V20.77C18,19.86 21,16.28 21,12C21,7.72 18,4.14 14,3.23M16.5,12C16.5,10.23 15.5,8.71 14,7.97V16C15.5,15.29 16.5,13.76 16.5,12M3,9V15H7L12,20V4L7,9H3Z"
+                        rotate={0}
+                        size={null}
+                        spin={false}
+                        vertical={false}
+                      >
+                        <svg
+                          onClick={[Function]}
+                          role="presentation"
+                          style={Object {}}
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            d="M14,3.23V5.29C16.89,6.15 19,8.83 19,12C19,15.17 16.89,17.84 14,18.7V20.77C18,19.86 21,16.28 21,12C21,7.72 18,4.14 14,3.23M16.5,12C16.5,10.23 15.5,8.71 14,7.97V16C15.5,15.29 16.5,13.76 16.5,12M3,9V15H7L12,20V4L7,9H3Z"
+                            style={
+                              Object {
+                                "fill": "currentColor",
+                              }
+                            }
+                          />
+                        </svg>
+                      </Icon>
+                      <Slider
+                        onChange={[Function]}
+                        transform={0}
+                      >
+                        <EmotionCssPropInternal
+                          __EMOTION_LABEL_PLEASE_DO_NOT_USE__="Slider"
+                          __EMOTION_TYPE_PLEASE_DO_NOT_USE__="div"
+                          css={
                             Object {
-                              "fill": "currentColor",
+                              "map": undefined,
+                              "name": "1s3qkif",
+                              "next": undefined,
+                              "styles": "
+		width: 96%;
+		margin: auto 2%;
+		background-color: grey;
+		height: 0.3em;
+		border-radius: 2px;
+		overflow: hidden;
+	",
+                              "toString": [Function],
                             }
                           }
-                        />
-                      </svg>
-                    </Icon>
+                        >
+                          <div
+                            className="css-xowwt8-Slider"
+                          >
+                            <EmotionCssPropInternal
+                              __EMOTION_LABEL_PLEASE_DO_NOT_USE__="Slider"
+                              __EMOTION_TYPE_PLEASE_DO_NOT_USE__="div"
+                              css={
+                                Object {
+                                  "map": undefined,
+                                  "name": "zvp377",
+                                  "next": undefined,
+                                  "styles": "
+		width: 100%;
+		height: 100%;
+		background-color: green;
+	",
+                                  "toString": [Function],
+                                }
+                              }
+                              style={
+                                Object {
+                                  "transform": "translateX(0%)",
+                                }
+                              }
+                            >
+                              <div
+                                className="css-y9lou1-Slider"
+                                style={
+                                  Object {
+                                    "transform": "translateX(0%)",
+                                  }
+                                }
+                              />
+                            </EmotionCssPropInternal>
+                            <EmotionCssPropInternal
+                              __EMOTION_LABEL_PLEASE_DO_NOT_USE__="Slider"
+                              __EMOTION_TYPE_PLEASE_DO_NOT_USE__="input"
+                              css={
+                                Object {
+                                  "map": undefined,
+                                  "name": "119gc6m",
+                                  "next": undefined,
+                                  "styles": "
+		cursor: pointer;
+		width: 100%;
+		height: 100%;
+		opacity: 0;
+		margin: auto 0;
+		float: right;
+		transform: translateY(-100%);
+	",
+                                  "toString": [Function],
+                                }
+                              }
+                              onChange={[Function]}
+                              type="range"
+                            >
+                              <input
+                                className="css-6plv7s-Slider"
+                                onChange={[Function]}
+                                type="range"
+                              />
+                            </EmotionCssPropInternal>
+                          </div>
+                        </EmotionCssPropInternal>
+                      </Slider>
+                    </div>
+                  </div>
+                </EmotionCssPropInternal>
+              </PlayerToolComponent>
+              <PlayerTimelineComponent
+                currentTime={0}
+                duration={0}
+                setClickedTime={[Function]}
+              >
+                <EmotionCssPropInternal
+                  __EMOTION_LABEL_PLEASE_DO_NOT_USE__="PlayerTimelineComponent"
+                  __EMOTION_TYPE_PLEASE_DO_NOT_USE__="div"
+                  css={
+                    Object {
+                      "map": undefined,
+                      "name": "16eldsh",
+                      "next": undefined,
+                      "styles": "
+		margin: auto 0;
+		text-align: center;
+		display: grid;
+		grid-template-columns: 4rem 10fr 4rem;
+		font-size: 0.9em;
+	",
+                      "toString": [Function],
+                    }
+                  }
+                >
+                  <div
+                    className="css-4nwngi-PlayerTimelineComponent"
+                  >
+                    <div>
+                      0 
+                    0
+                : 0 0
+                    </div>
                     <Slider
                       onChange={[Function]}
-                      transform={0}
+                      transform={NaN}
                     >
                       <EmotionCssPropInternal
                         __EMOTION_LABEL_PLEASE_DO_NOT_USE__="Slider"
@@ -549,22 +564,22 @@ exports[`AudioPlayer should render the player 1`] = `
                         css={
                           Object {
                             "map": undefined,
-                            "name": "15ezuwr",
+                            "name": "1s3qkif",
                             "next": undefined,
                             "styles": "
-        width: 96%;
-        margin: auto 2%;
-        background-color: grey;
-        height: 0.3em;
-        border-radius: 2px;
-        overflow: hidden;
-    ",
+		width: 96%;
+		margin: auto 2%;
+		background-color: grey;
+		height: 0.3em;
+		border-radius: 2px;
+		overflow: hidden;
+	",
                             "toString": [Function],
                           }
                         }
                       >
                         <div
-                          className="css-170yxhg-Slider"
+                          className="css-xowwt8-Slider"
                         >
                           <EmotionCssPropInternal
                             __EMOTION_LABEL_PLEASE_DO_NOT_USE__="Slider"
@@ -572,27 +587,27 @@ exports[`AudioPlayer should render the player 1`] = `
                             css={
                               Object {
                                 "map": undefined,
-                                "name": "1sfrirb",
+                                "name": "zvp377",
                                 "next": undefined,
                                 "styles": "
-        width: 100%;
-        height: 100%;
-        background-color: green;
-    ",
+		width: 100%;
+		height: 100%;
+		background-color: green;
+	",
                                 "toString": [Function],
                               }
                             }
                             style={
                               Object {
-                                "transform": "translateX(0%)",
+                                "transform": "translateX(NaN%)",
                               }
                             }
                           >
                             <div
-                              className="css-ctjzqd-Slider"
+                              className="css-y9lou1-Slider"
                               style={
                                 Object {
-                                  "transform": "translateX(0%)",
+                                  "transform": "translateX(NaN%)",
                                 }
                               }
                             />
@@ -603,17 +618,17 @@ exports[`AudioPlayer should render the player 1`] = `
                             css={
                               Object {
                                 "map": undefined,
-                                "name": "14a16w3",
+                                "name": "119gc6m",
                                 "next": undefined,
                                 "styles": "
-        cursor: pointer;
-        width: 100%;
-        height: 100%;
-        opacity: 0;
-        margin: auto 0;
-        float: right;
-        transform: translateY(-100%);
-    ",
+		cursor: pointer;
+		width: 100%;
+		height: 100%;
+		opacity: 0;
+		margin: auto 0;
+		float: right;
+		transform: translateY(-100%);
+	",
                                 "toString": [Function],
                               }
                             }
@@ -621,7 +636,7 @@ exports[`AudioPlayer should render the player 1`] = `
                             type="range"
                           >
                             <input
-                              className="css-bt0a98-Slider"
+                              className="css-6plv7s-Slider"
                               onChange={[Function]}
                               type="range"
                             />
@@ -629,132 +644,14 @@ exports[`AudioPlayer should render the player 1`] = `
                         </div>
                       </EmotionCssPropInternal>
                     </Slider>
-                  </div>
-                </div>
-              </EmotionCssPropInternal>
-              <EmotionCssPropInternal
-                __EMOTION_TYPE_PLEASE_DO_NOT_USE__="div"
-                css={
-                  Object {
-                    "map": undefined,
-                    "name": "1qxhq6c",
-                    "next": undefined,
-                    "styles": "
-        margin: auto 0;
-        text-align: center;
-        display: grid;
-        grid-template-columns: 4rem 10fr 4rem;
-        font-size: 0.9em;
-    ",
-                    "toString": [Function],
-                  }
-                }
-              >
-                <div
-                  className="css-1qxhq6c"
-                >
-                  <div>
-                    0 
+                    <div>
+                      0 
                     0
                 : 0 0
+                    </div>
                   </div>
-                  <Slider
-                    onChange={[Function]}
-                    transform={NaN}
-                  >
-                    <EmotionCssPropInternal
-                      __EMOTION_LABEL_PLEASE_DO_NOT_USE__="Slider"
-                      __EMOTION_TYPE_PLEASE_DO_NOT_USE__="div"
-                      css={
-                        Object {
-                          "map": undefined,
-                          "name": "15ezuwr",
-                          "next": undefined,
-                          "styles": "
-        width: 96%;
-        margin: auto 2%;
-        background-color: grey;
-        height: 0.3em;
-        border-radius: 2px;
-        overflow: hidden;
-    ",
-                          "toString": [Function],
-                        }
-                      }
-                    >
-                      <div
-                        className="css-170yxhg-Slider"
-                      >
-                        <EmotionCssPropInternal
-                          __EMOTION_LABEL_PLEASE_DO_NOT_USE__="Slider"
-                          __EMOTION_TYPE_PLEASE_DO_NOT_USE__="div"
-                          css={
-                            Object {
-                              "map": undefined,
-                              "name": "1sfrirb",
-                              "next": undefined,
-                              "styles": "
-        width: 100%;
-        height: 100%;
-        background-color: green;
-    ",
-                              "toString": [Function],
-                            }
-                          }
-                          style={
-                            Object {
-                              "transform": "translateX(NaN%)",
-                            }
-                          }
-                        >
-                          <div
-                            className="css-ctjzqd-Slider"
-                            style={
-                              Object {
-                                "transform": "translateX(NaN%)",
-                              }
-                            }
-                          />
-                        </EmotionCssPropInternal>
-                        <EmotionCssPropInternal
-                          __EMOTION_LABEL_PLEASE_DO_NOT_USE__="Slider"
-                          __EMOTION_TYPE_PLEASE_DO_NOT_USE__="input"
-                          css={
-                            Object {
-                              "map": undefined,
-                              "name": "14a16w3",
-                              "next": undefined,
-                              "styles": "
-        cursor: pointer;
-        width: 100%;
-        height: 100%;
-        opacity: 0;
-        margin: auto 0;
-        float: right;
-        transform: translateY(-100%);
-    ",
-                              "toString": [Function],
-                            }
-                          }
-                          onChange={[Function]}
-                          type="range"
-                        >
-                          <input
-                            className="css-bt0a98-Slider"
-                            onChange={[Function]}
-                            type="range"
-                          />
-                        </EmotionCssPropInternal>
-                      </div>
-                    </EmotionCssPropInternal>
-                  </Slider>
-                  <div>
-                    0 
-                    0
-                : 0 0
-                  </div>
-                </div>
-              </EmotionCssPropInternal>
+                </EmotionCssPropInternal>
+              </PlayerTimelineComponent>
             </div>
           </EmotionCssPropInternal>
         </div>

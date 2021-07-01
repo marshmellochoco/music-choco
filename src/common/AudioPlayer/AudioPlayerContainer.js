@@ -100,6 +100,11 @@ export const AudioPlayerContainer = () => {
 		} else dispatch(setPlaying(false));
 	};
 
+	const handleImageError = (e) => {
+		// return an alternate image if error
+		e.target.src = 'https://f4.bcbits.com/img/a4139357031_10.jpg';
+	};
+
 	return (
 		<>
 			<audio
@@ -113,6 +118,7 @@ export const AudioPlayerContainer = () => {
 			/>
 			<AudioPlayerComponent>
 				<PlayerDetailComponent
+					handleImageError={handleImageError}
 					songData={songData}
 					albumUrl={
 						songData && songData.albumId

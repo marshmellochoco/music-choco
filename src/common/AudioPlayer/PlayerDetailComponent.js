@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 
-export const PlayerDetailComponent = ({ songData, albumUrl }) => {
+export const PlayerDetailComponent = ({ songData, albumUrl, handleImageError }) => {
 	// styles
 	const playerPlayingStyle = css`
 		margin: auto 0;
@@ -56,7 +56,7 @@ export const PlayerDetailComponent = ({ songData, albumUrl }) => {
 	return (
 		<div css={playerPlayingStyle}>
 			<div css={playerIconStyle}>
-				<img src={albumUrl} />
+				<img src={songData ? albumUrl : ''} onError={handleImageError} />
 			</div>
 			<div css={playerTitleStyle}>{songData && songData.songId ? songData.title : '---'}</div>
 			<div css={playerArtistStyle}>
