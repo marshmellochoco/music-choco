@@ -14,7 +14,7 @@ export const setPlayingSong = (songId, authToken) => {
 			{ songId },
 			{ headers: { Authorization: authToken } }
 		)
-		.then((result) => console.log(result));
+		.then();
 	return {
 		type: 'SET_PLAYING_SONG',
 		songId,

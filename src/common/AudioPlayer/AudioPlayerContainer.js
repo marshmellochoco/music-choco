@@ -115,7 +115,9 @@ export const AudioPlayerContainer = () => {
 				<PlayerDetailComponent
 					songData={songData}
 					albumUrl={
-						songData && songData.songId ? `${apiUrl}/album/ico/${songData.albumId}` : ''
+						songData && songData.albumId
+							? `${apiUrl}/album/ico/${songData.albumId}`
+							: ''
 					}
 				/>
 				<PlayerControlComponent
