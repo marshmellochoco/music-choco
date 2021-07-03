@@ -1,12 +1,11 @@
-import axios from "axios";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { authLogin, authSignup } from "../../api";
 import { setToken } from "../../store/actions/authActions";
 
 import { LoginPageComponent } from "./LoginPageComponent";
 
 export const LoginPageContainer = () => {
-    const apiUrl = process.env.REACT_APP_API_URL;
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [err, setErr] = useState("");
@@ -14,10 +13,7 @@ export const LoginPageContainer = () => {
 
     const login = async () => {
         setErr("");
-        await axios
-            .post(`${apiUrl}/auth/login`, {
-                credentials: { username, password },
-            })
+        authLogin({ username, password })
             .then((result) => {
                 dispatch(setToken(result.data.authToken, result.data.userid));
                 if (result.data.authToken === "") {
@@ -29,10 +25,7 @@ export const LoginPageContainer = () => {
 
     const signup = async () => {
         setErr("");
-        await axios
-            .post(`${apiUrl}/auth/signup`, {
-                credentials: { username, password },
-            })
+        authSignup({ username, password })
             .then((result) => {
                 dispatch(setToken(result.data.authToken, result.data.userid));
             })

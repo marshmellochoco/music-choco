@@ -55,6 +55,9 @@ export const AlbumPageComponent = ({
         .album {
             display: inline-block;
             align-self: flex-end;
+            h2 {
+                margin-bottom: 0;
+            }
         }
     `;
 

@@ -1,6 +1,6 @@
-import axios from "axios";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { getAuth } from "./api";
 import { MainComponent } from "./MainComponent";
 import { resetToken } from "./store/actions/authActions";
 
@@ -15,10 +15,7 @@ export const MainContainer = () => {
     useEffect(() => {
         // Re-authenticate the token
         if (authToken && authToken != "null") {
-            axios
-                .get(`${process.env.REACT_APP_API_URL}/auth`, {
-                    headers: { Authorization: authToken },
-                })
+            getAuth(authToken)
                 .then((res) => setUsername(res.data.username))
                 .catch((e) => {
                     if (e.response.status === 401) dispatch(resetToken());
