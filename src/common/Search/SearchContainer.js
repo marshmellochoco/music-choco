@@ -32,7 +32,7 @@ export const SearchContainer = ({ search }) => {
 
     const playSong = (id) => {
         dispatch(addQueue(id));
-        dispatch(setPlayingSong(id, authToken));
+        setPlayingSong(dispatch, id, authToken);
         dispatch(setPlaying(true));
     };
 
@@ -58,7 +58,7 @@ export const SearchContainer = ({ search }) => {
             songList.push(s._id);
         });
 
-        dispatch(setPlayingSong(songList[0], authToken));
+        setPlayingSong(dispatch, songList[0], authToken);
         dispatch(setPlaying(true));
         dispatch(setQueue(songList));
     };

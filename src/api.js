@@ -1,6 +1,10 @@
 import axios from "axios";
 const apiUrl = process.env.REACT_APP_API_URL;
 
+export const getResponse = async () => {
+    return await axios.get(`${apiUrl}`);
+};
+
 //#region Auth
 export const getAuth = async (token) => {
     return await axios.get(`${apiUrl}/auth`, {
@@ -28,11 +32,11 @@ export const getUserQueue = async (token) => {
 //#endregion
 
 //#region User
-export const setUserQueue = (token, queue) => {
+export const setUserQueue = (token, queue, queueId) => {
     // TODO: Implement function
     return axios.post(
         `${apiUrl}/user/queue/`,
-        { data: queue, queueid: "60db4fc086d3a933fccda250" },
+        { data: queue, queueid: queueId },
         { headers: { Authorization: token } }
     );
 };

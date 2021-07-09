@@ -36,20 +36,20 @@ export const AlbumPageContainer = () => {
     const setSong = async (id) => {
         // play the selected song and add it to the queue
         dispatch(addQueue(id));
-        dispatch(setPlayingSong(id, authToken));
+        setPlayingSong(dispatch, id, authToken);
         dispatch(setPlaying(true));
     };
 
     const setAlbumToQueue = async () => {
         // play the entier album and replace the existing queue
         dispatch(setQueue(songList));
-        dispatch(setPlayingSong(songList[0], authToken));
+        setPlayingSong(dispatch, songList[0], authToken);
         dispatch(setPlaying(true));
     };
 
     const addToQueue = (id) => {
         // add the song to the queue
-        if (queue.length === 0) dispatch(setPlayingSong(id, authToken));
+        if (queue.length === 0) setPlayingSong(dispatch, id, authToken);
         dispatch(addQueue(id));
     };
 

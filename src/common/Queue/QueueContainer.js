@@ -19,6 +19,8 @@ import { QueueListComponent } from "./QueueListComponent";
 import { getSong, getUserQueue, setUserQueue } from "../../api";
 
 export const QueueContainer = ({ openQueue }) => {
+    // TODO: Change queueId
+    const queueId = "60d07fe8c7b15b1edc1010aa";
     const authToken = useSelector((state) => state.authReducer.token);
     const { queue, queueData, loading, loop, random } = useSelector(
         (state) => state.queueReducer
@@ -31,7 +33,7 @@ export const QueueContainer = ({ openQueue }) => {
     useEffect(() => {
         getUserQueue(authToken).then((result) => {
             dispatch(setQueue(result.data.queue[0].list));
-            dispatch(setPlayingSong(result.data.playingSong, authToken));
+            setPlayingSong(dispatch, result.data.playingSong, authToken);
         });
     }, []);
 
@@ -50,7 +52,7 @@ export const QueueContainer = ({ openQueue }) => {
                     }
                 }
                 if (!found) {
-                    getSong(queue[i])
+                    await getSong(queue[i])
                         .then((result) => {
                             data.push({
                                 songId: result.data.songs._id,
@@ -68,23 +70,21 @@ export const QueueContainer = ({ openQueue }) => {
         };
 
         getQueueData(queueData).then((res) => {
-            // TODO: Set the queue id
-            setUserQueue(authToken, queue).then().catch((err) => console.log(err));
+            setUserQueue(authToken, queue, queueId);
             dispatch(setQueueData(res));
             dispatch(setLoading(false));
             if (res.length <= 0) return;
             if (playingSong) {
-                dispatch(
-                    setSongData(
-                        res[
-                            res
-                                .map((qd) => {
-                                    return qd.songId;
-                                })
-                                .indexOf(playingSong)
-                        ]
-                    )
-                );
+                let data =
+                    res[
+                        res
+                            .map((qd) => {
+                                return qd.songId;
+                            })
+                            .indexOf(playingSong)
+                    ];
+
+                if (data) dispatch(setSongData(data));
             }
         });
     }, [queue, playingSong]); // eslint-disable-line
@@ -94,6 +94,7 @@ export const QueueContainer = ({ openQueue }) => {
         const qdList = queueData.map((qd) => {
             return qd.songId;
         });
+
         if (qdList.includes(playingSong))
             dispatch(setSongData(queueData[qdList.indexOf(playingSong)]));
 
@@ -106,7 +107,7 @@ export const QueueContainer = ({ openQueue }) => {
         // If the item is clicked, and it is not the trash can icon, play the clicked song instead
         let clickedItem = e.currentTarget.getAttribute("datakey");
         if (!queue.includes(clickedItem)) return;
-        dispatch(setPlayingSong(clickedItem, authToken));
+        setPlayingSong(dispatch, clickedItem, authToken);
         dispatch(setPlaying(true));
     };
 
@@ -114,7 +115,7 @@ export const QueueContainer = ({ openQueue }) => {
         // remove the selected song from queue
         let clickedItem = e.currentTarget.getAttribute("datakey");
         if (clickedItem === playingSong) {
-            dispatch(setPlayingSong("", authToken));
+            setPlayingSong(dispatch, "", authToken);
             dispatch(setPlaying(false));
         }
 
