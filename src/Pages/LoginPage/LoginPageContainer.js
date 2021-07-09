@@ -16,11 +16,8 @@ export const LoginPageContainer = () => {
         authLogin({ username, password })
             .then((result) => {
                 dispatch(setToken(result.data.authToken, result.data.userid));
-                if (result.data.authToken === "") {
-                    setErr("Invalid username or password.");
-                }
             })
-            .catch((err) => setErr(err));
+            .catch((err) => setErr(err.response.data));
     };
 
     const signup = async () => {
@@ -29,7 +26,7 @@ export const LoginPageContainer = () => {
             .then((result) => {
                 dispatch(setToken(result.data.authToken, result.data.userid));
             })
-            .catch((err) => setErr(err));
+            .catch((err) => setErr(err.response.data));
     };
 
     return (

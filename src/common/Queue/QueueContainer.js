@@ -16,11 +16,11 @@ import {
     setSongData,
 } from "../../store/actions/songDataAction";
 import { QueueListComponent } from "./QueueListComponent";
-import { getSong, getUserQueue, setUserQueue } from "../../api";
+import { getSong, getPlaylist, setPlaylist } from "../../api";
 
 export const QueueContainer = ({ openQueue }) => {
     // TODO: Change queueId
-    const queueId = "60d07fe8c7b15b1edc1010aa";
+    const playlistId = "60d07fe8c7b15b1edc1010aa";
     const authToken = useSelector((state) => state.authReducer.token);
     const { queue, queueData, loading, loop, random } = useSelector(
         (state) => state.queueReducer
@@ -31,9 +31,10 @@ export const QueueContainer = ({ openQueue }) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        getUserQueue(authToken).then((result) => {
-            dispatch(setQueue(result.data.queue[0].list));
-            setPlayingSong(dispatch, result.data.playingSong, authToken);
+        getPlaylist(authToken).then((result) => {
+            // TODO: Fetch playlist and save it
+            // dispatch(setQueue(result.data.queue[0].list));
+            // setPlayingSong(dispatch, result.data.playingSong, authToken);
         });
     }, []);
 
@@ -70,7 +71,7 @@ export const QueueContainer = ({ openQueue }) => {
         };
 
         getQueueData(queueData).then((res) => {
-            setUserQueue(authToken, queue, queueId);
+            setPlaylist(authToken, queue, playlistId);
             dispatch(setQueueData(res));
             dispatch(setLoading(false));
             if (res.length <= 0) return;

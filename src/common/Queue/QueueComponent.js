@@ -87,11 +87,13 @@ export const QueueComponent = ({
                         path={mdiShuffle}
                         className={isRandom ? "active" : ""}
                         onClick={() => toggleRandom()}
+                        title={"Shuffle"}
                     />
                     <Icon
                         path={mdiSync}
                         className={isLoop ? "active" : ""}
                         onClick={() => toggleLoop()}
+                        title={"Loop"}
                     />
                 </div>
             </div>

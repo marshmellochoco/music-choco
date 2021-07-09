@@ -24,26 +24,32 @@ export const authSignup = async (credentials) => {
     });
 };
 
-export const getUserQueue = async (token) => {
-    return await axios.get(`${apiUrl}/user/queue/`, {
+export const getPlaylist = async (token) => {
+    return await axios.get(`${apiUrl}/user/playlist/`, {
         headers: { Authorization: token },
     });
 };
 //#endregion
 
 //#region User
-export const setUserQueue = (token, queue, queueId) => {
+export const getPlaylistList = (token) => {
+    return axios.get(`${apiUrl}/user/playlist/`, {
+        headers: { Authorization: token },
+    });
+};
+
+export const setPlaylist = (token, queue, playlistId) => {
     // TODO: Implement function
     return axios.post(
-        `${apiUrl}/user/queue/`,
-        { data: queue, queueid: queueId },
+        `${apiUrl}/user/playlist/`,
+        { data: queue, playlistId },
         { headers: { Authorization: token } }
     );
 };
 
 export const setUserPlaying = (token, songId) => {
     return axios.post(
-        `${process.env.REACT_APP_API_URL}/user/playing/`,
+        `${apiUrl}/user/playing/`,
         { songId },
         { headers: { Authorization: token } }
     );
