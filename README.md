@@ -1,6 +1,6 @@
 # music-choco
 
-Aim of this project is to create a audio streaming application that is similar to Spotify Web Player (but not a total clone of it). I created this project just to test out my React skills and to learn more about fullstack development also maintaining and managing a project.
+The goal of this project is to develop an audio streaming application similar to Spotify Web Player (without making it as a total clone of it). Reason for me to established this project is to practise my React skills and learn more about full-stack development, as well as to maintain and manage a project.
 
 ## Getting Started
 ### Pre-requisite
