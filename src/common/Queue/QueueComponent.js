@@ -1,120 +1,103 @@
-/** @jsxImportSource @emotion/react */
-import { css } from "@emotion/react";
+import { mdiClose } from "@mdi/js";
 import Icon from "@mdi/react";
-import { mdiShuffle, mdiSync } from "@mdi/js";
-import ReactLoading from "react-loading";
-import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import { useHistory } from "react-router";
 
-export const QueueComponent = ({
-    isLoop,
-    isRandom,
-    loading,
-    toggleRandom,
-    toggleLoop,
+const QueueComponent = ({
+    queueData,
+    playingTrack,
+    setTrack,
     handleDragDrop,
-    queueList,
-    openQueue,
+    setOpenQueue,
 }) => {
-    // styles
-    const queueStyle = css`
-        background-color: var(--secondary-color);
-        padding: 0 1rem;
-        overflow-y: scroll;
-        display: ${openQueue ? "block" : "none"};
+    const history = useHistory();
 
-        & > .loading {
-            margin: auto;
-        }
+    const closeQueue = () => {
+        setOpenQueue(false);
+    };
 
-        @media (max-width: 1024px) {
-            width: calc(100% - 3rem);
-            height: 100%;
-            margin-right: 1rem;
-            background-color: var(--secondary-color);
-        }
-    `;
+    const gotoAlbum = (id) => {
+        history.push(`/album/${id}`);
+        setOpenQueue(false);
+    };
 
-    const queueHeaderStyle = css`
-        display: flex;
-        align-items: baseline;
-        align-content: flex-end;
-        margin-left: auto;
+    const getQueueList = (queue, playingTrack) => {
+        return queue.map((q, i) => {
+            const isPlayingTrack = playingTrack._id === q._id;
+            return (
+                <Draggable key={q._id} draggableId={q._id} index={i}>
+                    {(provided, snapshot) => (
+                        <div
+                            onClick={(e) => {
+                                if (e.target.className !== "hover:underline")
+                                    setTrack(q);
+                            }}
+                            id={q._id}
+                            className={`${
+                                isPlayingTrack
+                                    ? "queue-item-active hover:bg-red-200"
+                                    : snapshot.isDragging
+                                    ? "queue-item-dragging"
+                                    : "hover:bg-red-50"
+                            }`}
+                            ref={provided.innerRef}
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                            datakey={q._id}
+                        >
+                            <li className="queue-item">
+                                <div>
+                                    <b>{q.title}</b>
+                                    <div
+                                        className="hover:underline"
+                                        onClick={() => {
+                                            gotoAlbum(q.album._id);
+                                        }}
+                                    >
+                                        {q.album.name}
+                                    </div>
+                                </div>
+                                <div>
+                                    {(q.duration / 60 < 10 ? "0" : "") +
+                                        Math.floor(q.duration / 60)}
+                                    :
+                                    {(q.duration % 60 < 10 ? "0" : "") +
+                                        Math.floor(q.duration % 60)}
+                                </div>
+                            </li>
+                        </div>
+                    )}
+                </Draggable>
+            );
+        });
+    };
 
-        & > div {
-            display: flex;
-            margin-left: auto;
-
-            & > svg {
-                fill: var(--contrast-color);
-                width: 2em;
-                height: 2em;
-                margin: 1rem;
-                cursor: pointer;
-
-                &:hover {
-                    opacity: 0.7;
-                }
-            }
-
-            & > .active {
-                color: var(--primary-color);
-            }
-        }
-    `;
-
-    const queueListStyle = css`
-        list-style-type: none;
-        padding-left: 0;
-
-        & .active {
-            background-color: black;
-            color: var(--contrast-color);
-        }
-
-        & .dragging {
-            background-color: var(--thirtiary-color);
-            color: var(--primary-color);
-        }
-    `;
-
-    // markdown
     return (
-        <div css={queueStyle}>
-            <div css={queueHeaderStyle}>
-                <h1>Queue</h1>
-                <div>
-                    <Icon
-                        path={mdiShuffle}
-                        className={isRandom ? "active" : ""}
-                        onClick={() => toggleRandom()}
-                        title={"Shuffle"}
-                    />
-                    <Icon
-                        path={mdiSync}
-                        className={isLoop ? "active" : ""}
-                        onClick={() => toggleLoop()}
-                        title={"Loop"}
-                    />
-                </div>
+        <div className="bg-white content mx-2">
+            <div className="flex justify-between items-center">
+                <h1 className="title">Up Next</h1>
+                <Icon
+                    path={mdiClose}
+                    title="Close"
+                    className="icon-small hover:opacity-60"
+                    onClick={closeQueue}
+                />
             </div>
-            {loading ? (
-                <ReactLoading className="loading" type="bars" />
-            ) : (
-                <DragDropContext onDragEnd={handleDragDrop}>
-                    <Droppable droppableId="droppable">
-                        {(provided) => (
-                            <ul
-                                css={queueListStyle}
-                                {...provided.droppableProps}
-                                ref={provided.innerRef}
-                            >
-                                {queueList}
-                                {provided.placeholder}
-                            </ul>
-                        )}
-                    </Droppable>
-                </DragDropContext>
-            )}
+            <DragDropContext onDragEnd={handleDragDrop}>
+                <Droppable droppableId="droppable">
+                    {(provided) => (
+                        <ul
+                            {...provided.droppableProps}
+                            ref={provided.innerRef}
+                        >
+                            {getQueueList(queueData, playingTrack)}
+                            {provided.placeholder}
+                        </ul>
+                    )}
+                </Droppable>
+            </DragDropContext>
         </div>
     );
 };
+
+export default QueueComponent;

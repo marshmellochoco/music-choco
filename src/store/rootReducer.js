@@ -1,13 +1,10 @@
-import { queueReducer } from "./reducers/queueReducer";
-import { songDataReducer } from "./reducers/songDataReducer";
-import { playerReducer } from "./reducers/playerReducer";
-import { authReducer } from "./reducers/authReducer";
-
 import { combineReducers } from "redux";
+import queueReducer from "./queue/queueReducer";
+import playerReducer from "./player/playerReducer";
 
-export const rootReducer = combineReducers({
-    queueReducer,
-    songDataReducer,
+const rootReducer = combineReducers({
     playerReducer,
-    authReducer,
+    queueReducer,
 });
+
+export default rootReducer;

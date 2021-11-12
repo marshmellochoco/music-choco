@@ -1,43 +1,100 @@
-:root {
-    --primary-color: #404040;
-    --secondary-color: #707070;
-    --thirtiary-color: #a0a0a0;
-    --contrast-color: #d0d0d0;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+    .full-height {
+        height: 100vh;
+    }
+    .title {
+        @apply text-3xl mb-4 font-bold;
+    }
+
+    .title2 {
+        @apply text-2xl mb-2;
+    }
+
+    .icon-small {
+        @apply w-7 h-7 cursor-pointer;
+    }
+    .icon-medium {
+        @apply w-12 h-12 cursor-pointer;
+    }
+
+    .queue-item-active {
+        @apply bg-red-100;
+    }
+    .queue-item-dragging {
+        @apply bg-red-100 opacity-40;
+    }
+
+    .queue-item {
+        @apply flex items-center justify-between p-2;
+    }
+
+    .content {
+        @apply mt-20;
+        @apply mx-2 sm:mx-16 lg:mx-32 xl:mx-64 2xl:mx-96;
+        max-height: calc(100vh - 11.5rem);
+    }
+
+    .card {
+        width: 240px;
+        min-width: 240px;
+        @apply flex flex-col justify-end;
+    }
+
+    .card-link:hover .album-image {
+        @apply hover:shadow-xl;
+    }
+
+    .card-hover {
+        @apply hover:shadow-md;
+    }
+
+    .card > img {
+        height: 240px;
+    }
+
+    .btn {
+        @apply border border-r-2 px-2 py-2 max-w-sm;
+    }
+
+    .btn:hover {
+        @apply shadow-md;
+    }
+
+    .btn-confirm {
+        @apply bg-red-50 border-red-50;
+    }
 }
 
-body {
-    width: 100vw;
-    height: 100vh;
-    margin: 0px;
-    padding: 0px;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--primary-color);
-    color: var(--contrast-color);
+*:not(input) {
     user-select: none;
 }
 
-#root {
-    height: 100%;
+progress:hover {
+    height: 0.4rem;
 }
 
-.App {
-    height: 100%;
+::-webkit-progress-bar {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+::-webkit-progress-value {
+    background-color: rgb(255, 190, 190);
 }
 
 ::-webkit-scrollbar {
-    width: 10px;
+    width: 8px;
     height: 8px;
-    background-color: var(--primary-color);
 }
-
+::-webkit-scrollbar-track {
+    background: #fef2f2;
+}
 ::-webkit-scrollbar-thumb {
-    background-color: white;
+    background: #fca5a5;
 }
-
-::-webkit-scrollbar-button {
-    display: none;
-}
-
-a {
-    color: white;
+::-webkit-scrollbar-thumb:hover {
+    background: #f87171;
 }
