@@ -16,18 +16,18 @@ const HomePage = () => {
     }, []);
 
     return (
-        <div className="flex flex-col gap-4 content">
+        <div className="content page-content">
             <div>
-                <h1 className="title">New Release</h1>
-                <div className="flex gap-4 overflow-x-auto pb-2">
+                <h2 className="title">New Release</h2>
+                <div className="card-list">
                     {newRelease.reverse().map((a) => (
                         <AlbumCard album={a} key={a._id} />
                     ))}
                 </div>
             </div>
             <div>
-                <h1 className="title">Featured Artists</h1>
-                <div className="flex gap-4 overflow-x-auto pb-2">
+                <h2 className="title">Featured Artists</h2>
+                <div className="card-list">
                     {featuredArtists.map((a) => (
                         <ArtistCard artist={a} key={a._id} />
                     ))}

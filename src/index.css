@@ -3,17 +3,30 @@
 @tailwind utilities;
 
 @layer utilities {
+    .content {
+        @apply mt-20;
+        @apply mx-2 sm:mx-16 lg:mx-32 xl:mx-64 2xl:mx-96;
+        max-height: calc(100vh - 11.8rem);
+    }
+
+    .page-content {
+        @apply flex flex-col gap-4;
+    }
+
     .full-height {
         height: 100vh;
     }
+
+    /* Titles */
     .title {
         @apply text-3xl mb-4 font-bold;
     }
 
     .title2 {
-        @apply text-2xl mb-2;
+        @apply text-2xl mb-2 font-semibold;
     }
 
+    /* Icons */
     .icon-small {
         @apply w-7 h-7 cursor-pointer;
     }
@@ -21,6 +34,7 @@
         @apply w-12 h-12 cursor-pointer;
     }
 
+    /* Queue */
     .queue-item-active {
         @apply bg-red-100;
     }
@@ -32,12 +46,11 @@
         @apply flex items-center justify-between p-2;
     }
 
-    .content {
-        @apply mt-20;
-        @apply mx-2 sm:mx-16 lg:mx-32 xl:mx-64 2xl:mx-96;
-        max-height: calc(100vh - 11.5rem);
+    .card-list {
+        @apply flex gap-4 overflow-x-auto pb-2;
     }
 
+    /* Cards */
     .card {
         width: 240px;
         min-width: 240px;
@@ -56,6 +69,7 @@
         height: 240px;
     }
 
+    /* Buttons */
     .btn {
         @apply border border-r-2 px-2 py-2 max-w-sm;
     }
@@ -67,34 +81,4 @@
     .btn-confirm {
         @apply bg-red-50 border-red-50;
     }
-}
-
-*:not(input) {
-    user-select: none;
-}
-
-progress:hover {
-    height: 0.4rem;
-}
-
-::-webkit-progress-bar {
-    background-color: rgba(0, 0, 0, 0);
-}
-
-::-webkit-progress-value {
-    background-color: rgb(255, 190, 190);
-}
-
-::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-}
-::-webkit-scrollbar-track {
-    background: #fef2f2;
-}
-::-webkit-scrollbar-thumb {
-    background: #fca5a5;
-}
-::-webkit-scrollbar-thumb:hover {
-    background: #f87171;
 }

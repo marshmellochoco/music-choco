@@ -50,8 +50,10 @@ const AudioPlayer = ({ openQueue, setOpenQueue }) => {
 
     const nextTrack = () => {
         const index = queue.indexOf(playingTrack) + 1;
-        if (index >= queue.length) dispatch(setPlaying(false));
-        else {
+        if (index >= queue.length) {
+            dispatch(setPlaying(false));
+            ref.current.currentTime = 0;
+        } else {
             dispatch(setPlayingTrack(queue[index]));
             dispatch(setPlaying(true));
         }
@@ -75,6 +77,16 @@ const AudioPlayer = ({ openQueue, setOpenQueue }) => {
         dispatch(setQueue([playingTrack, ...shuffled]));
     };
 
+    const seekDrag = (e) => {
+        setLapsed(Math.ceil((e.pageX / e.view.innerWidth) * 100));
+    };
+
+    const seek = (e) => {
+        let progress = e.pageX / e.view.innerWidth;
+        ref.current.currentTime =
+            (Math.ceil(ref.current.duration) - 1) * progress;
+    };
+
     return (
         <>
             <audio
@@ -86,25 +98,22 @@ const AudioPlayer = ({ openQueue, setOpenQueue }) => {
                 }}
             />
             <>
-                <progress
-                    max="100"
-                    value={lapsed}
-                    className="bottom-24 fixed w-full h-1 cursor-pointer bg-red-100"
-                    // TODO: Show time on hovered point
-                    // onMouseMove={(e) =>
-                    //     console.log(
-                    //         getFormattedDuration(
-                    //             (e.clientX / e.view.innerWidth) *
-                    //                 playingTrack.duration
-                    //         )
-                    //     )
-                    // }
-                    onClick={(e) =>
-                        (ref.current.currentTime =
-                            playingTrack.duration *
-                            (e.pageX / e.target.scrollWidth))
-                    }
-                />
+                <div
+                    className="bottom-24 fixed w-full h-2 z-10 bg-red-50 opacity-60 h:opacity-1 draggable-container cursor-pointer"
+                    onClick={(e) => seek(e)}
+                >
+                    <div
+                        className="bottom-24 fixed w-full h-2 z-10 progress"
+                        style={{ transform: `translateX(${lapsed - 100}%)` }}
+                    >
+                        <div
+                            className="h-3 w-3 bg-red-400 rounded-full ml-auto -mr-1.5 -mt-0.5"
+                            draggable
+                            onDrag={(e) => seekDrag(e)}
+                            onDragEnd={(e) => seek(e)}
+                        />
+                    </div>
+                </div>
                 <div className="bottom-0 fixed w-full h-24 grid grid-cols-3 bg-red-50">
                     <div className="flex items-center h-24">
                         <img

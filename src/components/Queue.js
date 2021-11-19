@@ -1,15 +1,30 @@
-import { mdiClose } from "@mdi/js";
 import Icon from "@mdi/react";
-import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import { mdiClose } from "@mdi/js";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
+import { setPlaying, setPlayingTrack } from "../store/player/playerAction";
+import { setQueue } from "../store/queue/queueAction";
+import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
-const QueueComponent = ({
-    queueData,
-    playingTrack,
-    setTrack,
-    handleDragDrop,
-    setOpenQueue,
-}) => {
+const Queue = ({ openQueue, setOpenQueue }) => {
+    const dispatch = useDispatch();
+    const queueData = useSelector((state) => state.queueReducer);
+    const { playingTrack } = useSelector((state) => state.playerReducer);
+
+    const handleDragDrop = (result) => {
+        if (!result.destination) return;
+
+        const q = [...queueData];
+        const [s] = q.splice(result.source.index, 1);
+        q.splice(result.destination.index, 0, s);
+        dispatch(setQueue(q));
+    };
+
+    const setTrack = (trackData) => {
+        dispatch(setPlayingTrack(trackData));
+        dispatch(setPlaying(true));
+    };
+
     const history = useHistory();
 
     const closeQueue = () => {
@@ -73,31 +88,35 @@ const QueueComponent = ({
     };
 
     return (
-        <div className="bg-white content mx-2">
-            <div className="flex justify-between items-center">
-                <h1 className="title">Up Next</h1>
-                <Icon
-                    path={mdiClose}
-                    title="Close"
-                    className="icon-small hover:opacity-60"
-                    onClick={closeQueue}
-                />
-            </div>
-            <DragDropContext onDragEnd={handleDragDrop}>
-                <Droppable droppableId="droppable">
-                    {(provided) => (
-                        <ul
-                            {...provided.droppableProps}
-                            ref={provided.innerRef}
-                        >
-                            {getQueueList(queueData, playingTrack)}
-                            {provided.placeholder}
-                        </ul>
-                    )}
-                </Droppable>
-            </DragDropContext>
-        </div>
+        <>
+            {openQueue && (
+                <div className="bg-white content mx-2">
+                    <div className="flex justify-between items-center">
+                        <h1 className="title">Up Next</h1>
+                        <Icon
+                            path={mdiClose}
+                            title="Close"
+                            className="icon-small hover:opacity-60"
+                            onClick={closeQueue}
+                        />
+                    </div>
+                    <DragDropContext onDragEnd={handleDragDrop}>
+                        <Droppable droppableId="droppable">
+                            {(provided) => (
+                                <ul
+                                    {...provided.droppableProps}
+                                    ref={provided.innerRef}
+                                >
+                                    {getQueueList(queueData, playingTrack)}
+                                    {provided.placeholder}
+                                </ul>
+                            )}
+                        </Droppable>
+                    </DragDropContext>
+                </div>
+            )}
+        </>
     );
 };
 
-export default QueueComponent;
+export default Queue;

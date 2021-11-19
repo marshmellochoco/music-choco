@@ -11,6 +11,7 @@ const ArtistPage = () => {
     const [albums, setAlbums] = useState(undefined);
     const [tracks, setTracks] = useState(undefined);
     const { playingTrack } = useSelector((state) => state.playerReducer);
+    const queue = useSelector((state) => state.queueReducer);
     const { id } = useParams();
 
     useEffect(() => {
@@ -32,7 +33,7 @@ const ArtistPage = () => {
     };
 
     return (
-        <div className="content flex flex-col gap-4">
+        <div className="content page-content">
             <div className="flex flex-col gap-8">
                 <div className="flex items-center gap-8">
                     <img
@@ -44,11 +45,12 @@ const ArtistPage = () => {
                 </div>
                 <div>
                     <h2 className="title2">Tracks</h2>
-                    {tracks && getTracksList(dispatch, tracks, playingTrack)}
+                    {tracks &&
+                        getTracksList(dispatch, tracks, playingTrack, queue)}
                 </div>
                 <div>
                     <h2 className="title2">Albums</h2>
-                    <div className="flex gap-4 overflow-x-auto pb-2">
+                    <div className="card-list">
                         {albums && getAlbumsList(albums)}
                     </div>
                 </div>

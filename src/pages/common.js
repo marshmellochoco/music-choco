@@ -3,22 +3,26 @@ import { getTrack } from "../api/trackApi";
 import { setPlaying, setPlayingTrack } from "../store/player/playerAction";
 import { addQueue } from "../store/queue/queueAction";
 
-const playTrack = (dispatch, id, playingTrack) => {
-    getTrack(id).then((result) => {
-        if (playingTrack._id !== id) dispatch(addQueue(result));
+export const playTrack = (dispatch, id, queue) => {
+    addTrack(dispatch, id, queue).then(() => dispatch(setPlaying(true)));
+};
+
+export const addTrack = async (dispatch, id, queue) => {
+    await getTrack(id).then((result) => {
+        if (queue.filter((x) => x._id === id).length === 0)
+            dispatch(addQueue(result));
         dispatch(setPlayingTrack(result));
-        dispatch(setPlaying(true));
     });
 };
 
-export const getTracksList = (dispatch, tracks, playingTrack) => {
+export const getTracksList = (dispatch, tracks, playingTrack, queue) => {
     return tracks.map((t) => (
         <div
             key={t._id}
             className="cursor-pointer"
             onClick={(e) => {
                 if (e.target.className !== "hover:underline")
-                    playTrack(dispatch, t._id, playTrack);
+                    playTrack(dispatch, t._id, queue);
             }}
         >
             <div

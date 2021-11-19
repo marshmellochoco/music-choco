@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import AudioPlayer from "./components/AudioPlayer";
-import Queue from "./common/Queue/Queue";
+import Queue from "./components/Queue";
 import Navbar from "./components/Navbar";
 import AlbumPage from "./pages/AlbumPage";
 import ArtistPage from "./pages/ArtistPage";
@@ -21,17 +21,13 @@ const App = () => {
                     queue.length <= 0 && "full-height"
                 }`}
             >
-                {!openQueue && (
+                <div className={openQueue ? "hidden" : "block"}>
                     <Switch>
-                        <Route path="/artist/:id">
-                            <ArtistPage />
-                        </Route>
-                        <Route path="/album/:id">
-                            <AlbumPage />
-                        </Route>
+                        <Route path="/artist/:id" component={ArtistPage} />
+                        <Route path="/album/:id" component={AlbumPage} />
                         <Route path="/" component={HomePage} />
                     </Switch>
-                )}
+                </div>
                 <Queue openQueue={openQueue} setOpenQueue={setOpenQueue} />
             </div>
             {queue.length > 0 && (
