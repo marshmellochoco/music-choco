@@ -8,10 +8,16 @@ import Navbar from "./components/Navbar";
 import AlbumPage from "./pages/AlbumPage";
 import ArtistPage from "./pages/ArtistPage";
 import HomePage from "./pages/HomePage";
+import MediaSession from "./components/MediaSession";
 
 const App = () => {
     const [openQueue, setOpenQueue] = useState(false);
     const queue = useSelector((state) => state.queueReducer);
+    const { playingTrack } = useSelector((state) => state.playerReducer);
+
+    const tempFn = () => {
+        console.log(playingTrack);
+    };
 
     return (
         <Router>
@@ -31,10 +37,30 @@ const App = () => {
                 <Queue openQueue={openQueue} setOpenQueue={setOpenQueue} />
             </div>
             {queue.length > 0 && (
-                <AudioPlayer
-                    openQueue={openQueue}
-                    setOpenQueue={setOpenQueue}
-                />
+                <>
+                    <AudioPlayer
+                        openQueue={openQueue}
+                        setOpenQueue={setOpenQueue}
+                    />
+                    {playingTrack.artists && (
+                        <MediaSession
+                            title={playingTrack.title}
+                            artist={playingTrack.artists.map(a=>a.name).join(", ")}
+                            album={playingTrack.album.name}
+                            artwork={[
+                                {
+                                    src: playingTrack.album.image,
+                                },
+                            ]}
+                            onPlay={tempFn}
+                            onPause={tempFn}
+                            onSeekBackward={tempFn}
+                            onSeekForward={tempFn}
+                            onPreviousTrack={tempFn}
+                            onNextTrack={tempFn}
+                        />
+                    )}
+                </>
             )}
         </Router>
     );

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiUrl = "http://localhost:8000";
+const apiUrl = process.env.REACT_APP_API_URL;
 
 export const getArtist = async (artistId) => {
     return await axios.get(`${apiUrl}/artist/${artistId}/`).then((response) => {
