@@ -10,17 +10,15 @@ const useMediaSession = (props) => {
         artist = "",
         album = "",
         artwork = [],
-
         onPlay,
         onPause,
-        onSeekBackward,
-        onSeekForward,
         onPreviousTrack,
         onNextTrack,
+        onSeekBackward,
+        onSeekForward,
     } = props;
 
     const { mediaSession } = navigator;
-    console.log(mediaSession);
 
     useEffect(() => {
         mediaSession.metadata = new window.MediaMetadata({
