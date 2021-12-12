@@ -1,16 +1,12 @@
-import { createRef, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setLoop } from "../store/player/playerAction";
-import { setQueue } from "../store/queue/queueAction";
+import { createRef, useLayoutEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import {
     mdiChevronDown,
     mdiChevronUp,
     mdiPauseCircleOutline,
     mdiPlayCircleOutline,
-    mdiShuffle,
     mdiSkipNext,
     mdiSkipPrevious,
-    mdiSync,
     mdiVolumeHigh,
 } from "@mdi/js";
 import Icon from "@mdi/react";
@@ -26,25 +22,24 @@ const AudioPlayer = ({
     onNextTrack,
     onPreviousTrack,
     seekPrecent,
+    showPlayer,
 }) => {
     const ref = createRef();
-    const dispatch = useDispatch();
-    const { playingTrack, loop } = useSelector((state) => state.playerReducer);
+    const { playingTrack } = useSelector((state) => state.playerReducer);
     const [lapsed, setLapsed] = useState(0);
-    const queue = useSelector((state) => state.queueReducer);
     const [play, setPlay] = useState(true);
     setRef(ref);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         setLapsed(time);
     }, [time]);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
+        if (!ref.current) return;
         ref.current.pause();
         ref.current.currentTime = 0;
         setLapsed(0);
         ref.current.play();
-        console.log(playingTrack);
         // eslint-disable-next-line
     }, [playingTrack]);
 
@@ -52,14 +47,7 @@ const AudioPlayer = ({
         let duration = Math.ceil(ref.current.duration) - 1;
         if (duration - ref.current.currentTime <= 0.1) onNextTrack();
         let progress = (ref.current.currentTime / duration) * 100;
-        if (progress) setLapsed(progress);
-    };
-
-    const shuffle = () => {
-        let q = [...queue];
-        q.splice(q.indexOf(playingTrack), 1);
-        let shuffled = [...q].sort(() => Math.random() - 0.5);
-        dispatch(setQueue([playingTrack, ...shuffled]));
+        setLapsed(progress);
     };
 
     return (
@@ -71,7 +59,7 @@ const AudioPlayer = ({
                 onPlay={() => setPlay(true)}
                 onPause={() => setPlay(false)}
             />
-            <>
+            <div className={`${showPlayer && "hidden"}`}>
                 <div
                     className="bottom-24 fixed w-full h-2 z-10 bg-red-50 opacity-60 h:opacity-1 draggable-container cursor-pointer"
                     onClick={(e) => seekPrecent(e.pageX / e.view.innerWidth)}
@@ -91,15 +79,15 @@ const AudioPlayer = ({
                 </div>
                 <div className="bottom-0 fixed w-full h-24 grid grid-cols-3 bg-red-50">
                     <div className="flex items-center h-24">
-                        <img
-                            src={playingTrack.album.image}
-                            alt={`${playingTrack.title} - ${playingTrack.album.name}`}
-                            className="w-20 h-20 mb-2 ml-1 hidden md:block "
-                        />
+                        <Link to={`/album/${playingTrack.album._id}`}>
+                            <img
+                                src={playingTrack.album.image}
+                                alt={`${playingTrack.title} - ${playingTrack.album.name}`}
+                                className="w-20 h-20 mb-2 ml-1 hidden md:block"
+                            />
+                        </Link>
                         <div className="ml-2 playerArtistList">
-                            <b className="hover:underline">
-                                {playingTrack.title}
-                            </b>
+                            <b>{playingTrack.title}</b>
                             <div className="artistList">
                                 {playingTrack.artists &&
                                     playingTrack.artists.map((artist) => (
@@ -112,9 +100,6 @@ const AudioPlayer = ({
                                         </Link>
                                     ))}
                             </div>
-                            {/* <p className="hover:underline">
-                                {playingTrack.album.name}
-                            </p> */}
                         </div>
                     </div>
                     <div className="flex justify-center items-center">
@@ -154,23 +139,6 @@ const AudioPlayer = ({
                                 "icon-small hover:opacity-60 fill-current text-pink-300 mx-2.5"
                             }
                         />
-                        <Icon
-                            path={mdiSync}
-                            title="Loop"
-                            className={`icon-small hover:opacity-60 fill-current mx-2.5 ${
-                                loop ? "text-pink-600" : "text-pink-300"
-                            }`}
-                            onClick={() => dispatch(setLoop(!loop))}
-                        />
-                        <Icon
-                            path={mdiShuffle}
-                            title="Shuffle"
-                            className={
-                                "icon-small hover:opacity-60 fill-current mx-2.5 text-pink-300"
-                            }
-                            onClick={shuffle}
-                        />
-
                         {openQueue ? (
                             <Icon
                                 path={mdiChevronDown}
@@ -192,7 +160,7 @@ const AudioPlayer = ({
                         )}
                     </div>
                 </div>
-            </>
+            </div>
         </>
     );
 };

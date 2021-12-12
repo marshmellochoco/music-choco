@@ -39,7 +39,7 @@ const App = () => {
                 </Router>
             ) : (
                 <Router>
-                    <Navbar />
+                    <Navbar resetToken={() => setAuth(null)} />
                     <div
                         className={`w-full overflow-y-auto ${
                             queue.length <= 0 && "full-height"
@@ -67,12 +67,11 @@ const App = () => {
                             setOpenQueue={setOpenQueue}
                         />
                     </div>
-                    {queue.length > 0 && (
-                        <AudioPlayer
-                            openQueue={openQueue}
-                            setOpenQueue={setOpenQueue}
-                        />
-                    )}
+                    <AudioPlayer
+                        openQueue={openQueue}
+                        setOpenQueue={setOpenQueue}
+                        showPlayer={queue.length === 0}
+                    />
                 </Router>
             )}
         </>

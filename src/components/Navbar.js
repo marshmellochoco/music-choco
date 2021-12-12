@@ -9,19 +9,24 @@ import logo from "../images/music-choco.png";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
-const Navbar = () => {
+const Navbar = ({resetToken}) => {
     const [searchbar, setSearchbar] = useState(false);
 
+    const logout = () => {
+        window.location.reload();
+        resetToken();
+    }
+
     return (
-        <nav className="grid grid-cols-5 px-2 pt-4 pb-3 fixed top-0 left-0 w-full bg-white border-b">
-            <Link to="/">
+        <nav className="grid grid-cols-9 md:grid-cols-5 align-center gap-2 px-2 pt-4 pb-3 fixed top-0 left-0 w-full bg-white border-b">
+            <Link to="/" className="col-span-3 md:col-span-1">
                 <img
                     src={logo}
                     alt="music-chcoo"
-                    className="h-8 object-scale-down"
+                    className="h-4 md:h-6 object-scale-down"
                 />
             </Link>
-            <div className="flex col-span-3 justify-center gap-8 h-8">
+            <div className="flex col-span-3 justify-center gap-4 sm:gap-8 h-8">
                 {searchbar ? (
                     <div className="border border-black w-full flex px-1 mx-8">
                         <Icon
@@ -68,7 +73,7 @@ const Navbar = () => {
                     </>
                 )}
             </div>
-            <div className="ml-auto">MarshChoco</div>
+            <div className="ml-auto col-span-3 md:col-span-1" onClick={logout}>MarshChoco</div>
         </nav>
     );
 };

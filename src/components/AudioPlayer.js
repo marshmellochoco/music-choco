@@ -1,23 +1,22 @@
-import { useState } from "react";
+import { useState, useLayoutEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import AudioPlayerComponent from "./AudioPlayerComponent";
 import MediaSession from "./MediaSession";
 import { setPlaying, setPlayingTrack } from "../store/player/playerAction";
-import { useEffect } from "react";
 
-const AudioPlayer = ({ openQueue, setOpenQueue }) => {
+const AudioPlayer = ({ openQueue, setOpenQueue, showPlayer }) => {
     const seekTime = 5;
     var ref = "";
     const dispatch = useDispatch();
-    const { playingTrack, playing } = useSelector(
+    const { playingTrack, playing, loop } = useSelector(
         (state) => state.playerReducer
     );
     const queue = useSelector((state) => state.queueReducer);
     const [time, setTime] = useState(0);
     const [media, setMedia] = useState(playingTrack);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         if (playing) ref.current.play();
         else ref.current.pause();
     }, [playing, ref]);
@@ -27,10 +26,12 @@ const AudioPlayer = ({ openQueue, setOpenQueue }) => {
     };
 
     const onPlay = () => {
+        if (!ref.current) return;
         ref.current.play();
     };
 
     const onPause = () => {
+        if (!ref.current) return;
         ref.current.pause();
     };
 
@@ -48,9 +49,14 @@ const AudioPlayer = ({ openQueue, setOpenQueue }) => {
     const onNextTrack = () => {
         const index = queue.indexOf(playingTrack) + 1;
         if (index >= queue.length) {
-            dispatch(setPlaying(false));
-            ref.current.currentTime = 0;
-            setTime(100);
+            if (!loop) {
+                dispatch(setPlaying(false));
+                ref.current.currentTime = 0;
+                setTime(100);
+            } else {
+                dispatch(setPlayingTrack(queue[0]));
+                dispatch(setPlaying(true));
+            }
         } else {
             dispatch(setPlayingTrack(queue[index]));
             dispatch(setPlaying(true));
@@ -58,15 +64,17 @@ const AudioPlayer = ({ openQueue, setOpenQueue }) => {
     };
 
     const seekByTime = (t) => {
+        if (!ref.current) return;
         ref.current.currentTime += t;
     };
 
     const seekPrecent = (progress) => {
+        if (!ref.current) return;
         ref.current.currentTime =
             (Math.ceil(ref.current.duration) - 1) * progress;
     };
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         setMedia({
             ...playingTrack,
         });
@@ -103,6 +111,7 @@ const AudioPlayer = ({ openQueue, setOpenQueue }) => {
                 onPreviousTrack={onPreviousTrack}
                 onNextTrack={onNextTrack}
                 seekPrecent={seekPrecent}
+                showPlayer={showPlayer}
             />
         </>
     );

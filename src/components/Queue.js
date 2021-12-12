@@ -1,12 +1,13 @@
 import Icon from "@mdi/react";
 import { useEffect } from "react";
-import { mdiClose } from "@mdi/js";
+import { mdiClose, mdiShuffle, mdiSync } from "@mdi/js";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router";
 import { setPlaying, setPlayingTrack } from "../store/player/playerAction";
 import { setQueue } from "../store/queue/queueAction";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import { setLoop } from "../store/player/playerAction";
 
 const Queue = ({ openQueue, setOpenQueue }) => {
     const location = useLocation();
@@ -18,7 +19,7 @@ const Queue = ({ openQueue, setOpenQueue }) => {
 
     const dispatch = useDispatch();
     const queueData = useSelector((state) => state.queueReducer);
-    const { playingTrack } = useSelector((state) => state.playerReducer);
+    const { playingTrack, loop } = useSelector((state) => state.playerReducer);
 
     const handleDragDrop = (result) => {
         if (!result.destination) return;
@@ -36,6 +37,13 @@ const Queue = ({ openQueue, setOpenQueue }) => {
 
     const closeQueue = () => {
         setOpenQueue(false);
+    };
+
+    const shuffle = () => {
+        let q = [...queueData];
+        q.splice(q.indexOf(playingTrack), 1);
+        let shuffled = [...q].sort(() => Math.random() - 0.5);
+        dispatch(setQueue([playingTrack, ...shuffled]));
     };
 
     const getQueueList = (queue, playingTrack) => {
@@ -103,12 +111,32 @@ const Queue = ({ openQueue, setOpenQueue }) => {
                 <div className="bg-white content mx-2">
                     <div className="flex justify-between items-center">
                         <h1 className="title">Up Next</h1>
-                        <Icon
-                            path={mdiClose}
-                            title="Close"
-                            className="icon-small hover:opacity-60"
-                            onClick={closeQueue}
-                        />
+                        <div className="flex gap-10">
+                            <div className="flex gap-2">
+                                <Icon
+                                    path={mdiSync}
+                                    title="Loop"
+                                    className={`icon-small hover:opacity-60 fill-current mx-0.5 sm:mx-2.5 ${
+                                        loop ? "text-purple-500" : "text-pink-300"
+                                    }`}
+                                    onClick={() => dispatch(setLoop(!loop))}
+                                />
+                                <Icon
+                                    path={mdiShuffle}
+                                    title="Shuffle"
+                                    className={
+                                        "icon-small hover:opacity-60 fill-current mx-0.5 sm:mx-2.5 text-pink-300"
+                                    }
+                                    onClick={shuffle}
+                                />
+                            </div>
+                            <Icon
+                                path={mdiClose}
+                                title="Close"
+                                className="icon-small hover:opacity-60"
+                                onClick={closeQueue}
+                            />
+                        </div>
                     </div>
                     <DragDropContext onDragEnd={handleDragDrop}>
                         <Droppable droppableId="droppable">

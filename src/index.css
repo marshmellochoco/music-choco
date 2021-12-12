@@ -28,7 +28,7 @@
 
     /* Icons */
     .icon-small {
-        @apply w-7 h-7 cursor-pointer;
+        @apply w-6 h-6 cursor-pointer;
     }
     .icon-medium {
         @apply w-12 h-12 cursor-pointer;
