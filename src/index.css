@@ -71,7 +71,11 @@
 
     /* Buttons */
     .btn {
-        @apply border border-r-2 px-2 py-2 max-w-sm;
+        @apply border border-r-2 px-2 py-2;
+    }
+
+    .btn-sm {
+        @apply max-w-sm;
     }
 
     .btn:hover {

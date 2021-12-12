@@ -62,12 +62,12 @@ const AlbumPage = () => {
                         </div>
                         <div className="flex justify-start gap-2">
                             <button
-                                className="btn w-1/2 btn-confirm md:w-48"
+                                className="btn btn-sm btn-sm w-1/2 btn-confirm md:w-48"
                                 onClick={playAlbum}
                             >
                                 Play
                             </button>
-                            <button className="btn w-1/2 md:w-48" onClick={addAlbum}>
+                            <button className="btn btn-sm w-1/2 md:w-48" onClick={addAlbum}>
                                 Add to Library
                             </button>
                         </div>
