@@ -43,7 +43,7 @@
     }
 
     .queue-item {
-        @apply flex items-center justify-between p-2;
+        @apply grid grid-cols-10 items-center justify-between p-2;
     }
 
     .card-list {
@@ -69,7 +69,18 @@
         height: 240px;
     }
 
+    .artistList {
+        height: 1.5rem;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
     /* Buttons */
+    button{
+        @apply cursor-pointer;
+    }
+    
     .btn {
         @apply border border-r-2 px-2 py-2;
     }
@@ -84,5 +95,9 @@
 
     .btn-confirm {
         @apply bg-red-50 border-red-50;
+    }
+
+    .textLink {
+        @apply underline text-red-400 hover:text-red-300;
     }
 }

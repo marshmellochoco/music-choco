@@ -45,3 +45,11 @@
     height: 2.3rem;
     padding: 0.5rem 0.7rem;
 }
+
+.linkItem ~ .linkItem::before{
+    content: ', ';
+}
+
+.playerArtistList{
+    max-width: 80%;
+}

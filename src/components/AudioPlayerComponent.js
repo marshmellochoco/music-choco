@@ -14,6 +14,7 @@ import {
     mdiVolumeHigh,
 } from "@mdi/js";
 import Icon from "@mdi/react";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 const AudioPlayer = ({
     openQueue,
@@ -43,6 +44,8 @@ const AudioPlayer = ({
         ref.current.currentTime = 0;
         setLapsed(0);
         ref.current.play();
+        console.log(playingTrack);
+        // eslint-disable-next-line
     }, [playingTrack]);
 
     const onTimeUpdate = (e) => {
@@ -93,13 +96,25 @@ const AudioPlayer = ({
                             alt={`${playingTrack.title} - ${playingTrack.album.name}`}
                             className="w-20 h-20 mb-2 ml-1 hidden md:block "
                         />
-                        <div className="ml-2">
+                        <div className="ml-2 playerArtistList">
                             <b className="hover:underline">
                                 {playingTrack.title}
                             </b>
-                            <p className="hover:underline">
+                            <div className="artistList">
+                                {playingTrack.artists &&
+                                    playingTrack.artists.map((artist) => (
+                                        <Link
+                                            to={`/artist/${artist._id}`}
+                                            key={artist._id}
+                                            className="hover:underline linkItem "
+                                        >
+                                            {artist.name}
+                                        </Link>
+                                    ))}
+                            </div>
+                            {/* <p className="hover:underline">
                                 {playingTrack.album.name}
-                            </p>
+                            </p> */}
                         </div>
                     </div>
                     <div className="flex justify-center items-center">

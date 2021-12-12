@@ -34,15 +34,17 @@ export const getTracksList = (dispatch, tracks, playingTrack, queue) => {
             >
                 <div className="col-span-3">
                     <h3 className="font-bold">{t.title}</h3>
+                    <div className="artistList">
                     {t.artists.map((artist) => (
                         <Link
                             to={`/artist/${artist._id}`}
-                            className="hover:underline"
+                            className="hover:underline linkItem"
                             key={artist._id}
                         >
                             {artist.name}
                         </Link>
                     ))}
+                    </div>
                 </div>
                 <span className="col-span-2 text-center">{t.album.name}</span>
                 <span className="col-span-1 text-right">

@@ -11,12 +11,12 @@ const AlbumCard = ({ album }) => {
                 />
                 <h2 className="title2 font-bold mt-2">{album.name}</h2>
             </Link>
-            <div>
+            <div className="artistList">
                 {album.artists.map((artist) => (
                     <Link
                         to={`/artist/${artist._id}`}
                         key={artist._id}
-                        className="hover:underline"
+                        className="hover:underline linkItem break-words overflow-hidden"
                     >
                         {artist.name}
                     </Link>

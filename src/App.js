@@ -1,6 +1,11 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Redirect,
+} from "react-router-dom";
 
 import AudioPlayer from "./components/AudioPlayer";
 import Queue from "./components/Queue";
@@ -9,6 +14,7 @@ import AlbumPage from "./pages/AlbumPage";
 import ArtistPage from "./pages/ArtistPage";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
+import SignUpPage from "./pages/SignUpPage";
 
 const App = () => {
     const [openQueue, setOpenQueue] = useState(false);
@@ -20,8 +26,14 @@ const App = () => {
             {auth === null ? (
                 <Router>
                     <Switch>
-                        <Route path="/">
+                        <Route path="/login">
                             <LoginPage setAuth={setAuth} />
+                        </Route>
+                        <Route path="/signUp">
+                            <SignUpPage setAuth={setAuth} />
+                        </Route>
+                        <Route path="/">
+                            <Redirect to="/login" />
                         </Route>
                     </Switch>
                 </Router>
@@ -32,6 +44,7 @@ const App = () => {
                         className={`w-full overflow-y-auto ${
                             queue.length <= 0 && "full-height"
                         }`}
+                        onContextMenu={(e) => e.preventDefault()}
                     >
                         <div className={openQueue ? "hidden" : "block"}>
                             <Switch>
@@ -43,7 +56,10 @@ const App = () => {
                                     path="/album/:id"
                                     component={AlbumPage}
                                 />
-                                <Route path="/" component={HomePage} />
+                                <Route exact path="/" component={HomePage} />
+                                <Route path="/">
+                                    <Redirect to="/" />
+                                </Route>
                             </Switch>
                         </div>
                         <Queue

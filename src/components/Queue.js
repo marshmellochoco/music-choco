@@ -2,10 +2,11 @@ import Icon from "@mdi/react";
 import { useEffect } from "react";
 import { mdiClose } from "@mdi/js";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useLocation } from "react-router";
+import { useLocation } from "react-router";
 import { setPlaying, setPlayingTrack } from "../store/player/playerAction";
 import { setQueue } from "../store/queue/queueAction";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 const Queue = ({ openQueue, setOpenQueue }) => {
     const location = useLocation();
@@ -33,14 +34,7 @@ const Queue = ({ openQueue, setOpenQueue }) => {
         dispatch(setPlaying(true));
     };
 
-    const history = useHistory();
-
     const closeQueue = () => {
-        setOpenQueue(false);
-    };
-
-    const gotoAlbum = (id) => {
-        history.push(`/album/${id}`);
         setOpenQueue(false);
     };
 
@@ -69,18 +63,26 @@ const Queue = ({ openQueue, setOpenQueue }) => {
                             datakey={q._id}
                         >
                             <li className="queue-item">
-                                <div>
+                                <div className="col-span-6">
                                     <b>{q.title}</b>
-                                    <div
-                                        className="hover:underline"
-                                        onClick={() => {
-                                            gotoAlbum(q.album._id);
-                                        }}
-                                    >
-                                        {q.album.name}
+                                    <div className="artistList">
+                                        {q.artists.map((a) => (
+                                            <Link
+                                                to={`/artist/${a._id}`}
+                                                className="hover:underline linkItem"
+                                            >
+                                                {a.name}
+                                            </Link>
+                                        ))}
                                     </div>
                                 </div>
-                                <div>
+                                <Link
+                                    to={`/album/${q.album._id}`}
+                                    className="hover:underline col-span-3"
+                                >
+                                    {q.album.name}
+                                </Link>
+                                <div className="text-right">
                                     {(q.duration / 60 < 10 ? "0" : "") +
                                         Math.floor(q.duration / 60)}
                                     :

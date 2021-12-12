@@ -1,20 +1,18 @@
-import logo from "../images/music-choco.png";
-import { Link } from "react-router-dom";
-import { useHistory } from "react-router";
 import { useState } from "react";
-import { userLogin } from "../api/userApi";
+import { Link } from "react-router-dom";
+import { userSignUp } from "../api/userApi";
+import logo from "../images/music-choco.png";
 
-const LoginPage = ({ setAuth }) => {
-    const history = useHistory();
-    const signUp = () => {
-        history.push("/signUp");
-    };
+const SignUpPage = ({ setAuth }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
 
-    const login = (e) => {
+    const signUp = (e) => {
         e.preventDefault();
-        userLogin({ email, password }).then((response) => {
+        if (password !== confirmPassword) return;
+
+        userSignUp({ email, password }).then((response) => {
             if (response.token) setAuth(response);
         });
     };
@@ -31,7 +29,7 @@ const LoginPage = ({ setAuth }) => {
             </div>
             <div className="mx-auto mt-12 max-w-lg">
                 <div className="mx-2">
-                    <form className="inputGroup" onSubmit={login}>
+                    <form className="inputGroup">
                         <div className="input">
                             <label htmlFor="textEmail">Email address</label>
                             <input
@@ -50,6 +48,19 @@ const LoginPage = ({ setAuth }) => {
                                 onChange={(e) => setPassword(e.target.value)}
                             />
                         </div>
+                        <div className="input">
+                            <label htmlFor="textConfirmPassword">
+                                Password
+                            </label>
+                            <input
+                                type="password"
+                                id="textConfirmPassword"
+                                placeholder="Confirm Password"
+                                onChange={(e) =>
+                                    setConfirmPassword(e.target.value)
+                                }
+                            />
+                        </div>
                         <div className="flex flex-row justify-between">
                             <div>
                                 <input
@@ -61,30 +72,33 @@ const LoginPage = ({ setAuth }) => {
                                     Remember me
                                 </label>
                             </div>
-                            <Link className="textLink" to="/forgotPassword">
+                            <Link
+                                className="textLink"
+                                to="/forgotPassword"
+                            >
                                 Forgot your password?
                             </Link>
                         </div>
-                        <input
-                            type="submit"
-                            value={"Login"}
-                            className="bg-red-100 h-10 btn w-full"
-                        />
-                    </form>
-                    <hr className="my-8" />
-                    <div className="flex flex-col text-center gap-4">
-                        <span>Don't have an account?</span>
                         <button
-                            className="btn border-2 border-black"
+                            className="bg-red-100 h-10 btn w-full"
                             onClick={signUp}
                         >
-                            Sign up now
+                            Sign Up
                         </button>
-                    </div>
+                        <div className="text-center">
+                            <span>Have an account? </span>
+                            <Link
+                                to="/login"
+                                className="textLink"
+                            >
+                                Log in
+                            </Link>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     );
 };
 
-export default LoginPage;
+export default SignUpPage;

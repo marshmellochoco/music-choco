@@ -44,19 +44,19 @@ const AlbumPage = () => {
                     <div className="w-full sm:w-full flex flex-col gap-4">
                         <div>
                             <h1 className="title">{album && album.name}</h1>
-                            <p>
+                            <div>
                                 {album &&
                                     album.artists.map((artist) => (
                                         <Link
                                             to={`/artist/${artist._id}`}
-                                            className="title2 font-normal hover:underline "
+                                            className="title2 font-normal hover:underline linkItem"
                                             key={artist._id}
                                         >
                                             {artist.name}
                                         </Link>
                                     ))}
-                            </p>
-                            <p className="w-96 sm:w-full mt-2">
+                            </div>
+                            <p className="w-full mt-2">
                                 Tracks: {tracks && tracks.length}
                             </p>
                         </div>
