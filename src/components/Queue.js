@@ -1,12 +1,20 @@
 import Icon from "@mdi/react";
+import { useEffect } from "react";
 import { mdiClose } from "@mdi/js";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router";
+import { useHistory, useLocation } from "react-router";
 import { setPlaying, setPlayingTrack } from "../store/player/playerAction";
 import { setQueue } from "../store/queue/queueAction";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
 const Queue = ({ openQueue, setOpenQueue }) => {
+    const location = useLocation();
+
+    useEffect(() => {
+        setOpenQueue(false);
+        // eslint-disable-next-line
+    }, [location]);
+
     const dispatch = useDispatch();
     const queueData = useSelector((state) => state.queueReducer);
     const { playingTrack } = useSelector((state) => state.playerReducer);
