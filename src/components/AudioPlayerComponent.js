@@ -39,7 +39,10 @@ const AudioPlayer = ({
         ref.current.pause();
         ref.current.currentTime = 0;
         setLapsed(0);
-        ref.current.play();
+        let playPromise = ref.current.play();
+        playPromise.catch((err) => {
+            return;
+        });
         // eslint-disable-next-line
     }, [playingTrack]);
 
@@ -87,7 +90,9 @@ const AudioPlayer = ({
                             />
                         </Link>
                         <div className="ml-2 playerArtistList">
-                            <b>{playingTrack.title}</b>
+                            <Link to={`/album/${playingTrack.album._id}`} className="hover:text-red-500">
+                                <b>{playingTrack.title}</b>
+                            </Link>
                             <div className="artistList">
                                 {playingTrack.artists &&
                                     playingTrack.artists.map((artist) => (

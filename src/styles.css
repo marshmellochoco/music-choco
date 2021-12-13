@@ -2,6 +2,12 @@
     --progress-color: rgb(255, 190, 190);
 }
 
+html,
+body,
+#root {
+    min-height: 100vh;
+}
+
 *:not(input) {
     user-select: none;
 }
@@ -46,10 +52,10 @@
     padding: 0.5rem 0.7rem;
 }
 
-.linkItem ~ .linkItem::before{
-    content: ', ';
+.linkItem ~ .linkItem::before {
+    content: ", ";
 }
 
-.playerArtistList{
+.playerArtistList {
     max-width: 80%;
 }

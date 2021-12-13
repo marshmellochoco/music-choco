@@ -21,8 +21,12 @@ const App = () => {
     const [auth, setAuth] = useState(null);
     const queue = useSelector((state) => state.queueReducer);
 
+    const onContextMenu = (e) => {
+        e.preventDefault();
+    }
+
     return (
-        <>
+        <div onContextMenu={onContextMenu} className="h-screen">
             {auth === null ? (
                 <Router>
                     <Switch>
@@ -44,7 +48,7 @@ const App = () => {
                         className={`w-full overflow-y-auto ${
                             queue.length <= 0 && "full-height"
                         }`}
-                        onContextMenu={(e) => e.preventDefault()}
+                        onContextMenu={onContextMenu}
                     >
                         <div className={openQueue ? "hidden" : "block"}>
                             <Switch>
@@ -74,7 +78,7 @@ const App = () => {
                     />
                 </Router>
             )}
-        </>
+        </div>
     );
 };
 

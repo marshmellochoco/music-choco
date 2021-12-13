@@ -77,10 +77,10 @@
     }
 
     /* Buttons */
-    button{
+    button {
         @apply cursor-pointer;
     }
-    
+
     .btn {
         @apply border border-r-2 px-2 py-2;
     }
@@ -99,5 +99,9 @@
 
     .textLink {
         @apply underline text-red-400 hover:text-red-300;
+    }
+
+    .menuItem {
+        @apply hover:bg-red-200 px-2 py-1.5;
     }
 }
