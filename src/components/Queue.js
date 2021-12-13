@@ -8,6 +8,7 @@ import { setQueue } from "../store/queue/queueAction";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { setLoop } from "../store/player/playerAction";
+import { ContextMenu, ContextMenuTrigger, MenuItem } from "react-contextmenu";
 
 const Queue = ({ openQueue, setOpenQueue }) => {
     const location = useLocation();
@@ -20,6 +21,20 @@ const Queue = ({ openQueue, setOpenQueue }) => {
     const dispatch = useDispatch();
     const queueData = useSelector((state) => state.queueReducer);
     const { playingTrack, loop } = useSelector((state) => state.playerReducer);
+
+    const removeFromQueue = (q) => {
+        let index = queueData.indexOf(q);
+        if (
+            index === queueData.indexOf(playingTrack) &&
+            queueData.length !== 0
+        ) {
+            if (index === queueData.length - 1)
+                dispatch(setPlayingTrack(queueData[index - 1]));
+            else dispatch(setPlayingTrack(queueData[index + 1]));
+        }
+        let newQueue = queueData.filter((_, i) => i !== index);
+        dispatch(setQueue(newQueue));
+    };
 
     const handleDragDrop = (result) => {
         if (!result.destination) return;
@@ -50,57 +65,77 @@ const Queue = ({ openQueue, setOpenQueue }) => {
         return queue.map((q, i) => {
             const isPlayingTrack = playingTrack._id === q._id;
             return (
-                <Draggable key={q._id} draggableId={q._id} index={i}>
-                    {(provided, snapshot) => (
-                        <div
-                            onClick={(e) => {
-                                if (e.target.className !== "hover:underline")
-                                    setTrack(q);
-                            }}
-                            id={q._id}
-                            className={`${
-                                isPlayingTrack
-                                    ? "queue-item-active hover:bg-red-200"
-                                    : snapshot.isDragging
-                                    ? "queue-item-dragging"
-                                    : "hover:bg-red-50"
-                            }`}
-                            ref={provided.innerRef}
-                            {...provided.draggableProps}
-                            {...provided.dragHandleProps}
-                            datakey={q._id}
-                        >
-                            <li className="queue-item">
-                                <div className="col-span-6">
-                                    <b>{q.title}</b>
-                                    <div className="artistList">
-                                        {q.artists.map((a) => (
-                                            <Link
-                                                to={`/artist/${a._id}`}
-                                                className="hover:underline linkItem"
-                                            >
-                                                {a.name}
-                                            </Link>
-                                        ))}
-                                    </div>
-                                </div>
-                                <Link
-                                    to={`/album/${q.album._id}`}
-                                    className="hover:underline col-span-3"
+                <div key={q._id}>
+                    <ContextMenuTrigger id={`queueListContextMenu_${q._id}`}>
+                        <Draggable key={q._id} draggableId={q._id} index={i}>
+                            {(provided, snapshot) => (
+                                <div
+                                    onClick={(e) => {
+                                        if (
+                                            e.target.className !==
+                                            "hover:underline"
+                                        )
+                                            setTrack(q);
+                                    }}
+                                    id={q._id}
+                                    className={`${
+                                        isPlayingTrack
+                                            ? "queue-item-active hover:bg-red-200"
+                                            : snapshot.isDragging
+                                            ? "queue-item-dragging"
+                                            : "hover:bg-red-50"
+                                    }`}
+                                    ref={provided.innerRef}
+                                    {...provided.draggableProps}
+                                    {...provided.dragHandleProps}
+                                    datakey={q._id}
                                 >
-                                    {q.album.name}
-                                </Link>
-                                <div className="text-right">
-                                    {(q.duration / 60 < 10 ? "0" : "") +
-                                        Math.floor(q.duration / 60)}
-                                    :
-                                    {(q.duration % 60 < 10 ? "0" : "") +
-                                        Math.floor(q.duration % 60)}
+                                    <li className="queue-item">
+                                        <div className="col-span-6">
+                                            <b>{q.title}</b>
+                                            <div className="artistList">
+                                                {q.artists.map((a) => (
+                                                    <Link
+                                                        key={a._id}
+                                                        to={`/artist/${a._id}`}
+                                                        className="hover:underline linkItem"
+                                                    >
+                                                        {a.name}
+                                                    </Link>
+                                                ))}
+                                            </div>
+                                        </div>
+                                        <Link
+                                            to={`/album/${q.album._id}`}
+                                            className="hover:underline col-span-3"
+                                        >
+                                            {q.album.name}
+                                        </Link>
+                                        <div className="text-right">
+                                            {(q.duration / 60 < 10 ? "0" : "") +
+                                                Math.floor(q.duration / 60)}
+                                            :
+                                            {(q.duration % 60 < 10 ? "0" : "") +
+                                                Math.floor(q.duration % 60)}
+                                        </div>
+                                    </li>
                                 </div>
-                            </li>
-                        </div>
-                    )}
-                </Draggable>
+                            )}
+                        </Draggable>
+                    </ContextMenuTrigger>
+                    <ContextMenu
+                        key={q._id + "test"}
+                        id={`queueListContextMenu_${q._id}`}
+                        className="contextMenu"
+                    >
+                        <MenuItem
+                            onClick={() => removeFromQueue(q)}
+                            className="menuItem"
+                        >
+                            Remove from queue
+                        </MenuItem>
+                    </ContextMenu>
+                </div>
             );
         });
     };
@@ -117,7 +152,9 @@ const Queue = ({ openQueue, setOpenQueue }) => {
                                     path={mdiSync}
                                     title="Loop"
                                     className={`icon-small hover:opacity-60 fill-current mx-0.5 sm:mx-2.5 ${
-                                        loop ? "text-purple-500" : "text-pink-300"
+                                        loop
+                                            ? "text-purple-500"
+                                            : "text-pink-300"
                                     }`}
                                     onClick={() => dispatch(setLoop(!loop))}
                                 />

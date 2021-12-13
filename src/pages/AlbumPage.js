@@ -3,12 +3,14 @@ import { useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { getAlbum, getAlbumTracks } from "../api/trackApi";
 import { Link } from "react-router-dom";
+import Skeleton from "react-loading-skeleton";
 import { getTracksList, playTrack } from "./common";
 
 const AlbumPage = () => {
     const dispatch = useDispatch();
     const [album, setAlbum] = useState(undefined);
     const [tracks, setTracks] = useState(undefined);
+    const [loaded, setLoaded] = useState(false);
     const { playingTrack } = useSelector((state) => state.playerReducer);
     const queue = useSelector((state) => state.queueReducer);
     const { id } = useParams();
@@ -23,7 +25,7 @@ const AlbumPage = () => {
     }, [id]);
 
     const playAlbum = () => {
-        tracks.forEach(track => {
+        tracks.forEach((track) => {
             playTrack(dispatch, track._id, queue);
         });
     };
@@ -39,8 +41,18 @@ const AlbumPage = () => {
                     <img
                         src={album && album.image}
                         alt={album && album.name}
-                        className="w-full h-full sm:w-48 sm:h-48 border border-white"
+                        className={`w-full h-full sm:w-48 sm:h-48 border border-white ${
+                            !loaded && "hidden"
+                        }`}
+                        onLoad={() => setLoaded(true)}
                     />
+                    {!loaded && (
+                        <Skeleton
+                            className="w-full h-full sm:w-48 sm:h-48 border border-white"
+                            width={200}
+                            height={200}
+                        />
+                    )}
                     <div className="w-full sm:w-full flex flex-col gap-4">
                         <div>
                             <h1 className="title">{album && album.name}</h1>
@@ -67,7 +79,10 @@ const AlbumPage = () => {
                             >
                                 Play
                             </button>
-                            <button className="btn btn-sm w-1/2 md:w-48" onClick={addAlbum}>
+                            <button
+                                className="btn btn-sm w-1/2 md:w-48"
+                                onClick={addAlbum}
+                            >
                                 Add to Library
                             </button>
                         </div>

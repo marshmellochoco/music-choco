@@ -20,6 +20,7 @@ const initState = {
     },
 };
 
+
 const queueReducer = (state = initState, action) => {
     switch (action.type) {
         case "SET_PLAYING":

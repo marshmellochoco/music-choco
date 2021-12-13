@@ -35,14 +35,8 @@ const AudioPlayer = ({
     }, [time]);
 
     useLayoutEffect(() => {
-        if (!ref.current) return;
-        ref.current.pause();
         ref.current.currentTime = 0;
         setLapsed(0);
-        let playPromise = ref.current.play();
-        playPromise.catch((err) => {
-            return;
-        });
         // eslint-disable-next-line
     }, [playingTrack]);
 
@@ -81,17 +75,25 @@ const AudioPlayer = ({
                     </div>
                 </div>
                 <div className="bottom-0 fixed w-full h-24 grid grid-cols-3 bg-red-50">
-                    <div className="flex items-center h-24">
-                        <Link to={`/album/${playingTrack.album._id}`}>
+                    <div className="grid gap-2 songPlayerGrid items-center h-24">
+                        <Link
+                            to={`/album/${playingTrack.album._id}`}
+                            className="w-20 h-20 mb-2 ml-1 hidden md:block"
+                        >
                             <img
                                 src={playingTrack.album.image}
                                 alt={`${playingTrack.title} - ${playingTrack.album.name}`}
-                                className="w-20 h-20 mb-2 ml-1 hidden md:block"
+                                className="w-20 h-20"
                             />
                         </Link>
-                        <div className="ml-2 playerArtistList">
-                            <Link to={`/album/${playingTrack.album._id}`} className="hover:text-red-500">
-                                <b>{playingTrack.title}</b>
+                        <div className="ml-2 playerArtistList overflow-hidden whitespace-nowrap overflow-ellipsis">
+                            <Link
+                                to={`/album/${playingTrack.album._id}`}
+                                className="hover:text-red-500"
+                            >
+                                <b>
+                                    {playingTrack.title}
+                                </b>
                             </Link>
                             <div className="artistList">
                                 {playingTrack.artists &&

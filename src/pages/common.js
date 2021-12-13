@@ -3,10 +3,11 @@ import { Link } from "react-router-dom";
 import { getTrack } from "../api/trackApi";
 import { setPlaying, setPlayingTrack } from "../store/player/playerAction";
 import { addQueue } from "../store/queue/queueAction";
+import Skeleton from "react-loading-skeleton";
 
-export const playTrack = (dispatch, id, queue) => {
+export const playTrack = (dispatch, id, queue, playingTrack) => {
     addTrack(dispatch, id, queue).then((result) => {
-        dispatch(setPlayingTrack(result));
+        if (result._id !== playingTrack._id) dispatch(setPlayingTrack(result));
         dispatch(setPlaying(true));
     });
 };
@@ -14,6 +15,10 @@ export const playTrack = (dispatch, id, queue) => {
 export const addTrack = async (dispatch, id, queue) => {
     let res;
     await getTrack(id).then((result) => {
+        if (queue.length === 0) {
+            dispatch(setPlayingTrack(result));
+            dispatch(setPlaying(false));
+        }
         if (queue.filter((x) => x._id === id).length === 0)
             dispatch(addQueue(result));
         res = result;
@@ -21,15 +26,35 @@ export const addTrack = async (dispatch, id, queue) => {
     return res;
 };
 
+export const getTrackSkeletion = () => {
+    return (
+        <div>
+            <div>
+                <div className="grid grid-cols-6 items-center w-full py-2 px-4 hover:bg-red-50 ">
+                    <div className="col-span-3">
+                        <Skeleton />
+                        <div className="artistList">
+                            <Skeleton className="linkItem" />
+                        </div>
+                    </div>
+                    <div className="col-span-2" />
+                    <Skeleton className="col-span-1 text-right" />
+                </div>
+                <hr />
+            </div>
+        </div>
+    );
+};
+
 export const getTracksList = (dispatch, tracks, playingTrack, queue) => {
     return tracks.map((t) => (
         <div key={t._id}>
-            <ContextMenuTrigger id="songListContextMenu">
+            <ContextMenuTrigger id={`songListContextMenu_${t._id}`}>
                 <div
                     className="cursor-pointer"
                     onClick={(e) => {
                         if (e.target.className !== "hover:underline")
-                            playTrack(dispatch, t._id, queue, t);
+                            playTrack(dispatch, t._id, queue, playingTrack);
                     }}
                 >
                     <div
@@ -53,9 +78,7 @@ export const getTracksList = (dispatch, tracks, playingTrack, queue) => {
                                 ))}
                             </div>
                         </div>
-                        <span className="col-span-2 text-center">
-                            {t.album.name}
-                        </span>
+                        <span className="col-span-2" />
                         <span className="col-span-1 text-right">
                             {(t.duration / 60 < 10 ? "0" : "") +
                                 Math.floor(t.duration / 60)}
@@ -68,11 +91,13 @@ export const getTracksList = (dispatch, tracks, playingTrack, queue) => {
                 </div>
             </ContextMenuTrigger>
             <ContextMenu
-                id="songListContextMenu"
-                className="bg-red-100 px-0.5 py-0.5"
+                id={`songListContextMenu_${t._id}`}
+                className="contextMenu"
             >
                 <MenuItem
-                    onClick={() => playTrack(dispatch, t._id, queue, t)}
+                    onClick={() =>
+                        playTrack(dispatch, t._id, queue, playingTrack)
+                    }
                     className="menuItem"
                 >
                     Play

@@ -16,24 +16,28 @@ const AudioPlayer = ({ openQueue, setOpenQueue, showPlayer }) => {
     const [time, setTime] = useState(0);
     const [media, setMedia] = useState(playingTrack);
 
-    useLayoutEffect(() => {
-        if (playing) ref.current.play();
-        else ref.current.pause();
-    }, [playing, ref]);
-
     const setRef = (input) => {
         ref = input;
     };
 
     const onPlay = () => {
         if (!ref.current) return;
-        ref.current.play();
+        let playPromise = ref.current.play();
+        playPromise.catch((err) => {});
+        dispatch(setPlaying(true));
     };
 
     const onPause = () => {
         if (!ref.current) return;
         ref.current.pause();
+        dispatch(setPlaying(false));
     };
+
+    useLayoutEffect(() => {
+        if (playing) onPlay();
+        else onPause();
+        // eslint-disable-next-line
+    }, [playing]);
 
     const onPreviousTrack = () => {
         const index = queue.indexOf(playingTrack) - 1;
@@ -78,6 +82,8 @@ const AudioPlayer = ({ openQueue, setOpenQueue, showPlayer }) => {
         setMedia({
             ...playingTrack,
         });
+        onPause();
+        // eslint-disable-next-line
     }, [playingTrack]);
 
     return (
