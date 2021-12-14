@@ -53,7 +53,7 @@ export const getTracksList = (dispatch, tracks, playingTrack, queue) => {
                 <div
                     className="cursor-pointer"
                     onClick={(e) => {
-                        if (e.target.className !== "hover:underline")
+                        if (!e.target.className.includes("hover:underline"))
                             playTrack(dispatch, t._id, queue, playingTrack);
                     }}
                 >

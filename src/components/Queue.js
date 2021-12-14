@@ -72,8 +72,9 @@ const Queue = ({ openQueue, setOpenQueue }) => {
                                 <div
                                     onClick={(e) => {
                                         if (
-                                            e.target.className !==
-                                            "hover:underline"
+                                            !e.target.className.includes(
+                                                "hover:underline"
+                                            )
                                         )
                                             setTrack(q);
                                     }}
@@ -105,12 +106,14 @@ const Queue = ({ openQueue, setOpenQueue }) => {
                                                 ))}
                                             </div>
                                         </div>
-                                        <Link
-                                            to={`/album/${q.album._id}`}
-                                            className="hover:underline col-span-3 artistList pr-2"
-                                        >
-                                            {q.album.name}
-                                        </Link>
+                                        <div className="col-span-3 mr-2 artistList">
+                                            <Link
+                                                to={`/album/${q.album._id}`}
+                                                className="hover:underline"
+                                            >
+                                                {q.album.name}
+                                            </Link>
+                                        </div>
                                         <div className="text-right">
                                             {(q.duration / 60 < 10 ? "0" : "") +
                                                 Math.floor(q.duration / 60)}
