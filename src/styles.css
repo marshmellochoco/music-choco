@@ -1,5 +1,6 @@
 :root {
     --progress-color: rgb(255, 190, 190);
+    --progress-color2: rgb(255, 160, 160);
 }
 
 html,
@@ -50,6 +51,21 @@ body,
     border: 1px solid black;
     height: 2.3rem;
     padding: 0.5rem 0.7rem;
+}
+
+input[type="range"] {
+    -webkit-appearance: none;
+    background: var(--progress-color2);
+    height: 0.4rem;
+    border-radius: 0.2rem;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    background-color: white;
+    height: 0.8rem;
+    width: 0.8rem;
+    border-radius: 50%;
 }
 
 .linkItem ~ .linkItem::before {

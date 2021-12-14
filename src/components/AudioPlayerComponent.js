@@ -1,4 +1,4 @@
-import { createRef, useLayoutEffect, useState } from "react";
+import { createRef, useEffect, useLayoutEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import {
     mdiChevronDown,
@@ -28,6 +28,8 @@ const AudioPlayer = ({
     const { playingTrack } = useSelector((state) => state.playerReducer);
     const [lapsed, setLapsed] = useState(0);
     const [play, setPlay] = useState(true);
+    const [openVol, setOpenVol] = useState(false);
+    const [volume, setVolume] = useState(0);
     setRef(ref);
 
     useLayoutEffect(() => {
@@ -39,6 +41,11 @@ const AudioPlayer = ({
         setLapsed(0);
         // eslint-disable-next-line
     }, [playingTrack]);
+
+    useEffect(() => {
+        ref.current.volume = volume;
+        // eslint-disable-next-line
+    }, [volume]);
 
     const onTimeUpdate = (e) => {
         let duration = Math.ceil(ref.current.duration) - 1;
@@ -146,14 +153,28 @@ const AudioPlayer = ({
                         </div>
                     </div>
                     <div className="flex justify-end items-center mr-2 gap-2">
-                        <div className="rounded-full hover:bg-red-200">
+                        <div
+                            className={`rounded-full hover:bg-red-200 flex items-center cursor-pointer justify-end w-40 ${
+                                openVol && "pl-2 pr-4"
+                            }`}
+                            onMouseEnter={() => setOpenVol(true)}
+                            onMouseLeave={() => setOpenVol(false)}
+                        >
                             <Icon
                                 path={mdiVolumeHigh}
                                 title="Volume"
-                                className={
-                                    "icon-small fill-current text-pink-600"
-                                }
+                                className="icon-small fill-current text-pink-600"
+
                                 // TODO: Implement volume
+                            />
+
+                            <input
+                                type="range"
+                                className={`w-full ${!openVol && "hidden"}`}
+                                defaultValue={volume}
+                                onChange={(e) =>
+                                    setVolume(e.target.value / 100)
+                                }
                             />
                         </div>
                         <div className="rounded-full hover:bg-red-200">
