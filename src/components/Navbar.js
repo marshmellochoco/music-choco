@@ -70,14 +70,14 @@ const Navbar = ({ resetToken }) => {
                         <Link to="/" className="hover:opacity-60">
                             <Icon
                                 path={mdiHome}
-                                className="icon-small hover:opacity-100 sm:hidden"
+                                className="icon-small sm:hidden"
                             />
                             <span className="hidden sm:block">Home</span>
                         </Link>
                         <Link to="/library" className="hover:opacity-60">
                             <Icon
                                 path={mdiMusicBoxMultiple}
-                                className="icon-small hover:opacity-100 sm:hidden"
+                                className="icon-small sm:hidden"
                             />
                             <span className="hidden sm:block">Library</span>
                         </Link>
@@ -87,7 +87,7 @@ const Navbar = ({ resetToken }) => {
                         >
                             <Icon
                                 path={mdiMagnify}
-                                className="icon-small hover:opacity-100"
+                                className="icon-small"
                             />
                             <span className="hidden sm:block">Search</span>
                         </span>

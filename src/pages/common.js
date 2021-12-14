@@ -26,9 +26,9 @@ export const addTrack = async (dispatch, id, queue) => {
     return res;
 };
 
-export const getTrackSkeletion = () => {
+export const getTrackSkeletion = (key) => {
     return (
-        <div>
+        <div key={`track_skeleton_${key}`}>
             <div>
                 <div className="grid grid-cols-6 items-center w-full py-2 px-4 hover:bg-red-50 ">
                     <div className="col-span-3">

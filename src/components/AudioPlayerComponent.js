@@ -52,6 +52,7 @@ const AudioPlayer = ({
             <audio
                 src={playingTrack.url}
                 ref={ref}
+                onCanPlay={() => play && onPlay()}
                 onTimeUpdate={onTimeUpdate}
                 onPlay={() => setPlay(true)}
                 onPause={() => setPlay(false)}
@@ -89,11 +90,9 @@ const AudioPlayer = ({
                         <div className="ml-2 playerArtistList overflow-hidden whitespace-nowrap overflow-ellipsis">
                             <Link
                                 to={`/album/${playingTrack.album._id}`}
-                                className="hover:text-red-500"
+                                className="text-pink-900 hover:text-red-500"
                             >
-                                <b>
-                                    {playingTrack.title}
-                                </b>
+                                <b>{playingTrack.title}</b>
                             </Link>
                             <div className="artistList">
                                 {playingTrack.artists &&
@@ -101,7 +100,7 @@ const AudioPlayer = ({
                                         <Link
                                             to={`/artist/${artist._id}`}
                                             key={artist._id}
-                                            className="hover:underline linkItem "
+                                            className="hover:underline linkItem text-pink-900"
                                         >
                                             {artist.name}
                                         </Link>
@@ -110,61 +109,74 @@ const AudioPlayer = ({
                         </div>
                     </div>
                     <div className="flex justify-center items-center">
-                        <Icon
-                            path={mdiSkipPrevious}
-                            title="Previous"
-                            className="icon-small hover:opacity-60"
-                            onClick={onPreviousTrack}
-                        />
+                        <div className="rounded-full hover:bg-red-200">
+                            <Icon
+                                path={mdiSkipPrevious}
+                                title="Previous"
+                                className="icon-small text-pink-600"
+                                onClick={onPreviousTrack}
+                            />
+                        </div>
                         {play ? (
-                            <Icon
-                                path={mdiPauseCircleOutline}
-                                title="Pause"
-                                className="icon-medium hover:opacity-60 mx-2"
-                                onClick={onPause}
-                            />
+                            <div className="rounded-full hover:bg-red-200">
+                                <Icon
+                                    path={mdiPauseCircleOutline}
+                                    title="Pause"
+                                    className="icon-medium text-pink-600"
+                                    onClick={onPause}
+                                />
+                            </div>
                         ) : (
-                            <Icon
-                                path={mdiPlayCircleOutline}
-                                title="Play"
-                                className="icon-medium hover:opacity-60 mx-2"
-                                onClick={onPlay}
-                            />
+                            <div className="rounded-full hover:bg-red-200">
+                                <Icon
+                                    path={mdiPlayCircleOutline}
+                                    title="Play"
+                                    className="icon-medium text-pink-600"
+                                    onClick={onPlay}
+                                />
+                            </div>
                         )}
-                        <Icon
-                            path={mdiSkipNext}
-                            title="Next"
-                            className="icon-small hover:opacity-60"
-                            onClick={onNextTrack}
-                        />
+                        <div className="rounded-full hover:bg-red-200">
+                            <Icon
+                                path={mdiSkipNext}
+                                title="Next"
+                                className="icon-small text-pink-600"
+                                onClick={onNextTrack}
+                            />
+                        </div>
                     </div>
-                    <div className="flex justify-end items-center mr-2">
-                        <Icon
-                            path={mdiVolumeHigh}
-                            title="Volume"
-                            className={
-                                "icon-small hover:opacity-60 fill-current text-pink-300 mx-2.5"
-                            }
-                        />
-                        {openQueue ? (
+                    <div className="flex justify-end items-center mr-2 gap-2">
+                        <div className="rounded-full hover:bg-red-200">
                             <Icon
-                                path={mdiChevronDown}
-                                title="Queue"
+                                path={mdiVolumeHigh}
+                                title="Volume"
                                 className={
-                                    "icon-small hover:opacity-60 fill-current mx-2.5 text-pink-600"
+                                    "icon-small fill-current text-pink-600"
                                 }
-                                onClick={() => setOpenQueue(false)}
+                                // TODO: Implement volume
                             />
-                        ) : (
-                            <Icon
-                                path={mdiChevronUp}
-                                title="Queue"
-                                className={
-                                    "icon-small hover:opacity-60 fill-current mx-2.5 text-pink-600"
-                                }
-                                onClick={() => setOpenQueue(true)}
-                            />
-                        )}
+                        </div>
+                        <div className="rounded-full hover:bg-red-200">
+                            {openQueue ? (
+                                <Icon
+                                    path={mdiChevronDown}
+                                    title="Queue"
+                                    className={
+                                        "icon-small fill-current mx-2.5 text-pink-600"
+                                    }
+                                    onClick={() => setOpenQueue(false)}
+                                />
+                            ) : (
+                                <Icon
+                                    path={mdiChevronUp}
+                                    title="Queue"
+                                    className={
+                                        "icon-small fill-current mx-2.5 text-pink-600"
+                                    }
+                                    onClick={() => setOpenQueue(true)}
+                                />
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>

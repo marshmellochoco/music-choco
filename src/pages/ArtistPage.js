@@ -34,9 +34,9 @@ const ArtistPage = () => {
         });
     };
 
-    const getAlbumSkeletion = () => {
+    const getAlbumSkeletion = (key) => {
         return (
-            <div className="card">
+            <div key={`album_skeleton_${key}`} className="card">
                 <div className="card-link">
                     <Skeleton className="album-image" height={240} />
                     <Skeleton className="title2 mt-4" />
@@ -69,7 +69,7 @@ const ArtistPage = () => {
                 <div>
                     <h2 className="title2">Tracks</h2>
                     {tracks === undefined &&
-                        [1, 2, 3, 4, 5].map(() => getTrackSkeletion())}
+                        [1, 2, 3, 4, 5].map((_, i) => getTrackSkeletion(i))}
                     {tracks &&
                         getTracksList(dispatch, tracks, playingTrack, queue)}
                 </div>
@@ -77,7 +77,7 @@ const ArtistPage = () => {
                     <h2 className="title2">Albums</h2>
                     <div className="card-list">
                         {albums === undefined &&
-                            [1, 2, 3].map(() => getAlbumSkeletion())}
+                            [1, 2, 3].map((_,i) => getAlbumSkeletion(i))}
                         {albums && getAlbumsList(albums)}
                     </div>
                 </div>

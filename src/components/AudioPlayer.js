@@ -54,16 +54,16 @@ const AudioPlayer = ({ openQueue, setOpenQueue, showPlayer }) => {
         const index = queue.indexOf(playingTrack) + 1;
         if (index >= queue.length) {
             if (!loop) {
-                dispatch(setPlaying(false));
+                onPause();
                 ref.current.currentTime = 0;
                 setTime(100);
             } else {
                 dispatch(setPlayingTrack(queue[0]));
-                dispatch(setPlaying(true));
+                onPlay();
             }
         } else {
             dispatch(setPlayingTrack(queue[index]));
-            dispatch(setPlaying(true));
+            onPlay();
         }
     };
 
@@ -82,8 +82,6 @@ const AudioPlayer = ({ openQueue, setOpenQueue, showPlayer }) => {
         setMedia({
             ...playingTrack,
         });
-        onPause();
-        // eslint-disable-next-line
     }, [playingTrack]);
 
     return (

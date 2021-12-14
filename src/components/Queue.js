@@ -107,7 +107,7 @@ const Queue = ({ openQueue, setOpenQueue }) => {
                                         </div>
                                         <Link
                                             to={`/album/${q.album._id}`}
-                                            className="hover:underline col-span-3"
+                                            className="hover:underline col-span-3 artistList pr-2"
                                         >
                                             {q.album.name}
                                         </Link>
@@ -147,32 +147,40 @@ const Queue = ({ openQueue, setOpenQueue }) => {
                     <div className="flex justify-between items-center">
                         <h1 className="title">Up Next</h1>
                         <div className="flex gap-10">
-                            <div className="flex gap-2">
-                                <Icon
-                                    path={mdiSync}
-                                    title="Loop"
-                                    className={`icon-small hover:opacity-60 fill-current mx-0.5 sm:mx-2.5 ${
+                            <div className="flex gap-6">
+                                <div
+                                    className={`rounded-full hover:bg-red-100 ${
                                         loop
-                                            ? "text-purple-500"
-                                            : "text-pink-300"
+                                            ? "bg-pink-100 hover:bg-red-200"
+                                            : ""
                                     }`}
-                                    onClick={() => dispatch(setLoop(!loop))}
-                                />
+                                >
+                                    <Icon
+                                        path={mdiSync}
+                                        title="Loop"
+                                        className="icon-small fill-current text-pink-600"
+                                        onClick={() => dispatch(setLoop(!loop))}
+                                    />
+                                </div>
+                                <div className="rounded-full hover:bg-red-100">
+                                    <Icon
+                                        path={mdiShuffle}
+                                        title="Shuffle"
+                                        className={
+                                            "icon-small fill-current text-pink-600"
+                                        }
+                                        onClick={shuffle}
+                                    />
+                                </div>
+                            </div>
+                            <div className="rounded-full hover:bg-gray-200">
                                 <Icon
-                                    path={mdiShuffle}
-                                    title="Shuffle"
-                                    className={
-                                        "icon-small hover:opacity-60 fill-current mx-0.5 sm:mx-2.5 text-pink-300"
-                                    }
-                                    onClick={shuffle}
+                                    path={mdiClose}
+                                    title="Close"
+                                    className="icon-small"
+                                    onClick={closeQueue}
                                 />
                             </div>
-                            <Icon
-                                path={mdiClose}
-                                title="Close"
-                                className="icon-small hover:opacity-60"
-                                onClick={closeQueue}
-                            />
                         </div>
                     </div>
                     <DragDropContext onDragEnd={handleDragDrop}>
