@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAlbum, getAlbumTracks } from "../api/trackApi";
 import { Link } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
-import { getTracksList, playTrack } from "./common";
+import { getTracksList, addTrack, playTrack } from "./common";
 
 const AlbumPage = () => {
     const dispatch = useDispatch();
@@ -25,8 +25,9 @@ const AlbumPage = () => {
     }, [id]);
 
     const playAlbum = () => {
-        tracks.forEach((track) => {
-            playTrack(dispatch, track._id, queue);
+        tracks.forEach((track, i) => {
+            if (i === 0) playTrack(dispatch, track._id, queue, playingTrack);
+            else addTrack(dispatch, track._id, queue);
         });
     };
 
