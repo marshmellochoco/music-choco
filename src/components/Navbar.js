@@ -8,11 +8,9 @@ import {
 import logo from "../images/music-choco.png";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 
-const Navbar = ({ resetToken }) => {
-    const location = useLocation();
+const Navbar = ({ resetToken, location }) => {
     const [searchbar, setSearchbar] = useState(false);
     const [query, setQuery] = useState("");
     const history = useHistory();
@@ -24,11 +22,6 @@ const Navbar = ({ resetToken }) => {
 
     const gotoHome = () => {
         history.push("/");
-    };
-
-    const logout = () => {
-        window.location.reload();
-        resetToken();
     };
 
     const search = () => {
@@ -99,7 +92,7 @@ const Navbar = ({ resetToken }) => {
                     </>
                 )}
             </div>
-            <div className="ml-auto col-span-3 md:col-span-1 cursor-pointer" onClick={logout}>
+            <div className="ml-auto col-span-3 md:col-span-1 cursor-pointer" onClick={resetToken}>
                 MarshChoco
             </div>
         </nav>
