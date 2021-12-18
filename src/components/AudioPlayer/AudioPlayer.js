@@ -1,9 +1,9 @@
 import { useState, useLayoutEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import AudioPlayerComponent from "./AudioPlayer/AudioPlayerComponent";
+import AudioPlayerContainer from "./AudioPlayerContainer";
 import MediaSession from "./MediaSession";
-import { setPlaying, setPlayingTrack } from "../store/player/playerAction";
+import { setPlaying, setPlayingTrack } from "../../store/player/playerAction";
 
 const AudioPlayer = ({ openQueue, setOpenQueue, showPlayer }) => {
     const seekTime = 5;
@@ -72,7 +72,7 @@ const AudioPlayer = ({ openQueue, setOpenQueue, showPlayer }) => {
         ref.current.currentTime += t;
     };
 
-    const seekPrecent = (progress) => {
+    const seekPercent = (progress) => {
         if (!ref.current) return;
         ref.current.currentTime =
             (Math.ceil(ref.current.duration) - 1) * progress;
@@ -105,7 +105,7 @@ const AudioPlayer = ({ openQueue, setOpenQueue, showPlayer }) => {
                 />
             )}
 
-            <AudioPlayerComponent
+            <AudioPlayerContainer
                 openQueue={openQueue}
                 setOpenQueue={setOpenQueue}
                 time={time}
@@ -114,7 +114,7 @@ const AudioPlayer = ({ openQueue, setOpenQueue, showPlayer }) => {
                 onPause={onPause}
                 onPreviousTrack={onPreviousTrack}
                 onNextTrack={onNextTrack}
-                seekPrecent={seekPrecent}
+                seekPercent={seekPercent}
                 showPlayer={showPlayer}
             />
         </>

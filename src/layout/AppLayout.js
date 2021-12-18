@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom";
 import { logoutAction } from "../store/user/userAction";
 
 import Navbar from "../components/Navbar";
-import AudioPlayer from "../components/AudioPlayer";
+import AudioPlayer from "../components/AudioPlayer/AudioPlayer";
 import Queue from "../components/Queue/Queue";
 
 const AppLayout = ({ children, setLoggedIn }) => {
