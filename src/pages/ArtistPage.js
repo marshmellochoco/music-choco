@@ -1,20 +1,23 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { useDispatch, useSelector } from "react-redux";
+import { MenuItem } from "react-contextmenu";
 import Skeleton from "react-loading-skeleton";
-import AlbumCard from "../components/AlbumCard";
 import { getArtist, getArtistAlbums, getArtistTracks } from "../api/trackApi";
-import { getTrackSkeletion, getTracksList } from "./common";
+import AlbumCard from "../components/AlbumCard";
+import TrackSkeleton from "../components/Tracks/TrackSkeleton";
+import TrackItem from "../components/Tracks/TrackItem";
+import { useDispatch, useSelector } from "react-redux";
+import { addTrack, addTrackToPlaylist, playTrack } from "./common";
 
 const ArtistPage = () => {
+    const { id } = useParams();
     const dispatch = useDispatch();
+    const { playingTrack } = useSelector((state) => state.playerReducer);
+    const queue = useSelector((state) => state.queueReducer);
     const [artist, setArtist] = useState(undefined);
     const [albums, setAlbums] = useState(undefined);
     const [tracks, setTracks] = useState(undefined);
     const [loaded, setLoaded] = useState(false);
-    const { playingTrack } = useSelector((state) => state.playerReducer);
-    const queue = useSelector((state) => state.queueReducer);
-    const { id } = useParams();
 
     useEffect(() => {
         getArtist(id).then((result) => {
@@ -69,15 +72,56 @@ const ArtistPage = () => {
                 <div>
                     <h2 className="title2">Tracks</h2>
                     {tracks === undefined &&
-                        [1, 2, 3, 4, 5].map((_, i) => getTrackSkeletion(i))}
+                        [1, 2, 3, 4, 5].map((_, i) => (
+                            <TrackSkeleton key={i} id={i} />
+                        ))}
                     {tracks &&
-                        getTracksList(dispatch, tracks, playingTrack, queue)}
+                        tracks.map((track, i) => {
+                            return (
+                                <TrackItem
+                                    key={i}
+                                    t={track}
+                                    playingTrack={playingTrack}
+                                    queue={queue}
+                                >
+                                    <MenuItem
+                                        className="menuItem"
+                                        onClick={() =>
+                                            playTrack(
+                                                dispatch,
+                                                track._id,
+                                                queue,
+                                                playingTrack
+                                            )
+                                        }
+                                    >
+                                        Play
+                                    </MenuItem>
+                                    <MenuItem
+                                        className="menuItem"
+                                        onClick={() =>
+                                            addTrack(dispatch, track._id, queue)
+                                        }
+                                    >
+                                        Add to queue
+                                    </MenuItem>
+                                    <MenuItem
+                                        className="menuItem"
+                                        onClick={() =>
+                                            addTrackToPlaylist(track._id)
+                                        }
+                                    >
+                                        Add to playlist
+                                    </MenuItem>
+                                </TrackItem>
+                            );
+                        })}
                 </div>
                 <div>
                     <h2 className="title2">Albums</h2>
                     <div className="card-list">
                         {albums === undefined &&
-                            [1, 2, 3].map((_,i) => getAlbumSkeletion(i))}
+                            [1, 2, 3].map((_, i) => getAlbumSkeletion(i))}
                         {albums && getAlbumsList(albums)}
                     </div>
                 </div>

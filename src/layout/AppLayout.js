@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 
@@ -14,6 +14,10 @@ const AppLayout = ({ children, setLoggedIn }) => {
 
     const [openQueue, setOpenQueue] = useState(false);
     const queue = useSelector((state) => state.queueReducer);
+
+    useEffect(() => {
+        if (queue.length === 0) setOpenQueue(false);
+    }, [queue]);
 
     const onContextMenu = (e) => {
         e.preventDefault();
@@ -42,7 +46,7 @@ const AppLayout = ({ children, setLoggedIn }) => {
             <AudioPlayer
                 openQueue={openQueue}
                 setOpenQueue={setOpenQueue}
-                showPlayer={queue.length === 0}
+                showPlayer={queue.length !== 0}
             />
         </div>
     );

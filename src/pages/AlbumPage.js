@@ -1,19 +1,22 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { getAlbum, getAlbumTracks } from "../api/trackApi";
+import { MenuItem } from "react-contextmenu";
 import { Link } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
-import { getTracksList, addTrack, playTrack } from "./common";
+import { getAlbum, getAlbumTracks } from "../api/trackApi";
+import TrackSkeleton from "../components/Tracks/TrackSkeleton";
+import { playTrack, addTrack, addTrackToPlaylist } from "./common";
+import TrackItem from "../components/Tracks/TrackItem";
 
 const AlbumPage = () => {
+    const { id } = useParams();
     const dispatch = useDispatch();
+    const { playingTrack } = useSelector((state) => state.playerReducer);
+    const queue = useSelector((state) => state.queueReducer);
     const [album, setAlbum] = useState(undefined);
     const [tracks, setTracks] = useState(undefined);
     const [loaded, setLoaded] = useState(false);
-    const { playingTrack } = useSelector((state) => state.playerReducer);
-    const queue = useSelector((state) => state.queueReducer);
-    const { id } = useParams();
 
     useEffect(() => {
         getAlbum(id).then((result) => {
@@ -75,7 +78,7 @@ const AlbumPage = () => {
                         </div>
                         <div className="flex justify-start gap-2">
                             <button
-                                className="btn btn-sm btn-sm w-1/2 btn-confirm md:w-48"
+                                className="btn btn-sm w-1/2 btn-confirm md:w-48"
                                 onClick={playAlbum}
                             >
                                 Play
@@ -92,9 +95,52 @@ const AlbumPage = () => {
 
                 <div>
                     <h2 className="title2">Tracks</h2>
+                    {!(album && tracks) &&
+                        [1, 2, 3, 4, 5].map((_, i) => (
+                            <TrackSkeleton key={i} id={i} />
+                        ))}
                     {album &&
                         tracks &&
-                        getTracksList(dispatch, tracks, playingTrack, queue)}
+                        tracks.map((track, i) => {
+                            return (
+                                <TrackItem
+                                    key={i}
+                                    t={track}
+                                    playingTrack={playingTrack}
+                                    queue={queue}
+                                >
+                                    <MenuItem
+                                        className="menuItem"
+                                        onClick={() =>
+                                            playTrack(
+                                                dispatch,
+                                                track._id,
+                                                queue,
+                                                playingTrack
+                                            )
+                                        }
+                                    >
+                                        Play
+                                    </MenuItem>
+                                    <MenuItem
+                                        className="menuItem"
+                                        onClick={() =>
+                                            addTrack(dispatch, track._id, queue)
+                                        }
+                                    >
+                                        Add to queue
+                                    </MenuItem>
+                                    <MenuItem
+                                        className="menuItem"
+                                        onClick={() =>
+                                            addTrackToPlaylist(track._id)
+                                        }
+                                    >
+                                        Add to playlist
+                                    </MenuItem>
+                                </TrackItem>
+                            );
+                        })}
                 </div>
             </div>
         </div>

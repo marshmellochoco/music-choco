@@ -77,7 +77,8 @@
     }
 
     /* Buttons */
-    button {
+    button,
+    input[type="submit"] {
         @apply cursor-pointer;
     }
 
@@ -99,13 +100,5 @@
 
     .textLink {
         @apply underline text-red-400 hover:text-red-300;
-    }
-
-    .contextMenu{
-        @apply bg-red-100 border-2 border-white;
-    }
-
-    .menuItem {
-        @apply hover:bg-red-200 px-2 py-1.5;
     }
 }

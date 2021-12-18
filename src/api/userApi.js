@@ -17,3 +17,9 @@ export const userSignUp = async (credential) => {
             return response.data;
         });
 };
+
+export const getPlaylist = async (id) => {
+    return await axios.get(`${apiUrl}/playlist/${id}`).then((response) => {
+        return response.data;
+    });
+};

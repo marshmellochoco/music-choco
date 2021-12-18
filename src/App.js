@@ -1,22 +1,23 @@
-import { useState } from "react";
 import {
     BrowserRouter as Router,
     Switch,
     Route,
     Redirect,
 } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import LoginLayout from "./layout/LoginLayout";
-import AlbumPage from "./pages/AlbumPage";
-import ArtistPage from "./pages/ArtistPage";
-import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import AppLayout from "./layout/AppLayout";
-import { useSelector } from "react-redux";
+import AlbumPage from "./pages/AlbumPage";
+import ArtistPage from "./pages/ArtistPage";
+import HomePage from "./pages/HomePage";
+import LibraryPage from "./pages/LibraryPage";
+import PlaylistPage from "./pages/PlaylistPage";
 
 const App = () => {
-    const [loggedIn, setLoggedIn] = useState(null);
+    const setLoggedIn = () => {};
     const { token } = useSelector((state) => state.userReducer);
 
     return (
@@ -40,6 +41,8 @@ const App = () => {
                     <Switch>
                         <Route path="/artist/:id" component={ArtistPage} />
                         <Route path="/album/:id" component={AlbumPage} />
+                        <Route path="/playlist/:id" component={PlaylistPage} />
+                        <Route path="/library" component={LibraryPage} />
                         <Route exact path="/" component={HomePage} />
                         <Route path="/">
                             <Redirect to="/" />
