@@ -1,7 +1,15 @@
+const getVolume = () => {
+    return localStorage.getItem("volume");
+};
+
+const getLoop = () => {
+    return localStorage.getItem("loop");
+};
+
 const initState = {
     playing: false,
-    loop: false,
-    volume: 100,
+    loop: getLoop() !== null ? getLoop() : false,
+    volume: getVolume() !== null ? getVolume() : 1,
     playingTrack: {
         _id: "",
         name: "",
@@ -25,10 +33,12 @@ const queueReducer = (state = initState, action) => {
         case "SET_PLAYING":
             return { ...state, playing: action.playing };
         case "SET_LOOP":
+            localStorage.setItem("loop", action.loop);
             return { ...state, loop: action.loop };
         case "SET_PLAYING_SONG":
             return { ...state, playingTrack: action.track };
         case "SET_VOLUME":
+            localStorage.setItem("volume", action.volume);
             return { ...state, volume: action.volume };
         default:
             return state;

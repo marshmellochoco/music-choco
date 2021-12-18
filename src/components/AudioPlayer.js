@@ -1,7 +1,7 @@
 import { useState, useLayoutEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import AudioPlayerComponent from "./AudioPlayerComponent";
+import AudioPlayerComponent from "./AudioPlayer/AudioPlayerComponent";
 import MediaSession from "./MediaSession";
 import { setPlaying, setPlayingTrack } from "../store/player/playerAction";
 

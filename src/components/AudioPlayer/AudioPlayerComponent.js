@@ -1,5 +1,5 @@
 import { createRef, useEffect, useLayoutEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
     mdiChevronDown,
     mdiChevronUp,
@@ -11,6 +11,7 @@ import {
 } from "@mdi/js";
 import Icon from "@mdi/react";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import { setVolume } from "../../store/player/playerAction";
 
 const AudioPlayer = ({
     openQueue,
@@ -25,11 +26,13 @@ const AudioPlayer = ({
     showPlayer,
 }) => {
     const ref = createRef();
-    const { playingTrack } = useSelector((state) => state.playerReducer);
+    const dispatch = useDispatch();
+    const { playingTrack, volume } = useSelector(
+        (state) => state.playerReducer
+    );
     const [lapsed, setLapsed] = useState(0);
     const [play, setPlay] = useState(true);
     const [openVol, setOpenVol] = useState(false);
-    const [volume, setVolume] = useState(0);
     setRef(ref);
 
     useLayoutEffect(() => {
@@ -52,6 +55,10 @@ const AudioPlayer = ({
         if (duration - ref.current.currentTime <= 0.1) onNextTrack();
         let progress = (ref.current.currentTime / duration) * 100;
         setLapsed(progress);
+    };
+
+    const setVol = (vol) => {
+        dispatch(setVolume(vol));
     };
 
     return (
@@ -164,17 +171,12 @@ const AudioPlayer = ({
                                 path={mdiVolumeHigh}
                                 title="Volume"
                                 className="icon-small fill-current text-pink-600"
-
-                                // TODO: Implement volume
                             />
-
                             <input
                                 type="range"
                                 className={`w-full ${!openVol && "hidden"}`}
-                                defaultValue={volume}
-                                onChange={(e) =>
-                                    setVolume(e.target.value / 100)
-                                }
+                                defaultValue={volume * 100}
+                                onChange={(e) => setVol(e.target.value / 100)}
                             />
                         </div>
                         <div className="rounded-full hover:bg-red-200">
