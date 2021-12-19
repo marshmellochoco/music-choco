@@ -23,3 +23,11 @@ export const getPlaylist = async (id) => {
         return response.data;
     });
 };
+
+export const addPlaylist = async (name, creator) => {
+    return await axios
+        .post(`${apiUrl}/playlist`, { name, creator })
+        .then((response) => {
+            return response.data;
+        });
+};
