@@ -15,6 +15,7 @@ import ArtistPage from "./pages/ArtistPage";
 import HomePage from "./pages/HomePage";
 import LibraryPage from "./pages/LibraryPage";
 import PlaylistPage from "./pages/PlaylistPage";
+import NotFoundPage from "./pages/NotFoundPage";
 
 const App = () => {
     const setLoggedIn = () => {};
@@ -44,9 +45,7 @@ const App = () => {
                         <Route path="/playlist/:id" component={PlaylistPage} />
                         <Route path="/library" component={LibraryPage} />
                         <Route exact path="/" component={HomePage} />
-                        <Route path="/">
-                            <Redirect to="/" />
-                        </Route>
+                        <Route path="*" component={NotFoundPage} />
                     </Switch>
                 </AppLayout>
             )}

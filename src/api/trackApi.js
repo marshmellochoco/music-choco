@@ -55,3 +55,7 @@ export const getNewRelease = async () => {
         return response.data;
     });
 };
+
+// TODO: if !res.ok throw error
+// TODO: handle id not found error
+// TODO: useEffect cleanup

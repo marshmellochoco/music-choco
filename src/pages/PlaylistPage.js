@@ -17,8 +17,8 @@ const PlaylistPage = () => {
     const [playlist, setPlaylist] = useState(null);
 
     useEffect(() => {
-        getPlaylist(id).then((response) => {
-            setPlaylist(response);
+        getPlaylist(id).then(({data, error}) => {
+            if(!error) setPlaylist(data);
         });
     }, [id]);
 
