@@ -35,11 +35,10 @@ const AlbumPage = () => {
         <div className="content page-content">
             <div className="flex flex-col gap-6">
                 <div className="flex items-center gap-4 sm:gap-8 flex-col sm:flex-row">
-                    {albumLoading ? (
+                    {albumLoading && trackLoading ? (
                         <Skeleton
-                            className="w-full h-full sm:w-48 sm:h-48 border border-white"
-                            width={200}
-                            height={200}
+                            className="border border-white"
+                            style={{ width: "12rem", height: "12rem" }}
                         />
                     ) : (
                         <img

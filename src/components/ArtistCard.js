@@ -17,7 +17,12 @@ const ArtistCard = ({ artist }) => {
                     alt={artist.name}
                     onLoad={() => setLoaded(true)}
                 />
-                {!loaded && <Skeleton className="album-image" height={240} />}
+                {!loaded && (
+                    <Skeleton
+                        className="album-image"
+                        height={"100%"}
+                    />
+                )}
             </div>
             <div className="m-2">
                 <h2 className="title2 mt-3 font-bold">{artist.name}</h2>

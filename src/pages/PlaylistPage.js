@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 import { mdiMusic } from "@mdi/js";
 import Icon from "@mdi/react";
+import defaultImg from "../images/defaultImg.png";
 import TrackSkeleton from "../components/Tracks/TrackSkeleton";
 import TrackItem from "../components/Tracks/TrackItem";
 import useAxios from "../api/useAxios";
@@ -45,17 +46,13 @@ const PlaylistPage = () => {
                     <>
                         <div className="w-full">
                             <div className="border border-red-200 m-2 ml-0">
-                                {playlist.image === "" ? (
-                                    <Icon
-                                        path={mdiMusic}
-                                        className="bg-pink-200 text-white"
-                                    />
-                                ) : (
-                                    <img
-                                        src={playlist.image}
-                                        alt="Playlist Thumbnail"
-                                    />
-                                )}
+                                <img
+                                    src={playlist.image}
+                                    alt="Playlist Thumbnail"
+                                    onError={(e) => {
+                                        e.target.src = defaultImg;
+                                    }}
+                                />
                             </div>
                             <h1 className="title">{playlist.name}</h1>
                             <div>

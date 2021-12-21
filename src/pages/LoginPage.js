@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setToken } from "../store/user/userAction";
 import { useState } from "react";
@@ -7,6 +7,7 @@ import axios from "axios";
 
 const LoginPage = () => {
     const dispatch = useDispatch();
+    const history = useHistory();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -16,6 +17,7 @@ const LoginPage = () => {
             if (response.token) {
                 axios.defaults.headers.common["Authorization"] = response.token;
                 dispatch(setToken(response.token));
+                history.push("/");
             }
         });
     };
@@ -64,9 +66,7 @@ const LoginPage = () => {
                 <hr className="my-8" />
                 <div className="flex flex-col text-center gap-4">
                     <span>Don't have an account?</span>
-                    <Link to={"/signUp"}
-                        className="btn border-2 border-black"
-                    >
+                    <Link to={"/signUp"} className="btn border-2 border-black">
                         Sign up now
                     </Link>
                 </div>

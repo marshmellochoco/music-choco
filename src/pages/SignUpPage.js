@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { userSignUp } from "../api/userApi";
 import { setToken } from "../store/user/userAction";
 import axios from "axios";
 
 const SignUpPage = () => {
     const dispatch = useDispatch();
+    const history = useHistory();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
@@ -19,6 +20,7 @@ const SignUpPage = () => {
             if (response.token) {
                 dispatch(setToken(response.token));
                 axios.defaults.headers.common["Authorization"] = response.token;
+                history.push("/");
             }
         });
     };
