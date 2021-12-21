@@ -1,4 +1,4 @@
-import { createRef, useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setVolume } from "../../store/player/playerAction";
 import AudioPlayerProgress from "./AudioPlayerProgress";
@@ -9,7 +9,7 @@ import AudioPlayerSub from "./AudioPlayerSub";
 const AudioPlayerContainer = ({
     openQueue,
     setOpenQueue,
-    setRef,
+    forwardRef: ref,
     time,
     onPlay,
     onPause,
@@ -18,26 +18,26 @@ const AudioPlayerContainer = ({
     seekPercent,
     showPlayer,
 }) => {
-    const ref = createRef();
     const dispatch = useDispatch();
     const { playingTrack, volume } = useSelector(
         (state) => state.playerReducer
     );
     const [lapsed, setLapsed] = useState(0);
     const [play, setPlay] = useState(true);
-    setRef(ref);
 
     useLayoutEffect(() => {
         setLapsed(time);
     }, [time]);
 
     useLayoutEffect(() => {
+        if (!ref) return;
         ref.current.currentTime = 0;
         setLapsed(0);
         // eslint-disable-next-line
     }, [playingTrack]);
 
     useEffect(() => {
+        if (!ref) return;
         ref.current.volume = volume;
         // eslint-disable-next-line
     }, [volume]);

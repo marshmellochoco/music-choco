@@ -1,13 +1,13 @@
-import { useState, useLayoutEffect } from "react";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+import { useState, useLayoutEffect, useRef } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import {} from "react-redux";
 import AudioPlayerContainer from "./AudioPlayerContainer";
 import MediaSession from "./MediaSession";
 import { setPlaying, setPlayingTrack } from "../../store/player/playerAction";
 
 const AudioPlayer = ({ openQueue, setOpenQueue, showPlayer }) => {
     const seekTime = 5;
-    var ref = "";
+    const ref = useRef();
     const dispatch = useDispatch();
     const { playingTrack, playing, loop } = useSelector(
         (state) => state.playerReducer
@@ -16,19 +16,15 @@ const AudioPlayer = ({ openQueue, setOpenQueue, showPlayer }) => {
     const [time, setTime] = useState(0);
     const [media, setMedia] = useState(playingTrack);
 
-    const setRef = (input) => {
-        ref = input;
-    };
-
     const onPlay = () => {
-        if (!ref.current) return;
+        if (!ref) return;
         let playPromise = ref.current.play();
         playPromise.catch((err) => {});
         dispatch(setPlaying(true));
     };
 
     const onPause = () => {
-        if (!ref.current) return;
+        if (!ref) return;
         ref.current.pause();
         dispatch(setPlaying(false));
     };
@@ -40,6 +36,7 @@ const AudioPlayer = ({ openQueue, setOpenQueue, showPlayer }) => {
     }, [playing]);
 
     const onPreviousTrack = () => {
+        if (!ref) return;
         const index = queue.indexOf(playingTrack) - 1;
         if (index >= 0) {
             dispatch(setPlayingTrack(queue[index]));
@@ -51,15 +48,16 @@ const AudioPlayer = ({ openQueue, setOpenQueue, showPlayer }) => {
     };
 
     const onNextTrack = () => {
-        const index = queue.indexOf(playingTrack) + 1;
-        if (index >= queue.length) {
-            if (!loop) {
-                onPause();
-                ref.current.currentTime = 0;
-                setTime(100);
-            } else {
+        if (!ref) return;
+        const index = queue.indexOf(playingTrack);
+        if (index >= queue.length - 1) {
+            if (loop) {
                 dispatch(setPlayingTrack(queue[0]));
                 onPlay();
+            } else {
+                onPause();
+                ref.current.currentTime = 0;
+                setTime(0);
             }
         } else {
             dispatch(setPlayingTrack(queue[index]));
@@ -68,12 +66,12 @@ const AudioPlayer = ({ openQueue, setOpenQueue, showPlayer }) => {
     };
 
     const seekByTime = (t) => {
-        if (!ref.current) return;
-        ref.current.currentTime += t;
+        if (!ref) return;
+        ref.current.currentTime = ref.current.currentTime + t;
     };
 
     const seekPercent = (progress) => {
-        if (!ref.current) return;
+        if (!ref) return;
         ref.current.currentTime =
             (Math.ceil(ref.current.duration) - 1) * progress;
     };
@@ -109,7 +107,7 @@ const AudioPlayer = ({ openQueue, setOpenQueue, showPlayer }) => {
                 openQueue={openQueue}
                 setOpenQueue={setOpenQueue}
                 time={time}
-                setRef={setRef}
+                forwardRef={ref}
                 onPlay={onPlay}
                 onPause={onPause}
                 onPreviousTrack={onPreviousTrack}

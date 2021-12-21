@@ -6,7 +6,13 @@ import {
 } from "@mdi/js";
 import Icon from "@mdi/react";
 
-const AudioPlayerControl = ({ isPlaying, pause, play, previousTrack, nextTrack }) => {
+const AudioPlayerControl = ({
+    isPlaying,
+    pause,
+    play,
+    previousTrack,
+    nextTrack,
+}) => {
     return (
         <div className="flex justify-center items-center">
             <div className="rounded-full hover:bg-red-200">
@@ -40,7 +46,7 @@ const AudioPlayerControl = ({ isPlaying, pause, play, previousTrack, nextTrack }
                 <Icon
                     path={mdiSkipNext}
                     title="Next"
-                    className="icon-small text-pink-600"
+                    className={`icon-small text-pink-600`}
                     onClick={nextTrack}
                 />
             </div>
