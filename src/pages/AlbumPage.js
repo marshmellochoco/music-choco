@@ -8,6 +8,7 @@ import { setPlaying, setPlayingTrack } from "../store/player/playerAction";
 import { addQueue } from "../store/queue/queueAction";
 import useAxios from "../api/useAxios";
 import ErrorPage from "./ErrorPage";
+import { addFavAlbum } from "../api/userApi";
 
 const AlbumPage = () => {
     const { id } = useParams();
@@ -46,7 +47,8 @@ const AlbumPage = () => {
     };
 
     const addAlbum = () => {
-        // TODO: Implement library
+        // TODO: Prevent add when already added
+        addFavAlbum(id).then((res) => console.log(res));
     };
 
     return !albumErr && !trackErr ? (

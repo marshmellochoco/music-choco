@@ -28,3 +28,19 @@ export const addPlaylist = async (playlist) => {
         return res.data;
     });
 };
+
+export const addFavArtist = async (artist) => {
+    return await axios
+        .put(`${apiUrl}/library/artist/`, { artist })
+        .then((res) => {
+            return res.data;
+        });
+};
+
+export const addFavAlbum = async (album) => {
+    return await axios
+        .put(`${apiUrl}/library/album/`, { album })
+        .then((res) => {
+            return res.data;
+        });
+};

@@ -27,6 +27,8 @@ const ArtistPage = () => {
         error: tracksError,
     } = useAxios("get", `/artist/${id}/tracks`);
 
+    // TODO: Add tp library
+
     return !artistError && !albumError && !tracksError ? (
         <div className="content page-content">
             <div className="flex flex-col gap-8">
