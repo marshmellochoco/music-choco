@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { useHistory } from "react-router";
 import { useDispatch } from "react-redux";
 import { setToken } from "../store/user/userAction";
 import { useState } from "react";
@@ -7,11 +6,7 @@ import { userLogin } from "../api/userApi";
 import axios from "axios";
 
 const LoginPage = () => {
-    const history = useHistory();
     const dispatch = useDispatch();
-    const signUp = () => {
-        history.push("/signUp");
-    };
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -69,12 +64,11 @@ const LoginPage = () => {
                 <hr className="my-8" />
                 <div className="flex flex-col text-center gap-4">
                     <span>Don't have an account?</span>
-                    <button
+                    <Link to={"/signUp"}
                         className="btn border-2 border-black"
-                        onClick={signUp}
                     >
                         Sign up now
-                    </button>
+                    </Link>
                 </div>
             </div>
         </>

@@ -1,20 +1,17 @@
-import { useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
-import { getFeaturedArtist, getNewRelease } from "../api/trackApi";
+import useAxios from "../api/useAxios";
 import AlbumCard from "../components/AlbumCard";
 import ArtistCard from "../components/ArtistCard";
 
 const HomePage = () => {
-    const [featuredArtists, setFeaturedArtists] = useState([]);
-    const [newRelease, setNewRelease] = useState([]);
-    useEffect(() => {
-        getFeaturedArtist().then((result) => {
-            setFeaturedArtists(result);
-        });
-        getNewRelease().then((result) => {
-            setNewRelease(result);
-        });
-    }, []);
+    const {
+        data: featuredArtist,
+        isLoading: artistLoading,
+    } = useAxios("get", "/featured-artists");
+    const {
+        data: newRelease,
+        isLoading: albumLoading,
+    } = useAxios("get", "/new-release");
 
     const getAlbumSkeleton = (key) => {
         return (
@@ -32,7 +29,7 @@ const HomePage = () => {
 
     const getArtistSkeleton = (key) => {
         return (
-            <div key={`artist_skeleton_${key}`}  className="card  card-hover">
+            <div key={`artist_skeleton_${key}`} className="card  card-hover">
                 <div>
                     <Skeleton className="album-image" height={240} />
                 </div>
@@ -46,23 +43,23 @@ const HomePage = () => {
     return (
         <div className="content page-content">
             <div>
-                <h2  className="title">New Release</h2>
+                <h2 className="title">New Release</h2>
                 <div className="card-list">
-                    {newRelease.length === 0 &&
-                        [1, 2, 3, 4, 5].map((_, i) => getAlbumSkeleton(i))}
-                    {newRelease.reverse().map((a) => (
-                        <AlbumCard album={a} key={a._id} />
-                    ))}
+                    {albumLoading
+                        ? [1, 2, 3, 4, 5].map((_, i) => getAlbumSkeleton(i))
+                        : newRelease
+                              .reverse()
+                              .map((a) => <AlbumCard album={a} key={a._id} />)}
                 </div>
             </div>
             <div>
                 <h2 className="title">Featured Artists</h2>
                 <div className="card-list">
-                    {featuredArtists.length === 0 &&
-                        [1, 2, 3].map((_, i) => getArtistSkeleton(i))}
-                    {featuredArtists.map((a) => (
-                        <ArtistCard artist={a} key={a._id} />
-                    ))}
+                    {artistLoading
+                        ? [1, 2, 3].map((_, i) => getArtistSkeleton(i))
+                        : featuredArtist.map((a) => (
+                              <ArtistCard artist={a} key={a._id} />
+                          ))}
                 </div>
             </div>
         </div>

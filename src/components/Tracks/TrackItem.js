@@ -1,10 +1,32 @@
-import { useDispatch } from "react-redux";
-import { ContextMenu, ContextMenuTrigger } from "react-contextmenu";
+import { useDispatch, useSelector } from "react-redux";
+import { ContextMenu, ContextMenuTrigger, MenuItem } from "react-contextmenu";
 import { Link } from "react-router-dom";
-import { playTrack } from "../../pages/common";
+import { setPlaying, setPlayingTrack } from "../../store/player/playerAction";
+import { addQueue } from "../../store/queue/queueAction";
 
-const TrackItem = ({ t, playingTrack, queue, children }) => {
+const TrackItem = ({ t, children }) => {
     const dispatch = useDispatch();
+    const { playingTrack } = useSelector((state) => state.playerReducer);
+    const queue = useSelector((state) => state.queueReducer);
+
+    const addTrack = (track) => {
+        if (queue.length === 0) {
+            dispatch(setPlaying(false));
+            dispatch(setPlayingTrack(track));
+        }
+        if (queue.filter((x) => x._id === track._id).length === 0)
+            dispatch(addQueue(track));
+    };
+
+    const playTrack = (track) => {
+        addTrack(track);
+        if (track._id !== playingTrack._id) dispatch(setPlayingTrack(track));
+        dispatch(setPlaying(true));
+    };
+
+    const addTrackToPlaylist = (track) => {
+        // TODO: implement
+    };
 
     return (
         <div key={t._id}>
@@ -13,7 +35,7 @@ const TrackItem = ({ t, playingTrack, queue, children }) => {
                     className="cursor-pointer"
                     onClick={(e) => {
                         if (!e.target.className.includes("hover:underline"))
-                            playTrack(dispatch, t._id, queue, playingTrack);
+                            playTrack(t);
                     }}
                 >
                     <div
@@ -53,6 +75,9 @@ const TrackItem = ({ t, playingTrack, queue, children }) => {
                 id={`songListContextMenu_${t._id}`}
                 className="contextMenu"
             >
+                <MenuItem onClick={() => playTrack(t)}>Play</MenuItem>
+                <MenuItem onClick={() => addTrack(t)}>Add to queue</MenuItem>
+                <MenuItem onClick={() => addTrackToPlaylist(t)}>Add to playlist</MenuItem>
                 {children}
             </ContextMenu>
         </div>
