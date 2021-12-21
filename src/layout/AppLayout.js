@@ -19,6 +19,10 @@ const AppLayout = ({ children, setLoggedIn }) => {
         if (queue.length === 0) setOpenQueue(false);
     }, [queue]);
 
+    useEffect(() => {
+        document.getElementById("window").scrollTo(0, 0);
+    }, [location]);
+
     const onContextMenu = (e) => {
         e.preventDefault();
     };
@@ -32,6 +36,7 @@ const AppLayout = ({ children, setLoggedIn }) => {
         <div onContextMenu={onContextMenu} className="h-screen">
             <Navbar resetToken={logout} location={location} />
             <div
+                id="window"
                 className={`w-full overflow-y-auto ${
                     queue.length <= 0 && "full-height"
                 }`}

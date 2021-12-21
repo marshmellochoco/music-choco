@@ -1,12 +1,10 @@
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
-import { mdiMusic } from "@mdi/js";
-import Icon from "@mdi/react";
 import defaultImg from "../images/defaultImg.png";
+import useAxios from "../api/useAxios";
 import TrackSkeleton from "../components/Tracks/TrackSkeleton";
 import TrackItem from "../components/Tracks/TrackItem";
-import useAxios from "../api/useAxios";
 import ErrorPage from "./ErrorPage";
 
 const PlaylistPage = () => {
@@ -18,6 +16,12 @@ const PlaylistPage = () => {
         isLoading,
         error,
     } = useAxios("get", `/playlist/${id}/`);
+
+    const playPlaylist = () => {
+        // TODO: Implement
+    };
+
+    // TODO: Implement delete playlist
 
     return !error ? (
         <div className="content page-content">
@@ -60,7 +64,10 @@ const PlaylistPage = () => {
                                 <p>Created At: {playlist.createdAt}</p>
                                 <p>Last Update: {playlist.updatedAt}</p>
                             </div>
-                            <button className="btn btn-sm btn-confirm w-full mt-2">
+                            <button
+                                className="btn btn-sm btn-confirm w-full mt-2"
+                                onClick={playPlaylist}
+                            >
                                 Play
                             </button>
                         </div>
@@ -87,3 +94,5 @@ const PlaylistPage = () => {
 };
 
 export default PlaylistPage;
+
+// TODO: Edit Playlist name

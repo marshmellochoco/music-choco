@@ -1,9 +1,8 @@
-import { Link, useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setToken } from "../store/user/userAction";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { Link, useHistory } from "react-router-dom";
+import { setToken } from "../store/user/userAction";
 import { userLogin } from "../api/userApi";
-import axios from "axios";
 
 const LoginPage = () => {
     const dispatch = useDispatch();
@@ -15,7 +14,6 @@ const LoginPage = () => {
         e.preventDefault();
         userLogin({ email, password }).then((response) => {
             if (response.token) {
-                axios.defaults.headers.common["Authorization"] = response.token;
                 dispatch(setToken(response.token));
                 history.push("/");
             }

@@ -1,13 +1,24 @@
 import { useDispatch, useSelector } from "react-redux";
-import { ContextMenu, ContextMenuTrigger, MenuItem } from "react-contextmenu";
+import {
+    ContextMenu,
+    ContextMenuTrigger,
+    MenuItem,
+    SubMenu,
+} from "react-contextmenu";
 import { Link } from "react-router-dom";
 import { setPlaying, setPlayingTrack } from "../../store/player/playerAction";
 import { addQueue } from "../../store/queue/queueAction";
+import useAxios from "../../api/useAxios";
+import { useState } from "react";
+import { addPlaylist, addPlaylistTrack } from "../../api/userApi";
 
 const TrackItem = ({ t, children }) => {
     const dispatch = useDispatch();
     const { playingTrack } = useSelector((state) => state.playerReducer);
     const queue = useSelector((state) => state.queueReducer);
+    const { data: playlists, isLoading } = useAxios("get", `/library/playlist`);
+    const [error, setError] = useState(null);
+    // TODO: Popup to show error message
 
     const addTrack = (track) => {
         if (queue.length === 0) {
@@ -24,8 +35,27 @@ const TrackItem = ({ t, children }) => {
         dispatch(setPlaying(true));
     };
 
-    const addTrackToPlaylist = (track) => {
-        // TODO: implement
+    const addTrackToPlaylist = (playlist, track) => {
+        if (playlist.tracks.includes(track._id)) {
+            setError("Already exist in the playlist.");
+            return;
+        }
+        let newPlaylist = { ...playlist };
+        newPlaylist.tracks = [...newPlaylist.tracks, track._id];
+        addPlaylistTrack(newPlaylist)
+            .then((res) => {
+                // TODO: Popup to show success
+            })
+            .catch((err) => setError(err));
+    };
+
+    const addTrackToNewPlaylist = (track) => {
+        // TODO: Popup to enter playlist name
+        addPlaylist({ name: "New Playlist" }).then((res) => {
+            addPlaylistTrack({ ...res, tracks: [track._id] }).catch((err) =>
+                setError(err)
+            );
+        });
     };
 
     return (
@@ -77,7 +107,24 @@ const TrackItem = ({ t, children }) => {
             >
                 <MenuItem onClick={() => playTrack(t)}>Play</MenuItem>
                 <MenuItem onClick={() => addTrack(t)}>Add to queue</MenuItem>
-                <MenuItem onClick={() => addTrackToPlaylist(t)}>Add to playlist</MenuItem>
+                <SubMenu title="Add to playlist">
+                    <MenuItem onClick={() => addTrackToNewPlaylist(t)}>
+                        Add to new playlist
+                    </MenuItem>
+                    <hr className="border-t border-white mx-2" />
+                    {!isLoading &&
+                        playlists.map((p) => {
+                            return (
+                                <MenuItem
+                                    key={p._id}
+                                    onClick={() => addTrackToPlaylist(p, t)}
+                                >
+                                    {p.name}
+                                </MenuItem>
+                            );
+                        })}
+                </SubMenu>
+                <hr className="border-t border-white mx-2" />
                 {children}
             </ContextMenu>
         </div>
@@ -85,18 +132,3 @@ const TrackItem = ({ t, children }) => {
 };
 
 export default TrackItem;
-
-// {/* <MenuItem
-//     onClick={() =>
-//         playTrack(dispatch, t._id, queue, playingTrack)
-//     }
-//     className="menuItem"
-// >
-//     Play
-// </MenuItem>
-// <MenuItem
-//     onClick={() => addTrack(dispatch, t._id, queue)}
-//     className="menuItem"
-// >
-//     Add to queue
-// </MenuItem> */

@@ -5,15 +5,22 @@ import useAxios from "../api/useAxios";
 import ErrorPage from "./ErrorPage";
 
 const LibraryPage = () => {
-    const { data, isLoading, error } = useAxios("get", `/user/playlist`);
+    const {
+        data: playlists,
+        isLoading: playlistLoading,
+        error: playlistError,
+    } = useAxios("get", `/library/playlist`);
 
-    return !error ? (
+    return !playlistError ? (
         <div className="content page-content">
             <h1 className="title">Library</h1>
-            {isLoading ? (
+            {!playlistLoading && playlists.length !== 0 && (
+                <h2 className="title2">Playlists</h2>
+            )}
+            {playlistLoading ? (
                 <Skeleton />
             ) : (
-                data.map((playlist) => {
+                playlists.map((playlist) => {
                     return (
                         <Link
                             to={`/playlist/${playlist._id}`}
