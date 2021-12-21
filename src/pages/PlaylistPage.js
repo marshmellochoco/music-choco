@@ -1,14 +1,17 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 import defaultImg from "../images/defaultImg.png";
 import useAxios from "../api/useAxios";
 import TrackSkeleton from "../components/Tracks/TrackSkeleton";
 import TrackItem from "../components/Tracks/TrackItem";
+import { setPlaying, setPlayingTrack } from "../store/player/playerAction";
+import { addQueue } from "../store/queue/queueAction";
 import ErrorPage from "./ErrorPage";
 
 const PlaylistPage = () => {
     const { id } = useParams();
+    const dispatch = useDispatch();
     const { playingTrack } = useSelector((state) => state.playerReducer);
     const queue = useSelector((state) => state.queueReducer);
     const {
@@ -17,8 +20,24 @@ const PlaylistPage = () => {
         error,
     } = useAxios("get", `/playlist/${id}/`);
 
+    const addTrack = (track) => {
+        if (queue.length === 0) {
+            dispatch(setPlaying(false));
+            dispatch(setPlayingTrack(track));
+        }
+        if (queue.filter((x) => x._id === track._id).length === 0)
+            dispatch(addQueue(track));
+    };
+
     const playPlaylist = () => {
-        // TODO: Implement
+        playlist.tracks.forEach((track, i) => {
+            if (i === 0) {
+                addTrack(track);
+                if (track._id !== playingTrack._id)
+                    dispatch(setPlayingTrack(track));
+                dispatch(setPlaying(true));
+            } else addTrack(track);
+        });
     };
 
     // TODO: Implement delete playlist
@@ -95,4 +114,4 @@ const PlaylistPage = () => {
 
 export default PlaylistPage;
 
-// TODO: Edit Playlist name
+// TODO: Edit Playlist name and image

@@ -1,13 +1,19 @@
 import { useParams } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 import TrackSkeleton from "../components/Tracks/TrackSkeleton";
 import TrackItem from "../components/Tracks/TrackItem";
+import { setPlaying, setPlayingTrack } from "../store/player/playerAction";
+import { addQueue } from "../store/queue/queueAction";
 import useAxios from "../api/useAxios";
 import ErrorPage from "./ErrorPage";
 
 const AlbumPage = () => {
     const { id } = useParams();
+    const dispatch = useDispatch();
+    const { playingTrack } = useSelector((state) => state.playerReducer);
+    const queue = useSelector((state) => state.queueReducer);
     const {
         data: albumData,
         isLoading: albumLoading,
@@ -19,12 +25,24 @@ const AlbumPage = () => {
         error: trackErr,
     } = useAxios("get", `/album/${id}/tracks`);
 
+    const addTrack = (track) => {
+        if (queue.length === 0) {
+            dispatch(setPlaying(false));
+            dispatch(setPlayingTrack(track));
+        }
+        if (queue.filter((x) => x._id === track._id).length === 0)
+            dispatch(addQueue(track));
+    };
+
     const playAlbum = () => {
-        // TODO: implement
-        // tracks.forEach((track, i) => {
-        //     if (i === 0) playTrack(dispatch, track._id, queue, playingTrack);
-        //     else addTrack(dispatch, track._id, queue);
-        // });
+        trackData.tracks.forEach((track, i) => {
+            if (i === 0) {
+                addTrack(track);
+                if (track._id !== playingTrack._id)
+                    dispatch(setPlayingTrack(track));
+                dispatch(setPlaying(true));
+            } else addTrack(track);
+        });
     };
 
     const addAlbum = () => {

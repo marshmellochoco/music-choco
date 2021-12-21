@@ -60,7 +60,7 @@ const AudioPlayer = ({ openQueue, setOpenQueue, showPlayer }) => {
                 setTime(0);
             }
         } else {
-            dispatch(setPlayingTrack(queue[index]));
+            dispatch(setPlayingTrack(queue[index + 1]));
             onPlay();
         }
     };
