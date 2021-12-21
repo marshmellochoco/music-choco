@@ -1,7 +1,8 @@
 import Skeleton from "react-loading-skeleton";
-import useAxios from "../api/useAxios";
 import AlbumCard from "../components/AlbumCard";
 import ArtistCard from "../components/ArtistCard";
+import useAxios from "../api/useAxios";
+import ErrorPage from "./ErrorPage";
 
 const HomePage = () => {
     const {
@@ -42,40 +43,35 @@ const HomePage = () => {
         );
     };
 
-    return (
+    return !artistError && !albumError ? (
         <div className="content page-content">
-            {!artistError && !albumError ? (
-                <>
-                    <div>
-                        <h2 className="title">New Release</h2>
-                        <div className="card-list">
-                            {albumLoading
-                                ? [1, 2, 3, 4, 5].map((_, i) =>
-                                      getAlbumSkeleton(i)
-                                  )
-                                : newRelease
-                                      .reverse()
-                                      .map((a) => (
-                                          <AlbumCard album={a} key={a._id} />
-                                      ))}
-                        </div>
-                    </div>
-                    <div>
-                        <h2 className="title">Featured Artists</h2>
-                        <div className="card-list">
-                            {artistLoading
-                                ? [1, 2, 3].map((_, i) => getArtistSkeleton(i))
-                                : featuredArtist.map((a) => (
-                                      <ArtistCard artist={a} key={a._id} />
+            <>
+                <div>
+                    <h2 className="title">New Release</h2>
+                    <div className="card-list">
+                        {albumLoading
+                            ? [1, 2, 3, 4, 5].map((_, i) => getAlbumSkeleton(i))
+                            : newRelease
+                                  .reverse()
+                                  .map((a) => (
+                                      <AlbumCard album={a} key={a._id} />
                                   ))}
-                        </div>
                     </div>
-                </>
-            ) : (
-                // TODO: Failed to load
-                <div>Failed to load album</div>
-            )}
+                </div>
+                <div>
+                    <h2 className="title">Featured Artists</h2>
+                    <div className="card-list">
+                        {artistLoading
+                            ? [1, 2, 3].map((_, i) => getArtistSkeleton(i))
+                            : featuredArtist.map((a) => (
+                                  <ArtistCard artist={a} key={a._id} />
+                              ))}
+                    </div>
+                </div>
+            </>
         </div>
+    ) : (
+        <ErrorPage />
     );
 };
 

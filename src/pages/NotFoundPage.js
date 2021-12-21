@@ -2,11 +2,15 @@ import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 const NotFoundPage = () => {
     return (
-        <div className="content page-content">
-            <h1 className="title">404</h1>
-            <h2>The page was not found</h2>
-            <Link className="btn btn-confirm w-max" to="/">
-                Go back
+        <div className="w-screen h-screen flex flex-col items-center justify-center gap-4 text-center">
+            <h2 className="text-4xl font-bold my-2">Oops!</h2>
+            <p className="font-bold uppercase">404 - Page not Found</p>
+            <p>
+                The page you are looking for might have been removed <br />
+                or is temporary unavailable.
+            </p>
+            <Link to="/" className="btn btn-confirm">
+                Back to homepage
             </Link>
         </div>
     );
