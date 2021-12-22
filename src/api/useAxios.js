@@ -1,7 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { logoutAction } from "../store/user/userAction";
 
 const useAxios = (method, route, body = {}) => {
+    const dispatch = useDispatch();
     const [data, setData] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -23,6 +26,11 @@ const useAxios = (method, route, body = {}) => {
             })
             .catch((err) => {
                 if (err.message !== "canceled") {
+                    if (err.response.status === 401) {
+                        dispatch(logoutAction());
+                        return () => controller.abort();
+                    }
+
                     setError(err);
                     setIsLoading(false);
                 }

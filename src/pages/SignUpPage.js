@@ -19,7 +19,6 @@ const SignUpPage = () => {
         userSignUp({ email, password }).then((response) => {
             if (response.token) {
                 dispatch(setToken(response.token));
-                axios.defaults.headers.common["Authorization"] = response.token;
                 history.push("/");
             }
         });
