@@ -8,6 +8,7 @@ import TrackItem from "../components/Tracks/TrackItem";
 import { setPlaying, setPlayingTrack } from "../store/player/playerAction";
 import { addQueue } from "../store/queue/queueAction";
 import ErrorPage from "./ErrorPage";
+import TrackHeader from "../components/Tracks/TrackHeader";
 
 const PlaylistPage = () => {
     const { id } = useParams();
@@ -92,16 +93,10 @@ const PlaylistPage = () => {
                         </div>
                         <div className="sm:col-span-2 md:col-span-3">
                             <h2 className="title2">Tracks</h2>
-                            {playlist.tracks.map((track, i) => {
-                                return (
-                                    <TrackItem
-                                        key={i}
-                                        t={track}
-                                        playingTrack={playingTrack}
-                                        queue={queue}
-                                    />
-                                );
-                            })}
+                            <TrackHeader />
+                            {playlist.tracks.map((track, i) => (
+                                <TrackItem key={i} t={track} i={i + 1} />
+                            ))}
                         </div>
                     </>
                 )}

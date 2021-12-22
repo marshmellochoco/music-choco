@@ -1,4 +1,3 @@
-import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 import Skeleton from "react-loading-skeleton";
 import AlbumCard from "../components/AlbumCard";
@@ -6,11 +5,10 @@ import TrackSkeleton from "../components/Tracks/TrackSkeleton";
 import TrackItem from "../components/Tracks/TrackItem";
 import useAxios from "../api/useAxios";
 import ErrorPage from "./ErrorPage";
+import TrackHeader from "../components/Tracks/TrackHeader";
 
 const ArtistPage = () => {
     const { id } = useParams();
-    const { playingTrack } = useSelector((state) => state.playerReducer);
-    const queue = useSelector((state) => state.queueReducer);
     const {
         data: artistData,
         isLoading: artistLoading,
@@ -49,28 +47,32 @@ const ArtistPage = () => {
                                 alt={artistData && artistData.name}
                                 className={`w-48 h-48 border border-red-200 rounded-full`}
                             />
-                            <h1 className="title">
-                                {artistData && artistData.name}
-                            </h1>
+                            <div>
+                                <h1 className="title">
+                                    {artistData && artistData.name}
+                                </h1>
+                                <div className="flex justify-start gap-2">
+                                    <button className="btn btn-sm w-1/2 btn-confirm md:w-48">
+                                        Play
+                                    </button>
+                                    <button className="btn btn-sm w-1/2 md:w-48">
+                                        Add to Library
+                                    </button>
+                                </div>
+                            </div>
                         </>
                     )}
                 </div>
                 <div>
                     <h2 className="title2">Tracks</h2>
+                    <TrackHeader />
                     {tracksLoading
                         ? [1, 2, 3, 4, 5].map((_, i) => (
                               <TrackSkeleton key={i} id={i} />
                           ))
-                        : tracksData.map((track, i) => {
-                              return (
-                                  <TrackItem
-                                      key={i}
-                                      t={track}
-                                      playingTrack={playingTrack}
-                                      queue={queue}
-                                  />
-                              );
-                          })}
+                        : tracksData.map((track, i) => (
+                              <TrackItem key={i} t={track} i={i + 1} />
+                          ))}
                 </div>
                 <div>
                     <h2 className="title2">Albums</h2>
@@ -111,3 +113,5 @@ const ArtistPage = () => {
 };
 
 export default ArtistPage;
+
+// TODO: Show added to library / remove from library if added

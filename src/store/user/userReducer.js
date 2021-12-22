@@ -15,6 +15,7 @@ const userReducer = (state = initState, action) => {
     switch (action.type) {
         case "SET_TOKEN":
             localStorage.setItem("token", action.token);
+            axios.defaults.headers.common["Authorization"] = action.token;
             return { ...state, token: action.token };
         case "LOGOUT":
             localStorage.removeItem("token");

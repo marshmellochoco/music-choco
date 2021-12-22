@@ -14,7 +14,7 @@ const store = createStore(rootReducer);
 
 const alertOption = {
     position: positions.TOP_CENTER,
-    timeout: 3000,
+    timeout: 2000,
     offset: "5rem",
     transition: transitions.FADE,
 };

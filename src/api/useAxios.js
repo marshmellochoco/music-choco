@@ -18,7 +18,7 @@ const useAxios = (method, route, body = {}) => {
             signal: controller.signal,
         })
             .then((res) => {
-                if (res.status !== 200) throw new Error("Unexpected error.");
+                if (res.status !== 200) throw new Error("Unexpected error");
                 else {
                     setData(res.data);
                     setIsLoading(false);

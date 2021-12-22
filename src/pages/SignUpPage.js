@@ -1,29 +1,34 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
+import { useAlert } from "react-alert";
 import { userSignUp } from "../api/userApi";
 import { setToken } from "../store/user/userAction";
 
 const SignUpPage = () => {
     const dispatch = useDispatch();
     const history = useHistory();
+    const alert = useAlert();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
     const signUp = (e) => {
         e.preventDefault();
-        if (password !== confirmPassword) return;
+        if (password !== confirmPassword) {
+            alert.error("The password confirmation does not match");
+            return;
+        }
 
-        userSignUp({ email, password }).then((response) => {
-            if (response.token) {
-                dispatch(setToken(response.token));
-                history.push("/");
-            }
-        });
+        userSignUp({ email, password })
+            .then((response) => {
+                if (response.token) {
+                    dispatch(setToken(response.token));
+                    history.push("/");
+                } else alert.error("Something went wrong");
+            })
+            .catch(() => alert.error("User already exist"));
     };
-
-    // TODO: Show error message
 
     return (
         <>
@@ -48,7 +53,9 @@ const SignUpPage = () => {
                         />
                     </div>
                     <div className="input">
-                        <label htmlFor="textConfirmPassword">Password</label>
+                        <label htmlFor="textConfirmPassword">
+                            Confirm Password
+                        </label>
                         <input
                             type="password"
                             id="textConfirmPassword"

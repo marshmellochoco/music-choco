@@ -9,6 +9,7 @@ import { addQueue } from "../store/queue/queueAction";
 import useAxios from "../api/useAxios";
 import ErrorPage from "./ErrorPage";
 import { addFavAlbum } from "../api/userApi";
+import TrackHeader from "../components/Tracks/TrackHeader";
 
 const AlbumPage = () => {
     const { id } = useParams();
@@ -85,7 +86,7 @@ const AlbumPage = () => {
                                     ))}
                             </div>
                             <p className="w-full mt-2">
-                                Tracks: {trackData && trackData.length}
+                                Tracks: {!trackLoading && trackData.count}
                             </p>
                         </div>
                         <div className="flex justify-start gap-2">
@@ -107,13 +108,14 @@ const AlbumPage = () => {
 
                 <div>
                     <h2 className="title2">Tracks</h2>
+                    <TrackHeader />
                     {trackLoading
                         ? [1, 2, 3, 4, 5].map((_, i) => (
                               <TrackSkeleton key={i} id={i} />
                           ))
-                        : trackData.tracks.map((track, i) => {
-                              return <TrackItem key={i} t={track} />;
-                          })}
+                        : trackData.tracks.map((track, i) => (
+                              <TrackItem key={i} t={track} i={track.number} />
+                          ))}
                 </div>
             </div>
         </div>
@@ -123,3 +125,5 @@ const AlbumPage = () => {
 };
 
 export default AlbumPage;
+
+// TODO: Show added to library / remove from library if added
