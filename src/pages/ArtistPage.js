@@ -1,14 +1,20 @@
+import { useState } from "react";
 import { useParams } from "react-router";
 import Skeleton from "react-loading-skeleton";
+import { useAlert } from "react-alert";
 import AlbumCard from "../components/AlbumCard";
 import TrackSkeleton from "../components/Tracks/TrackSkeleton";
 import TrackItem from "../components/Tracks/TrackItem";
 import useAxios from "../api/useAxios";
+import { addFavArtist, removeFavArtist } from "../api/userApi";
 import ErrorPage from "./ErrorPage";
 import TrackHeader from "../components/Tracks/TrackHeader";
 
 const ArtistPage = () => {
     const { id } = useParams();
+    const alert = useAlert();
+    const [added, setAdded] = useState(null);
+    const [loading, setLoading] = useState(false);
     const {
         data: artistData,
         isLoading: artistLoading,
@@ -24,10 +30,51 @@ const ArtistPage = () => {
         isLoading: tracksLoading,
         error: tracksError,
     } = useAxios("get", `/artist/${id}/tracks`);
+    const {
+        data: libraryArtist,
+        isLoading: libraryArtistLoading,
+        error: libraryArtistError,
+    } = useAxios("get", `/library/artist`);
 
-    // TODO: Add to library
+    const addArtist = () => {
+        setLoading(true);
+        addFavArtist(libraryArtist, id)
+            .then(() => {
+                setAdded(true);
+                alert.show("Artist added");
+                setLoading(false);
+            })
+            .catch(() => {
+                setLoading(false);
+                alert.error("Something went wrong when adding artist");
+            });
+    };
 
-    return !artistError && !albumError && !tracksError ? (
+    const removeArtist = () => {
+        setLoading(true);
+        removeFavArtist(libraryArtist, id)
+            .then(() => {
+                setAdded(false);
+                alert.show("Artist removed");
+                setLoading(false);
+            })
+            .catch(() => {
+                setLoading(false);
+                alert.error("Something went wrong when removing artist");
+            });
+    };
+
+    const artistInLibrary = () => {
+        if (artistLoading || libraryArtistLoading) return true;
+        let id = libraryArtist.map((a) => a._id);
+        if (added !== null) return added;
+        else return id.includes(artistData._id);
+    };
+
+    return !artistError &&
+        !albumError &&
+        !tracksError &&
+        !libraryArtistError ? (
         <div className="content page-content">
             <div className="flex flex-col gap-8">
                 <div className="flex items-center gap-8">
@@ -47,7 +94,7 @@ const ArtistPage = () => {
                                 alt={artistData && artistData.name}
                                 className={`w-48 h-48 border border-red-200 rounded-full`}
                             />
-                            <div>
+                            <div className="w-full">
                                 <h1 className="title">
                                     {artistData && artistData.name}
                                 </h1>
@@ -55,9 +102,28 @@ const ArtistPage = () => {
                                     <button className="btn btn-sm w-1/2 btn-confirm md:w-48">
                                         Play
                                     </button>
-                                    <button className="btn btn-sm w-1/2 md:w-48">
-                                        Add to Library
-                                    </button>
+                                    {!libraryArtistLoading &&
+                                        (artistInLibrary() ? (
+                                            <button
+                                                className={`btn btn-sm w-1/2 md:w-48 bg-gray-200 ${
+                                                    loading && "opacity-40"
+                                                }`}
+                                                onClick={removeArtist}
+                                                disabled={loading}
+                                            >
+                                                Remove from Library
+                                            </button>
+                                        ) : (
+                                            <button
+                                                className={`btn btn-sm w-1/2 md:w-48${
+                                                    loading && "opacity-40"
+                                                }`}
+                                                onClick={addArtist}
+                                                disabled={loading}
+                                            >
+                                                Add to Library
+                                            </button>
+                                        ))}
                                 </div>
                             </div>
                         </>
@@ -114,4 +180,4 @@ const ArtistPage = () => {
 
 export default ArtistPage;
 
-// TODO: Show added to library / remove from library if added
+// TODO: Play whole list

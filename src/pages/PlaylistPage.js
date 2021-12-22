@@ -61,6 +61,7 @@ const PlaylistPage = () => {
                         </div>
                         <div className="sm:col-span-2 md:col-span-3">
                             <h2 className="title2">Tracks</h2>
+                            <TrackHeader />
                             {[1, 2, 3, 4, 5].map((_, i) => (
                                 <TrackSkeleton key={i} id={i} />
                             ))}

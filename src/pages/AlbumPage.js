@@ -1,19 +1,24 @@
+import { useState } from "react";
+import { useAlert } from "react-alert";
 import { useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 import TrackSkeleton from "../components/Tracks/TrackSkeleton";
+import TrackHeader from "../components/Tracks/TrackHeader";
 import TrackItem from "../components/Tracks/TrackItem";
 import { setPlaying, setPlayingTrack } from "../store/player/playerAction";
 import { addQueue } from "../store/queue/queueAction";
 import useAxios from "../api/useAxios";
+import { addFavAlbum, removeFavAlbum } from "../api/userApi";
 import ErrorPage from "./ErrorPage";
-import { addFavAlbum } from "../api/userApi";
-import TrackHeader from "../components/Tracks/TrackHeader";
 
 const AlbumPage = () => {
     const { id } = useParams();
     const dispatch = useDispatch();
+    const alert = useAlert();
+    const [added, setAdded] = useState(null);
+    const [loading, setLoading] = useState(false);
     const { playingTrack } = useSelector((state) => state.playerReducer);
     const queue = useSelector((state) => state.queueReducer);
     const {
@@ -26,6 +31,12 @@ const AlbumPage = () => {
         isLoading: trackLoading,
         error: trackErr,
     } = useAxios("get", `/album/${id}/tracks`);
+
+    const {
+        data: libraryAlbum,
+        isLoading: libraryAlbumLoading,
+        error: libraryAlbumError,
+    } = useAxios("get", `/library/album`);
 
     const addTrack = (track) => {
         if (queue.length === 0) {
@@ -48,11 +59,41 @@ const AlbumPage = () => {
     };
 
     const addAlbum = () => {
-        // TODO: Prevent add when already added
-        addFavAlbum(id).then((res) => console.log(res));
+        setLoading(true);
+        addFavAlbum(libraryAlbum, id)
+            .then(() => {
+                setAdded(true);
+                alert.show("Album added");
+                setLoading(false);
+            })
+            .catch(() => {
+                setLoading(false);
+                alert.error("Something went wrong when adding album");
+            });
     };
 
-    return !albumErr && !trackErr ? (
+    const removeAlbum = () => {
+        setLoading(true);
+        removeFavAlbum(libraryAlbum, id)
+            .then(() => {
+                setAdded(false);
+                alert.show("Artist removed");
+                setLoading(false);
+            })
+            .catch(() => {
+                setLoading(false);
+                alert.error("Something went wrong when removing artist");
+            });
+    };
+
+    const albumInLibrary = () => {
+        if (albumLoading || libraryAlbumLoading) return true;
+        let id = libraryAlbum.map((a) => a._id);
+        if (added !== null) return added;
+        else return id.includes(albumData._id);
+    };
+
+    return !albumErr && !trackErr && !libraryAlbumError ? (
         <div className="content page-content">
             <div className="flex flex-col gap-6">
                 <div className="flex items-center gap-4 sm:gap-8 flex-col sm:flex-row">
@@ -96,12 +137,28 @@ const AlbumPage = () => {
                             >
                                 Play
                             </button>
-                            <button
-                                className="btn btn-sm w-1/2 md:w-48"
-                                onClick={addAlbum}
-                            >
-                                Add to Library
-                            </button>
+                            {!libraryAlbumLoading &&
+                                (albumInLibrary() ? (
+                                    <button
+                                        className={`btn btn-sm w-1/2 md:w-48 bg-gray-200 ${
+                                            loading && "opacity-40"
+                                        }`}
+                                        onClick={removeAlbum}
+                                        disabled={loading}
+                                    >
+                                        Remove from Library
+                                    </button>
+                                ) : (
+                                    <button
+                                        className={`btn btn-sm w-1/2 md:w-48${
+                                            loading && "opacity-40"
+                                        }`}
+                                        onClick={addAlbum}
+                                        disabled={loading}
+                                    >
+                                        Add to Library
+                                    </button>
+                                ))}
                         </div>
                     </div>
                 </div>
@@ -125,5 +182,3 @@ const AlbumPage = () => {
 };
 
 export default AlbumPage;
-
-// TODO: Show added to library / remove from library if added

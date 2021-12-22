@@ -29,17 +29,39 @@ export const addPlaylist = async (playlist) => {
     });
 };
 
-export const addFavArtist = async (artist) => {
+export const addFavArtist = async (items, id) => {
+    let a = items.map((a) => a._id);
+    let artists = a.includes(id) ? a : [...a, id];
     return await axios
-        .put(`${apiUrl}/library/artist/`, { artist })
+        .put(`${apiUrl}/library/artist/`, { artists })
         .then((res) => {
             return res.data;
         });
 };
 
-export const addFavAlbum = async (album) => {
+export const removeFavArtist = async (items, id) => {
+    let artists = items.map((a) => a._id).filter((a) => a !== id);
     return await axios
-        .put(`${apiUrl}/library/album/`, { album })
+        .put(`${apiUrl}/library/artist/`, { artists })
+        .then((res) => {
+            return res.data;
+        });
+};
+
+export const addFavAlbum = async (items, id) => {
+    let a = items.map((a) => a._id);
+    let albums = a.includes(id) ? a : [...a, id];
+    return await axios
+        .put(`${apiUrl}/library/album/`, { albums })
+        .then((res) => {
+            return res.data;
+        });
+};
+
+export const removeFavAlbum = async (items, id) => {
+    let albums = items.map((a) => a._id).filter((a) => a !== id);
+    return await axios
+        .put(`${apiUrl}/library/album/`, { albums })
         .then((res) => {
             return res.data;
         });
