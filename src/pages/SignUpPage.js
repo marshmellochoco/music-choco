@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { userSignUp } from "../api/userApi";
 import { setToken } from "../store/user/userAction";
-import axios from "axios";
 
 const SignUpPage = () => {
     const dispatch = useDispatch();
@@ -23,6 +22,8 @@ const SignUpPage = () => {
             }
         });
     };
+
+    // TODO: Show error message
 
     return (
         <>

@@ -6,19 +6,18 @@ import {
     SubMenu,
 } from "react-contextmenu";
 import { Link } from "react-router-dom";
+import { useAlert } from "react-alert";
 import { setPlaying, setPlayingTrack } from "../../store/player/playerAction";
 import { addQueue } from "../../store/queue/queueAction";
 import useAxios from "../../api/useAxios";
-import { useState } from "react";
 import { addPlaylist, addPlaylistTrack } from "../../api/userApi";
 
 const TrackItem = ({ t, children }) => {
     const dispatch = useDispatch();
+    const alert = useAlert();
     const { playingTrack } = useSelector((state) => state.playerReducer);
     const queue = useSelector((state) => state.queueReducer);
     const { data: playlists, isLoading } = useAxios("get", `/library/playlist`);
-    const [error, setError] = useState(null);
-    // TODO: Popup to show error message
 
     const addTrack = (track) => {
         if (queue.length === 0) {
@@ -37,23 +36,24 @@ const TrackItem = ({ t, children }) => {
 
     const addTrackToPlaylist = (playlist, track) => {
         if (playlist.tracks.includes(track._id)) {
-            setError("Already exist in the playlist.");
+            let err = "This track is already added in the playlist.";
+            alert.error(err);
             return;
         }
         let newPlaylist = { ...playlist };
         newPlaylist.tracks = [...newPlaylist.tracks, track._id];
         addPlaylistTrack(newPlaylist)
             .then((res) => {
-                // TODO: Popup to show success
+                alert.show("Added to playlist");
             })
-            .catch((err) => setError(err));
+            .catch((err) => alert.error(err));
     };
 
     const addTrackToNewPlaylist = (track) => {
         // TODO: Popup to enter playlist name
         addPlaylist({ name: "New Playlist" }).then((res) => {
             addPlaylistTrack({ ...res, tracks: [track._id] }).catch((err) =>
-                setError(err)
+                alert.error(err)
             );
         });
     };
