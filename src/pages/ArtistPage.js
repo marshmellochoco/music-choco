@@ -208,5 +208,3 @@ const ArtistPage = () => {
 };
 
 export default ArtistPage;
-
-// TODO: Play whole list

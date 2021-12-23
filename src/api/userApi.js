@@ -15,16 +15,30 @@ export const userSignUp = async (credential) => {
         });
 };
 
+export const addPlaylist = async (playlist) => {
+    return await axios.post(`${apiUrl}/playlist/`, playlist).then((res) => {
+        return res.data;
+    });
+};
+
 export const addPlaylistTrack = async (playlist) => {
     return await axios
-        .put(`${apiUrl}/playlist/${playlist._id}`, { playlist })
+        .put(`${apiUrl}/playlist/${playlist._id}`, { tracks: playlist.tracks })
         .then((res) => {
             return res.data;
         });
 };
 
-export const addPlaylist = async (playlist) => {
-    return await axios.post(`${apiUrl}/playlist/`, playlist).then((res) => {
+export const updatePlaylist = async (id, name, image) => {
+    return await axios
+        .put(`${apiUrl}/playlist/${id}`, { name, image })
+        .then((res) => {
+            return res.data;
+        });
+};
+
+export const deletePlaylist = async (id) => {
+    return await axios.delete(`${apiUrl}/playlist/${id}`).then((res) => {
         return res.data;
     });
 };

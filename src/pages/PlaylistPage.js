@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 import defaultImg from "../images/defaultImg.png";
 import useAxios from "../api/useAxios";
@@ -9,10 +9,14 @@ import { setPlaying, setPlayingTrack } from "../store/player/playerAction";
 import { addQueue } from "../store/queue/queueAction";
 import ErrorPage from "./ErrorPage";
 import TrackHeader from "../components/Tracks/TrackHeader";
+import Icon from "@mdi/react";
+import { mdiPencil, mdiTrashCan } from "@mdi/js";
+import { deletePlaylist, updatePlaylist } from "../api/userApi";
 
 const PlaylistPage = () => {
     const { id } = useParams();
     const dispatch = useDispatch();
+    const history = useHistory();
     const { playingTrack } = useSelector((state) => state.playerReducer);
     const queue = useSelector((state) => state.queueReducer);
     const {
@@ -46,7 +50,27 @@ const PlaylistPage = () => {
         });
     };
 
-    // TODO: Implement delete playlist
+    const editPlaylist = () => {
+        updatePlaylist(id, "My Favorite Playlist", playlistData.image).then(
+            () => history.go(0)
+        );
+        // TODO: Popup to enter new name or image
+    };
+
+    const removePlaylist = () => {
+        deletePlaylist(id).then(() => history.goBack());
+        // TODO: Popup as confirmation
+    };
+
+    function formatDate(date) {
+        let d = new Date(date);
+        const currentMonth = d.getMonth();
+        const monthString =
+            currentMonth >= 10 ? currentMonth : `0${currentMonth}`;
+        const currentDate = d.getDate();
+        // const dateString = currentDate >= 10 ? currentDate : `0${currentDate}`;
+        return `${d.getFullYear()}-${monthString}-${currentDate}`;
+    }
 
     return !playlistError && !trackError ? (
         <div className="content page-content">
@@ -76,9 +100,46 @@ const PlaylistPage = () => {
                         </div>
                         <h1 className="title">{playlistData.name}</h1>
                         <div>
-                            <p>{playlistData.creator}</p>
-                            <p>Created At: {playlistData.createdAt}</p>
-                            <p>Last Update: {playlistData.updatedAt}</p>
+                            <b>{playlistData.creator}</b>
+                            <p>
+                                <i>Created At: </i>
+                                <br />
+                                {formatDate(playlistData.createdAt)}
+                            </p>
+                            <p>
+                                <i>Last Update: </i>
+                                <br />
+                                {formatDate(playlistData.updatedAt)}
+                            </p>
+                        </div>
+                        <div className="flex justify-between items-center">
+                            <div>Tracks: {playlistData.tracks.length}</div>
+                            <div className="flex">
+                                <div
+                                    className="rounded-full hover:bg-red-200 p-1 cursor-pointer"
+                                    onClick={editPlaylist}
+                                >
+                                    <Icon
+                                        path={mdiPencil}
+                                        className={
+                                            "icon-small fill-current text-pink-600"
+                                        }
+                                        title="Edit playlist"
+                                    />
+                                </div>
+                                <div
+                                    className="rounded-full hover:bg-red-200 p-1 cursor-pointer"
+                                    onClick={removePlaylist}
+                                >
+                                    <Icon
+                                        path={mdiTrashCan}
+                                        className={
+                                            "icon-small fill-current text-pink-600"
+                                        }
+                                        title="Delete playlist"
+                                    />
+                                </div>
+                            </div>
                         </div>
                         <button
                             className="btn btn-sm btn-confirm w-full mt-2"
@@ -114,4 +175,4 @@ const PlaylistPage = () => {
 
 export default PlaylistPage;
 
-// TODO: Edit Playlist name and image
+// TODO: Format date and time

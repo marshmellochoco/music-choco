@@ -17,7 +17,10 @@ const TrackItem = ({ t, children, i }) => {
     const alert = useAlert();
     const { playingTrack } = useSelector((state) => state.playerReducer);
     const queue = useSelector((state) => state.queueReducer);
-    const { data: playlistData, isLoading } = useAxios("get", `/library/playlist`);
+    const { data: playlistData, isLoading } = useAxios(
+        "get",
+        `/library/playlist`
+    );
 
     const addTrack = (track) => {
         if (queue.length === 0) {
@@ -52,6 +55,7 @@ const TrackItem = ({ t, children, i }) => {
     const addTrackToNewPlaylist = (track) => {
         // TODO: Popup to enter playlist name
         addPlaylist({ name: "New Playlist" }).then((res) => {
+            window.location.reload();
             addPlaylistTrack({ ...res, tracks: [track._id] }).catch((err) =>
                 alert.error(err)
             );

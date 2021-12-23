@@ -9,7 +9,8 @@ const AudioPlayerTrack = ({ playingTrack }) => {
             >
                 <img
                     src={playingTrack.album.image}
-                    alt={`${playingTrack.title} - ${playingTrack.album.name}`}
+                    alt={`${playingTrack.album.name}`}
+                    title={`${playingTrack.album.name}`}
                     className="w-20 h-20"
                 />
             </Link>

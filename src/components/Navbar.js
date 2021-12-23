@@ -33,12 +33,13 @@ const Navbar = ({ resetToken, location }) => {
         <nav className="grid grid-cols-9 md:grid-cols-5 align-center gap-2 px-2 pt-4 pb-3 fixed top-0 left-0 w-full bg-white border-b">
             <div className="col-span-3 md:col-span-1 w-max">
                 <Link to="/" className="w-min">
-                <img
-                    src={logo}
-                    alt="music-chcoo"
-                    className="h-4 md:h-6 object-scale-down cursor-pointer m-0"
-                    onClick={() => gotoHome()}
-                /> </Link>
+                    <img
+                        src={logo}
+                        alt="music-chcoo"
+                        className="h-4 md:h-6 object-scale-down cursor-pointer m-0"
+                        onClick={() => gotoHome()}
+                    />{" "}
+                </Link>
             </div>
             <div className="flex col-span-3 justify-center gap-4 sm:gap-8 h-9">
                 <div
@@ -49,6 +50,7 @@ const Navbar = ({ resetToken, location }) => {
                     <Icon
                         path={mdiArrowLeft}
                         className="icon-small hover:opacity-100 border-r mr-2"
+                        title="Go back"
                         onClick={() => setSearchbar(false)}
                     />
                     <input
@@ -63,6 +65,7 @@ const Navbar = ({ resetToken, location }) => {
                     <Icon
                         path={mdiMagnify}
                         className="icon-small hover:opacity-100"
+                        title="Search"
                         onClick={search}
                     />
                 </div>
@@ -72,6 +75,7 @@ const Navbar = ({ resetToken, location }) => {
                             <Icon
                                 path={mdiHome}
                                 className="icon-small sm:hidden"
+                                title="Home"
                             />
                             <span className="hidden sm:block">Home</span>
                         </Link>
@@ -79,6 +83,7 @@ const Navbar = ({ resetToken, location }) => {
                             <Icon
                                 path={mdiMusicBoxMultiple}
                                 className="icon-small sm:hidden"
+                                title="Library"
                             />
                             <span className="hidden sm:block">Library</span>
                         </Link>
@@ -86,13 +91,20 @@ const Navbar = ({ resetToken, location }) => {
                             className="flex hover:opacity-60 cursor-pointer"
                             onClick={() => setSearchbar(true)}
                         >
-                            <Icon path={mdiMagnify} className="icon-small" />
+                            <Icon
+                                path={mdiMagnify}
+                                className="icon-small"
+                                title="Search"
+                            />
                             <span className="hidden sm:block">Search</span>
                         </span>
                     </>
                 )}
             </div>
-            <div className="ml-auto col-span-3 md:col-span-1 cursor-pointer" onClick={resetToken}>
+            <div
+                className="ml-auto col-span-3 md:col-span-1 cursor-pointer"
+                onClick={resetToken}
+            >
                 MarshChoco
             </div>
         </nav>

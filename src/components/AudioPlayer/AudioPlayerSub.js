@@ -2,7 +2,7 @@ import { useState } from "react";
 import Icon from "@mdi/react";
 import { mdiChevronDown, mdiChevronUp, mdiVolumeHigh } from "@mdi/js";
 
-const AudioPlayerSub = ({openQueue, setOpenQueue, volume, setVolume}) => {
+const AudioPlayerSub = ({ openQueue, setOpenQueue, volume, setVolume }) => {
     const [openVol, setOpenVol] = useState(false);
 
     return (
@@ -26,27 +26,27 @@ const AudioPlayerSub = ({openQueue, setOpenQueue, volume, setVolume}) => {
                     onChange={(e) => setVolume(e.target.value / 100)}
                 />
             </div>
-            <div className="rounded-full hover:bg-red-200">
-                {openQueue ? (
+            {openQueue ? (
+                <div className="btn-icon" onClick={() => setOpenQueue(false)}>
                     <Icon
                         path={mdiChevronDown}
-                        title="Queue"
+                        title="Hide queue"
                         className={
                             "icon-small fill-current mx-2.5 text-pink-600"
                         }
-                        onClick={() => setOpenQueue(false)}
                     />
-                ) : (
+                </div>
+            ) : (
+                <div className="btn-icon" onClick={() => setOpenQueue(true)}>
                     <Icon
                         path={mdiChevronUp}
-                        title="Queue"
+                        title="Show queue"
                         className={
                             "icon-small fill-current mx-2.5 text-pink-600"
                         }
-                        onClick={() => setOpenQueue(true)}
                     />
-                )}
-            </div>
+                </div>
+            )}
         </div>
     );
 };

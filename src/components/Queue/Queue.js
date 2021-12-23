@@ -37,34 +37,33 @@ const Queue = ({ openQueue, setOpenQueue, location }) => {
                         <div className="flex gap-10">
                             <div className="flex gap-6">
                                 <div
-                                    className={`rounded-full hover:bg-red-100 ${
+                                    className={`btn-icon ${
                                         loop
                                             ? "bg-pink-100 hover:bg-red-200"
                                             : ""
                                     }`}
+                                    onClick={() => dispatch(setLoop(!loop))}
                                 >
                                     <Icon
                                         path={mdiSync}
                                         title="Loop"
                                         className="icon-small fill-current text-pink-600"
-                                        onClick={() => dispatch(setLoop(!loop))}
                                     />
                                 </div>
-                                <div className="rounded-full hover:bg-red-100">
+                                <div className="btn-icon" onClick={shuffle}>
                                     <Icon
                                         path={mdiShuffle}
                                         title="Shuffle"
                                         className={
                                             "icon-small fill-current text-pink-600"
                                         }
-                                        onClick={shuffle}
                                     />
                                 </div>
                             </div>
                             <div className="rounded-full hover:bg-gray-200">
                                 <Icon
                                     path={mdiClose}
-                                    title="Close"
+                                    title="Hide queue"
                                     className="icon-small"
                                     onClick={closeQueue}
                                 />

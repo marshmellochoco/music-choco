@@ -101,4 +101,8 @@
     .textLink {
         @apply underline text-red-400 hover:text-red-300;
     }
+
+    .btn-icon {
+        @apply rounded-full hover:bg-red-200 cursor-pointer;
+    }
 }
