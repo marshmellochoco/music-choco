@@ -1,20 +1,26 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import Skeleton from "react-loading-skeleton";
 import { useAlert } from "react-alert";
 import AlbumCard from "../components/AlbumCard";
 import TrackSkeleton from "../components/Tracks/TrackSkeleton";
 import TrackItem from "../components/Tracks/TrackItem";
+import TrackHeader from "../components/Tracks/TrackHeader";
+import { setPlaying, setPlayingTrack } from "../store/player/playerAction";
+import { addQueue } from "../store/queue/queueAction";
 import useAxios from "../api/useAxios";
 import { addFavArtist, removeFavArtist } from "../api/userApi";
 import ErrorPage from "./ErrorPage";
-import TrackHeader from "../components/Tracks/TrackHeader";
 
 const ArtistPage = () => {
     const { id } = useParams();
+    const dispatch = useDispatch();
     const alert = useAlert();
     const [added, setAdded] = useState(null);
     const [loading, setLoading] = useState(false);
+    const { playingTrack } = useSelector((state) => state.playerReducer);
+    const queue = useSelector((state) => state.queueReducer);
     const {
         data: artistData,
         isLoading: artistLoading,
@@ -26,7 +32,7 @@ const ArtistPage = () => {
         error: albumError,
     } = useAxios("get", `/artist/${id}/albums`);
     const {
-        data: tracksData,
+        data: trackData,
         isLoading: tracksLoading,
         error: tracksError,
     } = useAxios("get", `/artist/${id}/tracks`);
@@ -35,6 +41,26 @@ const ArtistPage = () => {
         isLoading: libraryArtistLoading,
         error: libraryArtistError,
     } = useAxios("get", `/library/artist`);
+
+    const addTrack = (track) => {
+        if (queue.length === 0) {
+            dispatch(setPlaying(false));
+            dispatch(setPlayingTrack(track));
+        }
+        if (queue.filter((x) => x._id === track._id).length === 0)
+            dispatch(addQueue(track));
+    };
+
+    const playArtist = () => {
+        trackData.tracks.forEach((track, i) => {
+            if (i === 0) {
+                addTrack(track);
+                if (track._id !== playingTrack._id)
+                    dispatch(setPlayingTrack(track));
+                dispatch(setPlaying(true));
+            } else addTrack(track);
+        });
+    };
 
     const addArtist = () => {
         setLoading(true);
@@ -99,7 +125,10 @@ const ArtistPage = () => {
                                     {artistData && artistData.name}
                                 </h1>
                                 <div className="flex justify-start gap-2">
-                                    <button className="btn btn-sm w-1/2 btn-confirm md:w-48">
+                                    <button
+                                        className="btn btn-sm w-1/2 btn-confirm md:w-48"
+                                        onClick={playArtist}
+                                    >
                                         Play
                                     </button>
                                     {!libraryArtistLoading &&
@@ -136,7 +165,7 @@ const ArtistPage = () => {
                         ? [1, 2, 3, 4, 5].map((_, i) => (
                               <TrackSkeleton key={i} id={i} />
                           ))
-                        : tracksData.map((track, i) => (
+                        : trackData.tracks.map((track, i) => (
                               <TrackItem key={i} t={track} i={i + 1} />
                           ))}
                 </div>
