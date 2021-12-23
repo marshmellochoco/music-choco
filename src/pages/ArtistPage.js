@@ -38,7 +38,7 @@ const ArtistPage = () => {
 
     const addArtist = () => {
         setLoading(true);
-        addFavArtist(libraryArtist, id)
+        addFavArtist(libraryArtist.artists, id)
             .then(() => {
                 setAdded(true);
                 alert.show("Artist added");
@@ -52,7 +52,7 @@ const ArtistPage = () => {
 
     const removeArtist = () => {
         setLoading(true);
-        removeFavArtist(libraryArtist, id)
+        removeFavArtist(libraryArtist.artists, id)
             .then(() => {
                 setAdded(false);
                 alert.show("Artist removed");
@@ -66,7 +66,7 @@ const ArtistPage = () => {
 
     const artistInLibrary = () => {
         if (artistLoading || libraryArtistLoading) return true;
-        let id = libraryArtist.map((a) => a._id);
+        let id = libraryArtist.artists.map((a) => a._id);
         if (added !== null) return added;
         else return id.includes(artistData._id);
     };

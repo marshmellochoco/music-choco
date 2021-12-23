@@ -60,7 +60,7 @@ const AlbumPage = () => {
 
     const addAlbum = () => {
         setLoading(true);
-        addFavAlbum(libraryAlbum, id)
+        addFavAlbum(libraryAlbum.albums, id)
             .then(() => {
                 setAdded(true);
                 alert.show("Album added");
@@ -74,7 +74,7 @@ const AlbumPage = () => {
 
     const removeAlbum = () => {
         setLoading(true);
-        removeFavAlbum(libraryAlbum, id)
+        removeFavAlbum(libraryAlbum.albums, id)
             .then(() => {
                 setAdded(false);
                 alert.show("Artist removed");
@@ -88,7 +88,7 @@ const AlbumPage = () => {
 
     const albumInLibrary = () => {
         if (albumLoading || libraryAlbumLoading) return true;
-        let id = libraryAlbum.map((a) => a._id);
+        let id = libraryAlbum.albums.map((a) => a._id);
         if (added !== null) return added;
         else return id.includes(albumData._id);
     };

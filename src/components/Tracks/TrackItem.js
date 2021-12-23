@@ -17,7 +17,7 @@ const TrackItem = ({ t, children, i }) => {
     const alert = useAlert();
     const { playingTrack } = useSelector((state) => state.playerReducer);
     const queue = useSelector((state) => state.queueReducer);
-    const { data: playlists, isLoading } = useAxios("get", `/library/playlist`);
+    const { data: playlistData, isLoading } = useAxios("get", `/library/playlist`);
 
     const addTrack = (track) => {
         if (queue.length === 0) {
@@ -116,7 +116,7 @@ const TrackItem = ({ t, children, i }) => {
                     </MenuItem>
                     <hr className="border-t border-white mx-2" />
                     {!isLoading &&
-                        playlists.map((p) => {
+                        playlistData.playlists.map((p) => {
                             return (
                                 <MenuItem
                                     key={p._id}
