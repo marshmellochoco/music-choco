@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
     ContextMenu,
@@ -11,10 +12,13 @@ import { setPlaying, setPlayingTrack } from "../../store/player/playerAction";
 import { addQueue } from "../../store/queue/queueAction";
 import useAxios from "../../api/useAxios";
 import { addPlaylist, addPlaylistTrack } from "../../api/userApi";
+import Modal from "../Modal";
 
 const TrackItem = ({ t, children, i }) => {
     const dispatch = useDispatch();
     const alert = useAlert();
+    const [openModal, setOpenModal] = useState(false);
+    const [name, setName] = useState("");
     const { playingTrack } = useSelector((state) => state.playerReducer);
     const queue = useSelector((state) => state.queueReducer);
     const { data: playlistData, isLoading } = useAxios(
@@ -52,11 +56,10 @@ const TrackItem = ({ t, children, i }) => {
             .catch((err) => alert.error(err));
     };
 
-    const addTrackToNewPlaylist = (track) => {
-        // TODO: Popup to enter playlist name
-        addPlaylist({ name: "New Playlist" }).then((res) => {
+    const addTrackToNewPlaylist = () => {
+        addPlaylist({ name }).then((res) => {
             window.location.reload();
-            addPlaylistTrack({ ...res, tracks: [track._id] }).catch((err) =>
+            addPlaylistTrack({ ...res, tracks: [t._id] }).catch((err) =>
                 alert.error(err)
             );
         });
@@ -64,6 +67,26 @@ const TrackItem = ({ t, children, i }) => {
 
     return (
         <div key={t._id}>
+            <Modal
+                header={"New Playlist"}
+                open={openModal}
+                onConfirm={addTrackToNewPlaylist}
+                onCancel={() => setOpenModal(false)}
+            >
+                <div className="flex flex-col gap-1">
+                    <label for="textInput">
+                        <b>Name</b>
+                    </label>
+                    <input
+                        id="textInput"
+                        type="text"
+                        placeholder="Playlist name"
+                        autoFocus={true}
+                        onChange={(e) => setName(e.target.value)}
+                        className="border-b border-red-200 px-2 py-1"
+                    />
+                </div>
+            </Modal>
             <ContextMenuTrigger id={`songListContextMenu_${t._id}`}>
                 <div
                     className="cursor-pointer"
@@ -115,7 +138,7 @@ const TrackItem = ({ t, children, i }) => {
                 <MenuItem onClick={() => playTrack(t)}>Play</MenuItem>
                 <MenuItem onClick={() => addTrack(t)}>Add to queue</MenuItem>
                 <SubMenu title="Add to playlist">
-                    <MenuItem onClick={() => addTrackToNewPlaylist(t)}>
+                    <MenuItem onClick={() => setOpenModal(true)}>
                         Add to new playlist
                     </MenuItem>
                     <hr className="border-t border-white mx-2" />

@@ -34,6 +34,7 @@ const AppLayout = ({ children, setLoggedIn }) => {
 
     return (
         <div onContextMenu={onContextMenu} className="h-screen">
+            <div id="modal"></div>
             <Navbar resetToken={logout} location={location} />
             <div
                 id="window"

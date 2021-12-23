@@ -164,3 +164,14 @@ input[type="range"]::-webkit-slider-thumb {
     content: attr(data-count);
     display: block;
 }
+
+.modal-container{
+    position: absolute;
+    z-index: 100;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(229, 231, 235, 0.6);
+}

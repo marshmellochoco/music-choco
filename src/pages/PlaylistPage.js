@@ -1,22 +1,27 @@
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
+import Icon from "@mdi/react";
+import { mdiPencil, mdiTrashCan } from "@mdi/js";
 import defaultImg from "../images/defaultImg.png";
 import useAxios from "../api/useAxios";
+import { deletePlaylist, updatePlaylist } from "../api/userApi";
 import TrackSkeleton from "../components/Tracks/TrackSkeleton";
 import TrackItem from "../components/Tracks/TrackItem";
+import TrackHeader from "../components/Tracks/TrackHeader";
+import Modal from "../components/Modal";
 import { setPlaying, setPlayingTrack } from "../store/player/playerAction";
 import { addQueue } from "../store/queue/queueAction";
 import ErrorPage from "./ErrorPage";
-import TrackHeader from "../components/Tracks/TrackHeader";
-import Icon from "@mdi/react";
-import { mdiPencil, mdiTrashCan } from "@mdi/js";
-import { deletePlaylist, updatePlaylist } from "../api/userApi";
 
 const PlaylistPage = () => {
     const { id } = useParams();
     const dispatch = useDispatch();
     const history = useHistory();
+    const [editModal, setEditModal] = useState(false);
+    const [deleteModal, setDeleteModal] = useState(false);
+    const [name, setName] = useState("");
     const { playingTrack } = useSelector((state) => state.playerReducer);
     const queue = useSelector((state) => state.queueReducer);
     const {
@@ -51,18 +56,20 @@ const PlaylistPage = () => {
     };
 
     const editPlaylist = () => {
-        updatePlaylist(id, "My Favorite Playlist", playlistData.image).then(
-            () => history.go(0)
-        );
-        // TODO: Popup to enter new name or image
+        updatePlaylist(id, name, playlistData.image).then(() => {
+            setEditModal(false);
+            history.go(0);
+        });
     };
 
     const removePlaylist = () => {
-        deletePlaylist(id).then(() => history.goBack());
-        // TODO: Popup as confirmation
+        deletePlaylist(id).then(() => {
+            setDeleteModal(false);
+            history.goBack();
+        });
     };
 
-    function formatDate(date) {
+    const formatDate = (date) => {
         let d = new Date(date);
         const currentMonth = d.getMonth();
         const monthString =
@@ -70,10 +77,46 @@ const PlaylistPage = () => {
         const currentDate = d.getDate();
         // const dateString = currentDate >= 10 ? currentDate : `0${currentDate}`;
         return `${d.getFullYear()}-${monthString}-${currentDate}`;
-    }
+    };
 
     return !playlistError && !trackError ? (
         <div className="content page-content">
+            <Modal
+                header={"Edit playlist"}
+                open={editModal}
+                onConfirm={editPlaylist}
+                onCancel={() => setEditModal(false)}
+            >
+                {!playlistLoading && (
+                    <div className="flex flex-col gap-1">
+                        <label for="textInput">
+                            <b>Name</b>
+                        </label>
+                        <input
+                            id="textInput"
+                            type="text"
+                            placeholder="Playlist name"
+                            defaultValue={playlistData.name}
+                            autoFocus={true}
+                            onChange={(e) => setName(e.target.value)}
+                            className="border-b border-red-200 px-2 py-1"
+                        />
+                    </div>
+                )}
+            </Modal>
+            <Modal
+                header={"Delete playlist"}
+                open={deleteModal}
+                onConfirm={removePlaylist}
+                onCancel={() => setDeleteModal(false)}
+            >
+                {!playlistLoading && (
+                    <>
+                        Are you sure that you want to delete{" "}
+                        <b>{playlistData.name}</b>
+                    </>
+                )}
+            </Modal>
             <div className="grid sm:grid-cols-3 md:grid-cols-4 gap-4">
                 {playlistLoading ? (
                     <div className="w-full">
@@ -117,7 +160,7 @@ const PlaylistPage = () => {
                             <div className="flex">
                                 <div
                                     className="rounded-full hover:bg-red-200 p-1 cursor-pointer"
-                                    onClick={editPlaylist}
+                                    onClick={() => setEditModal(true)}
                                 >
                                     <Icon
                                         path={mdiPencil}
@@ -129,7 +172,7 @@ const PlaylistPage = () => {
                                 </div>
                                 <div
                                     className="rounded-full hover:bg-red-200 p-1 cursor-pointer"
-                                    onClick={removePlaylist}
+                                    onClick={() => setDeleteModal(true)}
                                 >
                                     <Icon
                                         path={mdiTrashCan}
@@ -174,5 +217,3 @@ const PlaylistPage = () => {
 };
 
 export default PlaylistPage;
-
-// TODO: Format date and time
