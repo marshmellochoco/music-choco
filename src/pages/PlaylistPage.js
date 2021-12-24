@@ -80,7 +80,7 @@ const PlaylistPage = () => {
     };
 
     return !playlistError && !trackError ? (
-        <div className="content page-content">
+        <div className="page-content">
             <Modal
                 header={"Edit playlist"}
                 open={editModal}
@@ -126,7 +126,7 @@ const PlaylistPage = () => {
                         />
                         <Skeleton className="title" />
                         <Skeleton count={3} />
-                        <button className="btn btn-sm btn-confirm w-full mt-2">
+                        <button className="btn-primary w-full mt-2">
                             Play
                         </button>
                     </div>
@@ -164,9 +164,7 @@ const PlaylistPage = () => {
                                 >
                                     <Icon
                                         path={mdiPencil}
-                                        className={
-                                            "icon-small fill-current text-pink-600"
-                                        }
+                                        className="icon-small fill-current text-pink-600"
                                         title="Edit playlist"
                                     />
                                 </div>
@@ -176,16 +174,14 @@ const PlaylistPage = () => {
                                 >
                                     <Icon
                                         path={mdiTrashCan}
-                                        className={
-                                            "icon-small fill-current text-pink-600"
-                                        }
+                                        className="icon-small fill-current text-pink-600"
                                         title="Delete playlist"
                                     />
                                 </div>
                             </div>
                         </div>
                         <button
-                            className="btn btn-sm btn-confirm w-full mt-2"
+                            className="btn-primary w-full mt-2"
                             onClick={playPlaylist}
                         >
                             Play

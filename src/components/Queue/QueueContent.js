@@ -49,19 +49,19 @@ const QueueContent = ({ queueData, playingTrack }) => {
                                     onClick={(e) => {
                                         if (
                                             !e.target.className.includes(
-                                                "hover:underline"
+                                                "link-item"
                                             )
                                         )
                                             setTrack(q);
                                     }}
                                     id={q._id}
-                                    className={`${
+                                    className={
                                         isPlayingTrack
-                                            ? "queue-item-active hover:bg-red-200"
+                                            ? "queue-item-active"
                                             : snapshot.isDragging
                                             ? "queue-item-dragging"
-                                            : "hover:bg-red-50"
-                                    }`}
+                                            : ""
+                                    }
                                     ref={provided.innerRef}
                                     {...provided.draggableProps}
                                     {...provided.dragHandleProps}
@@ -75,12 +75,8 @@ const QueueContent = ({ queueData, playingTrack }) => {
                     <ContextMenu
                         key={q._id + "test"}
                         id={`queueListContextMenu_${q._id}`}
-                        className="contextMenu"
                     >
-                        <MenuItem
-                            onClick={() => removeFromQueue(q)}
-                            className="menuItem"
-                        >
+                        <MenuItem onClick={() => removeFromQueue(q)}>
                             Remove from queue
                         </MenuItem>
                     </ContextMenu>

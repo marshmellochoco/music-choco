@@ -14,36 +14,36 @@ const AudioPlayerControl = ({
     nextTrack,
 }) => {
     return (
-        <div className="flex justify-center items-center">
-            <div className="btn-icon" onClick={previousTrack}>
+        <div className="player-control">
+            <div onClick={previousTrack}>
                 <Icon
                     path={mdiSkipPrevious}
                     title="Previous"
-                    className="icon-small text-pink-600"
+                    className="icon-small"
                 />
             </div>
             {isPlaying ? (
-                <div className="btn-icon" onClick={pause}>
+                <div onClick={pause}>
                     <Icon
                         path={mdiPauseCircleOutline}
                         title="Pause"
-                        className="icon-medium text-pink-600"
+                        className="icon-medium"
                     />
                 </div>
             ) : (
-                <div className="btn-icon" onClick={play}>
+                <div onClick={play}>
                     <Icon
                         path={mdiPlayCircleOutline}
                         title="Play"
-                        className="icon-medium text-pink-600"
+                        className="icon-medium"
                     />
                 </div>
             )}
-            <div className="btn-icon" onClick={nextTrack}>
+            <div onClick={nextTrack}>
                 <Icon
                     path={mdiSkipNext}
                     title="Next"
-                    className={`icon-small text-pink-600`}
+                    className={`icon-small`}
                 />
             </div>
         </div>

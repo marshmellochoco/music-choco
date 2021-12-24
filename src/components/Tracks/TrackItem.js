@@ -14,7 +14,7 @@ import useAxios from "../../api/useAxios";
 import { addPlaylist, addPlaylistTrack } from "../../api/userApi";
 import Modal from "../Modal";
 
-const TrackItem = ({ t, children, i }) => {
+const TrackItem = ({ t, children, i, album = false }) => {
     const dispatch = useDispatch();
     const alert = useAlert();
     const [openModal, setOpenModal] = useState(false);
@@ -89,28 +89,27 @@ const TrackItem = ({ t, children, i }) => {
             </Modal>
             <ContextMenuTrigger id={`songListContextMenu_${t._id}`}>
                 <div
-                    className="cursor-pointer"
                     onClick={(e) => {
-                        if (!e.target.className.includes("hover:underline"))
+                        if (!e.target.className.includes("link-item"))
                             playTrack(t);
                     }}
                 >
                     <div
-                        className={`flex items-center hover:bg-red-50 ${
+                        className={`track-item cursor-pointer ${
                             playingTrack && playingTrack._id === t._id
                                 ? "bg-red-100 hover:bg-red-200"
                                 : ""
                         }`}
                     >
-                        <div className="w-4 ml-4">{i}</div>
-                        <div className="grid grid-cols-6 items-center w-full py-2 px-4">
-                            <div className="col-span-3">
+                        <div className="number">{i}</div>
+                        <div className="items">
+                            <div>
                                 <h3 className="font-bold">{t.title}</h3>
-                                <div className="artistList">
+                                <div className="artist-list">
                                     {t.artists.map((artist) => (
                                         <Link
                                             to={`/artist/${artist._id}`}
-                                            className="hover:underline linkItem"
+                                            className="link-item"
                                             key={artist._id}
                                         >
                                             {artist.name}
@@ -118,8 +117,17 @@ const TrackItem = ({ t, children, i }) => {
                                     ))}
                                 </div>
                             </div>
-                            <span className="col-span-2" />
-                            <span className="col-span-1 text-right">
+                            {album ? (
+                                <Link
+                                    to={`/album/${t.album._id}`}
+                                    className="link-item"
+                                >
+                                    {t.album.name}
+                                </Link>
+                            ) : (
+                                <span />
+                            )}
+                            <span className="text-left">
                                 {(t.duration / 60 < 10 ? "0" : "") +
                                     Math.floor(t.duration / 60)}
                                 :
@@ -131,17 +139,14 @@ const TrackItem = ({ t, children, i }) => {
                     </div>
                 </div>
             </ContextMenuTrigger>
-            <ContextMenu
-                id={`songListContextMenu_${t._id}`}
-                className="contextMenu"
-            >
+            <ContextMenu id={`songListContextMenu_${t._id}`}>
                 <MenuItem onClick={() => playTrack(t)}>Play</MenuItem>
                 <MenuItem onClick={() => addTrack(t)}>Add to queue</MenuItem>
                 <SubMenu title="Add to playlist">
                     <MenuItem onClick={() => setOpenModal(true)}>
                         Add to new playlist
                     </MenuItem>
-                    <hr className="border-t border-white mx-2" />
+                    <hr className="border-t border-red-300 mx-2" />
                     {!isLoading &&
                         playlistData.playlists.map((p) => {
                             return (

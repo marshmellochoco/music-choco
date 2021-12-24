@@ -1,7 +1,7 @@
 const AudioPlayerProgress = ({ seekPercent, lapsed }) => {
     return (
         <div
-            className="bottom-24 fixed w-full h-2 z-10 bg-red-50 opacity-60 h:opacity-1 draggable-container cursor-pointer"
+            className="player-progress"
             onClick={(e) => seekPercent(e.pageX / e.view.innerWidth)}
         >
             <div

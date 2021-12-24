@@ -24,18 +24,15 @@ const LibraryPage = () => {
     } = useAxios("get", `/library/artist`);
 
     return !playlistError && !albumError && !artistError ? (
-        <div className="content page-content">
+        <div className="page-content">
             <h1 className="title">Library</h1>
             <>
                 {!playlistLoading && playlistData.count !== 0 && (
                     <h2 className="title2">Playlists</h2>
                 )}
                 {playlistLoading ? (
-                    <div className="grid grid-cols-3 md:grid-cols-4 gap-4 hover:bg-pink-100 h-36 items-center">
-                        <Skeleton
-                            height={"8rem"}
-                            style={{ margin: "0.5rem" }}
-                        />
+                    <div className="library-item">
+                        <Skeleton height={"8rem"} className="m-0.5 p-2" />
                         <Skeleton />
                     </div>
                 ) : (
@@ -44,19 +41,18 @@ const LibraryPage = () => {
                             <Link
                                 to={`/playlist/${playlist._id}`}
                                 key={playlist._id}
-                                className="grid grid-cols-3 md:grid-cols-4 gap-4 hover:bg-pink-100 h-36 object-scale-down items-center"
+                                className="library-item hover:bg-pink-100 object-scale-down"
                             >
-                                <div className="p-2">
+                                <div className="library-image">
                                     <img
                                         src={playlist.image}
-                                        alt="Playlist Thumbnail"
-                                        className="w-full max-h-32 object-cover"
-                                        onError={(e) => {
-                                            e.target.src = defaultImg;
-                                        }}
+                                        alt={playlist.name}
+                                        onError={(e) =>
+                                            (e.target.src = defaultImg)
+                                        }
                                     />
                                 </div>
-                                <div className="col-span-2 md:col-span-3">
+                                <div className="library-name">
                                     {playlist.name}
                                 </div>
                             </Link>
@@ -69,11 +65,8 @@ const LibraryPage = () => {
                     <h2 className="title2">Liked Albums</h2>
                 )}
                 {albumLoading ? (
-                    <div className="grid grid-cols-3 md:grid-cols-4 gap-4 hover:bg-pink-100 h-36 items-center">
-                        <Skeleton
-                            height={"8rem"}
-                            style={{ margin: "0.5rem" }}
-                        />
+                    <div className="library-item">
+                        <Skeleton height={"8rem"} className="m-0.5 p-2" />
                         <Skeleton />
                     </div>
                 ) : (
@@ -82,18 +75,12 @@ const LibraryPage = () => {
                             <Link
                                 to={`/album/${album._id}`}
                                 key={album._id}
-                                className="grid grid-cols-3 md:grid-cols-4 gap-4 hover:bg-pink-100 h-36 object-scale-down items-center"
+                                className="library-item hover:bg-pink-100 object-scale-down"
                             >
-                                <div className="p-2">
-                                    <img
-                                        src={album.image}
-                                        alt="Playlist Thumbnail"
-                                        className="w-full max-h-32 object-cover"
-                                    />
+                                <div className="library-image">
+                                    <img src={album.image} alt={album.name} />
                                 </div>
-                                <div className="col-span-2 md:col-span-3">
-                                    {album.name}
-                                </div>
+                                <div className="library-name">{album.name}</div>
                             </Link>
                         );
                     })
@@ -104,11 +91,8 @@ const LibraryPage = () => {
                     <h2 className="title2">Liked Artists</h2>
                 )}
                 {artistLoading ? (
-                    <div className="grid grid-cols-3 md:grid-cols-4 gap-4 hover:bg-pink-100 h-36 items-center">
-                        <Skeleton
-                            height={"8rem"}
-                            style={{ margin: "0.5rem" }}
-                        />
+                    <div className="library-item">
+                        <Skeleton height={"8rem"} className="m-0.5 p-2" />
                         <Skeleton />
                     </div>
                 ) : (
@@ -117,16 +101,12 @@ const LibraryPage = () => {
                             <Link
                                 to={`/artist/${artist._id}`}
                                 key={artist._id}
-                                className="grid grid-cols-3 md:grid-cols-4 gap-4 hover:bg-pink-100 h-36 object-scale-down items-center"
+                                className="library-item hover:bg-pink-100 object-scale-down"
                             >
-                                <div className="p-2">
-                                    <img
-                                        src={artist.image}
-                                        alt="Playlist Thumbnail"
-                                        className="w-full max-h-32 object-cover"
-                                    />
+                                <div className="library-image">
+                                    <img src={artist.image} alt={artist.name} />
                                 </div>
-                                <div className="col-span-2 md:col-span-3">
+                                <div className="library-name">
                                     {artist.name}
                                 </div>
                             </Link>

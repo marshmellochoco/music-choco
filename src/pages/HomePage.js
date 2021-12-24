@@ -18,33 +18,29 @@ const HomePage = () => {
 
     const getAlbumSkeleton = (key) => {
         return (
-            <div key={`album_skeleton_${key}`} className="card">
-                <div className="card-link">
-                    <Skeleton className="album-image" height={240} />
+            <div key={`album_skeleton_${key}`}>
+                <div>
+                    <Skeleton height={240} width={240} />
                     <Skeleton className="title2 mt-4" />
                 </div>
-                <div className="artistList">
-                    <Skeleton className="linkItem" />
-                </div>
+                <Skeleton />
             </div>
         );
     };
 
     const getArtistSkeleton = (key) => {
         return (
-            <div key={`artist_skeleton_${key}`} className="card  card-hover">
+            <div key={`artist_skeleton_${key}`}>
                 <div>
-                    <Skeleton className="album-image" height={240} />
+                    <Skeleton height={240} width={240} />
                 </div>
-                <div className="m-2">
-                    <Skeleton className="title2 mt-3 font-bold" />
-                </div>
+                <Skeleton className="title2 mt-3 m-2" />
             </div>
         );
     };
 
     return !artistError && !albumError ? (
-        <div className="content page-content">
+        <div className="page-content">
             <>
                 <div>
                     <h2 className="title">New Release</h2>

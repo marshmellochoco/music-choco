@@ -2,6 +2,35 @@
 @tailwind components;
 @tailwind utilities;
 
+/* #region Global Styles */
+html,
+body,
+#root {
+    min-height: 100vh;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+*:not(input) {
+    user-select: none;
+}
+/* #endregion */
+
+/* #region Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #fef2f2;
+}
+::-webkit-scrollbar-thumb {
+    background: #fca5a5;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #f87171;
+}
+/* #endregion */
+
 @layer utilities {
     .content {
         @apply mt-20;
@@ -10,99 +39,356 @@
     }
 
     .page-content {
-        @apply flex flex-col gap-4;
+        @apply flex flex-col gap-4 content;
     }
 
-    .full-height {
-        height: 100vh;
+    /* #region Context Menu */
+    .react-contextmenu {
+        background-color: white;
+        border: 1px solid rgb(254, 226, 226);
+        border-radius: 0.25rem;
+        color: #373a3c;
+        font-size: 16px;
+        min-width: 160px;
+        outline: none;
+        text-align: left;
+        transition: opacity 250ms ease !important;
+        padding: 0.2rem 0;
+        pointer-events: none;
+        opacity: 0;
     }
 
-    /* Titles */
+    .react-contextmenu.react-contextmenu--visible {
+        opacity: 1;
+        pointer-events: auto;
+        z-index: 9999;
+    }
+
+    .react-contextmenu-item {
+        background: 0 0;
+        border: 0;
+        color: #373a3c;
+        cursor: pointer;
+        font-weight: 400;
+        line-height: 1.5;
+        padding: 0.5rem 0.5rem;
+        text-align: inherit;
+        white-space: nowrap;
+    }
+
+    .react-contextmenu-item.react-contextmenu-item--active,
+    .react-contextmenu-item.react-contextmenu-item--selected {
+        color: black;
+        background-color: rgb(254, 202, 202);
+        text-decoration: none;
+    }
+
+    .react-contextmenu-item.react-contextmenu-item--disabled,
+    .react-contextmenu-item.react-contextmenu-item--disabled:hover {
+        background-color: transparent;
+        border-color: rgba(0, 0, 0, 0.15);
+        color: #878a8c;
+    }
+
+    .react-contextmenu-item.react-contextmenu-submenu {
+        padding: 0;
+    }
+
+    .react-contextmenu-item.react-contextmenu-submenu
+        > .react-contextmenu-item:after {
+        content: "▶";
+        display: inline-block;
+        position: absolute;
+        right: 6px;
+    }
+    /* #endregion */
+
+    /* #region Titles */
     .title {
         @apply text-3xl mb-4 font-bold;
     }
 
     .title2 {
-        @apply text-2xl mb-2 font-semibold;
+        @apply text-2xl mb-2 font-bold;
     }
+    /* #endregion */
 
-    /* Icons */
+    /* #region Icons */
     .icon-small {
         @apply w-6 h-6 cursor-pointer m-1;
     }
     .icon-medium {
         @apply w-12 h-12 cursor-pointer m-1;
     }
+    /* #endregion */
 
-    /* Queue */
-    .queue-item-active {
-        @apply bg-red-100;
-    }
-    .queue-item-dragging {
-        @apply bg-red-100 opacity-40;
-    }
-
-    .queue-item {
-        @apply grid grid-cols-10 items-center justify-between p-2;
-    }
-
-    .card-list {
-        @apply flex gap-4 overflow-x-auto pb-2;
-    }
-
-    /* Cards */
-    .card {
-        width: 240px;
-        min-width: 240px;
-        @apply flex flex-col justify-end;
-    }
-
-    .card-link:hover .album-image {
-        @apply hover:shadow-xl;
-    }
-
-    .card-hover {
-        @apply hover:shadow-md;
-    }
-
-    .card > img {
-        height: 240px;
-    }
-
-    .artistList {
+    /* #region Artist list */
+    .artist-list {
         height: 1.5rem;
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
     }
 
-    /* Buttons */
+    .link-item {
+        @apply hover:underline break-words overflow-hidden;
+    }
+    .artist-list > .link-item ~ .link-item::before {
+        content: ", ";
+    }
+    /* #endregion */
+}
+
+@layer base {
+    /* #region Button */
     button,
-    input[type="submit"] {
-        @apply cursor-pointer;
-    }
-
     .btn {
-        @apply border border-r-2 px-2 py-2;
+        @apply border rounded-sm p-2 hover:shadow-md cursor-pointer;
     }
 
-    .btn-sm {
-        @apply max-w-sm;
+    button:disabled,
+    .btn:disabled {
+        @apply opacity-40;
+    }
+    /* #endregion */
+
+    /* #region Input */
+    .inputGroup {
+        @apply flex flex-col;
+        row-gap: 1.5rem;
     }
 
-    .btn:hover {
-        @apply shadow-md;
+    .input {
+        @apply flex flex-col;
     }
 
-    .btn-confirm {
+    .input > label {
+        font-weight: 500;
+        margin-bottom: 0.2rem;
+    }
+
+    .input > input {
+        @apply border border-black;
+        height: 2.3rem;
+        padding: 0.5rem 0.7rem;
+    }
+
+    input[type="range"] {
+        -webkit-appearance: none;
+        background: var(--progress-color2);
+        height: 0.4rem;
+        border-radius: 0.2rem;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        background-color: white;
+        height: 0.8rem;
+        width: 0.8rem;
+        border-radius: 50%;
+    }
+    /* #endregion */
+}
+
+@layer components {
+    /* #region Button */
+    .btn-primary {
         @apply bg-red-50 border-red-50;
     }
 
-    .textLink {
-        @apply underline text-red-400 hover:text-red-300;
+    .btn-secondary {
+        @apply bg-gray-200;
     }
 
     .btn-icon {
         @apply rounded-full hover:bg-red-200 cursor-pointer;
+    }
+    /* #endregion */
+
+    /* #region Nav */
+    .navbar {
+        @apply grid grid-cols-9 md:grid-cols-5 gap-2 items-center px-2 pt-4 pb-3 fixed top-0 left-0 w-full bg-white border-b;
+    }
+
+    .navbar > .nav-logo {
+        @apply col-span-3 md:col-span-1 w-max;
+    }
+    .nav-logo img {
+        @apply h-4 md:h-6 object-scale-down cursor-pointer m-0;
+    }
+
+    .navbar > .nav-items {
+        @apply flex col-span-3 justify-center gap-4 sm:gap-8 h-9 items-center;
+    }
+    .nav-items .searchbar {
+        @apply border border-black w-full flex px-1 mx-8 items-center;
+    }
+    .nav-items .searchbar:disabled {
+        @apply hidden;
+    }
+    .nav-items .nav-item {
+        @apply hover:opacity-60 cursor-pointer;
+    }
+    .nav-items svg {
+        @apply icon-small;
+    }
+
+    .navbar > .nav-user {
+        @apply ml-auto col-span-3 md:col-span-1 cursor-pointer;
+    }
+    /* #endregion */
+
+    /* #region Audio Player */
+    .audio-player {
+        @apply bottom-0 fixed w-full h-24 grid grid-cols-3 bg-red-50;
+    }
+    .audio-player svg {
+        @apply text-pink-600;
+    }
+
+    .player-track {
+        @apply grid gap-2 grid-cols-1 items-center h-24;
+    }
+    @media (min-width: 768px) {
+        .player-track {
+            grid-template-columns: 5rem 1fr;
+        }
+    }
+    .player-track > .track-image {
+        @apply w-20 h-20 ml-1 hidden md:block;
+    }
+    .player-track > .track-detail {
+        @apply ml-2 overflow-hidden whitespace-nowrap overflow-ellipsis text-pink-900;
+        max-width: 80%;
+    }
+
+    .player-control {
+        @apply flex justify-center items-center;
+    }
+    .player-control > div {
+        @apply btn-icon;
+    }
+
+    .player-sub {
+        @apply flex justify-end items-center mr-2 gap-2;
+    }
+    .player-sub svg {
+        @apply icon-small;
+    }
+    .player-sub .volume-container {
+        @apply rounded-full hover:bg-red-200 flex items-center cursor-pointer justify-end w-40;
+    }
+
+    .player-progress {
+        @apply bottom-24 fixed w-full h-2 z-10 bg-red-50 opacity-60 hover:opacity-80 cursor-pointer;
+    }
+    .player-progress > .progress {
+        @apply bottom-24 fixed w-full h-2 z-10;
+        background: rgb(255, 190, 190);
+    }
+    /* #endregion */
+
+    /* #region Queue */
+    .queue-container {
+        @apply bg-white content mx-2;
+    }
+
+    .queue-header {
+        @apply flex justify-between items-center;
+    }
+    .queue-header .queue-util {
+        @apply flex gap-4;
+    }
+    .queue-header .queue-util > div {
+        @apply btn-icon;
+    }
+    .queue-util > .active {
+        @apply bg-pink-100 hover:bg-red-200;
+    }
+    .queue-header svg {
+        @apply icon-small text-pink-600;
+    }
+
+    .queue-item {
+        @apply grid grid-cols-10 items-center justify-between p-2 hover:bg-red-200;
+    }
+    .queue-item-active {
+        @apply bg-red-100;
+    }
+    .queue-item-dragging {
+        @apply bg-red-50 hover:bg-red-50 opacity-40;
+    }
+
+    .queue-item > .item-title {
+        @apply col-span-6;
+    }
+    .queue-item > .item-album {
+        @apply col-span-3 mr-2 artist-list;
+    }
+    /* #endregion */
+
+    /* #region Track List */
+    .track-header {
+        @apply flex items-center font-bold;
+    }
+
+    .track-item {
+        @apply flex items-center hover:bg-red-50;
+    }
+
+    .track-header > .number,
+    .track-item > .number {
+        @apply w-4 ml-4;
+    }
+    .track-header > .items,
+    .track-item > .items {
+        @apply grid grid-cols-4 items-center w-full py-2 px-4;
+        grid-template-columns: 2fr 1fr 5rem;
+    }
+    /* #endregion. */
+
+    /* #region Cards */
+    .card-list {
+        @apply flex gap-4 overflow-x-auto pb-2;
+    }
+
+    .card-list > .card-container {
+        min-width: 240px;
+        @apply flex flex-col justify-end;
+    }
+
+    .card-container > .card > img {
+        height: 240px;
+    }
+    /* #endregion */
+
+    /* #region Modal */
+    .modal-container {
+        @apply absolute z-10 w-screen h-screen flex justify-center items-center;
+        background-color: rgba(229, 231, 235, 0.6);
+    }
+
+    .modal-container > div {
+        @apply p-4 bg-white w-96;
+    }
+    /* #endregion */
+
+    /* #region Playlist Item */
+    .library-item {
+        @apply grid grid-cols-3 md:grid-cols-4 gap-4 h-36 items-center;
+    }
+    .library-item > .library-image {
+        @apply p-2;
+    }
+    .library-item > .library-image > img {
+        @apply w-full max-h-32 object-cover;
+    }
+    .library-item > .library-name {
+        @apply col-span-2 md:col-span-3;
+    }
+    /* #endregion */
+
+    .link-text {
+        @apply underline text-red-400 hover:text-red-300;
     }
 }

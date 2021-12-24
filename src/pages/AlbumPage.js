@@ -94,7 +94,7 @@ const AlbumPage = () => {
     };
 
     return !albumErr && !trackErr && !libraryAlbumError ? (
-        <div className="content page-content">
+        <div className="page-content">
             <div className="flex flex-col gap-6">
                 <div className="flex items-center gap-4 sm:gap-8 flex-col sm:flex-row">
                     {albumLoading && trackLoading ? (
@@ -119,7 +119,7 @@ const AlbumPage = () => {
                                     albumData.artists.map((artist) => (
                                         <Link
                                             to={`/artist/${artist._id}`}
-                                            className="title2 font-normal hover:underline linkItem"
+                                            className="title2 linkItem"
                                             key={artist._id}
                                         >
                                             {artist.name}
@@ -132,7 +132,7 @@ const AlbumPage = () => {
                         </div>
                         <div className="flex justify-start gap-2">
                             <button
-                                className="btn btn-sm w-1/2 btn-confirm md:w-48"
+                                className="btn-primary w-1/2 md:w-48"
                                 onClick={playAlbum}
                             >
                                 Play
@@ -140,9 +140,7 @@ const AlbumPage = () => {
                             {!libraryAlbumLoading &&
                                 (albumInLibrary() ? (
                                     <button
-                                        className={`btn btn-sm w-1/2 md:w-48 bg-gray-200 ${
-                                            loading && "opacity-40"
-                                        }`}
+                                        className="btn-secondary w-1/2 md:w-48"
                                         onClick={removeAlbum}
                                         disabled={loading}
                                     >
@@ -150,9 +148,7 @@ const AlbumPage = () => {
                                     </button>
                                 ) : (
                                     <button
-                                        className={`btn btn-sm w-1/2 md:w-48${
-                                            loading && "opacity-40"
-                                        }`}
+                                        className="w-1/2 md:w-48"
                                         onClick={addAlbum}
                                         disabled={loading}
                                     >

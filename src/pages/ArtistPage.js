@@ -101,7 +101,7 @@ const ArtistPage = () => {
         !albumError &&
         !tracksError &&
         !libraryArtistError ? (
-        <div className="content page-content">
+        <div className="page-content">
             <div className="flex flex-col gap-8">
                 <div className="flex items-center gap-8">
                     {artistLoading ? (
@@ -126,7 +126,7 @@ const ArtistPage = () => {
                                 </h1>
                                 <div className="flex justify-start gap-2">
                                     <button
-                                        className="btn btn-sm w-1/2 btn-confirm md:w-48"
+                                        className="btn-primary w-1/2 md:w-48"
                                         onClick={playArtist}
                                     >
                                         Play
@@ -134,9 +134,7 @@ const ArtistPage = () => {
                                     {!libraryArtistLoading &&
                                         (artistInLibrary() ? (
                                             <button
-                                                className={`btn btn-sm w-1/2 md:w-48 bg-gray-200 ${
-                                                    loading && "opacity-40"
-                                                }`}
+                                                className="btn-secondary w-1/2 md:w-48"
                                                 onClick={removeArtist}
                                                 disabled={loading}
                                             >
@@ -144,9 +142,7 @@ const ArtistPage = () => {
                                             </button>
                                         ) : (
                                             <button
-                                                className={`btn btn-sm w-1/2 md:w-48${
-                                                    loading && "opacity-40"
-                                                }`}
+                                                className="w-1/2 md:w-48"
                                                 onClick={addArtist}
                                                 disabled={loading}
                                             >
@@ -160,13 +156,18 @@ const ArtistPage = () => {
                 </div>
                 <div>
                     <h2 className="title2">Tracks</h2>
-                    <TrackHeader />
+                    <TrackHeader album={true} />
                     {tracksLoading
                         ? [1, 2, 3, 4, 5].map((_, i) => (
                               <TrackSkeleton key={i} id={i} />
                           ))
                         : trackData.tracks.map((track, i) => (
-                              <TrackItem key={i} t={track} i={i + 1} />
+                              <TrackItem
+                                  key={i}
+                                  t={track}
+                                  i={i + 1}
+                                  album={true}
+                              />
                           ))}
                 </div>
                 <div>
@@ -179,13 +180,10 @@ const ArtistPage = () => {
                                       className="card"
                                   >
                                       <div className="card-link">
-                                          <Skeleton
-                                              className="album-image"
-                                              height={240}
-                                          />
+                                          <Skeleton height={240} width={240} />
                                           <Skeleton className="title2 mt-4" />
                                       </div>
-                                      <div className="artistList">
+                                      <div className="artist-list">
                                           <Skeleton className="linkItem" />
                                       </div>
                                   </div>

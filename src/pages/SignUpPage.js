@@ -12,22 +12,31 @@ const SignUpPage = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const signUp = (e) => {
         e.preventDefault();
+        setLoading(true);
         if (password !== confirmPassword) {
             alert.error("The password confirmation does not match");
+            setLoading(false);
             return;
         }
 
         userSignUp({ email, password })
             .then((response) => {
+                setLoading(false);
                 if (response.token) {
                     dispatch(setToken(response.token));
                     history.push("/");
-                } else alert.error("Something went wrong");
+                } else {
+                    alert.error("Something went wrong");
+                }
             })
-            .catch(() => alert.error("User already exist"));
+            .catch(() => {
+                alert.error("User already exist");
+                setLoading(false);
+            });
     };
 
     return (
@@ -72,19 +81,22 @@ const SignUpPage = () => {
                             />
                             <label htmlFor="checkRemember">Remember me</label>
                         </div>
-                        <Link className="textLink" to="/forgotPassword">
+                        <Link className="link-text" to="/forgotPassword">
                             Forgot your password?
                         </Link>
                     </div>
                     <button
-                        className="bg-red-100 h-10 btn w-full"
+                        className={`bg-red-100 h-10 btn w-full ${
+                            loading && "opacity-40"
+                        }`}
+                        disabled={loading}
                         onClick={signUp}
                     >
                         Sign Up
                     </button>
                     <div className="text-center">
                         <span>Have an account? </span>
-                        <Link to="/login" className="textLink">
+                        <Link to="/login" className="link-text">
                             Log in
                         </Link>
                     </div>

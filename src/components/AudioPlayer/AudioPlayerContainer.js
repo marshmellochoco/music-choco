@@ -69,7 +69,7 @@ const AudioPlayerContainer = ({
                         seekPercent={seekPercent}
                         lapsed={lapsed}
                     />
-                    <div className="bottom-0 fixed w-full h-24 grid grid-cols-3 bg-red-50">
+                    <div className="audio-player">
                         <AudioPlayerTrack playingTrack={playingTrack} />
                         <AudioPlayerControl
                             isPlaying={play}

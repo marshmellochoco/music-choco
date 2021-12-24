@@ -39,7 +39,7 @@ const AppLayout = ({ children, setLoggedIn }) => {
             <div
                 id="window"
                 className={`w-full overflow-y-auto ${
-                    queue.length <= 0 && "full-height"
+                    queue.length <= 0 && "h-screen"
                 }`}
             >
                 <div className={openQueue ? "hidden" : "block"}>{children}</div>

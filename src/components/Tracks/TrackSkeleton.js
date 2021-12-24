@@ -3,18 +3,18 @@ import Skeleton from "react-loading-skeleton";
 const TrackSkeleton = ({ id }) => {
     return (
         <div key={`track_skeleton_${id}`}>
-            <div>
-                <div className="grid grid-cols-6 items-center w-full py-2 px-4 hover:bg-red-50 ">
-                    <div className="col-span-3">
+            <div className="track-item">
+                <Skeleton className="ml-4" width={"1rem"} />
+                <div className="items gap-4">
+                    <div>
                         <Skeleton />
-                        <div className="artistList">
-                            <Skeleton className="linkItem" />
+                        <div className="artist-list">
+                            <Skeleton className="link-item" />
                         </div>
                     </div>
-                    <div className="col-span-2" />
-                    <Skeleton className="col-span-1 text-right" />
+                    <Skeleton />
+                    <Skeleton className="text-left" />
                 </div>
-                <hr />
             </div>
         </div>
     );

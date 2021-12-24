@@ -8,24 +8,19 @@ const ArtistCard = ({ artist }) => {
     return (
         <Link
             to={`/artist/${artist._id}`}
-            className="card border border-red-100 card-hover"
+            className="card-container border border-red-100 hover:shadow-md"
         >
-            <div>
+            <div className="card">
                 <img
-                    className={`album-image ${!loaded && "hidden"}`}
+                    className={!loaded ? "hidden" : ""}
                     src={artist.image}
                     alt={artist.name}
                     onLoad={() => setLoaded(true)}
                 />
-                {!loaded && (
-                    <Skeleton
-                        className="album-image"
-                        height={"100%"}
-                    />
-                )}
+                {!loaded && <Skeleton height={240} />}
             </div>
             <div className="m-2">
-                <h2 className="title2 mt-3 font-bold">{artist.name}</h2>
+                <h2 className="title2 mt-3">{artist.name}</h2>
             </div>
         </Link>
     );

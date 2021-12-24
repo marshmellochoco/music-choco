@@ -31,32 +31,24 @@ const Queue = ({ openQueue, setOpenQueue, location }) => {
     return (
         <>
             {openQueue && (
-                <div className="bg-white content mx-2">
-                    <div className="flex justify-between items-center">
+                <div className="queue-container">
+                    <div className="queue-header">
                         <h1 className="title">Up Next</h1>
-                        <div className="flex gap-10">
-                            <div className="flex gap-6">
+                        <div className="flex gap-8">
+                            <div className="queue-util">
                                 <div
-                                    className={`btn-icon ${
-                                        loop
-                                            ? "bg-pink-100 hover:bg-red-200"
-                                            : ""
-                                    }`}
+                                    className={loop ? "active" : ""}
                                     onClick={() => dispatch(setLoop(!loop))}
                                 >
                                     <Icon
                                         path={mdiSync}
                                         title="Loop"
-                                        className="icon-small fill-current text-pink-600"
                                     />
                                 </div>
-                                <div className="btn-icon" onClick={shuffle}>
+                                <div onClick={shuffle}>
                                     <Icon
                                         path={mdiShuffle}
                                         title="Shuffle"
-                                        className={
-                                            "icon-small fill-current text-pink-600"
-                                        }
                                     />
                                 </div>
                             </div>
@@ -64,7 +56,6 @@ const Queue = ({ openQueue, setOpenQueue, location }) => {
                                 <Icon
                                     path={mdiClose}
                                     title="Hide queue"
-                                    className="icon-small"
                                     onClick={closeQueue}
                                 />
                             </div>

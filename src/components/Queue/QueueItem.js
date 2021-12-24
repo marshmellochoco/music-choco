@@ -10,28 +10,25 @@ const QueueItem = ({ item }) => {
             Math.floor(duration % 60)
         );
     };
-    
+
     return (
         <li className="queue-item">
-            <div className="col-span-6">
+            <div className="item-title">
                 <b>{item.title}</b>
-                <div className="artistList">
+                <div className="artist-list">
                     {item.artists.map((a) => (
                         <Link
                             key={a._id}
                             to={`/artist/${a._id}`}
-                            className="hover:underline linkItem"
+                            className="link-item"
                         >
                             {a.name}
                         </Link>
                     ))}
                 </div>
             </div>
-            <div className="col-span-3 mr-2 artistList">
-                <Link
-                    to={`/album/${item.album._id}`}
-                    className="hover:underline"
-                >
+            <div className="item-album">
+                <Link to={`/album/${item.album._id}`} className="link-item">
                     {item.album.name}
                 </Link>
             </div>

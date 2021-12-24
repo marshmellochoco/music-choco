@@ -11,17 +11,23 @@ const LoginPage = () => {
     const alert = useAlert();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const login = (e) => {
         e.preventDefault();
+        setLoading(true);
         userLogin({ email, password })
             .then((response) => {
                 if (response.token) {
                     dispatch(setToken(response.token));
+                    setLoading(false);
                     history.push("/");
                 }
             })
-            .catch(() => alert.error("Invalid email or password"));
+            .catch(() => {
+                alert.error("Invalid email or password");
+                setLoading(false);
+            });
     };
 
     return (
@@ -55,14 +61,17 @@ const LoginPage = () => {
                             />
                             <label htmlFor="checkRemember">Remember me</label>
                         </div>
-                        <Link className="textLink" to="/forgotPassword">
+                        <Link className="link-text" to="/forgotPassword">
                             Forgot your password?
                         </Link>
                     </div>
                     <input
                         type="submit"
                         value={"Login"}
-                        className="bg-red-100 h-10 btn w-full"
+                        className={`bg-red-100 h-10 btn w-full ${
+                            loading && "opacity-40"
+                        }`}
+                        disabled={loading}
                     />
                 </form>
                 <hr className="my-8" />

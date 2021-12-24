@@ -14,21 +14,21 @@ const Modal = ({ header, children, open, onConfirm, onCancel = null }) => {
     return open && domReady
         ? createPortal(
               <div className="modal-container" onMouseDown={closeModal}>
-                  <div className="p-4 bg-white w-96">
+                  <div>
                       <h2 className="title2">{header}</h2>
                       <div>
                           <p className="mb-4">{children}</p>
                           <div className="flex gap-2">
                               {onCancel && (
                                   <button
-                                      className="btn w-full"
+                                      className="w-full"
                                       onClick={onCancel}
                                   >
                                       Cancel
                                   </button>
                               )}
                               <button
-                                  className="btn btn-confirm w-full"
+                                  className="btn-primary w-full"
                                   onClick={onConfirm}
                               >
                                   Confirm

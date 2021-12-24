@@ -9,7 +9,7 @@ const NotFoundPage = () => {
                 The page you are looking for might have been removed <br />
                 or is temporary unavailable.
             </p>
-            <Link to="/" className="btn btn-confirm">
+            <Link to="/" className="btn btn-primary">
                 Back to homepage
             </Link>
         </div>
