@@ -17,7 +17,7 @@ const Modal = ({ header, children, open, onConfirm, onCancel = null }) => {
                   <div>
                       <h2 className="title2">{header}</h2>
                       <div>
-                          <p className="mb-4">{children}</p>
+                          <div className="mb-4">{children}</div>
                           <div className="flex gap-2">
                               {onCancel && (
                                   <button

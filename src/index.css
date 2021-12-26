@@ -125,14 +125,17 @@ body,
     /* #region Artist list */
     .artist-list {
         height: 1.5rem;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
+        @apply overflow-hidden whitespace-nowrap overflow-ellipsis;
+    }
+
+    .artist-list-bold {
+        @apply overflow-hidden whitespace-nowrap overflow-ellipsis font-bold;
     }
 
     .link-item {
         @apply hover:underline break-words overflow-hidden;
     }
+    .artist-list-bold > .link-item ~ .link-item::before,
     .artist-list > .link-item ~ .link-item::before {
         content: ", ";
     }
@@ -353,12 +356,14 @@ body,
     }
 
     .card-list > .card-container {
+        width: 240px;
         min-width: 240px;
         @apply flex flex-col justify-end;
     }
 
     .card-container > .card > img {
         height: 240px;
+        width: 240px;
     }
     /* #endregion */
 

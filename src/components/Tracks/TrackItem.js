@@ -74,7 +74,7 @@ const TrackItem = ({ t, children, i, album = false }) => {
                 onCancel={() => setOpenModal(false)}
             >
                 <div className="flex flex-col gap-1">
-                    <label for="textInput">
+                    <label htmlFor="textInput">
                         <b>Name</b>
                     </label>
                     <input
