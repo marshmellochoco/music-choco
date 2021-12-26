@@ -19,14 +19,14 @@ const LoginPage = () => {
         userLogin({ email, password })
             .then((response) => {
                 if (response.token) {
-                    dispatch(setToken(response.token));
                     setLoading(false);
+                    dispatch(setToken(response.token));
                     history.push("/");
                 }
             })
             .catch(() => {
-                alert.error("Invalid email or password");
                 setLoading(false);
+                alert.error("Invalid email or password");
             });
     };
 

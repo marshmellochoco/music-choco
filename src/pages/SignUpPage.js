@@ -34,8 +34,8 @@ const SignUpPage = () => {
                 }
             })
             .catch(() => {
-                alert.error("User already exist");
                 setLoading(false);
+                alert.error("User already exist");
             });
     };
 

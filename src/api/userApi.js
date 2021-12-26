@@ -15,7 +15,7 @@ export const userLogin = async ({ email, password }) => {
 };
 
 export const userSignUp = async ({ email, password }) => {
-    let encrPassword = CryptoJS.AES.encrypt(password, key);
+    let encrPassword = CryptoJS.AES.encrypt(password, key).toString();
     return await axios
         .post(`${apiUrl}/register`, {
             credential: { email, password: encrPassword },
