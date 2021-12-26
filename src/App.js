@@ -16,6 +16,7 @@ import HomePage from "./pages/HomePage";
 import LibraryPage from "./pages/LibraryPage";
 import PlaylistPage from "./pages/PlaylistPage";
 import NotFoundPage from "./pages/NotFoundPage";
+import SearchPage from "./pages/SearchPage";
 
 const App = () => {
     const setLoggedIn = () => {};
@@ -44,6 +45,7 @@ const App = () => {
                         <Route path="/album/:id" component={AlbumPage} />
                         <Route path="/playlist/:id" component={PlaylistPage} />
                         <Route path="/library" component={LibraryPage} />
+                        <Route path="/search" component={SearchPage} />
                         <Route exact path="/" component={HomePage} />
                         <Route path="*" component={NotFoundPage} />
                     </Switch>

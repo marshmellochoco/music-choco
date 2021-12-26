@@ -21,7 +21,7 @@ const AlbumCard = ({ album }) => {
                 {album.artists.map((artist) => (
                     <Link
                         to={`/artist/${artist._id}`}
-                        key={artist._id}
+                        key={`albumcard_${artist._id}`}
                         className="link-item"
                     >
                         {artist.name}

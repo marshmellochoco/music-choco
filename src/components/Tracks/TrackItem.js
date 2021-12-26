@@ -21,10 +21,11 @@ const TrackItem = ({ t, children, i, album = false }) => {
     const [name, setName] = useState("");
     const { playingTrack } = useSelector((state) => state.playerReducer);
     const queue = useSelector((state) => state.queueReducer);
-    const { data: playlistData, isLoading } = useAxios(
-        "get",
-        `/library/playlist`
-    );
+    const {
+        data: playlistData,
+        isLoading,
+        fetchData,
+    } = useAxios(`/library/playlist`);
 
     const addTrack = (track) => {
         if (queue.length === 0) {
@@ -50,7 +51,7 @@ const TrackItem = ({ t, children, i, album = false }) => {
         let newPlaylist = { ...playlist };
         newPlaylist.tracks = [...newPlaylist.tracks, track._id];
         addPlaylistTrack(newPlaylist)
-            .then((res) => {
+            .then(() => {
                 alert.show("Added to playlist");
             })
             .catch((err) => alert.error(err));
@@ -58,10 +59,13 @@ const TrackItem = ({ t, children, i, album = false }) => {
 
     const addTrackToNewPlaylist = () => {
         addPlaylist({ name }).then((res) => {
-            window.location.reload();
-            addPlaylistTrack({ ...res, tracks: [t._id] }).catch((err) =>
-                alert.error(err)
-            );
+            fetchData();
+            addPlaylistTrack({ ...res, tracks: [t._id] })
+                .then(() => {
+                    setOpenModal(false);
+                    alert.show("Added to playlist");
+                })
+                .catch((err) => alert.error(err));
         });
     };
 

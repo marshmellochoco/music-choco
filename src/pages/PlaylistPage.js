@@ -28,12 +28,12 @@ const PlaylistPage = () => {
         data: playlistData,
         isLoading: playlistLoading,
         error: playlistError,
-    } = useAxios("get", `/playlist/${id}/`);
+    } = useAxios(`/playlist/${id}/`);
     const {
         data: trackData,
         isLoading: trackLoading,
         error: trackError,
-    } = useAxios("get", `/playlist/${id}/tracks`);
+    } = useAxios(`/playlist/${id}/tracks`);
 
     const addTrack = (track) => {
         if (queue.length === 0) {

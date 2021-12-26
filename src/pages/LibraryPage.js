@@ -9,19 +9,19 @@ const LibraryPage = () => {
         data: playlistData,
         isLoading: playlistLoading,
         error: playlistError,
-    } = useAxios("get", `/library/playlist`);
+    } = useAxios(`/library/playlist`);
 
     const {
         data: albumData,
         isLoading: albumLoading,
         error: albumError,
-    } = useAxios("get", `/library/album`);
+    } = useAxios(`/library/album`);
 
     const {
         data: artistData,
         isLoading: artistLoading,
         error: artistError,
-    } = useAxios("get", `/library/artist`);
+    } = useAxios(`/library/artist`);
 
     return !playlistError && !albumError && !artistError ? (
         <div className="page-content">

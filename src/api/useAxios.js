@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { useAlert } from "react-alert";
 import { logoutAction } from "../store/user/userAction";
 
-const useAxios = (method, route, body = {}) => {
+const useAxios = (route) => {
     const dispatch = useDispatch();
     const alert = useAlert();
     const [data, setData] = useState(null);
@@ -12,11 +12,10 @@ const useAxios = (method, route, body = {}) => {
     const [error, setError] = useState(null);
     const controller = new AbortController();
 
-    useEffect(() => {
+    const fetchData = () => {
         axios({
-            method,
+            method: "get",
             url: `${process.env.REACT_APP_API_URL}${route}`,
-            data: body,
             signal: controller.signal,
         })
             .then((res) => {
@@ -34,11 +33,15 @@ const useAxios = (method, route, body = {}) => {
                     setIsLoading(false);
                 }
             });
+    };
+
+    useEffect(() => {
+        fetchData();
         return () => controller.abort();
         // eslint-disable-next-line
     }, [route]);
 
-    return { data, isLoading, error };
+    return { data, isLoading, error, fetchData };
 };
 
 export default useAxios;

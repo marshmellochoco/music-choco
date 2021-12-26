@@ -35,7 +35,7 @@ const AppLayout = ({ children, setLoggedIn }) => {
     return (
         <div onContextMenu={onContextMenu} className="h-screen">
             <div id="modal"></div>
-            <Navbar resetToken={logout} location={location} />
+            <Navbar resetToken={logout} />
             <div
                 id="window"
                 className={`w-full overflow-y-auto ${

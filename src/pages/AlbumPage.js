@@ -25,18 +25,18 @@ const AlbumPage = () => {
         data: albumData,
         isLoading: albumLoading,
         error: albumErr,
-    } = useAxios("get", `/album/${id}/`);
+    } = useAxios(`/album/${id}/`);
     const {
         data: trackData,
         isLoading: trackLoading,
         error: trackErr,
-    } = useAxios("get", `/album/${id}/tracks`);
+    } = useAxios(`/album/${id}/tracks`);
 
     const {
         data: libraryAlbum,
         isLoading: libraryAlbumLoading,
         error: libraryAlbumError,
-    } = useAxios("get", `/library/album`);
+    } = useAxios(`/library/album`);
 
     const addTrack = (track) => {
         if (queue.length === 0) {

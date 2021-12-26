@@ -9,12 +9,12 @@ const HomePage = () => {
         data: featuredArtist,
         isLoading: artistLoading,
         error: artistError,
-    } = useAxios("get", "/featured-artists");
+    } = useAxios("/featured-artists");
     const {
         data: newRelease,
         isLoading: albumLoading,
         error: albumError,
-    } = useAxios("get", "/new-release");
+    } = useAxios("/new-release");
 
     const getAlbumSkeleton = (key) => {
         return (

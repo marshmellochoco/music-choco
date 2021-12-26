@@ -46,7 +46,7 @@ const SignUpPage = () => {
                     <div className="input">
                         <label htmlFor="textEmail">Email address</label>
                         <input
-                            type="text"
+                            type="email"
                             id="textEmail"
                             placeholder="Email address"
                             onChange={(e) => setEmail(e.target.value)}
