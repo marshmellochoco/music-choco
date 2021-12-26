@@ -1,15 +1,27 @@
 import axios from "axios";
+import sha256 from "crypto-js/sha256";
+import Base64 from "crypto-js/enc-base64";
 const apiUrl = process.env.REACT_APP_API_URL;
 
 export const userLogin = async (credential) => {
-    return await axios.post(`${apiUrl}/login`, { credential }).then((res) => {
-        return res.data;
-    });
+    let { email, password } = credential;
+    let encrPassword = Base64.stringify(sha256(process.env.SALT + password));
+    return await axios
+        .post(`${apiUrl}/login`, {
+            credential: { email, password: encrPassword },
+        })
+        .then((res) => {
+            return res.data;
+        });
 };
 
 export const userSignUp = async (credential) => {
+    let { email, password } = credential;
+    let encrPassword = Base64.stringify(sha256(process.env.SALT + password));
     return await axios
-        .post(`${apiUrl}/register`, { credential })
+        .post(`${apiUrl}/register`, {
+            credential: { email, password: encrPassword },
+        })
         .then((res) => {
             return res.data;
         });

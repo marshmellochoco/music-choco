@@ -26,6 +26,21 @@ const LibraryPage = () => {
     return !playlistError && !albumError && !artistError ? (
         <div className="page-content">
             <h1 className="title">Library</h1>
+            {!playlistLoading &&
+                playlistData.count === 0 &&
+                !albumLoading &&
+                albumData.count === 0 &&
+                !artistLoading &&
+                artistData.count === 0 && (
+                    <>
+                        <div>
+                            You have not added anything into your library.
+                        </div>
+                        <Link to="/" className="btn btn-primary w-max">
+                            Go to Homepage
+                        </Link>
+                    </>
+                )}
             <>
                 {!playlistLoading && playlistData.count !== 0 && (
                     <h2 className="title2">Playlists</h2>
@@ -113,7 +128,7 @@ const LibraryPage = () => {
                         );
                     })
                 )}
-            </>{" "}
+            </>
         </div>
     ) : (
         <ErrorPage />

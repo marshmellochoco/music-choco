@@ -72,19 +72,6 @@ const SignUpPage = () => {
                             onChange={(e) => setConfirmPassword(e.target.value)}
                         />
                     </div>
-                    <div className="flex flex-row justify-between">
-                        <div>
-                            <input
-                                type="checkbox"
-                                id="checkRemember"
-                                className="mr-1"
-                            />
-                            <label htmlFor="checkRemember">Remember me</label>
-                        </div>
-                        <Link className="link-text" to="/forgotPassword">
-                            Forgot your password?
-                        </Link>
-                    </div>
                     <button
                         className={`bg-red-100 h-10 btn w-full ${
                             loading && "opacity-40"
