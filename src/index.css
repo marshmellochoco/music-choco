@@ -115,10 +115,10 @@ body,
 
     /* #region Icons */
     .icon-small {
-        @apply w-6 h-6 cursor-pointer m-1;
+        @apply w-6 h-6 m-1;
     }
     .icon-medium {
-        @apply w-12 h-12 cursor-pointer m-1;
+        @apply w-12 h-12 m-1;
     }
     /* #endregion */
 
@@ -177,18 +177,17 @@ body,
     }
 
     input[type="range"] {
+        @apply bg-pink-50;
         -webkit-appearance: none;
-        background: var(--progress-color2);
         height: 0.4rem;
         border-radius: 0.2rem;
     }
 
     input[type="range"]::-webkit-slider-thumb {
+        @apply bg-red-300 rounded-full;
         -webkit-appearance: none;
-        background-color: white;
         height: 0.8rem;
         width: 0.8rem;
-        border-radius: 50%;
     }
     /* #endregion */
 }
@@ -395,5 +394,10 @@ body,
 
     .link-text {
         @apply underline text-red-400 hover:text-red-300;
+    }
+
+    #__react-alert__ > div {
+        margin-top: 5rem;
+        gap: 0.5rem;
     }
 }
