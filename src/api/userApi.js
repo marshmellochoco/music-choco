@@ -1,11 +1,10 @@
 import axios from "axios";
-import sha256 from "crypto-js/sha256";
-import Base64 from "crypto-js/enc-base64";
+import CryptoJS from "crypto-js";
 const apiUrl = process.env.REACT_APP_API_URL;
+const key = process.env.REACT_APP_PRIVATE_KEY;
 
-export const userLogin = async (credential) => {
-    let { email, password } = credential;
-    let encrPassword = Base64.stringify(sha256(process.env.SALT + password));
+export const userLogin = async ({ email, password }) => {
+    let encrPassword = CryptoJS.AES.encrypt(password, key).toString();
     return await axios
         .post(`${apiUrl}/login`, {
             credential: { email, password: encrPassword },
@@ -15,9 +14,8 @@ export const userLogin = async (credential) => {
         });
 };
 
-export const userSignUp = async (credential) => {
-    let { email, password } = credential;
-    let encrPassword = Base64.stringify(sha256(process.env.SALT + password));
+export const userSignUp = async ({ email, password }) => {
+    let encrPassword = CryptoJS.AES.encrypt(password, key);
     return await axios
         .post(`${apiUrl}/register`, {
             credential: { email, password: encrPassword },
