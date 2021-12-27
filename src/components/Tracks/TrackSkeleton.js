@@ -8,7 +8,7 @@ const TrackSkeleton = ({ id }) => {
                 <div className="items gap-4">
                     <div>
                         <Skeleton />
-                        <div className="artist-list">
+                        <div className="artist-list h-6">
                             <Skeleton className="link-item" />
                         </div>
                     </div>

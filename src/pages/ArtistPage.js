@@ -183,7 +183,7 @@ const ArtistPage = () => {
                                           <Skeleton height={240} width={240} />
                                           <Skeleton className="title2 mt-4" />
                                       </div>
-                                      <div className="artist-list">
+                                      <div className="artist-list h-6">
                                           <Skeleton className="linkItem" />
                                       </div>
                                   </div>

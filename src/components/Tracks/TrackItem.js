@@ -87,6 +87,10 @@ const TrackItem = ({ t, children, i, album = false }) => {
                         placeholder="Playlist name"
                         autoFocus={true}
                         onChange={(e) => setName(e.target.value)}
+                        onKeyDown={(e) => {
+                            if (e.key === "Enter") addTrackToNewPlaylist();
+                            else if (e.key === "Escape") setOpenModal(false);
+                        }}
                         className="border-b border-red-200 px-2 py-1"
                     />
                 </div>
@@ -107,14 +111,17 @@ const TrackItem = ({ t, children, i, album = false }) => {
                     >
                         <div className="number">{i}</div>
                         <div className="items">
-                            <div>
+                            <div
+                                className={album ? "col-span-2" : "col-span-3"}
+                            >
                                 <h3 className="font-bold">{t.title}</h3>
-                                <div className="artist-list">
+                                <div className="artist-list h-6">
                                     {t.artists.map((artist) => (
                                         <Link
                                             to={`/artist/${artist._id}`}
                                             className="link-item"
                                             key={artist._id}
+                                            title={artist.name}
                                         >
                                             {artist.name}
                                         </Link>
@@ -125,20 +132,21 @@ const TrackItem = ({ t, children, i, album = false }) => {
                                 <Link
                                     to={`/album/${t.album._id}`}
                                     className="link-item"
+                                    title={t.album.name}
                                 >
                                     {t.album.name}
                                 </Link>
                             ) : (
                                 <span />
                             )}
-                            <span className="text-left">
-                                {(t.duration / 60 < 10 ? "0" : "") +
-                                    Math.floor(t.duration / 60)}
-                                :
-                                {(t.duration % 60 < 10 ? "0" : "") +
-                                    Math.floor(t.duration % 60)}
-                            </span>
                         </div>
+                        <span className="text-left w-20">
+                            {(t.duration / 60 < 10 ? "0" : "") +
+                                Math.floor(t.duration / 60)}
+                            :
+                            {(t.duration % 60 < 10 ? "0" : "") +
+                                Math.floor(t.duration % 60)}
+                        </span>
                         <hr />
                     </div>
                 </div>

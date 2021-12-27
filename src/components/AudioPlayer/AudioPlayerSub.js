@@ -3,7 +3,7 @@ import Icon from "@mdi/react";
 import { mdiChevronDown, mdiChevronUp, mdiVolumeHigh } from "@mdi/js";
 
 const AudioPlayerSub = ({ openQueue, setOpenQueue, volume, setVolume }) => {
-    const [openVol, setOpenVol] = useState(true);
+    const [openVol, setOpenVol] = useState(false);
 
     return (
         <div className="player-sub">

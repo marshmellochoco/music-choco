@@ -47,6 +47,11 @@ const SearchPage = () => {
                 </div>
             </div>
             <div className="flex flex-col gap-4">
+                {isLoading && (
+                    <div className="flex h-full justify-center mt-8">
+                        <div className="loader" />
+                    </div>
+                )}
                 {!isLoading && data && data.tracks.length > 0 && (
                     <div>
                         <h2 className="title2">Tracks</h2>

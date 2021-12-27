@@ -99,6 +99,11 @@ const PlaylistPage = () => {
                             defaultValue={playlistData.name}
                             autoFocus={true}
                             onChange={(e) => setName(e.target.value)}
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter") editPlaylist();
+                                else if (e.key === "Escape")
+                                    setEditModal(false);
+                            }}
                             className="border-b border-red-200 px-2 py-1"
                         />
                     </div>
@@ -132,10 +137,11 @@ const PlaylistPage = () => {
                     </div>
                 ) : (
                     <div className="w-full">
-                        <div className="border border-red-200 m-2 ml-0">
+                        <div className="border border-red-200 m-2 ml-0 text-center">
                             <img
                                 src={playlistData.image}
                                 alt="Playlist Thumbnail"
+                                className="m-auto"
                                 onError={(e) => {
                                     e.target.src = defaultImg;
                                 }}
@@ -164,7 +170,7 @@ const PlaylistPage = () => {
                                 >
                                     <Icon
                                         path={mdiPencil}
-                                        className="icon-small fill-current text-pink-600"
+                                        className="icon-small fill-current text-red-300"
                                         title="Edit playlist"
                                     />
                                 </div>
@@ -174,7 +180,7 @@ const PlaylistPage = () => {
                                 >
                                     <Icon
                                         path={mdiTrashCan}
-                                        className="icon-small fill-current text-pink-600"
+                                        className="icon-small fill-current text-red-300"
                                         title="Delete playlist"
                                     />
                                 </div>

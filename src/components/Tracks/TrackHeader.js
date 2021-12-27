@@ -4,10 +4,12 @@ const TrackHeader = ({ album = false }) => {
             <div className="track-header">
                 <div className="number">#</div>
                 <div className="items">
-                    <h3>Track</h3>
+                    <h3 className={album ? "col-span-2" : "col-span-3"}>
+                        Track
+                    </h3>
                     <span>{album ? "Album" : ""}</span>
-                    <span className="text-left">Duration</span>
                 </div>
+                <span className="text-left w-20">Duration</span>
             </div>
             <hr className="border-b border-red-100 mx-2" />
         </>

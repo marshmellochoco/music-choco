@@ -7,7 +7,7 @@ const Navbar = ({ resetToken }) => {
     return (
         <nav className="navbar">
             <div className="nav-logo">
-                <Link to="/" className="w-min">
+                <Link to="/" className="w-min" title="music-choco">
                     <img src={logo} alt="music-chcoo" />
                 </Link>
             </div>

@@ -56,7 +56,7 @@ const LibraryPage = () => {
                             <Link
                                 to={`/playlist/${playlist._id}`}
                                 key={playlist._id}
-                                className="library-item hover:bg-pink-100 object-scale-down"
+                                className="library-item hover:bg-red-50 object-scale-down"
                             >
                                 <div className="library-image">
                                     <img
@@ -90,7 +90,7 @@ const LibraryPage = () => {
                             <Link
                                 to={`/album/${album._id}`}
                                 key={album._id}
-                                className="library-item hover:bg-pink-100 object-scale-down"
+                                className="library-item hover:bg-red-50 object-scale-down"
                             >
                                 <div className="library-image">
                                     <img src={album.image} alt={album.name} />
@@ -116,7 +116,7 @@ const LibraryPage = () => {
                             <Link
                                 to={`/artist/${artist._id}`}
                                 key={artist._id}
-                                className="library-item hover:bg-pink-100 object-scale-down"
+                                className="library-item hover:bg-red-50 object-scale-down"
                             >
                                 <div className="library-image">
                                     <img src={artist.image} alt={artist.name} />

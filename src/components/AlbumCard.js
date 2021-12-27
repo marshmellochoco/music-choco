@@ -7,7 +7,11 @@ const AlbumCard = ({ album }) => {
 
     return (
         <div className="card-container">
-            <Link className="card" to={`/album/${album._id}`}>
+            <Link
+                className="card"
+                to={`/album/${album._id}`}
+                title={album.name}
+            >
                 <img
                     className={loading ? "hidden" : ""}
                     src={album.image}
@@ -17,12 +21,13 @@ const AlbumCard = ({ album }) => {
                 {loading && <Skeleton height={240} />}
                 <h2 className="title2 mt-2">{album.name}</h2>
             </Link>
-            <div className="artist-list">
+            <div className="artist-list h-6">
                 {album.artists.map((artist) => (
                     <Link
                         to={`/artist/${artist._id}`}
                         key={`albumcard_${artist._id}`}
                         className="link-item"
+                        title={artist.name}
                     >
                         {artist.name}
                     </Link>

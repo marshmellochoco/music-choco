@@ -9,6 +9,7 @@ const ArtistCard = ({ artist }) => {
         <Link
             to={`/artist/${artist._id}`}
             className="card-container border border-red-100 hover:shadow-md"
+            title={artist.name}
         >
             <div className="card">
                 <img
