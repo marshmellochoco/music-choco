@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Icon from "@mdi/react";
 import { mdiArrowLeft, mdiClose } from "@mdi/js";
 import axios from "axios";
@@ -6,11 +6,13 @@ import ArtistCard from "../components/ArtistCard";
 import AlbumCard from "../components/AlbumCard";
 import TrackItem from "../components/Tracks/TrackItem";
 import TrackHeader from "../components/Tracks/TrackHeader";
+import { Link } from "react-router-dom";
 
 const SearchPage = () => {
     const [query, setQuery] = useState("");
     const [data, setData] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+    const ref = useRef();
 
     const search = () => {
         if (query !== "") {
@@ -24,24 +26,31 @@ const SearchPage = () => {
         }
     };
 
+    const clearInput = () => {
+        ref.current.focus();
+        setQuery("");
+    };
+
     return (
         <div className="page-content">
             <h1 className="title">Search</h1>
             <div>
-                <div className="border flex px-2 py-1 items-center">
-                    <div className="rounded-full hover:bg-red-100">
+                <div className="border flex px-2 py-1 gap-2 items-center">
+                    <Link to="/" className="btn-icon">
                         <Icon path={mdiArrowLeft} className="icon-small" />
-                    </div>
+                    </Link>
                     <input
                         type="text"
                         className="w-full py-0.5 px-1"
+                        ref={ref}
+                        value={query}
                         autoFocus={true}
                         onChange={(e) => setQuery(e.target.value)}
                         onKeyDown={(e) => {
                             if (e.key === "Enter") search();
                         }}
                     />
-                    <div className="rounded-full hover:bg-red-100">
+                    <div className="btn-icon" onClick={clearInput}>
                         <Icon path={mdiClose} className="icon-small" />
                     </div>
                 </div>
@@ -58,7 +67,12 @@ const SearchPage = () => {
                         <div>
                             <TrackHeader album={true} />
                             {data.tracks.map((t, i) => (
-                                <TrackItem i={i + 1} t={t} album={true} />
+                                <TrackItem
+                                    i={i + 1}
+                                    t={t}
+                                    album={true}
+                                    key={`search_track_${t._id}`}
+                                />
                             ))}
                         </div>
                     </div>

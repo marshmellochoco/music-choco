@@ -5,6 +5,7 @@ import { useState } from "react";
 const AlbumCard = ({ album }) => {
     const [loading, setLoading] = useState(true);
 
+    // TODO: Context menu
     return (
         <div className="card-container">
             <Link

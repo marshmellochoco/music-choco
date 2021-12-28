@@ -5,6 +5,7 @@ import { useState } from "react";
 const ArtistCard = ({ artist }) => {
     const [loaded, setLoaded] = useState(false);
 
+    // TODO: Context menu
     return (
         <Link
             to={`/artist/${artist._id}`}

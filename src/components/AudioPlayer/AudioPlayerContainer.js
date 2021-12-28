@@ -24,6 +24,7 @@ const AudioPlayerContainer = ({
     );
     const [lapsed, setLapsed] = useState(0);
     const [play, setPlay] = useState(true);
+    const [loading, setLoading] = useState(false);
 
     useLayoutEffect(() => {
         setLapsed(time);
@@ -58,7 +59,12 @@ const AudioPlayerContainer = ({
             <audio
                 src={playingTrack ? playingTrack.url : ""}
                 ref={ref}
-                onCanPlay={() => play && onPlay()}
+                onLoadStart={() => setLoading(true)}
+                onCanPlay={() => {
+                    if (play) console.log("playing");
+                    setLoading(false);
+                    onPlay();
+                }}
                 onTimeUpdate={onTimeUpdate}
                 onPlay={() => setPlay(true)}
                 onPause={() => setPlay(false)}
@@ -70,7 +76,10 @@ const AudioPlayerContainer = ({
                         lapsed={lapsed}
                     />
                     <div className="audio-player">
-                        <AudioPlayerTrack playingTrack={playingTrack} />
+                        <AudioPlayerTrack
+                            playingTrack={playingTrack}
+                            loading={loading}
+                        />
                         <AudioPlayerControl
                             isPlaying={play}
                             pause={onPause}

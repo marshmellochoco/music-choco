@@ -41,9 +41,9 @@ const QueueContent = ({ queueData, playingTrack }) => {
         return queue.map((q, i) => {
             const isPlayingTrack = playingTrack._id === q._id;
             return (
-                <div key={q._id}>
+                <div key={`queue_${q._id}`}>
                     <ContextMenuTrigger id={`queueListContextMenu_${q._id}`}>
-                        <Draggable key={q._id} draggableId={q._id} index={i}>
+                        <Draggable draggableId={q._id} index={i}>
                             {(provided, snapshot) => (
                                 <div
                                     onClick={(e) => {

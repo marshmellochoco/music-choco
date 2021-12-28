@@ -70,7 +70,7 @@ const TrackItem = ({ t, children, i, album = false }) => {
     };
 
     return (
-        <div key={t._id}>
+        <div key={`track_item_${t._id}`}>
             <Modal
                 header={"New Playlist"}
                 open={openModal}
@@ -120,7 +120,7 @@ const TrackItem = ({ t, children, i, album = false }) => {
                                         <Link
                                             to={`/artist/${artist._id}`}
                                             className="link-item"
-                                            key={artist._id}
+                                            key={`track_item_artist_${artist._id}`}
                                             title={artist.name}
                                         >
                                             {artist.name}
@@ -163,7 +163,7 @@ const TrackItem = ({ t, children, i, album = false }) => {
                         playlistData.playlists.map((p) => {
                             return (
                                 <MenuItem
-                                    key={p._id}
+                                    key={`track_item_ctx_${p._id}`}
                                     onClick={() => addTrackToPlaylist(p, t)}
                                 >
                                     {p.name}
