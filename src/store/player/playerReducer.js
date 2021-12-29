@@ -9,7 +9,7 @@ const getLoop = () => {
 const initState = {
     playing: false,
     loop: getLoop() !== null ? getLoop() : false,
-    volume: getVolume() !== null ? getVolume() : 1,
+    volume: getVolume() !== null ? getVolume() : 0.2,
     playingTrack: {
         _id: "",
         name: "",

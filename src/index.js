@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import { createStore } from "redux";
 import { Provider as AlertProvider } from "react-alert";
 import "./index.css";
+import "./context.css";
 import "react-loading-skeleton/dist/skeleton.css";
 import App from "./App";
 import rootReducer from "./store/rootReducer";

@@ -8,7 +8,7 @@ import Icon from "@mdi/react";
 
 const Alert = ({ message, options, close }) => {
     return (
-        <div className="flex items-center gap-1 bg-white border border-red-300 px-2 py-4 z-50 pointer-events-auto">
+        <div className="flex items-center gap-1 bg-white border border-red-300 p-2 z-50 pointer-events-auto">
             {options.type === "info" && (
                 <Icon
                     path={mdiInformationOutline}

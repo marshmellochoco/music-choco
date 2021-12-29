@@ -72,5 +72,3 @@ const HomePage = () => {
 };
 
 export default HomePage;
-// TODO: Scrolling on mobile n click to scroll on dekstop
-// https://stackoverflow.com/questions/12469875/how-to-code-css-media-queries-targeting-all-mobile-devices-and-tablets/42835826#42835826

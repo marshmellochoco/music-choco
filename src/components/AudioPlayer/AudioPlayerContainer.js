@@ -61,9 +61,10 @@ const AudioPlayerContainer = ({
                 ref={ref}
                 onLoadStart={() => setLoading(true)}
                 onCanPlay={() => {
-                    if (play) console.log("playing");
-                    setLoading(false);
-                    onPlay();
+                    if (play) {
+                        setLoading(false);
+                        onPlay();
+                    }
                 }}
                 onTimeUpdate={onTimeUpdate}
                 onPlay={() => setPlay(true)}

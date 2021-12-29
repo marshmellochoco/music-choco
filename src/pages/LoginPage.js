@@ -61,9 +61,14 @@ const LoginPage = () => {
                             />
                             <label htmlFor="checkRemember">Remember me</label>
                         </div>
-                        <Link className="link-text" to="/forgotPassword">
+                        <div
+                            className="link-text cursor-pointer"
+                            onClick={() =>
+                                alert.info("Oops! Not yet implemented.")
+                            }
+                        >
                             Forgot your password?
-                        </Link>
+                        </div>
                     </div>
                     <input
                         type="submit"
