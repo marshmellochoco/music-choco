@@ -152,12 +152,12 @@ const PlaylistPage = () => {
                             <b>{playlistData.creator}</b>
                             <p>
                                 <i>Created At: </i>
-                                <br />
+                                <br className="hidden sm:block" />
                                 {formatDate(playlistData.createdAt)}
                             </p>
                             <p>
                                 <i>Last Update: </i>
-                                <br />
+                                <br className="hidden sm:block" />
                                 {formatDate(playlistData.updatedAt)}
                             </p>
                         </div>

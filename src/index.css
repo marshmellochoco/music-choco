@@ -115,7 +115,7 @@ body,
     }
 
     input[type="range"] {
-        @apply bg-pink-50;
+        @apply bg-pink-50 cursor-pointer;
         -webkit-appearance: none;
         height: 0.4rem;
         border-radius: 0.2rem;
@@ -126,6 +126,11 @@ body,
         -webkit-appearance: none;
         height: 0.8rem;
         width: 0.8rem;
+    }
+
+    input[type="range"]::-moz-range-progress,
+    input[type="range"]::-ms-fill-lower {
+        background-color: black;
     }
     /* #endregion */
 }
@@ -216,7 +221,7 @@ body,
         @apply icon-small;
     }
     .player-sub .volume-container {
-        @apply rounded-full hover:bg-red-200 flex items-center cursor-pointer justify-end w-40;
+        @apply rounded-full hover:bg-red-200 flex items-center justify-end w-40;
     }
 
     .player-progress {

@@ -19,6 +19,7 @@ const AlbumPage = () => {
     const alert = useAlert();
     const [added, setAdded] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [imgLoading, setImgLoading] = useState(false);
     const { playingTrack } = useSelector((state) => state.playerReducer);
     const queue = useSelector((state) => state.queueReducer);
     const {
@@ -77,7 +78,7 @@ const AlbumPage = () => {
         removeFavAlbum(libraryAlbum.albums, id)
             .then(() => {
                 setAdded(false);
-                alert.show("Artist removed");
+                alert.show("Album removed");
                 setLoading(false);
             })
             .catch(() => {
@@ -103,11 +104,16 @@ const AlbumPage = () => {
                             style={{ width: "12rem", height: "12rem" }}
                         />
                     ) : (
-                        <img
-                            src={albumData && albumData.image}
-                            alt={albumData && albumData.name}
-                            className="w-full h-full sm:w-48 sm:h-48 border border-white"
-                        />
+                        (imgLoading && (
+                            <Skeleton style={{ height: "12rem" }} />
+                        )) || (
+                            <img
+                                src={albumData && albumData.image}
+                                alt={albumData && albumData.name}
+                                className="w-full h-full sm:w-48 sm:h-48 border border-white"
+                                onLoad={() => setImgLoading(false)}
+                            />
+                        )
                     )}
                     <div className="w-full sm:w-full flex flex-col gap-4">
                         <div>

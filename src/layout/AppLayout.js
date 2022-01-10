@@ -30,6 +30,7 @@ const AppLayout = ({ children, setLoggedIn }) => {
     const logout = () => {
         setLoggedIn(false);
         dispatch(logoutAction());
+        window.location.reload();
     };
 
     return (

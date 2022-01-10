@@ -61,6 +61,11 @@ const SearchPage = () => {
                         <div className="loader" />
                     </div>
                 )}
+                {!isLoading &&
+                    data &&
+                    data.tracks.length === 0 &&
+                    data.artists.length === 0 &&
+                    data.albums.length === 0 && <div>No result found.</div>}
                 {!isLoading && data && data.tracks.length > 0 && (
                     <div>
                         <h2 className="title2">Tracks</h2>
