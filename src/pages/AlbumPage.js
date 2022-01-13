@@ -48,10 +48,10 @@ const AlbumPage = () => {
     };
 
     const playAlbum = () => {
-        trackData.tracks.forEach((track, i) => {
+        trackData.items.forEach((track, i) => {
             if (i === 0) {
                 addTrack(track);
-                if (track.id !== playingTrack.id)
+                if (playingTrack && track.id !== playingTrack.id)
                     dispatch(setPlayingTrack(track));
                 dispatch(setPlaying(true));
             } else addTrack(track);
@@ -173,7 +173,11 @@ const AlbumPage = () => {
                               <TrackSkeleton key={i} id={i} />
                           ))
                         : trackData.items.map((track, i) => (
-                              <TrackItem key={i} t={track} i={track.track_number} />
+                              <TrackItem
+                                  key={i}
+                                  t={track}
+                                  i={track.track_number}
+                              />
                           ))}
                 </div>
             </div>

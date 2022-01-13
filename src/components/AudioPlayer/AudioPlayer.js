@@ -86,7 +86,7 @@ const AudioPlayer = ({ openQueue, setOpenQueue, showPlayer }) => {
         <>
             {media.artists && (
                 <MediaSession
-                    title={media.title}
+                    title={media.name}
                     artist={media.artists.map((a) => a.name).join(", ")}
                     album={media.album.name}
                     artwork={[

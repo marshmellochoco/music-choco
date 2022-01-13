@@ -14,11 +14,13 @@ import Modal from "../components/Modal";
 import { setPlaying, setPlayingTrack } from "../store/player/playerAction";
 import { addQueue } from "../store/queue/queueAction";
 import ErrorPage from "./ErrorPage";
+import { useAlert } from "react-alert";
 
 const PlaylistPage = () => {
     const { id } = useParams();
     const dispatch = useDispatch();
     const history = useHistory();
+    const alert = useAlert();
     const [editModal, setEditModal] = useState(false);
     const [deleteModal, setDeleteModal] = useState(false);
     const [name, setName] = useState("");
@@ -45,10 +47,10 @@ const PlaylistPage = () => {
     };
 
     const playPlaylist = () => {
-        trackData.tracks.forEach((track, i) => {
+        trackData.items.forEach((track, i) => {
             if (i === 0) {
                 addTrack(track);
-                if (track.id !== playingTrack.id)
+                if (playingTrack && track.id !== playingTrack.id)
                     dispatch(setPlayingTrack(track));
                 dispatch(setPlaying(true));
             } else addTrack(track);
@@ -56,8 +58,9 @@ const PlaylistPage = () => {
     };
 
     const editPlaylist = () => {
-        updatePlaylist(id, name, playlistData.image).then(() => {
+        updatePlaylist(id, name).then(() => {
             setEditModal(false);
+            alert.show("Playlist name updated");
             history.go(0);
         });
     };
@@ -65,6 +68,7 @@ const PlaylistPage = () => {
     const removePlaylist = () => {
         deletePlaylist(id).then(() => {
             setDeleteModal(false);
+            alert.show("Playlist removed");
             history.goBack();
         });
     };

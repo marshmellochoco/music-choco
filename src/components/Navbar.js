@@ -1,9 +1,12 @@
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import Icon from "@mdi/react";
 import { mdiHome, mdiMagnify, mdiMusicBoxMultiple } from "@mdi/js";
 import logo from "../images/music-choco.png";
 
 const Navbar = ({ resetToken }) => {
+    const { displayName } = useSelector((state) => state.userReducer);
+
     return (
         <nav className="navbar">
             <div className="nav-logo">
@@ -34,7 +37,7 @@ const Navbar = ({ resetToken }) => {
                 </Link>
             </div>
             <div className="nav-user" onClick={resetToken}>
-                MarshChoco
+                {displayName}a
             </div>
         </nav>
     );

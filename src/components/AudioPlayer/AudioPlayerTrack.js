@@ -12,7 +12,7 @@ const AudioPlayerTrack = ({ playingTrack, loading }) => {
                     </div>
                 )}
                 <Link
-                    to={`/album/${playingTrack.album._id}`}
+                    to={`/album/${playingTrack.album.id}`}
                     className="track-image"
                     title={`${playingTrack.album.name}`}
                 >
@@ -24,18 +24,18 @@ const AudioPlayerTrack = ({ playingTrack, loading }) => {
             </div>
             <div className="track-detail">
                 <Link
-                    to={`/album/${playingTrack.album._id}`}
+                    to={`/album/${playingTrack.album.id}`}
                     className="hover:text-red-500"
-                    title={playingTrack.title}
+                    title={playingTrack.name}
                 >
-                    <b>{playingTrack.title}</b>
+                    <b>{playingTrack.name}</b>
                 </Link>
                 <div className="artist-list h-6">
                     {playingTrack.artists &&
                         playingTrack.artists.map((artist) => (
                             <Link
-                                to={`/artist/${artist._id}`}
-                                key={`player_track_${artist._id}`}
+                                to={`/artist/${artist.id}`}
+                                key={`player_track_${artist.id}`}
                                 className="link-item"
                                 title={artist.name}
                             >

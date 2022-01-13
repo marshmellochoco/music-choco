@@ -14,12 +14,12 @@ const QueueItem = ({ item }) => {
     return (
         <li className="queue-item">
             <div className="item-title">
-                <b>{item.title}</b>
+                <b>{item.name}</b>
                 <div className="artist-list h-6">
                     {item.artists.map((a) => (
                         <Link
-                            key={a._id}
-                            to={`/artist/${a._id}`}
+                            key={a.id}
+                            to={`/artist/${a.id}`}
                             className="link-item"
                             title={a.name}
                         >
@@ -30,7 +30,7 @@ const QueueItem = ({ item }) => {
             </div>
             <div className="item-album">
                 <Link
-                    to={`/album/${item.album._id}`}
+                    to={`/album/${item.album.id}`}
                     className="link-item"
                     title={item.album.name}
                 >

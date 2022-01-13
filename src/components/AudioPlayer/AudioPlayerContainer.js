@@ -57,7 +57,7 @@ const AudioPlayerContainer = ({
     return (
         <>
             <audio
-                src={playingTrack ? playingTrack.url : ""}
+                src={playingTrack ? playingTrack.play_url : ""}
                 ref={ref}
                 onLoadStart={() => setLoading(true)}
                 onCanPlay={() => {

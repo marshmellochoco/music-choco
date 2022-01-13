@@ -52,10 +52,10 @@ const ArtistPage = () => {
     };
 
     const playArtist = () => {
-        trackData.tracks.forEach((track, i) => {
+        trackData.items.forEach((track, i) => {
             if (i === 0) {
                 addTrack(track);
-                if (track.id !== playingTrack.id)
+                if (playingTrack && track.id !== playingTrack.id)
                     dispatch(setPlayingTrack(track));
                 dispatch(setPlaying(true));
             } else addTrack(track);

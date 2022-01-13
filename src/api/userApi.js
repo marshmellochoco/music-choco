@@ -26,29 +26,30 @@ export const userSignUp = async ({ email, password }) => {
 };
 
 export const addPlaylist = async (playlist) => {
-    return await axios.post(`${apiUrl}/playlist/`, playlist).then((res) => {
+    return await axios.post(`${apiUrl}/playlists/`, playlist).then((res) => {
         return res.data;
     });
 };
 
-export const addPlaylistTrack = async (playlist) => {
+export const addPlaylistTrack = async (playlist, track) => {
     return await axios
-        .put(`${apiUrl}/playlist/${playlist._id}`, { tracks: playlist.tracks })
+        .put(`${apiUrl}/playlists/${playlist}/track`, { track })
         .then((res) => {
             return res.data;
         });
 };
 
-export const updatePlaylist = async (id, name, image) => {
+export const updatePlaylist = async (id, name) => {
     return await axios
-        .put(`${apiUrl}/playlist/${id}`, { name, image })
+        .put(`${apiUrl}/playlists/${id}`, { name })
         .then((res) => {
             return res.data;
         });
 };
 
+// TODO: Review
 export const deletePlaylist = async (id) => {
-    return await axios.delete(`${apiUrl}/playlist/${id}`).then((res) => {
+    return await axios.delete(`${apiUrl}/playlists/${id}`).then((res) => {
         return res.data;
     });
 };

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { useAlert } from "react-alert";
-import { setToken } from "../store/user/userAction";
+import { setToken, setUser } from "../store/user/userAction";
 import { userLogin } from "../api/userApi";
 
 const LoginPage = () => {
@@ -21,6 +21,7 @@ const LoginPage = () => {
                 if (response.token) {
                     setLoading(false);
                     dispatch(setToken(response.token));
+                    dispatch(setUser(response.id, response.displayName));
                     history.push("/");
                 }
             })

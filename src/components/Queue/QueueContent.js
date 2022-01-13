@@ -39,11 +39,11 @@ const QueueContent = ({ queueData, playingTrack }) => {
 
     const getQueueList = (queue, playingTrack) => {
         return queue.map((q, i) => {
-            const isPlayingTrack = playingTrack._id === q._id;
+            const isPlayingTrack = playingTrack.id === q.id;
             return (
-                <div key={`queue_${q._id}`}>
-                    <ContextMenuTrigger id={`queueListContextMenu_${q._id}`}>
-                        <Draggable draggableId={q._id} index={i}>
+                <div key={`queue_${q.id}`}>
+                    <ContextMenuTrigger id={`queueListContextMenu_${q.id}`}>
+                        <Draggable draggableId={q.id} index={i}>
                             {(provided, snapshot) => (
                                 <div
                                     onClick={(e) => {
@@ -54,7 +54,7 @@ const QueueContent = ({ queueData, playingTrack }) => {
                                         )
                                             setTrack(q);
                                     }}
-                                    id={q._id}
+                                    id={q.id}
                                     className={
                                         isPlayingTrack
                                             ? "queue-item-active"
@@ -65,7 +65,7 @@ const QueueContent = ({ queueData, playingTrack }) => {
                                     ref={provided.innerRef}
                                     {...provided.draggableProps}
                                     {...provided.dragHandleProps}
-                                    datakey={q._id}
+                                    datakey={q.id}
                                 >
                                     <QueueItem item={q} />
                                 </div>
@@ -73,8 +73,8 @@ const QueueContent = ({ queueData, playingTrack }) => {
                         </Draggable>
                     </ContextMenuTrigger>
                     <ContextMenu
-                        key={q._id + "test"}
-                        id={`queueListContextMenu_${q._id}`}
+                        key={q.id + "test"}
+                        id={`queueListContextMenu_${q.id}`}
                     >
                         <MenuItem onClick={() => removeFromQueue(q)}>
                             Remove from queue

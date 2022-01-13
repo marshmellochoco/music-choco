@@ -7,7 +7,8 @@ const getToken = () => {
 };
 
 const initState = {
-    user: "",
+    displayName: "",
+    uid: "",
     token: getToken() !== null ? getToken() : null,
 };
 
@@ -21,7 +22,11 @@ const userReducer = (state = initState, action) => {
             localStorage.removeItem("token");
             return { ...state, token: null };
         case "SET_USER":
-            return { ...state, user: action.user };
+            return {
+                ...state,
+                displayName: action.displayName,
+                uid: action.uid,
+            };
         default:
             return state;
     }

@@ -29,8 +29,8 @@ const TrackItem = ({ t, children, i, album = false }) => {
 
     const addTrack = (track) => {
         if (queue.length === 0) {
-            dispatch(setPlaying(false));
             dispatch(setPlayingTrack(track));
+            dispatch(setPlaying(false));
         }
         if (queue.filter((x) => x.id === track.id).length === 0)
             dispatch(addQueue(track));
@@ -38,34 +38,23 @@ const TrackItem = ({ t, children, i, album = false }) => {
 
     const playTrack = (track) => {
         addTrack(track);
-        if (track.id !== playingTrack.id) dispatch(setPlayingTrack(track));
+        if (playingTrack && track.id !== playingTrack.id)
+            dispatch(setPlayingTrack(track));
         dispatch(setPlaying(true));
     };
 
-    const addTrackToPlaylist = (playlist, track) => {
-        if (playlist.tracks.includes(track.id)) {
-            let err = "This track is already added in the playlist";
-            alert.error(err);
-            return;
-        }
-        let newPlaylist = { ...playlist };
-        newPlaylist.tracks = [...newPlaylist.tracks, track.id];
-        addPlaylistTrack(newPlaylist)
-            .then(() => {
-                alert.show("Added to playlist");
-            })
-            .catch((err) => alert.error(err));
+    const addTrackToPlaylist = (playlist) => {
+        addPlaylistTrack(playlist, t.id).then(() =>
+            alert.show("Added to playlist")
+        );
     };
 
     const addTrackToNewPlaylist = () => {
-        addPlaylist({ name }).then((res) => {
+        addPlaylist({ name }).then((playlist) => {
             fetchData();
-            addPlaylistTrack({ ...res, tracks: [t.id] })
-                .then(() => {
-                    setOpenModal(false);
-                    alert.show("Added to playlist");
-                })
-                .catch((err) => alert.error(err));
+            alert.show("Playlist created")
+            addTrackToPlaylist(playlist.id);
+            setOpenModal(false);
         });
     };
 
@@ -164,7 +153,7 @@ const TrackItem = ({ t, children, i, album = false }) => {
                             return (
                                 <MenuItem
                                     key={`track_item_ctx_${p.id}`}
-                                    onClick={() => addTrackToPlaylist(p, t)}
+                                    onClick={() => addTrackToPlaylist(p.id)}
                                 >
                                     {p.name}
                                 </MenuItem>

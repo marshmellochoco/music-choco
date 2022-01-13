@@ -5,10 +5,11 @@ export const setToken = (token) => {
     };
 };
 
-export const setUser = (user) => {
+export const setUser = (uid, displayName) => {
     return {
         type: "SET_USER",
-        user,
+        uid,
+        displayName,
     };
 };
 

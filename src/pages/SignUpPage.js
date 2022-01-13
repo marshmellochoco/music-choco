@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { useAlert } from "react-alert";
 import { userSignUp } from "../api/userApi";
-import { setToken } from "../store/user/userAction";
+import { setToken, setUser } from "../store/user/userAction";
 
 const SignUpPage = () => {
     const dispatch = useDispatch();
@@ -28,6 +28,7 @@ const SignUpPage = () => {
                 setLoading(false);
                 if (response.token) {
                     dispatch(setToken(response.token));
+                    dispatch(setUser(response.id, response.displayName));
                     history.push("/");
                 } else {
                     alert.error("Something went wrong");
