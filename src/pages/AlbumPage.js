@@ -10,7 +10,7 @@ import TrackItem from "../components/Tracks/TrackItem";
 import { setPlaying, setPlayingTrack } from "../store/player/playerAction";
 import { addQueue } from "../store/queue/queueAction";
 import useAxios from "../api/useAxios";
-import { addFavAlbum, removeFavAlbum } from "../api/userApi";
+import { addAlbumToLibrary, removeAlbumFromLibrary } from "../api/userApi";
 import ErrorPage from "./ErrorPage";
 
 const AlbumPage = () => {
@@ -26,25 +26,24 @@ const AlbumPage = () => {
         data: albumData,
         isLoading: albumLoading,
         error: albumErr,
-    } = useAxios(`/album/${id}/`);
+    } = useAxios(`/albums/${id}/`);
     const {
         data: trackData,
         isLoading: trackLoading,
         error: trackErr,
-    } = useAxios(`/album/${id}/tracks`);
-
+    } = useAxios(`/albums/${id}/tracks`);
     const {
         data: libraryAlbum,
         isLoading: libraryAlbumLoading,
         error: libraryAlbumError,
-    } = useAxios(`/library/album`);
+    } = useAxios(`/me/library/albums`);
 
     const addTrack = (track) => {
         if (queue.length === 0) {
             dispatch(setPlaying(false));
             dispatch(setPlayingTrack(track));
         }
-        if (queue.filter((x) => x._id === track._id).length === 0)
+        if (queue.filter((x) => x.id === track.id).length === 0)
             dispatch(addQueue(track));
     };
 
@@ -52,7 +51,7 @@ const AlbumPage = () => {
         trackData.tracks.forEach((track, i) => {
             if (i === 0) {
                 addTrack(track);
-                if (track._id !== playingTrack._id)
+                if (track.id !== playingTrack.id)
                     dispatch(setPlayingTrack(track));
                 dispatch(setPlaying(true));
             } else addTrack(track);
@@ -61,7 +60,7 @@ const AlbumPage = () => {
 
     const addAlbum = () => {
         setLoading(true);
-        addFavAlbum(libraryAlbum.albums, id)
+        addAlbumToLibrary(libraryAlbum.albums, id)
             .then(() => {
                 setAdded(true);
                 alert.show("Album added");
@@ -75,7 +74,7 @@ const AlbumPage = () => {
 
     const removeAlbum = () => {
         setLoading(true);
-        removeFavAlbum(libraryAlbum.albums, id)
+        removeAlbumFromLibrary(libraryAlbum.albums, id)
             .then(() => {
                 setAdded(false);
                 alert.show("Album removed");
@@ -89,9 +88,9 @@ const AlbumPage = () => {
 
     const albumInLibrary = () => {
         if (albumLoading || libraryAlbumLoading) return true;
-        let id = libraryAlbum.albums.map((a) => a._id);
+        let id = libraryAlbum.items.map((a) => a.id);
         if (added !== null) return added;
-        else return id.includes(albumData._id);
+        else return id.includes(albumData.id);
     };
 
     return !albumErr && !trackErr && !libraryAlbumError ? (
@@ -124,9 +123,9 @@ const AlbumPage = () => {
                                 {albumData &&
                                     albumData.artists.map((artist) => (
                                         <Link
-                                            to={`/artist/${artist._id}`}
+                                            to={`/artist/${artist.id}`}
                                             className="title2 link-item"
-                                            key={artist._id}
+                                            key={artist.id}
                                             title={artist.name}
                                         >
                                             {artist.name}
@@ -173,8 +172,8 @@ const AlbumPage = () => {
                         ? [1, 2, 3, 4, 5].map((_, i) => (
                               <TrackSkeleton key={i} id={i} />
                           ))
-                        : trackData.tracks.map((track, i) => (
-                              <TrackItem key={i} t={track} i={track.number} />
+                        : trackData.items.map((track, i) => (
+                              <TrackItem key={i} t={track} i={track.track_number} />
                           ))}
                 </div>
             </div>

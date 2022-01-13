@@ -9,7 +9,7 @@ const TrackHeader = ({ album = false }) => {
                     </h3>
                     <span>{album ? "Album" : ""}</span>
                 </div>
-                <span className="text-left w-20">Duration</span>
+                <span className="text-right w-20 pr-8">Duration</span>
             </div>
             <hr className="border-b border-red-100 mx-2" />
         </>

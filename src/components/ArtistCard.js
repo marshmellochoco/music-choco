@@ -8,7 +8,7 @@ const ArtistCard = ({ artist }) => {
     // TODO: Context menu
     return (
         <Link
-            to={`/artist/${artist._id}`}
+            to={`/artist/${artist.id}`}
             className="card-container border border-red-100 hover:shadow-md"
             title={artist.name}
         >

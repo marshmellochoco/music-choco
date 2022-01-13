@@ -25,31 +25,31 @@ const TrackItem = ({ t, children, i, album = false }) => {
         data: playlistData,
         isLoading,
         fetchData,
-    } = useAxios(`/library/playlist`);
+    } = useAxios(`/me/library/playlists`);
 
     const addTrack = (track) => {
         if (queue.length === 0) {
             dispatch(setPlaying(false));
             dispatch(setPlayingTrack(track));
         }
-        if (queue.filter((x) => x._id === track._id).length === 0)
+        if (queue.filter((x) => x.id === track.id).length === 0)
             dispatch(addQueue(track));
     };
 
     const playTrack = (track) => {
         addTrack(track);
-        if (track._id !== playingTrack._id) dispatch(setPlayingTrack(track));
+        if (track.id !== playingTrack.id) dispatch(setPlayingTrack(track));
         dispatch(setPlaying(true));
     };
 
     const addTrackToPlaylist = (playlist, track) => {
-        if (playlist.tracks.includes(track._id)) {
+        if (playlist.tracks.includes(track.id)) {
             let err = "This track is already added in the playlist";
             alert.error(err);
             return;
         }
         let newPlaylist = { ...playlist };
-        newPlaylist.tracks = [...newPlaylist.tracks, track._id];
+        newPlaylist.tracks = [...newPlaylist.tracks, track.id];
         addPlaylistTrack(newPlaylist)
             .then(() => {
                 alert.show("Added to playlist");
@@ -60,7 +60,7 @@ const TrackItem = ({ t, children, i, album = false }) => {
     const addTrackToNewPlaylist = () => {
         addPlaylist({ name }).then((res) => {
             fetchData();
-            addPlaylistTrack({ ...res, tracks: [t._id] })
+            addPlaylistTrack({ ...res, tracks: [t.id] })
                 .then(() => {
                     setOpenModal(false);
                     alert.show("Added to playlist");
@@ -70,7 +70,7 @@ const TrackItem = ({ t, children, i, album = false }) => {
     };
 
     return (
-        <div key={`track_item_${t._id}`}>
+        <div key={`track_item_${t.id}`}>
             <Modal
                 header={"New Playlist"}
                 open={openModal}
@@ -95,7 +95,7 @@ const TrackItem = ({ t, children, i, album = false }) => {
                     />
                 </div>
             </Modal>
-            <ContextMenuTrigger id={`songListContextMenu_${t._id}`}>
+            <ContextMenuTrigger id={`songListContextMenu_${t.id}`}>
                 <div
                     onClick={(e) => {
                         if (!e.target.className.includes("link-item"))
@@ -104,7 +104,7 @@ const TrackItem = ({ t, children, i, album = false }) => {
                 >
                     <div
                         className={`track-item cursor-pointer ${
-                            playingTrack && playingTrack._id === t._id
+                            playingTrack && playingTrack.id === t.id
                                 ? "bg-red-100 hover:bg-red-200"
                                 : ""
                         }`}
@@ -114,13 +114,13 @@ const TrackItem = ({ t, children, i, album = false }) => {
                             <div
                                 className={album ? "col-span-2" : "col-span-3"}
                             >
-                                <h3 className="font-bold">{t.title}</h3>
+                                <h3 className="font-bold">{t.name}</h3>
                                 <div className="artist-list h-6">
                                     {t.artists.map((artist) => (
                                         <Link
-                                            to={`/artist/${artist._id}`}
+                                            to={`/artist/${artist.id}`}
                                             className="link-item"
-                                            key={`track_item_artist_${artist._id}`}
+                                            key={`track_item_artist_${artist.id}`}
                                             title={artist.name}
                                         >
                                             {artist.name}
@@ -130,7 +130,7 @@ const TrackItem = ({ t, children, i, album = false }) => {
                             </div>
                             {album ? (
                                 <Link
-                                    to={`/album/${t.album._id}`}
+                                    to={`/album/${t.album.id}`}
                                     className="link-item"
                                     title={t.album.name}
                                 >
@@ -140,7 +140,7 @@ const TrackItem = ({ t, children, i, album = false }) => {
                                 <span />
                             )}
                         </div>
-                        <span className="text-left w-20">
+                        <span className="text-right w-20 pr-4">
                             {(t.duration / 60 < 10 ? "0" : "") +
                                 Math.floor(t.duration / 60)}
                             :
@@ -151,7 +151,7 @@ const TrackItem = ({ t, children, i, album = false }) => {
                     </div>
                 </div>
             </ContextMenuTrigger>
-            <ContextMenu id={`songListContextMenu_${t._id}`}>
+            <ContextMenu id={`songListContextMenu_${t.id}`}>
                 <MenuItem onClick={() => playTrack(t)}>Play</MenuItem>
                 <MenuItem onClick={() => addTrack(t)}>Add to queue</MenuItem>
                 <SubMenu title="Add to playlist">
@@ -160,10 +160,10 @@ const TrackItem = ({ t, children, i, album = false }) => {
                     </MenuItem>
                     <hr className="border-t border-red-300 mx-2" />
                     {!isLoading &&
-                        playlistData.playlists.map((p) => {
+                        playlistData.items.map((p) => {
                             return (
                                 <MenuItem
-                                    key={`track_item_ctx_${p._id}`}
+                                    key={`track_item_ctx_${p.id}`}
                                     onClick={() => addTrackToPlaylist(p, t)}
                                 >
                                     {p.name}

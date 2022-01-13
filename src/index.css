@@ -315,7 +315,7 @@ body,
     }
 
     .modal-container > div {
-        @apply p-4 bg-white w-96;
+        @apply p-4 bg-white w-96 shadow-lg;
     }
     /* #endregion */
 

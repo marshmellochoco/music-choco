@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 import Icon from "@mdi/react";
-import { mdiPencil, mdiTrashCan } from "@mdi/js";
+import { mdiPencil, mdiPlaylistPlus, mdiTrashCan } from "@mdi/js";
 import defaultImg from "../images/defaultImg.png";
 import useAxios from "../api/useAxios";
 import { deletePlaylist, updatePlaylist } from "../api/userApi";
@@ -28,19 +28,19 @@ const PlaylistPage = () => {
         data: playlistData,
         isLoading: playlistLoading,
         error: playlistError,
-    } = useAxios(`/playlist/${id}/`);
+    } = useAxios(`/playlists/${id}/`);
     const {
         data: trackData,
         isLoading: trackLoading,
         error: trackError,
-    } = useAxios(`/playlist/${id}/tracks`);
+    } = useAxios(`/playlists/${id}/tracks`);
 
     const addTrack = (track) => {
         if (queue.length === 0) {
             dispatch(setPlaying(false));
             dispatch(setPlayingTrack(track));
         }
-        if (queue.filter((x) => x._id === track._id).length === 0)
+        if (queue.filter((x) => x.id === track.id).length === 0)
             dispatch(addQueue(track));
     };
 
@@ -48,7 +48,7 @@ const PlaylistPage = () => {
         trackData.tracks.forEach((track, i) => {
             if (i === 0) {
                 addTrack(track);
-                if (track._id !== playingTrack._id)
+                if (track.id !== playingTrack.id)
                     dispatch(setPlayingTrack(track));
                 dispatch(setPlaying(true));
             } else addTrack(track);
@@ -69,11 +69,21 @@ const PlaylistPage = () => {
         });
     };
 
+    const addPlaylistToLibrary = () => {
+        // TODO: Add playlist
+        console.log("adding playlist to library");
+    };
+
+    const removePlaylistFromLibrary = () => {
+        // TODO: Add playlist
+        console.log("removing playlist from library");
+    };
+
     const formatDate = (date) => {
         let d = new Date(date);
         const currentMonth = d.getMonth();
         const monthString =
-            currentMonth >= 10 ? currentMonth : `0${currentMonth}`;
+            currentMonth >= 10 ? currentMonth + 1 : `0${currentMonth + 1}`;
         const currentDate = d.getDate();
         // const dateString = currentDate >= 10 ? currentDate : `0${currentDate}`;
         return `${d.getFullYear()}-${monthString}-${currentDate}`;
@@ -151,39 +161,44 @@ const PlaylistPage = () => {
                         <div>
                             <b>{playlistData.creator}</b>
                             <p>
-                                <i>Created At: </i>
-                                <br className="hidden sm:block" />
-                                {formatDate(playlistData.createdAt)}
-                            </p>
-                            <p>
                                 <i>Last Update: </i>
                                 <br className="hidden sm:block" />
                                 {formatDate(playlistData.updatedAt)}
                             </p>
                         </div>
-                        <div className="flex justify-between items-center">
-                            <div>Tracks: {playlistData.tracks.length}</div>
-                            <div className="flex">
-                                <div
-                                    className="rounded-full hover:bg-red-200 p-1 cursor-pointer"
-                                    onClick={() => setEditModal(true)}
-                                >
-                                    <Icon
-                                        path={mdiPencil}
-                                        className="icon-small fill-current text-red-300"
-                                        title="Edit playlist"
-                                    />
-                                </div>
-                                <div
-                                    className="rounded-full hover:bg-red-200 p-1 cursor-pointer"
-                                    onClick={() => setDeleteModal(true)}
-                                >
-                                    <Icon
-                                        path={mdiTrashCan}
-                                        className="icon-small fill-current text-red-300"
-                                        title="Delete playlist"
-                                    />
-                                </div>
+                        <div>Tracks: {playlistData.tracks.total}</div>
+                        <div className="flex">
+                            <div
+                                className="rounded-full hover:bg-red-200 p-1 cursor-pointer"
+                                onClick={() => {
+                                    addPlaylistToLibrary();
+                                }}
+                            >
+                                <Icon
+                                    path={mdiPlaylistPlus}
+                                    className="icon-small fill-current text-red-300"
+                                    title="Edit playlist"
+                                />
+                            </div>
+                            <div
+                                className="rounded-full hover:bg-red-200 p-1 cursor-pointer"
+                                onClick={() => setEditModal(true)}
+                            >
+                                <Icon
+                                    path={mdiPencil}
+                                    className="icon-small fill-current text-red-300"
+                                    title="Edit playlist"
+                                />
+                            </div>
+                            <div
+                                className="rounded-full hover:bg-red-200 p-1 cursor-pointer"
+                                onClick={() => setDeleteModal(true)}
+                            >
+                                <Icon
+                                    path={mdiTrashCan}
+                                    className="icon-small fill-current text-red-300"
+                                    title="Delete playlist"
+                                />
                             </div>
                         </div>
                         <button
@@ -206,7 +221,7 @@ const PlaylistPage = () => {
                     <div className="sm:col-span-2 md:col-span-3">
                         <h2 className="title2">Tracks</h2>
                         <TrackHeader />
-                        {trackData.tracks.map((track, i) => (
+                        {trackData.items.map((track, i) => (
                             <TrackItem key={i} t={track} i={i + 1} />
                         ))}
                     </div>

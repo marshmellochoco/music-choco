@@ -50,7 +50,10 @@ const HomePage = () => {
                             : newRelease
                                   .reverse()
                                   .map((a) => (
-                                      <AlbumCard album={a} key={a._id} />
+                                      <AlbumCard
+                                          album={a}
+                                          key={`card_${a.id}`}
+                                      />
                                   ))}
                     </div>
                 </div>
@@ -60,7 +63,10 @@ const HomePage = () => {
                         {artistLoading
                             ? [1, 2, 3].map((_, i) => getArtistSkeleton(i))
                             : featuredArtist.map((a) => (
-                                  <ArtistCard artist={a} key={a._id} />
+                                  <ArtistCard
+                                      artist={a}
+                                      key={`card_${a.id}`}
+                                  />
                               ))}
                     </div>
                 </div>

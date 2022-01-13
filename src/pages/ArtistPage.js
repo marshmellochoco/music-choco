@@ -10,7 +10,7 @@ import TrackHeader from "../components/Tracks/TrackHeader";
 import { setPlaying, setPlayingTrack } from "../store/player/playerAction";
 import { addQueue } from "../store/queue/queueAction";
 import useAxios from "../api/useAxios";
-import { addFavArtist, removeFavArtist } from "../api/userApi";
+import { addArtistToLibrary, removeArtistFromLibrary } from "../api/userApi";
 import ErrorPage from "./ErrorPage";
 
 const ArtistPage = () => {
@@ -25,29 +25,29 @@ const ArtistPage = () => {
         data: artistData,
         isLoading: artistLoading,
         error: artistError,
-    } = useAxios(`/artist/${id}/`);
+    } = useAxios(`/artists/${id}/`);
     const {
         data: albumData,
         isLoading: albumLoading,
         error: albumError,
-    } = useAxios(`/artist/${id}/albums`);
+    } = useAxios(`/artists/${id}/albums`);
     const {
         data: trackData,
         isLoading: tracksLoading,
         error: tracksError,
-    } = useAxios(`/artist/${id}/tracks`);
+    } = useAxios(`/artists/${id}/tracks`);
     const {
         data: libraryArtist,
         isLoading: libraryArtistLoading,
         error: libraryArtistError,
-    } = useAxios(`/library/artist`);
+    } = useAxios(`/me/library/artists`);
 
     const addTrack = (track) => {
         if (queue.length === 0) {
             dispatch(setPlaying(false));
             dispatch(setPlayingTrack(track));
         }
-        if (queue.filter((x) => x._id === track._id).length === 0)
+        if (queue.filter((x) => x.id === track.id).length === 0)
             dispatch(addQueue(track));
     };
 
@@ -55,7 +55,7 @@ const ArtistPage = () => {
         trackData.tracks.forEach((track, i) => {
             if (i === 0) {
                 addTrack(track);
-                if (track._id !== playingTrack._id)
+                if (track.id !== playingTrack.id)
                     dispatch(setPlayingTrack(track));
                 dispatch(setPlaying(true));
             } else addTrack(track);
@@ -64,7 +64,7 @@ const ArtistPage = () => {
 
     const addArtist = () => {
         setLoading(true);
-        addFavArtist(libraryArtist.artists, id)
+        addArtistToLibrary(libraryArtist.artists, id)
             .then(() => {
                 setAdded(true);
                 alert.show("Artist added");
@@ -78,7 +78,7 @@ const ArtistPage = () => {
 
     const removeArtist = () => {
         setLoading(true);
-        removeFavArtist(libraryArtist.artists, id)
+        removeArtistFromLibrary(libraryArtist.artists, id)
             .then(() => {
                 setAdded(false);
                 alert.show("Artist removed");
@@ -92,9 +92,9 @@ const ArtistPage = () => {
 
     const artistInLibrary = () => {
         if (artistLoading || libraryArtistLoading) return true;
-        let id = libraryArtist.artists.map((a) => a._id);
+        let id = libraryArtist.items.map((a) => a.id);
         if (added !== null) return added;
-        else return id.includes(artistData._id);
+        else return id.includes(artistData.id);
     };
 
     return !artistError &&
@@ -161,7 +161,7 @@ const ArtistPage = () => {
                         ? [1, 2, 3, 4, 5].map((_, i) => (
                               <TrackSkeleton key={i} id={i} />
                           ))
-                        : trackData.tracks.map((track, i) => (
+                        : trackData.items.map((track, i) => (
                               <TrackItem
                                   key={i}
                                   t={track}
@@ -192,7 +192,7 @@ const ArtistPage = () => {
                                   return (
                                       <AlbumCard
                                           album={album}
-                                          key={album._id}
+                                          key={album.id}
                                       />
                                   );
                               })}

@@ -10,7 +10,7 @@ const AlbumCard = ({ album }) => {
         <div className="card-container">
             <Link
                 className="card"
-                to={`/album/${album._id}`}
+                to={`/album/${album.id}`}
                 title={album.name}
             >
                 <img
@@ -25,8 +25,8 @@ const AlbumCard = ({ album }) => {
             <div className="artist-list h-6">
                 {album.artists.map((artist) => (
                     <Link
-                        to={`/artist/${artist._id}`}
-                        key={`albumcard_${artist._id}`}
+                        to={`/artist/${artist.id}`}
+                        key={`albumcard_${artist.id}`}
                         className="link-item"
                         title={artist.name}
                     >

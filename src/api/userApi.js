@@ -53,7 +53,7 @@ export const deletePlaylist = async (id) => {
     });
 };
 
-export const addFavArtist = async (items, id) => {
+export const addArtistToLibrary = async (items, id) => {
     let a = items.map((a) => a._id);
     let artists = a.includes(id) ? a : [...a, id];
     return await axios
@@ -63,7 +63,7 @@ export const addFavArtist = async (items, id) => {
         });
 };
 
-export const removeFavArtist = async (items, id) => {
+export const removeArtistFromLibrary = async (items, id) => {
     let artists = items.map((a) => a._id).filter((a) => a !== id);
     return await axios
         .put(`${apiUrl}/library/artist/`, { artists })
@@ -72,7 +72,7 @@ export const removeFavArtist = async (items, id) => {
         });
 };
 
-export const addFavAlbum = async (items, id) => {
+export const addAlbumToLibrary = async (items, id) => {
     let a = items.map((a) => a._id);
     let albums = a.includes(id) ? a : [...a, id];
     return await axios
@@ -82,7 +82,7 @@ export const addFavAlbum = async (items, id) => {
         });
 };
 
-export const removeFavAlbum = async (items, id) => {
+export const removeAlbumFromLibrary = async (items, id) => {
     let albums = items.map((a) => a._id).filter((a) => a !== id);
     return await axios
         .put(`${apiUrl}/library/album/`, { albums })

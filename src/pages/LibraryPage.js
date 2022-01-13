@@ -9,19 +9,19 @@ const LibraryPage = () => {
         data: playlistData,
         isLoading: playlistLoading,
         error: playlistError,
-    } = useAxios(`/library/playlist`);
+    } = useAxios(`/me/library/playlists`);
 
     const {
         data: albumData,
         isLoading: albumLoading,
         error: albumError,
-    } = useAxios(`/library/album`);
+    } = useAxios(`/me/library/albums`);
 
     const {
         data: artistData,
         isLoading: artistLoading,
         error: artistError,
-    } = useAxios(`/library/artist`);
+    } = useAxios(`/me/library/artists`);
 
     return !playlistError && !albumError && !artistError ? (
         <div className="page-content">
@@ -51,11 +51,11 @@ const LibraryPage = () => {
                         <Skeleton />
                     </div>
                 ) : (
-                    playlistData.playlists.map((playlist) => {
+                    playlistData.items.map((playlist) => {
                         return (
                             <Link
-                                to={`/playlist/${playlist._id}`}
-                                key={playlist._id}
+                                to={`/playlist/${playlist.id}`}
+                                key={playlist.id}
                                 className="library-item hover:bg-red-50 object-scale-down"
                             >
                                 <div className="library-image">
@@ -77,7 +77,7 @@ const LibraryPage = () => {
             </>
             <>
                 {!albumLoading && albumData.count !== 0 && (
-                    <h2 className="title2">Liked Albums</h2>
+                    <h2 className="title2">Albums</h2>
                 )}
                 {albumLoading ? (
                     <div className="library-item">
@@ -85,11 +85,11 @@ const LibraryPage = () => {
                         <Skeleton />
                     </div>
                 ) : (
-                    albumData.albums.map((album) => {
+                    albumData.items.map((album) => {
                         return (
                             <Link
-                                to={`/album/${album._id}`}
-                                key={album._id}
+                                to={`/album/${album.id}`}
+                                key={album.id}
                                 className="library-item hover:bg-red-50 object-scale-down"
                             >
                                 <div className="library-image">
@@ -103,7 +103,7 @@ const LibraryPage = () => {
             </>
             <>
                 {!artistLoading && artistData.count !== 0 && (
-                    <h2 className="title2">Liked Artists</h2>
+                    <h2 className="title2">Artists</h2>
                 )}
                 {artistLoading ? (
                     <div className="library-item">
@@ -111,11 +111,11 @@ const LibraryPage = () => {
                         <Skeleton />
                     </div>
                 ) : (
-                    artistData.artists.map((artist) => {
+                    artistData.items.map((artist) => {
                         return (
                             <Link
-                                to={`/artist/${artist._id}`}
-                                key={artist._id}
+                                to={`/artist/${artist.id}`}
+                                key={artist.id}
                                 className="library-item hover:bg-red-50 object-scale-down"
                             >
                                 <div className="library-image">
