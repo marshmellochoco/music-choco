@@ -295,6 +295,11 @@ const PlaylistPage = () => {
                     <div className="sm:col-span-2 md:col-span-3">
                         <h2 className="title2">Tracks</h2>
                         <TrackHeader />
+                        {trackData.total === 0 && (
+                            <div className="flex justify-center mt-4">
+                                <p>This playlist is currently empty</p>
+                            </div>
+                        )}
                         {trackData.items.map((track, i) => (
                             <TrackItem key={i} t={track} i={i + 1}>
                                 <MenuItem
