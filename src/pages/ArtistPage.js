@@ -64,7 +64,7 @@ const ArtistPage = () => {
 
     const addArtist = () => {
         setLoading(true);
-        addArtistToLibrary(libraryArtist.artists, id)
+        addArtistToLibrary(id)
             .then(() => {
                 setAdded(true);
                 alert.show("Artist added");
@@ -78,7 +78,7 @@ const ArtistPage = () => {
 
     const removeArtist = () => {
         setLoading(true);
-        removeArtistFromLibrary(libraryArtist.artists, id)
+        removeArtistFromLibrary(id)
             .then(() => {
                 setAdded(false);
                 alert.show("Artist removed");
@@ -190,10 +190,7 @@ const ArtistPage = () => {
                               ))
                             : albumData.items.map((album) => {
                                   return (
-                                      <AlbumCard
-                                          album={album}
-                                          key={album.id}
-                                      />
+                                      <AlbumCard album={album} key={album.id} />
                                   );
                               })}
                     </div>

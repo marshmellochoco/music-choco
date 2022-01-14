@@ -18,8 +18,9 @@ const SearchPage = () => {
         if (query !== "") {
             setIsLoading(true);
             axios
-                .get(`${process.env.REACT_APP_API_URL}/search/${query}`)
+                .post(`${process.env.REACT_APP_API_URL}/search`, { q: query })
                 .then((res) => {
+                    console.log(res.data);
                     setData(res.data);
                     setIsLoading(false);
                 });
@@ -63,44 +64,44 @@ const SearchPage = () => {
                 )}
                 {!isLoading &&
                     data &&
-                    data.tracks.length === 0 &&
-                    data.artists.length === 0 &&
-                    data.albums.length === 0 && <div>No result found.</div>}
-                {!isLoading && data && data.tracks.length > 0 && (
+                    data.tracks.total === 0 &&
+                    data.artists.total === 0 &&
+                    data.albums.total === 0 && <div>No result found.</div>}
+                {!isLoading && data && data.tracks.total > 0 && (
                     <div>
                         <h2 className="title2">Tracks</h2>
                         <div>
                             <TrackHeader album={true} />
-                            {data.tracks.map((t, i) => (
+                            {data.tracks.items.map((t, i) => (
                                 <TrackItem
                                     i={i + 1}
                                     t={t}
                                     album={true}
-                                    key={`search_track_${t._id}`}
+                                    key={`search_track_${t.id}`}
                                 />
                             ))}
                         </div>
                     </div>
                 )}
-                {!isLoading && data && data.artists.length > 0 && (
+                {!isLoading && data && data.artists.total > 0 && (
                     <div>
                         <h2 className="title2">Artists</h2>
                         <div className="card-list">
-                            {data.artists.map((a) => (
+                            {data.artists.items.map((a) => (
                                 <ArtistCard
                                     artist={a}
-                                    key={`artist_${a._id}`}
+                                    key={`search_artist_${a.id}`}
                                 />
                             ))}
                         </div>
                     </div>
                 )}
-                {!isLoading && data && data.albums.length > 0 && (
+                {!isLoading && data && data.albums.total > 0 && (
                     <div>
                         <h2 className="title2">Albums</h2>
                         <div className="card-list">
-                            {data.albums.map((a) => (
-                                <AlbumCard album={a} key={`album_${a._id}`} />
+                            {data.albums.items.map((a) => (
+                                <AlbumCard album={a} key={`search_album_${a.id}`} />
                             ))}
                         </div>
                     </div>

@@ -37,7 +37,7 @@ const Navbar = ({ resetToken }) => {
                 </Link>
             </div>
             <div className="nav-user" onClick={resetToken}>
-                {displayName}a
+                {displayName}
             </div>
         </nav>
     );

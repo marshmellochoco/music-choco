@@ -60,7 +60,7 @@ const AlbumPage = () => {
 
     const addAlbum = () => {
         setLoading(true);
-        addAlbumToLibrary(libraryAlbum.albums, id)
+        addAlbumToLibrary(id)
             .then(() => {
                 setAdded(true);
                 alert.show("Album added");
@@ -74,7 +74,7 @@ const AlbumPage = () => {
 
     const removeAlbum = () => {
         setLoading(true);
-        removeAlbumFromLibrary(libraryAlbum.albums, id)
+        removeAlbumFromLibrary(id)
             .then(() => {
                 setAdded(false);
                 alert.show("Album removed");

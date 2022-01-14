@@ -1,31 +1,37 @@
 import axios from "axios";
 
 const getToken = () => {
-    let token = localStorage.getItem("token");
+    let token = localStorage.getItem("t");
     if (token !== null) axios.defaults.headers.common["Authorization"] = token;
-    return localStorage.getItem("token");
+    return token;
+};
+
+const getUser = () => {
+    let u = localStorage.getItem("u");
+    return u ? JSON.parse(u) : { displayName: "", uid: "" };
 };
 
 const initState = {
-    displayName: "",
-    uid: "",
+    ...getUser(),
     token: getToken() !== null ? getToken() : null,
 };
 
 const userReducer = (state = initState, action) => {
     switch (action.type) {
         case "SET_TOKEN":
-            localStorage.setItem("token", action.token);
+            localStorage.setItem("t", action.token);
             axios.defaults.headers.common["Authorization"] = action.token;
             return { ...state, token: action.token };
         case "LOGOUT":
-            localStorage.removeItem("token");
-            return { ...state, token: null };
+            localStorage.removeItem("t");
+            localStorage.removeItem("u");
+            return { ...state, token: null, displayName: "", uid: "" };
         case "SET_USER":
+            let user = { displayName: action.displayName, uid: action.uid };
+            localStorage.setItem("u", JSON.stringify(user));
             return {
                 ...state,
-                displayName: action.displayName,
-                uid: action.uid,
+                ...user,
             };
         default:
             return state;

@@ -27,11 +27,11 @@ const LibraryPage = () => {
         <div className="page-content">
             <h1 className="title">Library</h1>
             {!playlistLoading &&
-                playlistData.count === 0 &&
+                playlistData.total === 0 &&
                 !albumLoading &&
-                albumData.count === 0 &&
+                albumData.total === 0 &&
                 !artistLoading &&
-                artistData.count === 0 && (
+                artistData.total === 0 && (
                     <>
                         <div>
                             You have not added anything into your library.
@@ -42,7 +42,7 @@ const LibraryPage = () => {
                     </>
                 )}
             <>
-                {!playlistLoading && playlistData.count !== 0 && (
+                {!playlistLoading && playlistData.total !== 0 && (
                     <h2 className="title2">Playlists</h2>
                 )}
                 {playlistLoading ? (
@@ -76,7 +76,7 @@ const LibraryPage = () => {
                 )}
             </>
             <>
-                {!albumLoading && albumData.count !== 0 && (
+                {!albumLoading && albumData.total !== 0 && (
                     <h2 className="title2">Albums</h2>
                 )}
                 {albumLoading ? (
@@ -102,7 +102,7 @@ const LibraryPage = () => {
                 )}
             </>
             <>
-                {!artistLoading && artistData.count !== 0 && (
+                {!artistLoading && artistData.total !== 0 && (
                     <h2 className="title2">Artists</h2>
                 )}
                 {artistLoading ? (

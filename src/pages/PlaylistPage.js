@@ -6,7 +6,13 @@ import Icon from "@mdi/react";
 import { mdiPencil, mdiPlaylistPlus, mdiTrashCan } from "@mdi/js";
 import defaultImg from "../images/defaultImg.png";
 import useAxios from "../api/useAxios";
-import { deletePlaylist, updatePlaylist } from "../api/userApi";
+import {
+    addPlaylistToLibrary,
+    deletePlaylist,
+    removePlaylistFromLibrary,
+    removePlaylistTrack,
+    updatePlaylist,
+} from "../api/userApi";
 import TrackSkeleton from "../components/Tracks/TrackSkeleton";
 import TrackItem from "../components/Tracks/TrackItem";
 import TrackHeader from "../components/Tracks/TrackHeader";
@@ -15,17 +21,21 @@ import { setPlaying, setPlayingTrack } from "../store/player/playerAction";
 import { addQueue } from "../store/queue/queueAction";
 import ErrorPage from "./ErrorPage";
 import { useAlert } from "react-alert";
+import { MenuItem } from "react-contextmenu";
 
 const PlaylistPage = () => {
     const { id } = useParams();
     const dispatch = useDispatch();
     const history = useHistory();
     const alert = useAlert();
+    const [added, setAdded] = useState(null);
+    const [loading, setLoading] = useState(false);
     const [editModal, setEditModal] = useState(false);
     const [deleteModal, setDeleteModal] = useState(false);
     const [name, setName] = useState("");
     const { playingTrack } = useSelector((state) => state.playerReducer);
     const queue = useSelector((state) => state.queueReducer);
+    const { uid } = useSelector((state) => state.userReducer);
     const {
         data: playlistData,
         isLoading: playlistLoading,
@@ -35,7 +45,13 @@ const PlaylistPage = () => {
         data: trackData,
         isLoading: trackLoading,
         error: trackError,
+        fetchData,
     } = useAxios(`/playlists/${id}/tracks`);
+    const {
+        data: libraryPlaylist,
+        isLoading: libraryPlaylistLoading,
+        error: libraryPlaylistError,
+    } = useAxios(`/me/library/playlists`);
 
     const addTrack = (track) => {
         if (queue.length === 0) {
@@ -73,14 +89,39 @@ const PlaylistPage = () => {
         });
     };
 
-    const addPlaylistToLibrary = () => {
-        // TODO: Add playlist
-        console.log("adding playlist to library");
+    const removeTrackFromPlaylist = (track) => {
+        removePlaylistTrack(id, track).then(() => {
+            fetchData();
+            alert.show("Removed from playlist");
+        });
     };
 
-    const removePlaylistFromLibrary = () => {
-        // TODO: Add playlist
-        console.log("removing playlist from library");
+    const addLibraryPlaylist = () => {
+        setLoading(true);
+        addPlaylistToLibrary(id)
+            .then(() => {
+                setAdded(true);
+                alert.show("Playlist added");
+                setLoading(false);
+            })
+            .catch(() => {
+                setLoading(false);
+                alert.error("Something went wrong when adding album");
+            });
+    };
+
+    const removeLibraryPlaylist = () => {
+        setLoading(true);
+        removePlaylistFromLibrary(id)
+            .then(() => {
+                setAdded(false);
+                alert.show("Playlist removed");
+                setLoading(false);
+            })
+            .catch(() => {
+                setLoading(false);
+                alert.error("Something went wrong when removing album");
+            });
     };
 
     const formatDate = (date) => {
@@ -93,7 +134,14 @@ const PlaylistPage = () => {
         return `${d.getFullYear()}-${monthString}-${currentDate}`;
     };
 
-    return !playlistError && !trackError ? (
+    const playlistInLibrary = () => {
+        if (playlistLoading || libraryPlaylistLoading) return true;
+        let id = libraryPlaylist.items.map((a) => a.id);
+        if (added !== null) return added;
+        else return id.includes(playlistData.id);
+    };
+
+    return !playlistError && !trackError && !libraryPlaylistError ? (
         <div className="page-content">
             <Modal
                 header={"Edit playlist"}
@@ -148,6 +196,9 @@ const PlaylistPage = () => {
                         <button className="btn-primary w-full mt-2">
                             Play
                         </button>
+                        <button className="btn-primary w-full mt-2">
+                            Add to library
+                        </button>
                     </div>
                 ) : (
                     <div className="w-full">
@@ -163,7 +214,7 @@ const PlaylistPage = () => {
                         </div>
                         <h1 className="title">{playlistData.name}</h1>
                         <div>
-                            <b>{playlistData.creator}</b>
+                            <b>{playlistData.owner.displayName}</b>
                             <p>
                                 <i>Last Update: </i>
                                 <br className="hidden sm:block" />
@@ -175,7 +226,7 @@ const PlaylistPage = () => {
                             <div
                                 className="rounded-full hover:bg-red-200 p-1 cursor-pointer"
                                 onClick={() => {
-                                    addPlaylistToLibrary();
+                                    addLibraryPlaylist();
                                 }}
                             >
                                 <Icon
@@ -211,6 +262,25 @@ const PlaylistPage = () => {
                         >
                             Play
                         </button>
+                        {!libraryPlaylistLoading &&
+                            playlistData.owner.id !== uid &&
+                            (playlistInLibrary() ? (
+                                <button
+                                    className="btn-secondary w-full mt-2"
+                                    onClick={removeLibraryPlaylist}
+                                    disabled={loading}
+                                >
+                                    Remove from Library
+                                </button>
+                            ) : (
+                                <button
+                                    className="w-full mt-2"
+                                    onClick={addLibraryPlaylist}
+                                    disabled={loading}
+                                >
+                                    Add to Library
+                                </button>
+                            ))}
                     </div>
                 )}
                 {trackLoading ? (
@@ -226,7 +296,15 @@ const PlaylistPage = () => {
                         <h2 className="title2">Tracks</h2>
                         <TrackHeader />
                         {trackData.items.map((track, i) => (
-                            <TrackItem key={i} t={track} i={i + 1} />
+                            <TrackItem key={i} t={track} i={i + 1}>
+                                <MenuItem
+                                    onClick={() =>
+                                        removeTrackFromPlaylist(track.id)
+                                    }
+                                >
+                                    Remove from this playlist
+                                </MenuItem>
+                            </TrackItem>
                         ))}
                     </div>
                 )}
