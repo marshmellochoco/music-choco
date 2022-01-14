@@ -3,6 +3,7 @@ import CryptoJS from "crypto-js";
 const apiUrl = process.env.REACT_APP_API_URL;
 const key = process.env.REACT_APP_PRIVATE_KEY;
 
+// #region Auth
 export const userLogin = async ({ email, password }) => {
     let encrPassword = CryptoJS.AES.encrypt(password, key).toString();
     return await axios
@@ -24,7 +25,9 @@ export const userSignUp = async ({ email, password }) => {
             return res.data;
         });
 };
+// #endregion
 
+// #region Playlist
 export const addPlaylist = async (playlist) => {
     return await axios.post(`${apiUrl}/playlists/`, playlist).then((res) => {
         return res.data;
@@ -33,7 +36,15 @@ export const addPlaylist = async (playlist) => {
 
 export const addPlaylistTrack = async (playlist, track) => {
     return await axios
-        .put(`${apiUrl}/playlists/${playlist}/track`, { track })
+        .put(`${apiUrl}/playlists/${playlist}/tracks`, { track })
+        .then((res) => {
+            return res.data;
+        });
+};
+
+export const removePlaylistTrack = async (playlist, track) => {
+    return await axios
+        .delete(`${apiUrl}/playlists/${playlist}/tracks`, { data: { track } })
         .then((res) => {
             return res.data;
         });
@@ -47,47 +58,59 @@ export const updatePlaylist = async (id, name) => {
         });
 };
 
-// TODO: Review
 export const deletePlaylist = async (id) => {
     return await axios.delete(`${apiUrl}/playlists/${id}`).then((res) => {
         return res.data;
     });
 };
+// #endregion
 
-export const addArtistToLibrary = async (items, id) => {
-    let a = items.map((a) => a._id);
-    let artists = a.includes(id) ? a : [...a, id];
+//#region Library
+export const addArtistToLibrary = async (artist) => {
     return await axios
-        .put(`${apiUrl}/library/artist/`, { artists })
+        .put(`${apiUrl}/me/library/artists/`, { artist })
         .then((res) => {
             return res.data;
         });
 };
 
-export const removeArtistFromLibrary = async (items, id) => {
-    let artists = items.map((a) => a._id).filter((a) => a !== id);
+export const removeArtistFromLibrary = async (artist) => {
     return await axios
-        .put(`${apiUrl}/library/artist/`, { artists })
+        .delete(`${apiUrl}/me/library/artists/`, { data: { artist } })
         .then((res) => {
             return res.data;
         });
 };
 
-export const addAlbumToLibrary = async (items, id) => {
-    let a = items.map((a) => a._id);
-    let albums = a.includes(id) ? a : [...a, id];
+export const addAlbumToLibrary = async (album) => {
     return await axios
-        .put(`${apiUrl}/library/album/`, { albums })
+        .put(`${apiUrl}/me/library/albums/`, { album })
         .then((res) => {
             return res.data;
         });
 };
 
-export const removeAlbumFromLibrary = async (items, id) => {
-    let albums = items.map((a) => a._id).filter((a) => a !== id);
+export const removeAlbumFromLibrary = async (album) => {
     return await axios
-        .put(`${apiUrl}/library/album/`, { albums })
+        .delete(`${apiUrl}/me/library/albums/`, { data: { album } })
         .then((res) => {
             return res.data;
         });
 };
+
+export const addPlaylistToLibrary = async (playlist) => {
+    return await axios
+        .put(`${apiUrl}/me/library/playlists/`, { playlist })
+        .then((res) => {
+            return res.data;
+        });
+};
+
+export const removePlaylistFromLibrary = async (playlist) => {
+    return await axios
+        .delete(`${apiUrl}/me/library/playlists/`, { data: { playlist } })
+        .then((res) => {
+            return res.data;
+        });
+};
+//#endregion
