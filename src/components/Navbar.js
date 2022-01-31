@@ -8,12 +8,13 @@ const Navbar = ({ resetToken }) => {
     const { displayName } = useSelector((state) => state.userReducer);
 
     return (
-        <nav className="navbar">
-            <div className="nav-logo">
-                <Link to="/" className="w-min" title="music-choco">
-                    <img src={logo} alt="music-chcoo" />
-                </Link>
-            </div>
+        <>
+        <div className="navbar-placeholder"></div>
+        <div className="navbar">
+            <Link to="/" className="nav-logo w-min" title="music-choco">
+                <img src={logo} alt="music-chcoo" />
+            </Link>
+
             <div className="nav-items">
                 <Link to="/" className="nav-item">
                     <Icon path={mdiHome} className="sm:hidden" title="Home" />
@@ -39,7 +40,8 @@ const Navbar = ({ resetToken }) => {
             <div className="nav-user" onClick={resetToken}>
                 {displayName}
             </div>
-        </nav>
+        </div>
+        </>
     );
 };
 

@@ -119,12 +119,12 @@ const AlbumPage = () => {
                             <h1 className="title">
                                 {albumData && albumData.name}
                             </h1>
-                            <div className="artist-list font-bold">
+                            <div className="artist-list">
                                 {albumData &&
                                     albumData.artists.map((artist) => (
                                         <Link
                                             to={`/artist/${artist.id}`}
-                                            className="title2 link-item"
+                                            className="text-base link-item"
                                             key={artist.id}
                                             title={artist.name}
                                         >

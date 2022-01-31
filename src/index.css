@@ -33,9 +33,7 @@ body,
 
 @layer utilities {
     .content {
-        @apply mt-20;
-        @apply mx-2 sm:mx-16 lg:mx-32 xl:mx-64 2xl:mx-96;
-        max-height: calc(100vh - 11.8rem);
+        @apply m-2 sm:mx-16 lg:mx-32 xl:mx-64 2xl:mx-96;
     }
 
     .page-content {
@@ -48,11 +46,11 @@ body,
 
     /* #region Titles */
     .title {
-        @apply text-3xl mb-4 font-bold;
+        @apply text-2xl mb-4 font-bold;
     }
 
     .title2 {
-        @apply text-2xl mb-2 font-bold;
+        @apply text-xl mb-2 font-bold;
     }
     /* #endregion */
 
@@ -67,7 +65,7 @@ body,
 
     /* #region Artist list */
     .artist-list {
-        @apply ellipsis;
+        @apply ellipsis text-sm;
     }
 
     .link-item {
@@ -152,7 +150,12 @@ body,
 
     /* #region Nav */
     .navbar {
-        @apply grid grid-cols-9 md:grid-cols-5 gap-2 items-center px-2 pt-4 pb-3 fixed top-0 left-0 w-full bg-white border-b;
+        @apply grid grid-cols-9 md:grid-cols-5 gap-2 items-center;
+        @apply h-16 px-2 pt-4 pb-3 fixed top-0 left-0 w-full bg-white border-b;
+    }
+
+    .navbar-placeholder {
+        @apply h-16;
     }
 
     .navbar > .nav-logo {
@@ -164,12 +167,6 @@ body,
 
     .navbar > .nav-items {
         @apply flex col-span-3 justify-center gap-4 sm:gap-8 h-9 items-center;
-    }
-    .nav-items .searchbar {
-        @apply border border-black w-full flex px-1 mx-8 items-center;
-    }
-    .nav-items .searchbar:disabled {
-        @apply hidden;
     }
     .nav-items .nav-item {
         @apply hover:opacity-60 cursor-pointer;
@@ -185,8 +182,12 @@ body,
 
     /* #region Audio Player */
     .audio-player {
-        @apply bottom-0 fixed w-full h-24 grid grid-cols-3 bg-red-50;
+        @apply h-24 bottom-0 fixed w-full grid grid-cols-3 bg-red-50;
     }
+    .audio-player-placeholder {
+        @apply h-28;
+    }
+
     .audio-player svg {
         @apply text-pink-600;
     }
@@ -320,8 +321,11 @@ body,
     /* #endregion */
 
     /* #region Playlist Item */
+    .library-items{
+        @apply flex flex-col gap-2;
+    }
     .library-item {
-        @apply grid grid-cols-3 md:grid-cols-4 gap-4 h-36 items-center;
+        @apply grid grid-cols-3 md:grid-cols-4 gap-1 md:gap-4 h-auto md:h-36 items-center;
     }
     .library-item > .library-image {
         @apply p-2;

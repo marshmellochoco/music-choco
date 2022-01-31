@@ -41,7 +41,7 @@ const LibraryPage = () => {
                         </Link>
                     </>
                 )}
-            <>
+            <div className="library-items">
                 {!playlistLoading && playlistData.total !== 0 && (
                     <h2 className="title2">Playlists</h2>
                 )}
@@ -74,8 +74,8 @@ const LibraryPage = () => {
                         );
                     })
                 )}
-            </>
-            <>
+            </div>
+            <div className="library-items">
                 {!albumLoading && albumData.total !== 0 && (
                     <h2 className="title2">Albums</h2>
                 )}
@@ -100,8 +100,8 @@ const LibraryPage = () => {
                         );
                     })
                 )}
-            </>
-            <>
+            </div>
+            <div className="library-items">
                 {!artistLoading && artistData.total !== 0 && (
                     <h2 className="title2">Artists</h2>
                 )}
@@ -128,7 +128,7 @@ const LibraryPage = () => {
                         );
                     })
                 )}
-            </>
+            </div>
         </div>
     ) : (
         <ErrorPage />

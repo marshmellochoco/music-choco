@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 import Icon from "@mdi/react";
-import { mdiPencil, mdiPlaylistPlus, mdiTrashCan } from "@mdi/js";
+import { mdiPencil, mdiTrashCan } from "@mdi/js";
 import defaultImg from "../images/defaultImg.png";
 import useAxios from "../api/useAxios";
 import {
@@ -223,18 +223,6 @@ const PlaylistPage = () => {
                         </div>
                         <div>Tracks: {playlistData.tracks.total}</div>
                         <div className="flex">
-                            <div
-                                className="rounded-full hover:bg-red-200 p-1 cursor-pointer"
-                                onClick={() => {
-                                    addLibraryPlaylist();
-                                }}
-                            >
-                                <Icon
-                                    path={mdiPlaylistPlus}
-                                    className="icon-small fill-current text-red-300"
-                                    title="Edit playlist"
-                                />
-                            </div>
                             <div
                                 className="rounded-full hover:bg-red-200 p-1 cursor-pointer"
                                 onClick={() => setEditModal(true)}

@@ -71,31 +71,34 @@ const AudioPlayerContainer = ({
                 onPause={() => setPlay(false)}
             />
             {showPlayer && (
-                <div>
-                    <AudioPlayerProgress
-                        seekPercent={seekPercent}
-                        lapsed={lapsed}
-                    />
-                    <div className="audio-player">
-                        <AudioPlayerTrack
-                            playingTrack={playingTrack}
-                            loading={loading}
+                <>
+                    <div className="audio-player-placeholder"></div>
+                    <div>
+                        <AudioPlayerProgress
+                            seekPercent={seekPercent}
+                            lapsed={lapsed}
                         />
-                        <AudioPlayerControl
-                            isPlaying={play}
-                            pause={onPause}
-                            play={onPlay}
-                            previousTrack={onPreviousTrack}
-                            nextTrack={onNextTrack}
-                        />
-                        <AudioPlayerSub
-                            openQueue={openQueue}
-                            setOpenQueue={setOpenQueue}
-                            volume={volume}
-                            setVolume={setVol}
-                        />
+                        <div className="audio-player">
+                            <AudioPlayerTrack
+                                playingTrack={playingTrack}
+                                loading={loading}
+                            />
+                            <AudioPlayerControl
+                                isPlaying={play}
+                                pause={onPause}
+                                play={onPlay}
+                                previousTrack={onPreviousTrack}
+                                nextTrack={onNextTrack}
+                            />
+                            <AudioPlayerSub
+                                openQueue={openQueue}
+                                setOpenQueue={setOpenQueue}
+                                volume={volume}
+                                setVolume={setVol}
+                            />
+                        </div>
                     </div>
-                </div>
+                </>
             )}
         </>
     );
