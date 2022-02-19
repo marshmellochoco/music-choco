@@ -74,7 +74,7 @@ const LoginPage = () => {
                     <input
                         type="submit"
                         value={"Login"}
-                        className={`bg-red-100 h-10 btn w-full ${
+                        className={`h-10 btn btn-primary w-full ${
                             loading && "opacity-40"
                         }`}
                         disabled={loading}
@@ -83,7 +83,10 @@ const LoginPage = () => {
                 <hr className="my-8" />
                 <div className="flex flex-col text-center gap-4">
                     <span>Don't have an account?</span>
-                    <Link to={"/signUp"} className="btn border-2 border-black">
+                    <Link
+                        to={"/signUp"}
+                        className="btn border-2 border-secondary-200"
+                    >
                         Sign up now
                     </Link>
                 </div>

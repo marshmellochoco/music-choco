@@ -99,7 +99,7 @@ const QueueComponent = ({
                 <div className="queue-header-buttons">
                     <div className="queue-util">
                         <div
-                            className={"btn-icon" + loop ? "active" : ""}
+                            className={`btn-icon ${loop ? "active" : ""}`}
                             onClick={onToggleLoop}
                         >
                             <Icon path={mdiSync} title="Loop" />

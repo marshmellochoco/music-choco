@@ -8,10 +8,10 @@
         @apply m-2 sm:mx-16 lg:mx-32 xl:mx-64 2xl:mx-96;
     }
     .btn-icon {
-        @apply rounded-full hover:bg-red-200 cursor-pointer;
+        @apply rounded-full hover:bg-iconHover cursor-pointer;
     }
     .icon-small {
-        @apply w-6 h-6 m-1;
+        @apply w-6 h-6 m-1 text-primary-600 fill-current;
     }
     .artist-list {
         @apply ellipsis text-sm;
@@ -20,7 +20,7 @@
 
 @layer components {
     .queue-container {
-        @apply bg-white content mx-2;
+        @apply bg-background content mx-2;
     }
 
     /* #region Queue Header */
@@ -34,25 +34,31 @@
         @apply flex gap-4;
     }
     .queue-util > .active {
-        @apply bg-pink-100 hover:bg-red-200;
+        @apply bg-iconActive hover:bg-iconHover;
     }
     .queue-header svg {
-        @apply icon-small text-pink-600;
+        @apply icon-small;
+    }
+    .queue-header svg * {
+        @apply text-icon;
     }
     .queue-btn-close {
-        @apply rounded-full hover:bg-gray-200;
+        @apply rounded-full hover:bg-secondary-200;
+    }
+    .queue-btn-close > svg {
+        @apply hover:bg-secondary-200;
     }
     /* #endregion */
 
     /* #region Queue Item */
     .queue-item {
-        @apply grid grid-cols-10 items-center justify-between p-2 hover:bg-red-200;
+        @apply grid grid-cols-10 items-center justify-between p-2 hover:bg-primary-200;
     }
     .queue-item-active {
-        @apply bg-red-100;
+        @apply bg-primary-100;
     }
     .queue-item-dragging {
-        @apply bg-red-50 hover:bg-red-50 opacity-40;
+        @apply bg-primary-50 hover:bg-primary-50 opacity-40;
     }
 
     .queue-item > .item-title {

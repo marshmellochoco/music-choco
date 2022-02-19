@@ -12,6 +12,6 @@
         @apply w-full max-h-32 object-cover;
     }
     .library-item > .library-name {
-        @apply col-span-2 md:col-span-3;
+        @apply col-span-2 md:col-span-3 font-semibold;
     }
 }

@@ -11,7 +11,7 @@ const TrackHeader = ({ album = false }) => {
                 </div>
                 <span className="text-right w-20 pr-8">Duration</span>
             </div>
-            <hr className="border-b border-red-100 mx-2" />
+            <hr className="border-b border-primary-100 mx-2" />
         </>
     );
 };

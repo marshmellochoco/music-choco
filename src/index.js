@@ -21,7 +21,7 @@ ReactDOM.render(
     <React.StrictMode>
         <Provider store={store}>
             <AlertProvider template={Alert} {...alertOption}>
-                <App />
+                <App className="dark" />
             </AlertProvider>
         </Provider>
     </React.StrictMode>,

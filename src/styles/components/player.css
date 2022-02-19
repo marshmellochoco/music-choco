@@ -5,23 +5,23 @@
         @apply overflow-hidden whitespace-nowrap overflow-ellipsis;
     }
     .btn-icon {
-        @apply rounded-full hover:bg-red-200 cursor-pointer;
+        @apply rounded-full hover:bg-primary-200 cursor-pointer;
     }
     .icon-small {
-        @apply w-6 h-6 m-1;
+        @apply w-6 h-6 m-1 text-primary-600 fill-current;
     }
 }
 
 @layer components {
     .audio-player {
-        @apply h-24 bottom-0 fixed w-full grid grid-cols-3 bg-red-50;
+        @apply h-24 bottom-0 fixed w-full grid grid-cols-3 bg-primary-50;
     }
     .audio-player-placeholder {
         @apply h-28;
     }
 
-    .audio-player svg {
-        @apply text-pink-600;
+    .audio-player svg * {
+        @apply text-icon;
     }
 
     /* #region Player Track */
@@ -38,7 +38,7 @@
     }
 
     .player-track > .track-image > .image-loader {
-        @apply absolute w-20 h-20 bg-gray-300 opacity-70;
+        @apply absolute w-20 h-20 bg-secondary-300 opacity-70;
     }
 
     .player-track > .track-image > .image-loader > .loader-wrapper {
@@ -75,12 +75,12 @@
     }
 
     .player-track > .track-detail {
-        @apply ml-2 ellipsis text-pink-900;
+        @apply ml-2 ellipsis text-text;
         max-width: 80%;
     }
 
     .player-track > .track-detail > .track-name {
-        @apply hover:text-red-500;
+        @apply hover:text-primary-500;
     }
     /* #endregion */
 
@@ -89,7 +89,7 @@
         @apply flex justify-center items-center;
     }
     .player-control > div {
-        @apply btn-icon;
+        @apply btn-icon text-primary-600;
     }
     /* #endregion */
 
@@ -99,7 +99,7 @@
     }
 
     .player-sub > .volume-container {
-        @apply rounded-full hover:bg-red-200 flex items-center justify-end w-40 pl-2;
+        @apply rounded-full hover:bg-primary-200 flex items-center justify-end w-40 pl-2;
     }
 
     .player-sub > .volume-container > .icon-small {
@@ -117,7 +117,7 @@
 
     /* #region Player Progress */
     .player-progress {
-        @apply bottom-24 fixed w-full h-1.5 z-10 bg-red-100 opacity-80 hover:opacity-100 cursor-pointer;
+        @apply bottom-24 fixed w-full h-1.5 z-10 bg-primary-100 opacity-80 hover:opacity-100 cursor-pointer;
     }
 
     .player-progress > .progress-track {
@@ -126,7 +126,7 @@
     }
 
     .player-progress:hover > .progress-track > .progress-thumb {
-        @apply h-2.5 w-2.5 bg-red-400 rounded-full ml-auto -mr-1.5 -mt-0.5;
+        @apply h-2.5 w-2.5 bg-primary-400 rounded-full ml-auto -mr-1.5 -mt-0.5;
     }
     /* #endregion */
 }

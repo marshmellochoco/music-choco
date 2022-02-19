@@ -1,8 +1,6 @@
-#root {
-}
-
 html,
-body {
+body,
+#root {
     min-height: 100vh;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -14,4 +12,8 @@ body {
 #__react-alert__ > div {
     margin-top: 5rem;
     gap: 0.5rem;
+}
+
+* {
+    @apply text-text;
 }

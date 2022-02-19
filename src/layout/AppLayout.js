@@ -34,15 +34,13 @@ const AppLayout = ({ children, setLoggedIn }) => {
     };
 
     return (
-        <div onContextMenu={onContextMenu} className="h-screen">
+        <div
+            onContextMenu={onContextMenu}
+            className="min-h-screen bg-background"
+        >
             <div id="modal"></div>
             <Navbar resetToken={logout} />
-            <div
-                id="window"
-                className={`w-full overflow-y-auto ${
-                    queue.length <= 0 && "h-screen"
-                }`}
-            >
+            <div id="window" className="w-full overflow-y-auto">
                 <div className={openQueue ? "hidden" : "block"}>{children}</div>
                 <Queue
                     openQueue={openQueue}
