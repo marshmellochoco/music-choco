@@ -1,6 +1,6 @@
 import { useState, useRef, useLayoutEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import AudioPlayerContainer from "./AudioPlayerContainer";
+import AudioPlayerComponent from "./AudioPlayerComponent";
 import {
     setPlaying,
     setPlayingTrack,
@@ -26,6 +26,13 @@ const AudioPlayer = ({ openQueue, setOpenQueue, showPlayer }) => {
         ref.current.volume = volume;
         // eslint-disable-next-line
     }, [volume]);
+
+    useLayoutEffect(() => {
+        if (!ref) return;
+        if (isPlaying) onPlay();
+        else onPause();
+        // eslint-disable-next-line
+    }, [isPlaying]);
 
     const onPlay = () => {
         if (!ref) return;
@@ -111,7 +118,7 @@ const AudioPlayer = ({ openQueue, setOpenQueue, showPlayer }) => {
                 onCanPlay={onCanPlay}
                 onTimeUpdate={onTimeUpdate}
             />
-            <AudioPlayerContainer
+            <AudioPlayerComponent
                 openQueue={openQueue}
                 setOpenQueue={setOpenQueue}
                 lapsed={lapsed}

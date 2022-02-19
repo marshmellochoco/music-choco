@@ -1,3 +1,5 @@
+@tailwind components;
+
 @layer utilities {
     .ellipsis {
         @apply overflow-hidden whitespace-nowrap overflow-ellipsis;
@@ -115,16 +117,16 @@
 
     /* #region Player Progress */
     .player-progress {
-        @apply bottom-24 fixed w-full h-2 z-10 bg-red-50 opacity-60 hover:opacity-80 cursor-pointer;
+        @apply bottom-24 fixed w-full h-1.5 z-10 bg-red-100 opacity-80 hover:opacity-100 cursor-pointer;
     }
 
     .player-progress > .progress-track {
-        @apply bottom-24 fixed w-full h-2 z-10;
+        @apply bottom-24 fixed w-full h-1.5 z-10;
         background: rgb(255, 190, 190);
     }
 
     .player-progress:hover > .progress-track > .progress-thumb {
-        @apply h-3 w-3 bg-red-400 rounded-full ml-auto -mr-1.5 -mt-0.5;
+        @apply h-2.5 w-2.5 bg-red-400 rounded-full ml-auto -mr-1.5 -mt-0.5;
     }
     /* #endregion */
 }

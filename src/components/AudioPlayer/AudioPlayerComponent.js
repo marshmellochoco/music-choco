@@ -14,7 +14,7 @@ import {
 import Icon from "@mdi/react";
 import ArtistList from "../ArtistList";
 
-const AudioPlayerContainer = ({
+const AudioPlayerComponent = ({
     openQueue,
     setOpenQueue,
     lapsed,
@@ -196,4 +196,4 @@ const AudioPlayerContainer = ({
     );
 };
 
-export default AudioPlayerContainer;
+export default AudioPlayerComponent;

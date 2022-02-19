@@ -23,14 +23,15 @@
         @apply bg-white content mx-2;
     }
 
+    /* #region Queue Header */
     .queue-header {
         @apply flex justify-between items-center;
     }
+    .queue-header-buttons {
+        @apply flex gap-8;
+    }
     .queue-header .queue-util {
         @apply flex gap-4;
-    }
-    .queue-header .queue-util > div {
-        @apply btn-icon;
     }
     .queue-util > .active {
         @apply bg-pink-100 hover:bg-red-200;
@@ -38,7 +39,12 @@
     .queue-header svg {
         @apply icon-small text-pink-600;
     }
+    .queue-btn-close {
+        @apply rounded-full hover:bg-gray-200;
+    }
+    /* #endregion */
 
+    /* #region Queue Item */
     .queue-item {
         @apply grid grid-cols-10 items-center justify-between p-2 hover:bg-red-200;
     }
@@ -55,4 +61,5 @@
     .queue-item > .item-album {
         @apply col-span-3 mr-2 artist-list;
     }
+    /* #endregion */
 }
