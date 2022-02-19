@@ -99,7 +99,7 @@ const AlbumPage = () => {
                 <div className="flex items-center gap-4 sm:gap-8 flex-col sm:flex-row">
                     {albumLoading && trackLoading ? (
                         <Skeleton
-                            className="border border-background"
+                            className="border border-background dark:border-backgroundDark" 
                             style={{ width: "12rem", height: "12rem" }}
                         />
                     ) : (
@@ -109,7 +109,7 @@ const AlbumPage = () => {
                             <img
                                 src={albumData && albumData.image}
                                 alt={albumData && albumData.name}
-                                className="w-full h-full sm:w-48 sm:h-48 border border-background"
+                                className="w-full h-full sm:w-48 sm:h-48 border border-background dark:border-backgroundDark"
                                 onLoad={() => setImgLoading(false)}
                             />
                         )

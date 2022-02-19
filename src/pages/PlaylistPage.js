@@ -166,7 +166,7 @@ const PlaylistPage = () => {
                                 else if (e.key === "Escape")
                                     setEditModal(false);
                             }}
-                            className="border-b border-primary-200 px-2 py-1"
+                            className="border-b border-primary-200 dark:border-primaryDark-200 px-2 py-1"
                         />
                     </div>
                 )}
@@ -202,7 +202,7 @@ const PlaylistPage = () => {
                     </div>
                 ) : (
                     <div className="w-full">
-                        <div className="border border-primary-200 m-2 ml-0 text-center">
+                        <div className="border border-primary-200 dark:border-primaryDark-200 m-2 ml-0 text-center">
                             <img
                                 src={playlistData.image}
                                 alt="Playlist Thumbnail"
@@ -224,22 +224,22 @@ const PlaylistPage = () => {
                         <div>Tracks: {playlistData.tracks.total}</div>
                         <div className="flex">
                             <div
-                                className="rounded-full hover:bg-primary-200 p-1 cursor-pointer"
+                                className="rounded-full hover:bg-primary-200 dark:hover:bg-primaryDark-200 p-1 cursor-pointer"
                                 onClick={() => setEditModal(true)}
                             >
                                 <Icon
                                     path={mdiPencil}
-                                    className="icon-small fill-current text-primary-300"
+                                    className="icon-small fill-current text-primary-300 dark:text-primaryDark-300"
                                     title="Edit playlist"
                                 />
                             </div>
                             <div
-                                className="rounded-full hover:bg-primary-200 p-1 cursor-pointer"
+                                className="rounded-full hover:bg-primary-200 dark:hover:bg-primaryDark-200 p-1 cursor-pointer"
                                 onClick={() => setDeleteModal(true)}
                             >
                                 <Icon
                                     path={mdiTrashCan}
-                                    className="icon-small fill-current text-primary-300"
+                                    className="icon-small fill-current text-primary-300 dark:text-primaryDark-300"
                                     title="Delete playlist"
                                 />
                             </div>

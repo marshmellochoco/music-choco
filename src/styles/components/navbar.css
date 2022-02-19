@@ -1,13 +1,13 @@
 @layer utilities {
     .icon-small {
-        @apply w-6 h-6 m-1 text-primary-600 fill-current;
+        @apply w-6 h-6 m-1 text-primary-600 dark:text-primaryDark-600 fill-current;
     }
 }
 
 @layer components {
     .navbar {
         @apply grid grid-cols-9 md:grid-cols-5 gap-2 items-center;
-        @apply h-16 px-2 pt-4 pb-3 fixed top-0 left-0 w-full bg-background border-b border-secondary-200;
+        @apply h-16 px-2 pt-4 pb-3 fixed top-0 left-0 w-full bg-background dark:bg-backgroundDark border-b border-secondary-200 dark:border-secondaryDark-200;
     }
 
     .navbar-placeholder {

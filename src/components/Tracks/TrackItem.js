@@ -81,7 +81,7 @@ const TrackItem = ({ t, children, i, album = false }) => {
                             if (e.key === "Enter") addTrackToNewPlaylist();
                             else if (e.key === "Escape") setOpenModal(false);
                         }}
-                        className="border-b border-primary-200 px-2 py-1"
+                        className="border-b border-primary-200 dark:border-primaryDark-200 px-2 py-1"
                     />
                 </div>
             </Modal>
@@ -95,7 +95,7 @@ const TrackItem = ({ t, children, i, album = false }) => {
                     <div
                         className={`track-item cursor-pointer ${
                             playingTrack && playingTrack.id === t.id
-                                ? "bg-primary-100 hover:bg-primary-200"
+                                ? "bg-primary-100 hover:bg-primary-200 dark:bg-primaryDark-100 dark:hover:bg-primaryDark-200"
                                 : ""
                         }`}
                     >
@@ -137,7 +137,7 @@ const TrackItem = ({ t, children, i, album = false }) => {
                     <MenuItem onClick={() => setOpenModal(true)}>
                         Add to new playlist
                     </MenuItem>
-                    <hr className="border-t border-primary-300 mx-2" />
+                    <hr className="border-t border-primary-300 dark:border-primaryDark-300 mx-2" />
                     {!isLoading &&
                         playlistData.items.map((p) => {
                             return (
@@ -150,7 +150,7 @@ const TrackItem = ({ t, children, i, album = false }) => {
                             );
                         })}
                 </SubMenu>
-                <hr className="border-t border-background mx-2" />
+                <hr className="border-t border-background dark:border-backgroundDark mx-2" />
                 {children}
             </ContextMenu>
         </div>

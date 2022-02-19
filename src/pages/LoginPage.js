@@ -85,7 +85,7 @@ const LoginPage = () => {
                     <span>Don't have an account?</span>
                     <Link
                         to={"/signUp"}
-                        className="btn border-2 border-secondary-200"
+                        className="btn border-2 border-secondary-200 dark:border-secondaryDark-200"
                     >
                         Sign up now
                     </Link>

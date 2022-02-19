@@ -118,7 +118,7 @@ const ArtistPage = () => {
                             <img
                                 src={artistData && artistData.image}
                                 alt={artistData && artistData.name}
-                                className={`w-48 h-48 border border-primary-200 rounded-full`}
+                                className={`w-48 h-48 border border-primary-200 dark:border-primaryDark-200 rounded-full`}
                             />
                             <div className="w-full">
                                 <h1 className="title">

@@ -36,7 +36,7 @@ const AppLayout = ({ children, setLoggedIn }) => {
     return (
         <div
             onContextMenu={onContextMenu}
-            className="min-h-screen bg-background"
+            className="min-h-screen bg-background dark:bg-backgroundDark"
         >
             <div id="modal"></div>
             <Navbar resetToken={logout} />

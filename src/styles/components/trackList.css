@@ -4,7 +4,7 @@
     }
 
     .track-item {
-        @apply flex items-center hover:bg-primary-50;
+        @apply flex items-center hover:bg-primary-50 dark:hover:bg-primaryDark-50;
     }
 
     .track-header > .number,

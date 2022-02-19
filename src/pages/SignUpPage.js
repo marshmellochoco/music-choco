@@ -74,7 +74,7 @@ const SignUpPage = () => {
                         />
                     </div>
                     <button
-                        className={`bg-primary-100 h-10 btn w-full ${
+                        className={`bg-primary-100 dark:bg-primaryDark-100 h-10 btn w-full ${
                             loading && "opacity-40"
                         }`}
                         disabled={loading}

@@ -9,7 +9,7 @@ const ArtistCard = ({ artist }) => {
     return (
         <Link
             to={`/artist/${artist.id}`}
-            className="card-container border border-primary-100 hover:shadow-md"
+            className="card-container border border-primary-100 dark:border-primaryDark-100 hover:shadow-md"
             title={artist.name}
         >
             <div className="card">

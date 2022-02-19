@@ -5,6 +5,6 @@
     }
 
     .modal-container > div {
-        @apply p-4 bg-background w-96 shadow-lg;
+        @apply p-4 bg-background dark:bg-backgroundDark w-96 shadow-lg;
     }
 }

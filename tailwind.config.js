@@ -12,6 +12,14 @@ module.exports = {
             icon: "#db2777",
             iconActive: "#fce7f3",
             iconHover: "#fecaca",
+
+            textDark: "#fff",
+            backgroundDark: "#1e293b",
+            primaryDark: colors.red,
+            secondaryDark: colors.gray,
+            iconDark: "#f9a8d4",
+            iconActiveDark: "#9d174d",
+            iconHoverDark: "#b91c1c",
         },
     },
     variants: {

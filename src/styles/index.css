@@ -31,20 +31,20 @@
     }
 
     .input > input {
-        @apply border border-secondary-200;
+        @apply border border-secondary-200 dark:border-secondaryDark-200;
         height: 2.3rem;
         padding: 0.5rem 0.7rem;
     }
 
     input[type="range"] {
-        @apply bg-iconActive cursor-pointer;
+        @apply bg-iconActive dark:bg-iconActiveDark cursor-pointer;
         -webkit-appearance: none;
         height: 0.4rem;
         border-radius: 0.2rem;
     }
 
     input[type="range"]::-webkit-slider-thumb {
-        @apply bg-primary-300 rounded-full;
+        @apply bg-primary-300 dark:bg-primaryDark-300 rounded-full;
         -webkit-appearance: none;
         height: 0.8rem;
         width: 0.8rem;
@@ -60,19 +60,19 @@
 @layer components {
     /* #region Button */
     .btn-primary {
-        @apply bg-primary-50 border-primary-50;
+        @apply bg-primary-50 border-primary-50 dark:bg-primaryDark-50 dark:border-primaryDark-50;
     }
 
     .btn-secondary {
-        @apply bg-secondary-100 border-secondary-100;
+        @apply bg-secondary-100 border-secondary-100 dark:bg-secondaryDark-100 dark:border-secondaryDark-100;
     }
 
     .btn-icon {
-        @apply rounded-full hover:bg-primary-200 cursor-pointer;
+        @apply rounded-full hover:bg-primary-200 dark:hover:bg-primaryDark-200 cursor-pointer;
     }
     /* #endregion */
     .link-text {
-        @apply underline text-primary-400 hover:text-primary-300;
+        @apply underline text-primary-400 hover:text-primary-300 dark:text-primaryDark-400 dark:hover:text-primaryDark-300;
     }
 }
 
@@ -101,10 +101,10 @@
 
     /* #region Icons */
     .icon-small {
-        @apply w-6 h-6 m-1 text-primary-600 fill-current;
+        @apply w-6 h-6 m-1 text-primary-600 dark:text-primaryDark-600 fill-current;
     }
     .icon-medium {
-        @apply w-12 h-12 m-1 text-primary-600 fill-current;
+        @apply w-12 h-12 m-1 text-primary-600 dark:text-primaryDark-600 fill-current;
     }
     /* #endregion */
 
