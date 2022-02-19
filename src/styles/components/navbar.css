@@ -1,0 +1,37 @@
+@layer utilities {
+    .icon-small {
+        @apply w-6 h-6 m-1;
+    }
+}
+
+@layer components {
+    .navbar {
+        @apply grid grid-cols-9 md:grid-cols-5 gap-2 items-center;
+        @apply h-16 px-2 pt-4 pb-3 fixed top-0 left-0 w-full bg-white border-b;
+    }
+
+    .navbar-placeholder {
+        @apply h-16;
+    }
+
+    .navbar > .nav-logo {
+        @apply col-span-3 md:col-span-1 w-max;
+    }
+    .nav-logo img {
+        @apply h-4 md:h-6 object-scale-down cursor-pointer m-0;
+    }
+
+    .navbar > .nav-items {
+        @apply flex col-span-3 justify-center gap-4 sm:gap-8 h-9 items-center;
+    }
+    .nav-items .nav-item {
+        @apply hover:opacity-60 cursor-pointer;
+    }
+    .nav-items svg {
+        @apply icon-small;
+    }
+
+    .navbar > .nav-user {
+        @apply ml-auto col-span-3 md:col-span-1 cursor-pointer;
+    }
+}

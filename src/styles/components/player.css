@@ -1,0 +1,80 @@
+@tailwind components;
+
+@layer utilities {
+    .ellipsis {
+        @apply overflow-hidden whitespace-nowrap overflow-ellipsis;
+    }
+    .btn-icon {
+        @apply rounded-full hover:bg-red-200 cursor-pointer;
+    }
+    .icon-small {
+        @apply w-6 h-6 m-1;
+    }
+}
+
+@layer components {
+    .audio-player {
+        @apply h-24 bottom-0 fixed w-full grid grid-cols-3 bg-red-50;
+    }
+    .audio-player-placeholder {
+        @apply h-28;
+    }
+
+    .audio-player svg {
+        @apply text-pink-600;
+    }
+
+    /* #region Player Track */
+    .player-track {
+        @apply grid gap-2 grid-cols-1 items-center h-24;
+    }
+    @media (min-width: 768px) {
+        .player-track {
+            grid-template-columns: 5rem 1fr;
+        }
+    }
+    .player-track > .track-image {
+        @apply w-20 h-20 ml-1 hidden md:block;
+    }
+    .player-track > .track-detail {
+        @apply ml-2 ellipsis text-pink-900;
+        max-width: 80%;
+    }
+    /* #endregion */
+
+    /* #region Player Control */
+    .player-control {
+        @apply flex justify-center items-center;
+    }
+    .player-control > div {
+        @apply btn-icon;
+    }
+    /* #endregion */
+
+    /* #region Player Sub */
+    .player-sub {
+        @apply flex justify-end items-center mr-2 gap-2;
+    }
+    .player-sub svg {
+        @apply icon-small;
+    }
+    .player-sub .volume-container {
+        @apply rounded-full hover:bg-red-200 flex items-center justify-end w-40;
+    }
+    /* #endregion */
+
+    /* #region Player Progress */
+    .player-progress {
+        @apply bottom-24 fixed w-full h-2 z-10 bg-red-50 opacity-60 hover:opacity-80 cursor-pointer;
+    }
+
+    .player-progress > .progress {
+        @apply bottom-24 fixed w-full h-2 z-10;
+        background: rgb(255, 190, 190);
+    }
+
+    .player-progress:hover > .progress > .progress-thumb {
+        @apply h-3 w-3 bg-red-400 rounded-full ml-auto -mr-1.5 -mt-0.5;
+    }
+    /* #endregion */
+}

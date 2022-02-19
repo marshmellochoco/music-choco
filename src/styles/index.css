@@ -1,0 +1,124 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    /* #region Button */
+    button,
+    .btn {
+        @apply border rounded-sm p-2 hover:shadow-md cursor-pointer;
+    }
+
+    button:disabled,
+    .btn:disabled {
+        @apply opacity-40;
+    }
+    /* #endregion */
+
+    /* #region Input */
+    .inputGroup {
+        @apply flex flex-col;
+        row-gap: 1.5rem;
+    }
+
+    .input {
+        @apply flex flex-col;
+    }
+
+    .input > label {
+        font-weight: 500;
+        margin-bottom: 0.2rem;
+    }
+
+    .input > input {
+        @apply border border-black;
+        height: 2.3rem;
+        padding: 0.5rem 0.7rem;
+    }
+
+    input[type="range"] {
+        @apply bg-pink-50 cursor-pointer;
+        -webkit-appearance: none;
+        height: 0.4rem;
+        border-radius: 0.2rem;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+        @apply bg-red-300 rounded-full;
+        -webkit-appearance: none;
+        height: 0.8rem;
+        width: 0.8rem;
+    }
+
+    input[type="range"]::-moz-range-progress,
+    input[type="range"]::-ms-fill-lower {
+        background-color: black;
+    }
+    /* #endregion */
+}
+
+@layer components {
+    /* #region Button */
+    .btn-primary {
+        @apply bg-red-50 border-red-50;
+    }
+
+    .btn-secondary {
+        @apply bg-gray-200;
+    }
+
+    .btn-icon {
+        @apply rounded-full hover:bg-red-200 cursor-pointer;
+    }
+    /* #endregion */
+    .link-text {
+        @apply underline text-red-400 hover:text-red-300;
+    }
+}
+
+@layer utilities {
+    .content {
+        @apply m-2 sm:mx-16 lg:mx-32 xl:mx-64 2xl:mx-96;
+    }
+
+    .page-content {
+        @apply flex flex-col gap-4 content;
+    }
+
+    .ellipsis {
+        @apply overflow-hidden whitespace-nowrap overflow-ellipsis;
+    }
+
+    /* #region Titles */
+    .title {
+        @apply text-2xl mb-4 font-bold;
+    }
+
+    .title2 {
+        @apply text-xl mb-2 font-bold;
+    }
+    /* #endregion */
+
+    /* #region Icons */
+    .icon-small {
+        @apply w-6 h-6 m-1;
+    }
+    .icon-medium {
+        @apply w-12 h-12 m-1;
+    }
+    /* #endregion */
+
+    /* #region Artist list */
+    .artist-list {
+        @apply ellipsis text-sm;
+    }
+
+    .link-item {
+        @apply hover:underline break-words overflow-hidden ellipsis;
+    }
+
+    .artist-list > .link-item ~ .link-item::before {
+        content: ", ";
+    }
+    /* #endregion */
+}

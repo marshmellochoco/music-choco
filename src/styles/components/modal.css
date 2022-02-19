@@ -1,0 +1,10 @@
+@layer components {
+    .modal-container {
+        @apply absolute z-10 w-screen h-screen flex justify-center items-center;
+        background-color: rgba(229, 231, 235, 0.6);
+    }
+
+    .modal-container > div {
+        @apply p-4 bg-white w-96 shadow-lg;
+    }
+}

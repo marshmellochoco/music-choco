@@ -5,11 +5,11 @@ const AudioPlayerProgress = ({ seekPercent, lapsed }) => {
             onClick={(e) => seekPercent(e.pageX / e.view.innerWidth)}
         >
             <div
-                className="bottom-24 fixed w-full h-2 z-10 progress"
+                className="progress"
                 style={{ transform: `translateX(${lapsed - 100}%)` }}
             >
                 <div
-                    className="h-3 w-3 bg-red-400 rounded-full ml-auto -mr-1.5 -mt-0.5"
+                    className="progress-thumb"
                     draggable
                     onDragEnd={(e) => seekPercent(e.pageX / e.view.innerWidth)}
                 />

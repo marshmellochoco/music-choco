@@ -1,0 +1,65 @@
+@tailwind components;
+
+@layer utilities {
+    .ellipsis {
+        @apply overflow-hidden whitespace-nowrap overflow-ellipsis;
+    }
+    .content {
+        @apply m-2 sm:mx-16 lg:mx-32 xl:mx-64 2xl:mx-96;
+    }
+    .btn-icon {
+        @apply rounded-full hover:bg-red-200 cursor-pointer;
+    }
+    .icon-small {
+        @apply w-6 h-6 m-1;
+    }
+
+    .artist-list {
+        @apply ellipsis text-sm;
+    }
+    .link-item {
+        @apply hover:underline break-words overflow-hidden ellipsis;
+    }
+    .artist-list > .link-item ~ .link-item::before {
+        content: ", ";
+    }
+}
+
+@layer components {
+    .queue-container {
+        @apply bg-white content mx-2;
+    }
+
+    .queue-header {
+        @apply flex justify-between items-center;
+    }
+    .queue-header .queue-util {
+        @apply flex gap-4;
+    }
+    .queue-header .queue-util > div {
+        @apply btn-icon;
+    }
+    .queue-util > .active {
+        @apply bg-pink-100 hover:bg-red-200;
+    }
+    .queue-header svg {
+        @apply icon-small text-pink-600;
+    }
+
+    .queue-item {
+        @apply grid grid-cols-10 items-center justify-between p-2 hover:bg-red-200;
+    }
+    .queue-item-active {
+        @apply bg-red-100;
+    }
+    .queue-item-dragging {
+        @apply bg-red-50 hover:bg-red-50 opacity-40;
+    }
+
+    .queue-item > .item-title {
+        @apply col-span-6;
+    }
+    .queue-item > .item-album {
+        @apply col-span-3 mr-2 artist-list;
+    }
+}

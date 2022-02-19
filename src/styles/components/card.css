@@ -1,0 +1,21 @@
+@tailwind components;
+
+@layer utilities {
+}
+
+@layer components {
+    .card-list {
+        @apply flex gap-4 overflow-x-auto pb-2;
+    }
+
+    .card-list > .card-container {
+        width: 240px;
+        min-width: 240px;
+        @apply flex flex-col justify-end;
+    }
+
+    .card-container > .card > img {
+        height: 240px;
+        width: 240px;
+    }
+}

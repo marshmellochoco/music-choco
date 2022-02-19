@@ -1,0 +1,17 @@
+#root {
+}
+
+html,
+body {
+    min-height: 100vh;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+*:not(input) {
+    user-select: none;
+}
+
+#__react-alert__ > div {
+    margin-top: 5rem;
+    gap: 0.5rem;
+}

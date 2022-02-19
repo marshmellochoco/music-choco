@@ -1,0 +1,17 @@
+@layer components {
+    .library-items {
+        @apply flex flex-col gap-2;
+    }
+    .library-item {
+        @apply grid grid-cols-3 md:grid-cols-4 gap-1 md:gap-4 h-auto md:h-36 items-center;
+    }
+    .library-item > .library-image {
+        @apply p-2;
+    }
+    .library-item > .library-image > img {
+        @apply w-full max-h-32 object-cover;
+    }
+    .library-item > .library-name {
+        @apply col-span-2 md:col-span-3;
+    }
+}

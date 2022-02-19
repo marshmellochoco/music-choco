@@ -1,0 +1,16 @@
+@import "./global.css";
+@import "./index.css";
+
+/* ==================================================================== */
+/*                              Components                              */
+/* ==================================================================== */
+@import "./components/card.css";
+@import "./components/context.css";
+@import "./components/navbar.css";
+@import "./components/player.css";
+@import "./components/queue.css";
+@import "./components/scrollbar.css";
+@import "./components/trackList.css";
+@import "./components/modal.css";
+@import "./components/playlistItem.css";
+@import "./components/loader.css";
