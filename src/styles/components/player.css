@@ -1,5 +1,3 @@
-@tailwind components;
-
 @layer utilities {
     .ellipsis {
         @apply overflow-hidden whitespace-nowrap overflow-ellipsis;
@@ -36,9 +34,51 @@
     .player-track > .track-image {
         @apply w-20 h-20 ml-1 hidden md:block;
     }
+
+    .player-track > .track-image > .image-loader {
+        @apply absolute w-20 h-20 bg-gray-300 opacity-70;
+    }
+
+    .player-track > .track-image > .image-loader > .loader-wrapper {
+        @apply h-full flex items-center justify-center;
+    }
+
+    .loader {
+        border: 16px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 16px solid rgb(254, 202, 202);
+        width: 4rem;
+        height: 4rem;
+        -webkit-animation: spin 2s linear infinite; /* Safari */
+        animation: spin 2s linear infinite;
+    }
+
+    /* Safari */
+    @-webkit-keyframes spin {
+        0% {
+            -webkit-transform: rotate(0deg);
+        }
+        100% {
+            -webkit-transform: rotate(360deg);
+        }
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
     .player-track > .track-detail {
         @apply ml-2 ellipsis text-pink-900;
         max-width: 80%;
+    }
+
+    .player-track > .track-detail > .track-name {
+        @apply hover:text-red-500;
     }
     /* #endregion */
 
@@ -55,11 +95,21 @@
     .player-sub {
         @apply flex justify-end items-center mr-2 gap-2;
     }
-    .player-sub svg {
-        @apply icon-small;
+
+    .player-sub > .volume-container {
+        @apply rounded-full hover:bg-red-200 flex items-center justify-end w-40 pl-2;
     }
-    .player-sub .volume-container {
-        @apply rounded-full hover:bg-red-200 flex items-center justify-end w-40;
+
+    .player-sub > .volume-container > .icon-small {
+        @apply ml-2;
+    }
+
+    .player-sub > .volume-container > input {
+        @apply w-full mr-4;
+    }
+
+    .player-sub > .open-queue {
+        @apply mx-2.5;
     }
     /* #endregion */
 
@@ -68,12 +118,12 @@
         @apply bottom-24 fixed w-full h-2 z-10 bg-red-50 opacity-60 hover:opacity-80 cursor-pointer;
     }
 
-    .player-progress > .progress {
+    .player-progress > .progress-track {
         @apply bottom-24 fixed w-full h-2 z-10;
         background: rgb(255, 190, 190);
     }
 
-    .player-progress:hover > .progress > .progress-thumb {
+    .player-progress:hover > .progress-track > .progress-thumb {
         @apply h-3 w-3 bg-red-400 rounded-full ml-auto -mr-1.5 -mt-0.5;
     }
     /* #endregion */

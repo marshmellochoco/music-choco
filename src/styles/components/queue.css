@@ -13,15 +13,8 @@
     .icon-small {
         @apply w-6 h-6 m-1;
     }
-
     .artist-list {
         @apply ellipsis text-sm;
-    }
-    .link-item {
-        @apply hover:underline break-words overflow-hidden ellipsis;
-    }
-    .artist-list > .link-item ~ .link-item::before {
-        content: ", ";
     }
 }
 

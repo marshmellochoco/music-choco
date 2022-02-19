@@ -1,0 +1,17 @@
+@layer utilities {
+    .ellipsis {
+        @apply overflow-hidden whitespace-nowrap overflow-ellipsis;
+    }
+}
+
+@layer components {
+    .artist-list {
+        @apply ellipsis text-sm;
+    }
+    .artist-link {
+        @apply hover:underline break-words overflow-hidden ellipsis;
+    }
+    .artist-list > .artist-link ~ .artist-link::before {
+        content: ", ";
+    }
+}

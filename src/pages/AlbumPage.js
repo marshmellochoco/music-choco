@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useAlert } from "react-alert";
 import { useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 import TrackSkeleton from "../components/Tracks/TrackSkeleton";
 import TrackHeader from "../components/Tracks/TrackHeader";
@@ -12,6 +11,7 @@ import { addQueue } from "../store/queue/queueAction";
 import useAxios from "../api/useAxios";
 import { addAlbumToLibrary, removeAlbumFromLibrary } from "../api/userApi";
 import ErrorPage from "./ErrorPage";
+import ArtistList from "../components/ArtistList";
 
 const AlbumPage = () => {
     const { id } = useParams();
@@ -119,19 +119,9 @@ const AlbumPage = () => {
                             <h1 className="title">
                                 {albumData && albumData.name}
                             </h1>
-                            <div className="artist-list">
-                                {albumData &&
-                                    albumData.artists.map((artist) => (
-                                        <Link
-                                            to={`/artist/${artist.id}`}
-                                            className="text-base link-item"
-                                            key={artist.id}
-                                            title={artist.name}
-                                        >
-                                            {artist.name}
-                                        </Link>
-                                    ))}
-                            </div>
+                            {albumData && (
+                                <ArtistList artists={albumData.artists} />
+                            )}
                             <p className="w-full mt-2">
                                 Tracks: {!trackLoading && trackData.count}
                             </p>

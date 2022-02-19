@@ -1,106 +1,198 @@
-import { useEffect, useLayoutEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setVolume } from "../../store/player/playerAction";
-import AudioPlayerProgress from "./AudioPlayerProgress";
-import AudioPlayerTrack from "./AudioPlayerTrack";
-import AudioPlayerControl from "./AudioPlayerControl";
-import AudioPlayerSub from "./AudioPlayerSub";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import {
+    mdiPauseCircleOutline,
+    mdiPlayCircleOutline,
+    mdiSkipNext,
+    mdiSkipPrevious,
+    mdiChevronDown,
+    mdiChevronUp,
+    mdiVolumeHigh,
+    mdiVolumeOff,
+} from "@mdi/js";
+import Icon from "@mdi/react";
+import ArtistList from "../ArtistList";
 
 const AudioPlayerContainer = ({
     openQueue,
     setOpenQueue,
-    forwardRef: ref,
-    time,
+    lapsed,
     onPlay,
     onPause,
     onNextTrack,
     onPreviousTrack,
-    seekPercent,
+    onSeek,
     showPlayer,
+    isLoading,
+    isPlaying,
+    onVolumeChange,
+    playingTrack,
+    onMuteToggle,
 }) => {
-    const dispatch = useDispatch();
-    const { playingTrack, volume } = useSelector(
-        (state) => state.playerReducer
-    );
-    const [lapsed, setLapsed] = useState(0);
-    const [play, setPlay] = useState(true);
-    const [loading, setLoading] = useState(false);
+    const { volume } = useSelector((state) => state.playerReducer);
+    // TODO: Mute
+    const [mute, setMute] = useState(false);
+    const [openVolume, setOpenVolume] = useState(false);
 
-    useLayoutEffect(() => {
-        setLapsed(time);
-    }, [time]);
-
-    useLayoutEffect(() => {
-        if (!ref) return;
-        ref.current.currentTime = 0;
-        setLapsed(0);
-        // eslint-disable-next-line
-    }, [playingTrack]);
-
-    useEffect(() => {
-        if (!ref) return;
-        ref.current.volume = volume;
-        // eslint-disable-next-line
-    }, [volume]);
-
-    const onTimeUpdate = (e) => {
-        let duration = Math.ceil(ref.current.duration) - 1;
-        if (duration - ref.current.currentTime <= 0.1) onNextTrack();
-        let progress = (ref.current.currentTime / duration) * 100;
-        setLapsed(progress);
-    };
-
-    const setVol = (vol) => {
-        dispatch(setVolume(vol));
+    const onMute = () => {
+        onMuteToggle(!mute);
+        setMute(!mute);
     };
 
     return (
-        <>
-            <audio
-                src={playingTrack ? playingTrack.play_url : ""}
-                ref={ref}
-                onLoadStart={() => setLoading(true)}
-                onCanPlay={() => {
-                    if (play) {
-                        setLoading(false);
-                        onPlay();
-                    }
-                }}
-                onTimeUpdate={onTimeUpdate}
-                onPlay={() => setPlay(true)}
-                onPause={() => setPlay(false)}
-            />
-            {showPlayer && (
-                <>
-                    <div className="audio-player-placeholder"></div>
-                    <div>
-                        <AudioPlayerProgress
-                            seekPercent={seekPercent}
-                            lapsed={lapsed}
-                        />
-                        <div className="audio-player">
-                            <AudioPlayerTrack
-                                playingTrack={playingTrack}
-                                loading={loading}
-                            />
-                            <AudioPlayerControl
-                                isPlaying={play}
-                                pause={onPause}
-                                play={onPlay}
-                                previousTrack={onPreviousTrack}
-                                nextTrack={onNextTrack}
-                            />
-                            <AudioPlayerSub
-                                openQueue={openQueue}
-                                setOpenQueue={setOpenQueue}
-                                volume={volume}
-                                setVolume={setVol}
+        showPlayer && (
+            <>
+                <div className="audio-player-placeholder"></div>
+                <div>
+                    <div
+                        className="player-progress"
+                        onClick={(e) => onSeek(e.pageX / e.view.innerWidth)}
+                    >
+                        <div
+                            className="progress-track"
+                            style={{
+                                transform: `translateX(${lapsed - 100}%)`,
+                            }}
+                        >
+                            <div
+                                className="progress-thumb"
+                                draggable
+                                onDragEnd={(e) =>
+                                    onSeek(e.pageX / e.view.innerWidth)
+                                }
                             />
                         </div>
                     </div>
-                </>
-            )}
-        </>
+
+                    <div className="audio-player">
+                        <div className="player-track">
+                            <div className="track-image">
+                                {isLoading && (
+                                    <div className="image-loader">
+                                        <div className="loader-wrapper">
+                                            <div className="loader" />
+                                        </div>
+                                    </div>
+                                )}
+                                <Link
+                                    to={`/album/${playingTrack.album.id}`}
+                                    className="track-image"
+                                    title={playingTrack.album.name}
+                                >
+                                    <img
+                                        src={playingTrack.album.image}
+                                        alt={playingTrack.album.name}
+                                    />
+                                </Link>
+                            </div>
+                            <div className="track-detail">
+                                <Link
+                                    to={`/album/${playingTrack.album.id}`}
+                                    className="track-name"
+                                    title={playingTrack.name}
+                                >
+                                    <b>{playingTrack.name}</b>
+                                </Link>
+                                <ArtistList artists={playingTrack.artists} />
+                            </div>
+                        </div>
+
+                        <div className="player-control">
+                            <div onClick={onPreviousTrack}>
+                                <Icon
+                                    path={mdiSkipPrevious}
+                                    title="Previous"
+                                    className="icon-small"
+                                />
+                            </div>
+                            {isPlaying ? (
+                                <div onClick={onPause}>
+                                    <Icon
+                                        path={mdiPauseCircleOutline}
+                                        title="Pause"
+                                        className="icon-medium"
+                                    />
+                                </div>
+                            ) : (
+                                <div onClick={onPlay}>
+                                    <Icon
+                                        path={mdiPlayCircleOutline}
+                                        title="Play"
+                                        className="icon-medium"
+                                    />
+                                </div>
+                            )}
+                            <div onClick={onNextTrack}>
+                                <Icon
+                                    path={mdiSkipNext}
+                                    title="Next"
+                                    className="icon-small"
+                                />
+                            </div>
+                        </div>
+
+                        <div className="player-sub">
+                            <div
+                                className="volume-container"
+                                onMouseEnter={() => setOpenVolume(true)}
+                                onMouseLeave={() => setOpenVolume(false)}
+                            >
+                                <div className="btn-icon" onClick={onMute}>
+                                    {mute ? (
+                                        <Icon
+                                            className="icon-small"
+                                            path={mdiVolumeOff}
+                                            title="Volume"
+                                        />
+                                    ) : (
+                                        <Icon
+                                            className="icon-small"
+                                            path={mdiVolumeHigh}
+                                            title="Volume"
+                                        />
+                                    )}
+                                </div>
+                                {openVolume && (
+                                    <input
+                                        type="range"
+                                        defaultValue={volume * 100}
+                                        onChange={(e) =>
+                                            onVolumeChange(e.target.value / 100)
+                                        }
+                                    />
+                                )}
+                            </div>
+                            <div className="open-queue">
+                                {openQueue ? (
+                                    <div
+                                        className="btn-icon"
+                                        onClick={() => setOpenQueue(false)}
+                                    >
+                                        <Icon
+                                            path={mdiChevronDown}
+                                            title="Hide queue"
+                                            className="icon-small"
+                                        />
+                                    </div>
+                                ) : (
+                                    <div
+                                        className="btn-icon"
+                                        onClick={() => setOpenQueue(true)}
+                                    >
+                                        <Icon
+                                            path={mdiChevronUp}
+                                            title="Show queue"
+                                            className="icon-small"
+                                        />
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </>
+        )
     );
 };
 

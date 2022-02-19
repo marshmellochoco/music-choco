@@ -13,6 +13,7 @@ import { addQueue } from "../../store/queue/queueAction";
 import useAxios from "../../api/useAxios";
 import { addPlaylist, addPlaylistTrack } from "../../api/userApi";
 import Modal from "../Modal";
+import ArtistList from "../ArtistList";
 
 const TrackItem = ({ t, children, i, album = false }) => {
     const dispatch = useDispatch();
@@ -52,7 +53,7 @@ const TrackItem = ({ t, children, i, album = false }) => {
     const addTrackToNewPlaylist = () => {
         addPlaylist({ name }).then((playlist) => {
             fetchData();
-            alert.show("Playlist created")
+            alert.show("Playlist created");
             addTrackToPlaylist(playlist.id);
             setOpenModal(false);
         });
@@ -104,18 +105,7 @@ const TrackItem = ({ t, children, i, album = false }) => {
                                 className={album ? "col-span-2" : "col-span-3"}
                             >
                                 <h3 className="font-bold">{t.name}</h3>
-                                <div className="artist-list h-6">
-                                    {t.artists.map((artist) => (
-                                        <Link
-                                            to={`/artist/${artist.id}`}
-                                            className="link-item"
-                                            key={`track_item_artist_${artist.id}`}
-                                            title={artist.name}
-                                        >
-                                            {artist.name}
-                                        </Link>
-                                    ))}
-                                </div>
+                                <ArtistList artists={t.artists} />
                             </div>
                             {album ? (
                                 <Link

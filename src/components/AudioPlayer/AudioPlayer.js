@@ -1,20 +1,31 @@
-import { useState, useLayoutEffect, useRef } from "react";
+import { useState, useRef, useLayoutEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {} from "react-redux";
 import AudioPlayerContainer from "./AudioPlayerContainer";
-import MediaSession from "./MediaSession";
-import { setPlaying, setPlayingTrack } from "../../store/player/playerAction";
+import {
+    setPlaying,
+    setPlayingTrack,
+    setVolume,
+} from "../../store/player/playerAction";
 
 const AudioPlayer = ({ openQueue, setOpenQueue, showPlayer }) => {
-    const seekTime = 5;
     const ref = useRef();
     const dispatch = useDispatch();
-    const { playingTrack, playing, loop } = useSelector(
-        (state) => state.playerReducer
-    );
+    const {
+        playingTrack,
+        playing: isPlaying,
+        loop,
+        volume,
+    } = useSelector((state) => state.playerReducer);
     const queue = useSelector((state) => state.queueReducer);
-    const [time, setTime] = useState(0);
-    const [media, setMedia] = useState(playingTrack);
+    const [lapsed, setLapsed] = useState(0);
+    const [isLoading, setIsLoading] = useState(false);
+    const [tempVolume, setTempVolume] = useState(0.5);
+
+    useLayoutEffect(() => {
+        if (!ref) return;
+        ref.current.volume = volume;
+        // eslint-disable-next-line
+    }, [volume]);
 
     const onPlay = () => {
         if (!ref) return;
@@ -29,12 +40,6 @@ const AudioPlayer = ({ openQueue, setOpenQueue, showPlayer }) => {
         dispatch(setPlaying(false));
     };
 
-    useLayoutEffect(() => {
-        if (playing) onPlay();
-        else onPause();
-        // eslint-disable-next-line
-    }, [playing]);
-
     const onPreviousTrack = () => {
         if (!ref) return;
         const index = queue.indexOf(playingTrack) - 1;
@@ -43,7 +48,7 @@ const AudioPlayer = ({ openQueue, setOpenQueue, showPlayer }) => {
             dispatch(setPlaying(true));
         } else {
             ref.current.currentTime = 0;
-            setTime(0);
+            setLapsed(0);
         }
     };
 
@@ -57,7 +62,7 @@ const AudioPlayer = ({ openQueue, setOpenQueue, showPlayer }) => {
             } else {
                 onPause();
                 ref.current.currentTime = 0;
-                setTime(0);
+                setLapsed(0);
             }
         } else {
             dispatch(setPlayingTrack(queue[index + 1]));
@@ -65,55 +70,63 @@ const AudioPlayer = ({ openQueue, setOpenQueue, showPlayer }) => {
         }
     };
 
-    const seekByTime = (t) => {
-        if (!ref) return;
-        ref.current.currentTime = ref.current.currentTime + t;
-    };
-
-    const seekPercent = (progress) => {
+    const onSeek = (progress) => {
         if (!ref) return;
         ref.current.currentTime =
             (Math.ceil(ref.current.duration) - 1) * progress;
     };
 
-    useLayoutEffect(() => {
-        setMedia({
-            ...playingTrack,
-        });
-    }, [playingTrack]);
+    const onTimeUpdate = (e) => {
+        let duration = Math.ceil(ref.current.duration) - 1;
+        if (duration - ref.current.currentTime <= 0.1) onNextTrack();
+        let progress = (ref.current.currentTime / duration) * 100;
+        setLapsed(progress);
+    };
+
+    const onCanPlay = () => {
+        setIsLoading(false);
+        if (isPlaying) onPlay();
+        else onPause();
+    };
+
+    const onVolumeChange = (vol) => {
+        dispatch(setVolume(vol));
+    };
+
+    const onMuteToggle = (mute) => {
+        if (mute) {
+            setTempVolume(volume);
+            onVolumeChange(0);
+        } else {
+            onVolumeChange(tempVolume);
+        }
+    };
 
     return (
         <>
-            {media.artists && (
-                <MediaSession
-                    title={media.name}
-                    artist={media.artists.map((a) => a.name).join(", ")}
-                    album={media.album.name}
-                    artwork={[
-                        {
-                            src: media.album.image,
-                        },
-                    ]}
-                    onPlay={onPlay}
-                    onPause={onPause}
-                    onNextTrack={onNextTrack}
-                    onPreviousTrack={onPreviousTrack}
-                    onSeekForward={() => seekByTime(seekTime)}
-                    onSeekBackward={() => seekByTime(-seekTime)}
-                />
-            )}
-
+            <audio
+                src={playingTrack ? playingTrack.play_url : ""}
+                ref={ref}
+                onLoadStart={() => setIsLoading(true)}
+                onCanPlay={onCanPlay}
+                onTimeUpdate={onTimeUpdate}
+            />
             <AudioPlayerContainer
                 openQueue={openQueue}
                 setOpenQueue={setOpenQueue}
-                time={time}
+                lapsed={lapsed}
                 forwardRef={ref}
                 onPlay={onPlay}
                 onPause={onPause}
                 onPreviousTrack={onPreviousTrack}
                 onNextTrack={onNextTrack}
-                seekPercent={seekPercent}
+                onSeek={onSeek}
                 showPlayer={showPlayer}
+                isLoading={isLoading}
+                isPlaying={isPlaying}
+                onVolumeChange={onVolumeChange}
+                playingTrack={playingTrack}
+                onMuteToggle={onMuteToggle}
             />
         </>
     );

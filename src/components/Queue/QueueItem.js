@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import ArtistList from "../ArtistList";
 
 const QueueItem = ({ item }) => {
     const getDuration = (duration) => {
@@ -15,18 +16,7 @@ const QueueItem = ({ item }) => {
         <li className="queue-item">
             <div className="item-title">
                 <b>{item.name}</b>
-                <div className="artist-list h-6">
-                    {item.artists.map((a) => (
-                        <Link
-                            key={a.id}
-                            to={`/artist/${a.id}`}
-                            className="link-item"
-                            title={a.name}
-                        >
-                            {a.name}
-                        </Link>
-                    ))}
-                </div>
+                <ArtistList artists={item.artists} />
             </div>
             <div className="item-album">
                 <Link
