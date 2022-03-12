@@ -54,17 +54,25 @@
     input[type='range']::-ms-fill-lower {
         background-color: black;
     }
+
+    input{
+        @apply dark:text-text;
+    }
     /* #endregion */
 }
 
 @layer components {
     /* #region Button */
     .btn-primary {
-        @apply bg-primary-50 border-primary-50 dark:bg-primaryDark-50 dark:border-primaryDark-50;
+        @apply text-text bg-primary-50 border-primary-50 dark:bg-primaryDark-50 dark:border-primaryDark-50;
     }
 
     .btn-secondary {
         @apply bg-secondary-100 border-secondary-100 dark:bg-secondaryDark-100 dark:border-secondaryDark-100;
+    }
+
+    .btn-primary-border {
+        @apply border-secondary-200 dark:border-secondaryDark-200 bg-background dark:bg-backgroundDark;
     }
 
     .btn-icon {

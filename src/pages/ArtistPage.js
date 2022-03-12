@@ -142,7 +142,7 @@ const ArtistPage = () => {
                                             </button>
                                         ) : (
                                             <button
-                                                className="w-1/2 md:w-48"
+                                                className="btn-primary-border w-1/2 md:w-48"
                                                 onClick={addArtist}
                                                 disabled={loading}
                                             >

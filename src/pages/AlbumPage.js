@@ -144,7 +144,7 @@ const AlbumPage = () => {
                                     </button>
                                 ) : (
                                     <button
-                                        className="w-1/2 md:w-48"
+                                        className="btn-primary-border w-1/2 md:w-48"
                                         onClick={addAlbum}
                                         disabled={loading}
                                     >
