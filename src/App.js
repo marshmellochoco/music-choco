@@ -23,7 +23,7 @@ const App = () => {
     const { token } = useSelector((state) => state.userReducer);
 
     return (
-        <Router basename={process.env.REACT_APP_PUBLIC_URL}>
+        <Router basename="/music-choco/">
             {!token ? (
                 <LoginLayout>
                     <Switch>
