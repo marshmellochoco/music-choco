@@ -23,7 +23,7 @@ const App = () => {
     const { token } = useSelector((state) => state.userReducer);
 
     return (
-        <Router>
+        <Router basename={process.env.REACT_APP_PUBLIC_URL}>
             {!token ? (
                 <LoginLayout>
                     <Switch>
