@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/music-choco/static/css/main.30f25095.chunk.css",
+    "main.js": "/music-choco/static/js/main.19b34978.chunk.js",
+    "main.js.map": "/music-choco/static/js/main.19b34978.chunk.js.map",
+    "runtime-main.js": "/music-choco/static/js/runtime-main.37ae861e.js",
+    "runtime-main.js.map": "/music-choco/static/js/runtime-main.37ae861e.js.map",
+    "static/css/2.c31d2cf7.chunk.css": "/music-choco/static/css/2.c31d2cf7.chunk.css",
+    "static/js/2.1b7753f4.chunk.js": "/music-choco/static/js/2.1b7753f4.chunk.js",
+    "static/js/2.1b7753f4.chunk.js.map": "/music-choco/static/js/2.1b7753f4.chunk.js.map",
+    "index.html": "/music-choco/index.html",
+    "static/css/2.c31d2cf7.chunk.css.map": "/music-choco/static/css/2.c31d2cf7.chunk.css.map",
+    "static/css/main.30f25095.chunk.css.map": "/music-choco/static/css/main.30f25095.chunk.css.map",
+    "static/js/2.1b7753f4.chunk.js.LICENSE.txt": "/music-choco/static/js/2.1b7753f4.chunk.js.LICENSE.txt",
+    "static/media/music-choco-dark.8a628ee5.png": "/music-choco/static/media/music-choco-dark.8a628ee5.png",
+    "static/media/music-choco.fddb79b0.png": "/music-choco/static/media/music-choco.fddb79b0.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.37ae861e.js",
+    "static/css/2.c31d2cf7.chunk.css",
+    "static/js/2.1b7753f4.chunk.js",
+    "static/css/main.30f25095.chunk.css",
+    "static/js/main.19b34978.chunk.js"
+  ]
+}
